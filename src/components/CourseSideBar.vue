@@ -1,11 +1,4 @@
 <script setup lang="ts">
-defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-});
-
 const navs = [
   {
     name: "Announcements",
@@ -31,9 +24,12 @@ const navs = [
 </script>
 
 <template>
-  <ul class="menu rounded-box w-56 bg-base-100 p-2">
-    <li v-for="{ name: label, path } in navs">
-      <a :href="`/course/${name}${path}`">{{ label }}</a>
+  <ul class="menu menu-compact w-56 bg-base-100 p-2 lg:menu-normal">
+    <li
+      v-for="{ name, path } in navs"
+      :class="[{ 'border-l-4 border-primary': $route.path === `/course/${$route.params.name}${path}` }]"
+    >
+      <a :href="`/course/${$route.params.name}${path}`">{{ name }}</a>
     </li>
   </ul>
 </template>

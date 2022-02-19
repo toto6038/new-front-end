@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useTitle } from "@vueuse/core";
 
-const router = useRouter();
+useTitle("Courses | Normal OJ");
 const courses = [
   {
     course: "Public",
@@ -89,7 +89,7 @@ const courses = [
               v-for="{ course, teacher } in courses"
               :key="course"
               class="hover cursor-pointer"
-              @click="router.push(`/course/${course}/announcements`)"
+              @click="$router.push(`/course/${course}`)"
             >
               <td>{{ course }}</td>
               <td>{{ teacher.username }}</td>

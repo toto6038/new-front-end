@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { watchEffect } from "vue";
+import { useDark, useToggle } from "@vueuse/core";
 
-const enableDarkMode = ref<Boolean>(
-  (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-    localStorage.getItem("dark-theme") === "true",
-);
-if (window.matchMedia) {
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-    enableDarkMode.value = event.matches;
-  });
-}
-const toggleDarkMode = () => {
-  enableDarkMode.value = !enableDarkMode.value;
-  localStorage.setItem("dark-theme", enableDarkMode.value.toString());
-};
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+
 watchEffect(() => {
   const htmlEl = document.querySelector("html");
-  htmlEl?.setAttribute("data-theme", enableDarkMode.value ? "dark" : "light");
+  htmlEl?.setAttribute("data-theme", isDark.value ? "dark" : "light");
 });
 </script>
 
@@ -28,7 +19,7 @@ watchEffect(() => {
       <router-view />
     </div>
     <div class="drawer-side">
-      <side-bar :dark="enableDarkMode" @toggle-dark-mode="toggleDarkMode" />
+      <side-bar :dark="isDark" @toggle-dark-mode="toggleDark" />
     </div>
   </div>
 </template>

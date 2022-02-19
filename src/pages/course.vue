@@ -1,14 +1,10 @@
-<script setup lang="ts">
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
-    <course-top-bar :name="route.params.name" />
+    <course-top-bar />
     <div class="flex">
-      <course-side-bar :name="route.params.name" />
+      <course-side-bar />
       <router-view />
     </div>
   </div>

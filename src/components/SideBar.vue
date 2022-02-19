@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 defineEmits(["toggle-dark-mode"]);
 defineProps({
@@ -8,7 +8,10 @@ defineProps({
     default: false,
   },
 });
-const router = useRouter();
+const route = useRoute();
+const matchRoute = (path: string) => {
+  return route.matched.some((r) => r.path === path);
+};
 </script>
 
 <template>
@@ -19,8 +22,8 @@ const router = useRouter();
     </div>
     <li>
       <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': $route.path === '/' }]"
-        @click="router.push('/')"
+        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/') }]"
+        @click="$router.push('/')"
       >
         <div class="flex flex-col items-center">
           <i-uil-home class="h-6 w-6" />
@@ -30,8 +33,8 @@ const router = useRouter();
     </li>
     <li>
       <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': $route.path === '/courses' }]"
-        @click="router.push('/courses')"
+        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/courses') }]"
+        @click="$router.push('/courses')"
       >
         <div class="flex flex-col items-center">
           <i-uil-book-alt class="h-6 w-6" />
@@ -41,8 +44,8 @@ const router = useRouter();
     </li>
     <li>
       <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': $route.path === '/about' }]"
-        @click="router.push('/about')"
+        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/about') }]"
+        @click="$router.push('/about')"
       >
         <div class="flex flex-col items-center">
           <i-uil-map-marker-info class="h-6 w-6" />
@@ -63,8 +66,8 @@ const router = useRouter();
     </li>
     <li>
       <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': $route.path === '/admin' }]"
-        @click="router.push('/admin')"
+        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/admin') }]"
+        @click="$router.push('/admin')"
       >
         <div class="flex flex-col items-center">
           <i-uil-wrench class="h-6 w-6" />
@@ -74,8 +77,8 @@ const router = useRouter();
     </li>
     <li>
       <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': $route.path === '/profile' }]"
-        @click="router.push('/profile')"
+        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/profile') }]"
+        @click="$router.push('/profile')"
       >
         <div class="flex flex-col items-center">
           <i-uil-user class="h-6 w-6" />

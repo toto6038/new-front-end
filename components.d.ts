@@ -6,6 +6,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     CourseSideBar: typeof import('./src/components/CourseSideBar.vue')['default']
     CourseTopBar: typeof import('./src/components/CourseTopBar.vue')['default']
+    DueCountdown: typeof import('./src/components/DueCountdown.vue')['default']
+    HomeworkCard: typeof import('./src/components/HomeworkCard.vue')['default']
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilConstructor: typeof import("~icons/uil/constructor")["default"];
@@ -23,6 +25,7 @@ declare module 'vue' {
     IUilUser: typeof import('~icons/uil/user')['default']
     IUilUserCircle: typeof import("~icons/uil/user-circle")["default"];
     IUilWrench: typeof import('~icons/uil/wrench')['default']
+    JudgeStatus: typeof import('./src/components/JudgeStatus.vue')['default']
     NavBar: typeof import("./src/components/NavBar.vue")["default"];
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
