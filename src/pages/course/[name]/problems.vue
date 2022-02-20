@@ -40,7 +40,7 @@ const problems = [
 </script>
 
 <template>
-  <div class="flex w-full justify-center">
+  <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
         <h2 class="card-title">Problem List</h2>

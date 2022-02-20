@@ -35,7 +35,7 @@ const posts = [
 </script>
 
 <template>
-  <div class="flex w-full justify-center">
+  <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title mb-3">Announcements</div>

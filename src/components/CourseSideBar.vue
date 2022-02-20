@@ -24,7 +24,7 @@ const navs = [
 </script>
 
 <template>
-  <ul class="menu menu-compact w-56 bg-base-100 p-2 lg:menu-normal">
+  <ul class="menu menu-compact w-52 bg-base-100 p-2 lg:menu-normal">
     <li
       v-for="{ name, path } in navs"
       :class="[{ 'border-l-4 border-primary': $route.path === `/course/${$route.params.name}${path}` }]"

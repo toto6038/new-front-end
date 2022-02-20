@@ -20,7 +20,7 @@ const posts = [
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <div class="flex w-full justify-center">
+    <div class="card-container">
       <div class="card min-w-full">
         <div class="card-body">
           <div class="card-title mb-3">Announcement</div>
@@ -29,7 +29,7 @@ const posts = [
       </div>
     </div>
 
-    <div class="flex w-full justify-center">
+    <div class="card-container">
       <div class="card min-w-full">
         <div class="card-body">
           <div class="card-title mb-2">Sign in</div>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import DOMPurify from "dompurify";
-import { marked } from "marked";
 import dayjs from "dayjs";
 
 defineProps({
@@ -22,7 +20,7 @@ const formatTime = (time: number) => {
       {{ post.title }}
     </div>
     <div class="collapse-content">
-      <div v-html="DOMPurify.sanitize(marked(post.markdown))" />
+      <markdown-renderer :md="post.markdown" />
 
       <div class="mt-4 flex items-center gap-2 text-sm">Last updated: {{ formatTime(post.updateTime) }}</div>
       <div class="mt-2 flex items-center gap-2 text-sm">

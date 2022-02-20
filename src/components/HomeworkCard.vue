@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import DOMPurify from "dompurify";
-import { marked } from "marked";
 import dayjs from "dayjs";
 
 const props = defineProps({
@@ -18,7 +16,7 @@ const STATUS_LABEL = {
 };
 const STATUS_CLASS = {
   [STATUS_LABEL.RUNNING]: "badge-success",
-  [STATUS_LABEL.NOT_START]: "badge-ghost bg-gray-200",
+  [STATUS_LABEL.NOT_START]: "",
   [STATUS_LABEL.OVER]: "badge-error",
 };
 
@@ -67,7 +65,7 @@ const formatTime = (time: number) => {
         </table>
       </div>
 
-      <div v-html="DOMPurify.sanitize(marked(homework.markdown))" />
+      <markdown-renderer :md="homework.markdown" />
 
       <div class="card-actions justify-end">
         <div class="btn">View Stats</div>

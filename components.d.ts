@@ -26,8 +26,10 @@ declare module 'vue' {
     IUilUserCircle: typeof import("~icons/uil/user-circle")["default"];
     IUilWrench: typeof import('~icons/uil/wrench')['default']
     JudgeStatus: typeof import('./src/components/JudgeStatus.vue')['default']
+    MarkdownRenderer: typeof import('./src/components/MarkdownRenderer.vue')['default']
     NavBar: typeof import("./src/components/NavBar.vue")["default"];
     PostCard: typeof import('./src/components/PostCard.vue')['default']
+    SampleCodeBlock: typeof import('./src/components/SampleCodeBlock.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
   }
