@@ -2,19 +2,17 @@
 import renderMarkdown from "../utils/renderMarkdown";
 
 const md = `
-# Introduction
+#include <iostream>
+using namespace std;
+int main() {
 
-12345
-
-\`\`\`=python
-print('123')
-\`\`\`
+  return 0;
+}
 `;
 const html = renderMarkdown(md);
 </script>
 
 <template>
   <span>ABOUT</span>
-  <markdown-renderer />
-  <!-- <div v-html="html"></div> -->
+  <code-editor :code="md" />
 </template>

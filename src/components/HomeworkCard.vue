@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import dayjs from "dayjs";
+import { formatTime } from "../utils/formatTime";
 
 const props = defineProps({
   homework: {
@@ -32,10 +32,6 @@ const state = computed(() => {
   return STATUS_LABEL.RUNNING;
 });
 props.homework.start;
-
-const formatTime = (time: number) => {
-  return dayjs(time * 1000).format("YYYY-MM-DD HH:mm");
-};
 </script>
 
 <template>

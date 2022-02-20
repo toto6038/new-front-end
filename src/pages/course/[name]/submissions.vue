@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
+import { LANG } from "../../../constants";
+import { formatTime } from "../../../utils/formatTime";
 
 const submissions = [
   {
@@ -49,18 +51,13 @@ const submissions = [
     user: { displayedName: "", md5: "d1189e2842a272f6f2ed118c903e209b", role: 2, username: "40947903S" },
   },
 ];
-const LANG = ["c", "cpp", "py3", ""];
-
-const formatTime = (time: number) => {
-  return dayjs(time * 1000).format("YYYY-MM-DD HH:mm");
-};
 </script>
 
 <template>
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <h2 class="card-title">Submission List</h2>
+        <h2 class="card-title">Submissions</h2>
 
         <div class="mt-8 overflow-x-auto">
           <table class="table w-full">

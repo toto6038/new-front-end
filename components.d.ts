@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
     CourseSideBar: typeof import('./src/components/CourseSideBar.vue')['default']
     CourseTopBar: typeof import('./src/components/CourseTopBar.vue')['default']
     DueCountdown: typeof import('./src/components/DueCountdown.vue')['default']
