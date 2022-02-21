@@ -12,6 +12,8 @@ declare module 'vue' {
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilConstructor: typeof import("~icons/uil/constructor")["default"];
+    IUilFacebook: typeof import('~icons/uil/facebook')['default']
+    IUilGithub: typeof import('~icons/uil/github')['default']
     IUilHome: typeof import('~icons/uil/home')['default']
     IUilInfCircle: typeof import("~icons/uil/inf-circle")["default"];
     IUilInfoCircle: typeof import("~icons/uil/info-circle")["default"];

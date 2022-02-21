@@ -172,7 +172,7 @@ const submission = {
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <h2 class="card-title mb-2 md:text-xl lg:text-2xl">Source</h2>
-            <code-editor :code="submission.code" readonly />
+            <code-editor v-model="submission.code" readonly />
           </div>
         </div>
       </div>
