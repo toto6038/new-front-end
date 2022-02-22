@@ -1,0 +1,4052 @@
+[
+  {
+    "languageType": 1,
+    "lastSend": 1619678516.506,
+    "memoryUsage": 3476,
+    "problemId": 118,
+    "runTime": 4,
+    "score": 0,
+    "status": 5,
+    "submissionId": "608a5534ef1354f11cf8df59",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 3412,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3332,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3356,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3440,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3336,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3328,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3448,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3372,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3332,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3448,
+            "status": 1
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3448,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 3,
+            "memoryUsage": 3400,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3140,
+            "status": 5
+          },
+          {
+            "execTime": 4,
+            "memoryUsage": 3436,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3476,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3212,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3128,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3140,
+            "status": 5
+          },
+          {
+            "execTime": 4,
+            "memoryUsage": 3124,
+            "status": 5
+          },
+          {
+            "execTime": 2,
+            "memoryUsage": 3212,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3284,
+            "status": 5
+          }
+        ],
+        "execTime": 4,
+        "memoryUsage": 3476,
+        "score": 0,
+        "status": 5
+      }
+    ],
+    "timestamp": 1619678516.466,
+    "user": {
+      "displayedName": "葉淯鎔",
+      "md5": "63f5f61c827d2cea9d6ff7a479c6ccef",
+      "role": 2,
+      "username": "40847034S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1619678441.773,
+    "memoryUsage": 3476,
+    "problemId": 118,
+    "runTime": 4,
+    "score": 0,
+    "status": 5,
+    "submissionId": "608a54e9ef1354f11cf8df2e",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 3308,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3164,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3320,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3372,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3316,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3412,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3328,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3164,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3416,
+            "status": 1
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3316,
+            "status": 1
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3416,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 4,
+            "memoryUsage": 3472,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3208,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3476,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3428,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3164,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3172,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3228,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3128,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3160,
+            "status": 5
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 3300,
+            "status": 5
+          }
+        ],
+        "execTime": 4,
+        "memoryUsage": 3476,
+        "score": 0,
+        "status": 5
+      }
+    ],
+    "timestamp": 1619678441.727,
+    "user": {
+      "displayedName": "葉淯鎔",
+      "md5": "63f5f61c827d2cea9d6ff7a479c6ccef",
+      "role": 2,
+      "username": "40847034S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1617160340.972,
+    "memoryUsage": 1740,
+    "problemId": 118,
+    "runTime": 22,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6063e894bf06007cdb2165f3",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1736,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1732,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1736,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1712,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 12,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1732,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1740,
+            "status": 0
+          }
+        ],
+        "execTime": 22,
+        "memoryUsage": 1740,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1617160340.921,
+    "user": {
+      "displayedName": "徐嘉璯",
+      "md5": "f136f59fe4b21794af12639d3e04ac00",
+      "role": 2,
+      "username": "40640226S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1617160195.104,
+    "memoryUsage": 1736,
+    "problemId": 118,
+    "runTime": 37,
+    "score": 50,
+    "status": 1,
+    "submissionId": "6063e803bf06007cdb216539",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1688,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1728,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1664,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1716,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1736,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1736,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 37,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1644,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1736,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1644,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1640,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1676,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1640,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1628,
+            "status": 1
+          }
+        ],
+        "execTime": 37,
+        "memoryUsage": 1736,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1617160195.056,
+    "user": {
+      "displayedName": "徐嘉璯",
+      "md5": "f136f59fe4b21794af12639d3e04ac00",
+      "role": 2,
+      "username": "40640226S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1617159331.446,
+    "memoryUsage": -1,
+    "problemId": 118,
+    "runTime": -1,
+    "score": 0,
+    "status": 2,
+    "submissionId": "6063e4a3bf06007cdb2164bb",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          }
+        ],
+        "execTime": -1,
+        "memoryUsage": -1,
+        "score": 0,
+        "status": 2
+      },
+      {
+        "cases": [
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          }
+        ],
+        "execTime": -1,
+        "memoryUsage": -1,
+        "score": 0,
+        "status": 2
+      }
+    ],
+    "timestamp": 1617159331.395,
+    "user": {
+      "displayedName": "徐嘉璯",
+      "md5": "f136f59fe4b21794af12639d3e04ac00",
+      "role": 2,
+      "username": "40640226S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1617138646.869,
+    "memoryUsage": 2064,
+    "problemId": 118,
+    "runTime": 1300,
+    "score": 0,
+    "status": 3,
+    "submissionId": "606393d6bf06007cdb216150",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1300,
+            "memoryUsage": 2016,
+            "status": 3
+          },
+          {
+            "execTime": 1300,
+            "memoryUsage": 2024,
+            "status": 3
+          },
+          {
+            "execTime": 1300,
+            "memoryUsage": 1916,
+            "status": 3
+          },
+          {
+            "execTime": 1300,
+            "memoryUsage": 2064,
+            "status": 3
+          },
+          {
+            "execTime": 1300,
+            "memoryUsage": 2012,
+            "status": 3
+          },
+          {
+            "execTime": 1300,
+            "memoryUsage": 2004,
+            "status": 3
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1732,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1648,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1672,
+            "status": 1
+          }
+        ],
+        "execTime": 1300,
+        "memoryUsage": 2064,
+        "score": 0,
+        "status": 3
+      },
+      {
+        "cases": [
+          {
+            "execTime": 8,
+            "memoryUsage": 1956,
+            "status": 1
+          },
+          {
+            "execTime": 8,
+            "memoryUsage": 1948,
+            "status": 1
+          },
+          {
+            "execTime": 3,
+            "memoryUsage": 1856,
+            "status": 1
+          },
+          {
+            "execTime": 5,
+            "memoryUsage": 1904,
+            "status": 1
+          },
+          {
+            "execTime": 8,
+            "memoryUsage": 1960,
+            "status": 1
+          },
+          {
+            "execTime": 5,
+            "memoryUsage": 1904,
+            "status": 1
+          },
+          {
+            "execTime": 5,
+            "memoryUsage": 1900,
+            "status": 1
+          },
+          {
+            "execTime": 7,
+            "memoryUsage": 1904,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1852,
+            "status": 1
+          },
+          {
+            "execTime": 5,
+            "memoryUsage": 1872,
+            "status": 1
+          }
+        ],
+        "execTime": 8,
+        "memoryUsage": 1960,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1617138646.821,
+    "user": {
+      "displayedName": "陳昱如",
+      "md5": "a863d2e2601a06d8e5dcd414922c0212",
+      "role": 2,
+      "username": "40847021S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1616751633.014,
+    "memoryUsage": 1704,
+    "problemId": 118,
+    "runTime": 24,
+    "score": 50,
+    "status": 1,
+    "submissionId": "605dac10cd3b032d9e9d2fda",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1696,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 21,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1696,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          }
+        ],
+        "execTime": 24,
+        "memoryUsage": 1704,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616751632.982,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1616749004.517,
+    "memoryUsage": 1704,
+    "problemId": 118,
+    "runTime": 25,
+    "score": 50,
+    "status": 1,
+    "submissionId": "605da1cccd3b032d9e9d2f92",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1680,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 20,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1684,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1696,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1608,
+            "status": 1
+          }
+        ],
+        "execTime": 25,
+        "memoryUsage": 1696,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616749004.483,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1616143841.47,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 31,
+    "score": 50,
+    "status": 1,
+    "submissionId": "605465e131cee58267f562e1",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1692,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1700,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1708,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 31,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1656,
+            "status": 1
+          }
+        ],
+        "execTime": 31,
+        "memoryUsage": 1708,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616143841.381,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1616142926.723,
+    "memoryUsage": 1712,
+    "problemId": 118,
+    "runTime": 36,
+    "score": 50,
+    "status": 1,
+    "submissionId": "6054624e31cee58267f56274",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1712,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1712,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 36,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 27,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1700,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1620,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1636,
+            "status": 1
+          }
+        ],
+        "execTime": 36,
+        "memoryUsage": 1704,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616142926.691,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1616141443.912,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 27,
+    "score": 0,
+    "status": 1,
+    "submissionId": "60545c8331cee58267f56235",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1688,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1688,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1620,
+            "status": 1
+          },
+          {
+            "execTime": 27,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1708,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1700,
+            "status": 1
+          },
+          {
+            "execTime": 19,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 19,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 19,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 15,
+            "memoryUsage": 1652,
+            "status": 1
+          }
+        ],
+        "execTime": 27,
+        "memoryUsage": 1708,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616141443.883,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1616141104.641,
+    "memoryUsage": 1700,
+    "problemId": 118,
+    "runTime": 29,
+    "score": 0,
+    "status": 1,
+    "submissionId": "60545b3031cee58267f561f6",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1688,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1700,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 20,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 29,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 12,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1696,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1688,
+            "status": 1
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1688,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1612,
+            "status": 1
+          }
+        ],
+        "execTime": 29,
+        "memoryUsage": 1696,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1616141104.609,
+    "user": {
+      "displayedName": "李家維",
+      "md5": "bfa80efff0da14ca97db5b1e0b42b343",
+      "role": 2,
+      "username": "40847028S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615797239.295,
+    "memoryUsage": 1700,
+    "problemId": 118,
+    "runTime": 33,
+    "score": 100,
+    "status": 0,
+    "submissionId": "604f1bf727fbbb1a654de01b",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1696,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1696,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 29,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1688,
+            "status": 0
+          },
+          {
+            "execTime": 29,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 33,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 33,
+            "memoryUsage": 1632,
+            "status": 0
+          }
+        ],
+        "execTime": 33,
+        "memoryUsage": 1700,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615797239.239,
+    "user": {
+      "displayedName": "郭泰維",
+      "md5": "7654319287d48e49769a01a0367d3a4e",
+      "role": 2,
+      "username": "40847031S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615797169.227,
+    "memoryUsage": 1700,
+    "problemId": 118,
+    "runTime": 33,
+    "score": 0,
+    "status": 1,
+    "submissionId": "604f1bb127fbbb1a654ddfb4",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1700,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 33,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 26,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 14,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1700,
+            "status": 1
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1684,
+            "status": 1
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1680,
+            "status": 1
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1680,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1616,
+            "status": 1
+          }
+        ],
+        "execTime": 33,
+        "memoryUsage": 1700,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615797169.176,
+    "user": {
+      "displayedName": "郭泰維",
+      "md5": "7654319287d48e49769a01a0367d3a4e",
+      "role": 2,
+      "username": "40847031S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615797011.689,
+    "memoryUsage": 1684,
+    "problemId": 118,
+    "runTime": 37,
+    "score": 0,
+    "status": 1,
+    "submissionId": "604f1b1327fbbb1a654ddf4d",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1584,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1676,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1584,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1672,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1676,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 37,
+            "memoryUsage": 1684,
+            "status": 1
+          },
+          {
+            "execTime": 30,
+            "memoryUsage": 1672,
+            "status": 1
+          },
+          {
+            "execTime": 27,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1676,
+            "status": 1
+          },
+          {
+            "execTime": 34,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 30,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1640,
+            "status": 1
+          }
+        ],
+        "execTime": 37,
+        "memoryUsage": 1684,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615797011.624,
+    "user": {
+      "displayedName": "郭泰維",
+      "md5": "7654319287d48e49769a01a0367d3a4e",
+      "role": 2,
+      "username": "40847031S"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615796850.018,
+    "memoryUsage": 1676,
+    "problemId": 118,
+    "runTime": 36,
+    "score": 50,
+    "status": 1,
+    "submissionId": "604f1a7127fbbb1a654ddee3",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1580,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1636,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 20,
+            "memoryUsage": 1676,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 26,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1584,
+            "status": 1
+          },
+          {
+            "execTime": 36,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1676,
+            "status": 1
+          },
+          {
+            "execTime": 35,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1672,
+            "status": 1
+          }
+        ],
+        "execTime": 36,
+        "memoryUsage": 1676,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615796849.97,
+    "user": {
+      "displayedName": "郭泰維",
+      "md5": "7654319287d48e49769a01a0367d3a4e",
+      "role": 2,
+      "username": "40847031S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615703836.441,
+    "memoryUsage": 1692,
+    "problemId": 118,
+    "runTime": 25,
+    "score": 100,
+    "status": 0,
+    "submissionId": "604daf1c27fbbb1a654dc32a",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1588,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1676,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1676,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 24,
+            "memoryUsage": 1592,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1596,
+            "status": 0
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1672,
+            "status": 0
+          },
+          {
+            "execTime": 18,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1692,
+            "status": 0
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1688,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1620,
+            "status": 0
+          },
+          {
+            "execTime": 15,
+            "memoryUsage": 1684,
+            "status": 0
+          }
+        ],
+        "execTime": 25,
+        "memoryUsage": 1692,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615703836.397,
+    "user": {
+      "displayedName": "",
+      "md5": "5d343adc30eec1ca1385f10b59847375",
+      "role": 2,
+      "username": "40947075S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615444852.69,
+    "memoryUsage": -1,
+    "problemId": 118,
+    "runTime": -1,
+    "score": 0,
+    "status": 2,
+    "submissionId": "6049bb7427fbbb1a654d8bd5",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          }
+        ],
+        "execTime": -1,
+        "memoryUsage": -1,
+        "score": 0,
+        "status": 2
+      },
+      {
+        "cases": [
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          },
+          {
+            "execTime": -1,
+            "memoryUsage": -1,
+            "status": 2
+          }
+        ],
+        "execTime": -1,
+        "memoryUsage": -1,
+        "score": 0,
+        "status": 2
+      }
+    ],
+    "timestamp": 1615444852.639,
+    "user": {
+      "displayedName": "黃意婷",
+      "md5": "11c38cc2eed22b51051460a958ff11ed",
+      "role": 2,
+      "username": "40640301S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615398294.773,
+    "memoryUsage": 1704,
+    "problemId": 118,
+    "runTime": 30,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6049059627fbbb1a654d825b",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1664,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1664,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 17,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 30,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 26,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 26,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 30,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615398294.734,
+    "user": {
+      "displayedName": "魏世洋",
+      "md5": "c4aa29ccfb4acc4bf0203fab50baff7b",
+      "role": 2,
+      "username": "40711017e"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615393476.783,
+    "memoryUsage": 3436,
+    "problemId": 118,
+    "runTime": 112,
+    "score": 50,
+    "status": 1,
+    "submissionId": "6048f2c427fbbb1a654d811d",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 3156,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3308,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3436,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3384,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3404,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3396,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3348,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3384,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3392,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3280,
+            "status": 0
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3436,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 90,
+            "memoryUsage": 3432,
+            "status": 1
+          },
+          {
+            "execTime": 100,
+            "memoryUsage": 3380,
+            "status": 1
+          },
+          {
+            "execTime": 108,
+            "memoryUsage": 3316,
+            "status": 1
+          },
+          {
+            "execTime": 102,
+            "memoryUsage": 3304,
+            "status": 1
+          },
+          {
+            "execTime": 100,
+            "memoryUsage": 3160,
+            "status": 1
+          },
+          {
+            "execTime": 112,
+            "memoryUsage": 3284,
+            "status": 1
+          },
+          {
+            "execTime": 63,
+            "memoryUsage": 3316,
+            "status": 1
+          },
+          {
+            "execTime": 73,
+            "memoryUsage": 3300,
+            "status": 1
+          },
+          {
+            "execTime": 89,
+            "memoryUsage": 3364,
+            "status": 1
+          },
+          {
+            "execTime": 79,
+            "memoryUsage": 3400,
+            "status": 1
+          }
+        ],
+        "execTime": 112,
+        "memoryUsage": 3432,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615393476.699,
+    "user": {
+      "displayedName": "陳冠彣",
+      "md5": "c5df49c1ba40d8a8e6934f36185777a9",
+      "role": 2,
+      "username": "40873027H"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615382062.362,
+    "memoryUsage": 1712,
+    "problemId": 118,
+    "runTime": 32,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6048c62e27fbbb1a654d7c2d",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1664,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1692,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1712,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1712,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 24,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 23,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 32,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 32,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615382062.326,
+    "user": {
+      "displayedName": "潘居懿",
+      "md5": "fdc6e7701498a88b7bac02c80a9057e7",
+      "role": 2,
+      "username": "40521208L"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615362107.736,
+    "memoryUsage": 3396,
+    "problemId": 118,
+    "runTime": 111,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6048783b27fbbb1a654d784b",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 3252,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3272,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3284,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3396,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3384,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3372,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3276,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3336,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3380,
+            "status": 0
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3396,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 59,
+            "memoryUsage": 3324,
+            "status": 0
+          },
+          {
+            "execTime": 76,
+            "memoryUsage": 3336,
+            "status": 0
+          },
+          {
+            "execTime": 84,
+            "memoryUsage": 3276,
+            "status": 0
+          },
+          {
+            "execTime": 63,
+            "memoryUsage": 3288,
+            "status": 0
+          },
+          {
+            "execTime": 84,
+            "memoryUsage": 3272,
+            "status": 0
+          },
+          {
+            "execTime": 82,
+            "memoryUsage": 3332,
+            "status": 0
+          },
+          {
+            "execTime": 107,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 111,
+            "memoryUsage": 3364,
+            "status": 0
+          },
+          {
+            "execTime": 62,
+            "memoryUsage": 3272,
+            "status": 0
+          },
+          {
+            "execTime": 105,
+            "memoryUsage": 3328,
+            "status": 0
+          }
+        ],
+        "execTime": 111,
+        "memoryUsage": 3364,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615362107.702,
+    "user": {
+      "displayedName": "許方瑜",
+      "md5": "dd22d628169f89034cb2a938c0a4940f",
+      "role": 2,
+      "username": "90999203Y"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615361550.375,
+    "memoryUsage": 3400,
+    "problemId": 118,
+    "runTime": 103,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6048760e27fbbb1a654d780c",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 3396,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3248,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3360,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3364,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3332,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3268,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3276,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3360,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3324,
+            "status": 0
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3396,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 95,
+            "memoryUsage": 3368,
+            "status": 0
+          },
+          {
+            "execTime": 82,
+            "memoryUsage": 3284,
+            "status": 0
+          },
+          {
+            "execTime": 84,
+            "memoryUsage": 3380,
+            "status": 0
+          },
+          {
+            "execTime": 94,
+            "memoryUsage": 3372,
+            "status": 0
+          },
+          {
+            "execTime": 71,
+            "memoryUsage": 3400,
+            "status": 0
+          },
+          {
+            "execTime": 96,
+            "memoryUsage": 3160,
+            "status": 0
+          },
+          {
+            "execTime": 92,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 76,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 103,
+            "memoryUsage": 3252,
+            "status": 0
+          },
+          {
+            "execTime": 97,
+            "memoryUsage": 3356,
+            "status": 0
+          }
+        ],
+        "execTime": 103,
+        "memoryUsage": 3400,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615361550.321,
+    "user": {
+      "displayedName": "許方瑜",
+      "md5": "dd22d628169f89034cb2a938c0a4940f",
+      "role": 2,
+      "username": "90999203Y"
+    }
+  },
+  {
+    "languageType": 1,
+    "lastSend": 1615360956.436,
+    "memoryUsage": 3408,
+    "problemId": 118,
+    "runTime": 121,
+    "score": 50,
+    "status": 1,
+    "submissionId": "604873bc27fbbb1a654d77cd",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 3272,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3396,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3276,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3384,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3396,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3268,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3360,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3288,
+            "status": 0
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 3328,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 3368,
+            "status": 0
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 3396,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 91,
+            "memoryUsage": 3284,
+            "status": 1
+          },
+          {
+            "execTime": 113,
+            "memoryUsage": 3276,
+            "status": 1
+          },
+          {
+            "execTime": 71,
+            "memoryUsage": 3408,
+            "status": 1
+          },
+          {
+            "execTime": 97,
+            "memoryUsage": 3252,
+            "status": 1
+          },
+          {
+            "execTime": 96,
+            "memoryUsage": 3324,
+            "status": 1
+          },
+          {
+            "execTime": 121,
+            "memoryUsage": 3324,
+            "status": 1
+          },
+          {
+            "execTime": 90,
+            "memoryUsage": 3380,
+            "status": 1
+          },
+          {
+            "execTime": 102,
+            "memoryUsage": 3384,
+            "status": 1
+          },
+          {
+            "execTime": 91,
+            "memoryUsage": 3364,
+            "status": 1
+          },
+          {
+            "execTime": 68,
+            "memoryUsage": 3324,
+            "status": 1
+          }
+        ],
+        "execTime": 121,
+        "memoryUsage": 3408,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615360956.397,
+    "user": {
+      "displayedName": "許方瑜",
+      "md5": "dd22d628169f89034cb2a938c0a4940f",
+      "role": 2,
+      "username": "90999203Y"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615277318.688,
+    "memoryUsage": 1700,
+    "problemId": 118,
+    "runTime": 1,
+    "score": 0,
+    "status": 5,
+    "submissionId": "60472d0627fbbb1a654d6124",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1692,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1664,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1624,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1568,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1572,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 5
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1700,
+        "score": 0,
+        "status": 5
+      },
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1472,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1508,
+            "status": 5
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 1468,
+            "status": 5
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 1368,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1464,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1448,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1444,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1368,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1508,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1464,
+            "status": 5
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 1508,
+        "score": 0,
+        "status": 5
+      }
+    ],
+    "timestamp": 1615277318.234,
+    "user": {
+      "displayedName": "王芷鈴",
+      "md5": "ddc082a74e3ff7486db84540dca3e512",
+      "role": 2,
+      "username": "40847009S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615277182.384,
+    "memoryUsage": 1704,
+    "problemId": 118,
+    "runTime": 1,
+    "score": 0,
+    "status": 5,
+    "submissionId": "60472c7e27fbbb1a654d60f9",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1696,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1684,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1640,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1576,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1548,
+            "status": 5
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 0,
+        "status": 5
+      },
+      {
+        "cases": [
+          {
+            "execTime": 1,
+            "memoryUsage": 1436,
+            "status": 5
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 1508,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1436,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1440,
+            "status": 5
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 1440,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1468,
+            "status": 5
+          },
+          {
+            "execTime": 1,
+            "memoryUsage": 1504,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1388,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1472,
+            "status": 5
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1432,
+            "status": 5
+          }
+        ],
+        "execTime": 1,
+        "memoryUsage": 1508,
+        "score": 0,
+        "status": 5
+      }
+    ],
+    "timestamp": 1615277182.323,
+    "user": {
+      "displayedName": "王芷鈴",
+      "md5": "ddc082a74e3ff7486db84540dca3e512",
+      "role": 2,
+      "username": "40847009S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615274766.991,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 27,
+    "score": 0,
+    "status": 1,
+    "submissionId": "6047230e27fbbb1a654d5ec5",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1688,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1708,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 24,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1636,
+            "status": 1
+          },
+          {
+            "execTime": 27,
+            "memoryUsage": 1616,
+            "status": 1
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1624,
+            "status": 1
+          },
+          {
+            "execTime": 22,
+            "memoryUsage": 1612,
+            "status": 1
+          },
+          {
+            "execTime": 23,
+            "memoryUsage": 1684,
+            "status": 1
+          }
+        ],
+        "execTime": 27,
+        "memoryUsage": 1684,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615274766.945,
+    "user": {
+      "displayedName": "魏世洋",
+      "md5": "c4aa29ccfb4acc4bf0203fab50baff7b",
+      "role": 2,
+      "username": "40711017e"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615274592.827,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 0,
+    "score": 0,
+    "status": 1,
+    "submissionId": "6047226027fbbb1a654d5e44",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1696,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1688,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1696,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1708,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1708,
+        "score": 0,
+        "status": 1
+      },
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1632,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1608,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1628,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1660,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 1
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1620,
+            "status": 1
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 0,
+        "status": 1
+      }
+    ],
+    "timestamp": 1615274592.788,
+    "user": {
+      "displayedName": "魏世洋",
+      "md5": "c4aa29ccfb4acc4bf0203fab50baff7b",
+      "role": 2,
+      "username": "40711017e"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615258551.544,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 36,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6046e3b727fbbb1a654d58d5",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1596,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1604,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1704,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 22,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1704,
+            "status": 0
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1696,
+            "status": 0
+          },
+          {
+            "execTime": 16,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1628,
+            "status": 0
+          },
+          {
+            "execTime": 19,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 29,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 36,
+            "memoryUsage": 1652,
+            "status": 0
+          },
+          {
+            "execTime": 30,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 28,
+            "memoryUsage": 1656,
+            "status": 0
+          }
+        ],
+        "execTime": 36,
+        "memoryUsage": 1708,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615258551.492,
+    "user": {
+      "displayedName": "謝尚恆",
+      "md5": "4c52eba96f6314e14f23373d650d5486",
+      "role": 2,
+      "username": "40847016S"
+    }
+  },
+  {
+    "languageType": 0,
+    "lastSend": 1615256988.577,
+    "memoryUsage": 1708,
+    "problemId": 118,
+    "runTime": 36,
+    "score": 100,
+    "status": 0,
+    "submissionId": "6046dd9c27fbbb1a654d5832",
+    "tasks": [
+      {
+        "cases": [
+          {
+            "execTime": 0,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1596,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1636,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 0,
+            "memoryUsage": 1612,
+            "status": 0
+          }
+        ],
+        "execTime": 0,
+        "memoryUsage": 1708,
+        "score": 50,
+        "status": 0
+      },
+      {
+        "cases": [
+          {
+            "execTime": 26,
+            "memoryUsage": 1656,
+            "status": 0
+          },
+          {
+            "execTime": 36,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 25,
+            "memoryUsage": 1612,
+            "status": 0
+          },
+          {
+            "execTime": 20,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1596,
+            "status": 0
+          },
+          {
+            "execTime": 29,
+            "memoryUsage": 1600,
+            "status": 0
+          },
+          {
+            "execTime": 21,
+            "memoryUsage": 1648,
+            "status": 0
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1708,
+            "status": 0
+          },
+          {
+            "execTime": 23,
+            "memoryUsage": 1700,
+            "status": 0
+          },
+          {
+            "execTime": 17,
+            "memoryUsage": 1704,
+            "status": 0
+          }
+        ],
+        "execTime": 36,
+        "memoryUsage": 1708,
+        "score": 50,
+        "status": 0
+      }
+    ],
+    "timestamp": 1615256988.538,
+    "user": {
+      "displayedName": "紀軒宇",
+      "md5": "1c394610200d4c1b9d0a0e9394eb2d21",
+      "role": 2,
+      "username": "40847015S"
+    }
+  }
+]

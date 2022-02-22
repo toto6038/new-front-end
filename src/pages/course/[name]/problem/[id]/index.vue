@@ -52,6 +52,12 @@ const problem = {
             >
               submit
             </div>
+            <div
+              class="btn ml-3 md:btn-md lg:btn-lg"
+              @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/stats`)"
+            >
+              stats
+            </div>
           </div>
         </div>
 
