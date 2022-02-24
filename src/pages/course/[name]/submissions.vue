@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
 import { LANG } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 

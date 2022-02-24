@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+import { useThemeStore } from "../stores/theme";
+import { useDark, useToggle } from "@vueuse/core";
+import { watchEffect } from "vue";
 
-defineEmits(["toggle-dark-mode"]);
-defineProps({
-  dark: {
-    type: Boolean,
-    default: false,
-  },
+const isDark = useDark({
+  selector: "html",
+  attribute: "data-theme",
+  valueDark: "dark",
+  valueLight: "light",
 });
+const toggleDark = useToggle(isDark);
+const themeStore = useThemeStore();
+watchEffect(() => {
+  themeStore.setIsDark(isDark.value);
+});
+
 const route = useRoute();
 const matchRoute = (path: string) => {
   return route.matched.some((r) => r.path === path);
@@ -57,9 +65,9 @@ const matchRoute = (path: string) => {
     <div class="flex-1" />
 
     <li class="mb-4">
-      <div class="btn btn-primary btn-circle mx-auto" @click="$emit('toggle-dark-mode')">
+      <div class="btn btn-primary btn-circle mx-auto" @click="() => toggleDark()">
         <div>
-          <i-uil-sun v-if="dark" class="h-6 w-6" />
+          <i-uil-sun v-if="isDark" class="h-6 w-6" />
           <i-uil-moon v-else class="h-6 w-6" />
         </div>
       </div>

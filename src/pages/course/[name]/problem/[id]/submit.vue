@@ -7,8 +7,9 @@ const lang = ref<string | null>(null);
 
 watchEffect(() => {
   const detectedLang = hljs.highlightAuto(code.value, ["c", "cpp", "python"]).language;
-  if (detectedLang) {
-    lang.value = detectedLang === "python" ? "py3" : detectedLang;
+  // Since c and cpp are difficult to distinguish, we only detect python.
+  if (detectedLang === "python") {
+    lang.value = "py3";
   }
 });
 </script>
