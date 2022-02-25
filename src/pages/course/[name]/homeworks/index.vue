@@ -36,10 +36,7 @@ const homeworks = [
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
           Homeworks
-          <div
-            class="btn btn-success btn-sm lg:btn-md"
-            @click="$router.push(`/course/${$route.params.name}/homeworks/new`)"
-          >
+          <div class="btn btn-success" @click="$router.push(`/course/${$route.params.name}/homeworks/new`)">
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </div>
         </div>

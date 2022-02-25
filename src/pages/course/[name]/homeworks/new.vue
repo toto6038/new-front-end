@@ -44,7 +44,7 @@ const modalOpen = ref(false);
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
           New Homework
-          <div class="btn btn-sm lg:btn-md">submit</div>
+          <div class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</div>
         </div>
 
         <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
@@ -99,9 +99,6 @@ const modalOpen = ref(false);
               <span class="label-text">Description</span>
             </label>
             <textarea v-model="newHomework.markdown" class="textarea-bordered textarea h-24" />
-            <label class="label">
-              <span class="label-text-alt">Your bio</span>
-            </label>
           </div>
         </div>
 
