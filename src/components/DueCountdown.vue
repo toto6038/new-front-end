@@ -41,31 +41,31 @@ setInterval(updateRemainTime, 1000);
 </script>
 
 <template>
-  <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
+  <div class="grid auto-cols-max grid-flow-col gap-3 text-center">
     <div class="flex flex-col">
-      <span class="countdown font-mono text-5xl">
+      <span class="countdown font-mono text-3xl">
         <template v-if="moreThan99Days">{{ ">" }}</template>
         <span :style="`--value: ${days}`"></span>
       </span>
-      days
+      <span class="text-sm">days</span>
     </div>
     <div class="flex flex-col">
-      <span class="countdown font-mono text-5xl">
+      <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${hours}`"></span>
       </span>
-      hours
+      <span class="text-sm">hours</span>
     </div>
     <div class="flex flex-col">
-      <span class="countdown font-mono text-5xl">
+      <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${minutes}`"></span>
       </span>
-      min
+      <span class="text-sm">min</span>
     </div>
     <div class="flex flex-col">
-      <span class="countdown font-mono text-5xl">
+      <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${seconds}`"></span>
       </span>
-      sec
+      <span class="text-sm">sec</span>
     </div>
   </div>
 </template>

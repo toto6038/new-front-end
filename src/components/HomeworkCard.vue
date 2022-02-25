@@ -37,34 +37,70 @@ props.homework.start;
 <template>
   <div class="card mx-auto w-full bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title">
-        {{ homework.name }}
-        <div :class="['badge', STATUS_CLASS[state]]">{{ state }}</div>
-      </h2>
-
-      <due-countdown v-if="state !== STATUS_LABEL.NOT_START" :due="homework.end" />
-
-      <div class="mt-2 overflow-x-auto">
-        <table class="table-compact table w-full">
-          <thead>
-            <tr>
-              <th>Start</th>
-              <th>End</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ formatTime(homework.start) }}</td>
-              <td>{{ formatTime(homework.end) }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="flex items-start justify-between">
+        <h2 class="lg:text-2x card-title mb-8 md:text-xl">
+          {{ homework.name }}
+          <div :class="['badge', STATUS_CLASS[state]]">{{ state }}</div>
+        </h2>
+        <due-countdown v-if="state === STATUS_LABEL.RUNNING" class="mt-2" :due="homework.end" />
       </div>
 
-      <markdown-renderer :md="homework.markdown" />
+      <div class="flex flex-wrap lg:flex-nowrap lg:gap-x-8">
+        <div class="mb-8 w-full lg:flex-1">
+          <h3 class="card-title">Availability</h3>
+          <div class="mt-2 flex flex-wrap overflow-x-auto lg:flex-nowrap">
+            <table class="table-compact table w-full">
+              <thead>
+                <tr>
+                  <th>Allow submissions from</th>
+                  <th>Due</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ formatTime(homework.start) }}</td>
+                  <td>{{ formatTime(homework.end) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      <div class="card-actions justify-end">
-        <div class="btn">View Stats</div>
+        <div class="mb-8 w-full lg:flex-1">
+          <h3 class="card-title">Problems</h3>
+          <table class="table-compact mt-2 table w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>PID</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(pid, index) in homework.problemIds">
+                <td>{{ String.fromCharCode(65 + index) }}</td>
+                <td>{{ pid }}</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap lg:gap-x-8">
+        <div class="w-full lg:flex-1">
+          <h3 class="card-title">Description</h3>
+          <markdown-renderer class="mt-2" :md="homework.markdown" />
+        </div>
+      </div>
+
+      <div v-if="homework.id" class="card-actions justify-end">
+        <div
+          class="btn"
+          @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/stats`)"
+        >
+          View Stats
+        </div>
       </div>
     </div>
   </div>

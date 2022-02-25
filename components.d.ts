@@ -16,6 +16,8 @@ declare module 'vue' {
     IUilHome: typeof import('~icons/uil/home')['default']
     IUilMapMarkerInfo: typeof import('~icons/uil/map-marker-info')['default']
     IUilMoon: typeof import('~icons/uil/moon')['default']
+    IUilPlus: typeof import('~icons/uil/plus')['default']
+    IUilPlusCircle: typeof import('~icons/uil/plus-circle')['default']
     IUilSun: typeof import('~icons/uil/sun')['default']
     IUilUser: typeof import('~icons/uil/user')['default']
     IUilWrench: typeof import('~icons/uil/wrench')['default']

@@ -65,12 +65,11 @@ const matchRoute = (path: string) => {
     <div class="flex-1" />
 
     <li class="mb-4">
-      <div class="btn btn-primary btn-circle mx-auto" @click="() => toggleDark()">
-        <div>
-          <i-uil-sun v-if="isDark" class="h-6 w-6" />
-          <i-uil-moon v-else class="h-6 w-6" />
-        </div>
-      </div>
+      <label class="swap swap-rotate">
+        <input :value="isDark" type="checkbox" @input="() => toggleDark()" />
+        <i-uil-sun class="swap-on h-6 w-6" />
+        <i-uil-moon class="swap-off h-6 w-6" />
+      </label>
     </li>
     <li>
       <div
