@@ -40,7 +40,7 @@ const homeworks = [
             class="btn btn-success btn-sm lg:btn-md"
             @click="$router.push(`/course/${$route.params.name}/homeworks/new`)"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" />New
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </div>
         </div>
         <homework-card v-for="homework in homeworks" :key="homework.id" :homework="homework" class="mt-2" />

@@ -47,16 +47,16 @@ const problem = {
               </div>
             </div>
             <div
-              class="btn md:btn-md lg:btn-lg"
+              class="btn ml-3 md:btn-md lg:btn-lg"
               @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/submit`)"
             >
-              submit
+              <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
             </div>
             <div
               class="btn ml-3 md:btn-md lg:btn-lg"
               @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/stats`)"
             >
-              stats
+              <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
             </div>
           </div>
         </div>

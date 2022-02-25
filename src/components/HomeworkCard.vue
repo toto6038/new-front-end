@@ -99,7 +99,7 @@ props.homework.start;
           class="btn"
           @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/stats`)"
         >
-          View Stats
+          <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
         </div>
       </div>
     </div>

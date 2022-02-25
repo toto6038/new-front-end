@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { LANG } from "../../../../constants";
 import { formatTime } from "../../../../utils/formatTime";
+import { useClipboard } from "@vueuse/core";
 
 const submission = {
   code: "#include <iostream>\n#include <assert.h>\n#include <map>\n#define maxn 1005\n#define maxm 500005\nusing namespace std;\nint p[maxn];\nmap<pair<int,int>,bool> vis;\nmap<int,bool> used;\nint find(int x) {\n\treturn (p[x] == x ? x : (p[x]=find(p[x])));\n}\nint main() {\n\tint n, m, u, v, w;\n\tcin >> n >> m;\n\tfor ( int i=0; i<=n; ++i )\tp[i] = i;\n\tfor ( int i=0; i<m; ++i ) {\n\t\tcin >> u >> v >> w;\n\t\tassert(!used[w]);\n\t\tused[w] = true;\n    assert(!vis[make_pair(min(u, v), max(u, v))]);\n    vis[make_pair(min(u, v), max(u, v))] = true;\n\t\tint tu = find(u);\n\t\tint tv = find(v);\n\t\tp[tu] = tv;\n\t}\n\tint gg = find(1);\n\tfor ( int i=2; i<=n; ++i ) {\n\t\tassert(find(i) == gg);\n\t}\n\treturn 0;\t\n}",
@@ -87,6 +88,7 @@ const submission = {
     username: "TA_TzuWei_Yu",
   },
 };
+const { copy, copied, isSupported } = useClipboard();
 </script>
 
 <template>
@@ -102,7 +104,7 @@ const submission = {
             class="btn md:btn-md"
             @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/submit`)"
           >
-            rejudge
+            <i-uil-repeat class="mr-1" /> Rejudge
           </div>
         </div>
 
@@ -171,7 +173,12 @@ const submission = {
 
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <h2 class="card-title mb-2 md:text-xl lg:text-2xl">Source</h2>
+            <h2 class="card-title mb-2 md:text-xl lg:text-2xl">
+              Source
+              <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission.code)">
+                {{ copied ? "Copied!" : "Copy" }}
+              </div>
+            </h2>
             <code-editor v-model="submission.code" readonly />
           </div>
         </div>
