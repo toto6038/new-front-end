@@ -7,6 +7,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  preview: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const STATUS_LABEL = {
@@ -94,7 +98,13 @@ props.homework.start;
         </div>
       </div>
 
-      <div v-if="homework.id" class="card-actions justify-end">
+      <div v-if="homework.id && !preview" class="card-actions justify-end">
+        <div
+          class="btn mr-3"
+          @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/edit`)"
+        >
+          <i-uil-edit class="mr-1 lg:h-5 lg:w-5" /> Edit
+        </div>
         <div
           class="btn"
           @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/stats`)"
