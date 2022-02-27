@@ -42,16 +42,16 @@ props.homework.start;
   <div class="card mx-auto w-full bg-base-100 shadow-xl">
     <div class="card-body">
       <div class="flex items-start justify-between">
-        <h2 class="lg:text-2x card-title mb-8 md:text-xl">
+        <div class="lg:text-2x card-title mb-8 md:text-xl">
           {{ homework.name }}
           <div :class="['badge', STATUS_CLASS[state]]">{{ state }}</div>
-        </h2>
+        </div>
         <due-countdown v-if="state === STATUS_LABEL.RUNNING" class="mt-2" :due="homework.end" />
       </div>
 
       <div class="flex flex-wrap lg:flex-nowrap lg:gap-x-8">
         <div class="mb-8 w-full lg:flex-1">
-          <h3 class="card-title">Availability</h3>
+          <div class="card-title">Availability</div>
           <div class="mt-2 flex flex-wrap overflow-x-auto lg:flex-nowrap">
             <table class="table-compact table w-full">
               <thead>
@@ -71,7 +71,7 @@ props.homework.start;
         </div>
 
         <div class="mb-8 w-full lg:flex-1">
-          <h3 class="card-title">Problems</h3>
+          <div class="card-title">Problems</div>
           <table class="table-compact mt-2 table w-full">
             <thead>
               <tr>
@@ -93,7 +93,7 @@ props.homework.start;
 
       <div class="flex flex-wrap lg:flex-nowrap lg:gap-x-8">
         <div class="w-full lg:flex-1">
-          <h3 class="card-title">Description</h3>
+          <div class="card-title">Description</div>
           <markdown-renderer class="mt-2" :md="homework.markdown" />
         </div>
       </div>

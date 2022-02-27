@@ -29,6 +29,18 @@ const emit = defineEmits<{
       </label>
     </div>
 
+    <div class="form-control">
+      <label class="label cursor-pointer justify-start gap-x-4">
+        <span class="label-text">Pin to top</span>
+        <input
+          type="checkbox"
+          class="toggle"
+          :value="value.pinned"
+          @input="emit('update', 'pinned', ($event.target as HTMLInputElement).value)"
+        />
+      </label>
+    </div>
+
     <div class="form-control w-full lg:col-span-2">
       <label class="label">
         <span class="label-text">Description</span>

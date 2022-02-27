@@ -73,7 +73,7 @@ const option = computed(() => {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <h2 class="card-title md:text-2xl lg:text-3xl">Stats for problem #{{ $route.params.id }}</h2>
+        <div class="card-title md:text-2xl lg:text-3xl">Stats for problem #{{ $route.params.id }}</div>
 
         <div class="stats stats-vertical mt-4 lg:stats-horizontal">
           <div class="stat place-items-center">
@@ -98,7 +98,7 @@ const option = computed(() => {
           />
         </div>
 
-        <h2 class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Run Time</h2>
+        <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Run Time</div>
         <table class="table-compact mb-10 table w-full">
           <thead>
             <tr>
@@ -118,7 +118,7 @@ const option = computed(() => {
           </tbody>
         </table>
 
-        <h2 class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Memory Usage</h2>
+        <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Memory Usage</div>
         <table class="table-compact mb-10 table w-full">
           <thead>
             <tr>

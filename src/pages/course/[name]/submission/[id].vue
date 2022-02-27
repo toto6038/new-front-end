@@ -97,7 +97,7 @@ const { copy, copied, isSupported } = useClipboard();
       <div class="card-body">
         <div class="flex flex-wrap items-start justify-between">
           <div class="flex flex-col gap-4">
-            <h2 class="card-title md:text-2xl lg:text-3xl">Submission {{ $route.params.id }}</h2>
+            <div class="card-title md:text-2xl lg:text-3xl">Submission {{ $route.params.id }}</div>
           </div>
 
           <div
@@ -112,7 +112,7 @@ const { copy, copied, isSupported } = useClipboard();
 
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <h2 class="card-title mb-2 md:text-xl lg:text-2xl">General</h2>
+            <div class="card-title mb-2 md:text-xl lg:text-2xl">General</div>
             <table class="mb-10 table w-full">
               <thead>
                 <tr>
@@ -140,7 +140,7 @@ const { copy, copied, isSupported } = useClipboard();
               </tbody>
             </table>
 
-            <h2 class="card-title mb-2 md:text-xl lg:text-2xl">Detail</h2>
+            <div class="card-title mb-2 md:text-xl lg:text-2xl">Detail</div>
             <table class="table-compact mb-10 table w-full" v-for="(task, taskIndex) in submission.tasks">
               <thead>
                 <tr>
@@ -173,12 +173,12 @@ const { copy, copied, isSupported } = useClipboard();
 
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <h2 class="card-title mb-2 md:text-xl lg:text-2xl">
+            <div class="card-title mb-2 md:text-xl lg:text-2xl">
               Source
               <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission.code)">
                 {{ copied ? "Copied!" : "Copy" }}
               </div>
-            </h2>
+            </div>
             <code-editor v-model="submission.code" readonly />
           </div>
         </div>

@@ -33,9 +33,17 @@ function update<K extends keyof Post>(key: K, value: Post[K]) {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
+        <div class="card-title mb-3 flex-wrap justify-between lg:flex-nowrap">
           Edit Announcement
-          <div class="btn"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</div>
+          <div class="flex gap-x-3">
+            <div class="btn-outline btn btn-error btn-sm lg:btn-md">
+              <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
+            </div>
+            <div class="btn btn-warning btn-sm lg:btn-md">
+              <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
+            </div>
+            <div class="btn btn-success btn-sm lg:btn-md"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</div>
+          </div>
         </div>
 
         <post-form :value="editedPost" @update="update" />

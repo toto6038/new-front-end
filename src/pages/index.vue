@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTitle } from "@vueuse/core";
+import { formatTime } from "../utils/formatTime";
 
 useTitle("Home | Normal OJ");
 
@@ -24,7 +25,37 @@ const posts = [
       <div class="card min-w-full">
         <div class="card-body">
           <div class="card-title mb-3">Announcement</div>
-          <post-card v-for="post in posts" :key="post.annId" :post="post" />
+          <div class="mt-8 overflow-x-auto">
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Create At</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="{ title, creator, createTime, annId } in posts"
+                  class="hover cursor-pointer"
+                  @click="$router.push(`/announcements/${annId}`)"
+                >
+                  <td>{{ title }}</td>
+                  <td>{{ creator.displayedName }}</td>
+                  <td>{{ formatTime(createTime) }}</td>
+                  <td>
+                    <div
+                      class="btn btn-sm"
+                      @click.stop="$router.push(`/course/Public/announcements/${annId}/edit`)"
+                    >
+                      <i-uil-edit class="mr-1" /> Edit
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

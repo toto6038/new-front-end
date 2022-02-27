@@ -74,7 +74,7 @@ const courses = [
 <template>
   <div class="card mx-auto max-w-5xl shadow-xl">
     <div class="card-body">
-      <h2 class="card-title">Course List</h2>
+      <div class="card-title">Course List</div>
 
       <div class="mt-8 overflow-x-auto">
         <table class="table w-full">

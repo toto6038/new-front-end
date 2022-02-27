@@ -56,7 +56,7 @@ const submissions = [
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <h2 class="card-title">Submissions</h2>
+        <div class="card-title">Submissions</div>
 
         <div class="mt-8 overflow-x-auto">
           <table class="table w-full">

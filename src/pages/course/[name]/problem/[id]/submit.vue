@@ -18,9 +18,9 @@ watchEffect(() => {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <h2 class="card-title md:text-2xl lg:text-3xl">Submit to problem #{{ $route.params.id }}</h2>
+        <div class="card-title md:text-2xl lg:text-3xl">Submit to problem #{{ $route.params.id }}</div>
 
-        <h2 class="card-title mt-10 md:text-lg lg:text-xl">Paste your code here</h2>
+        <div class="card-title mt-10 md:text-lg lg:text-xl">Paste your code here</div>
         <code-editor v-model="code" class="mt-4" />
 
         <div class="mt-10 flex justify-between">

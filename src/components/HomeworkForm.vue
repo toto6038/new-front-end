@@ -109,7 +109,7 @@ function handleEndDateTimeInput(event: any) {
     <input v-model="modalOpen" type="checkbox" id="my-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box">
-        <h3 class="text-lg font-bold">Select problems</h3>
+        <div class="text-lg font-bold">Select problems</div>
         <div class="h-[200px] overflow-y-auto py-4">
           <div v-for="{ problemId, problemName } in problems" class="form-control">
             <label class="label cursor-pointer">

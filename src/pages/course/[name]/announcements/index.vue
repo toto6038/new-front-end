@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatTime } from "../../../../utils/formatTime";
+
 const posts = [
   {
     annId: "5fe6c3331117bf688d986cab",
@@ -38,7 +40,7 @@ const posts = [
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
+        <div class="card-title justify-between">
           Announcements
           <div
             class="btn btn-success"
@@ -47,7 +49,37 @@ const posts = [
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </div>
         </div>
-        <post-card v-for="post in posts" :key="post.annId" :post="post" />
+        <div class="mt-8 overflow-x-auto">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Create At</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="{ title, creator, createTime, annId } in posts"
+                class="hover cursor-pointer"
+                @click="$router.push(`/course/${$route.params.name}/announcements/${annId}`)"
+              >
+                <td>{{ title }}</td>
+                <td>{{ creator.displayedName }}</td>
+                <td>{{ formatTime(createTime) }}</td>
+                <td>
+                  <div
+                    class="btn btn-sm"
+                    @click.stop="$router.push(`/course/${$route.params.name}/announcements/${annId}/edit`)"
+                  >
+                    <i-uil-edit class="mr-1" /> Edit
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

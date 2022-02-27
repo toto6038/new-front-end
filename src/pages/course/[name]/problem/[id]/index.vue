@@ -33,9 +33,9 @@ const problem = {
       <div class="card-body">
         <div class="flex flex-wrap items-start justify-between">
           <div class="flex flex-col gap-4">
-            <h2 class="card-title md:text-2xl lg:text-3xl">
+            <div class="card-title md:text-2xl lg:text-3xl">
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
-            </h2>
+            </div>
             <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
           </div>
 
