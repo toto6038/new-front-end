@@ -46,10 +46,7 @@ const problems = [
         <div class="card-title justify-between">
           Problems
 
-          <div
-            class="btn btn-success"
-            @click="$router.push(`/course/${$route.params.name}/announcements/new`)"
-          >
+          <div class="btn btn-success" @click="$router.push(`/course/${$route.params.name}/problem/new`)">
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </div>
         </div>
