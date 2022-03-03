@@ -10,7 +10,7 @@ interface Problem {
     sampleOutput: string[];
   };
   tags: string[];
-  allowedLanguages: number;
+  allowedLanguage: number;
   quota: number;
   type: 0 | 1 | 2;
   status: 0 | 1;

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const problem = {
+import { reactive } from "vue";
+
+const problem: Problem = {
   allowedLanguage: 3,
   // courses: ["Algorithm2021"],
   // defaultCode: "",
@@ -25,10 +27,30 @@ const problem = {
   ],
   type: 0,
 };
+const editedProblem = reactive<Problem>({ ...problem });
+
+function update<K extends keyof Problem>(key: K, value: Problem[K]) {
+  editedProblem[key] = value;
+}
 </script>
 
 <template>
-  <div class="card-container pb-40">
-    <problem-card :problem="problem" />
+  <div class="card-container">
+    <div class="card min-w-full">
+      <div class="card-body">
+        <div class="card-title mb-3 justify-between">
+          Edit Problem
+          <div class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</div>
+        </div>
+
+        <problem-form :value="editedProblem" @update="update" />
+
+        <div class="divider" />
+
+        <div class="card-title mb-3">Preview</div>
+
+        <problem-card :problem="editedProblem" preview />
+      </div>
+    </div>
   </div>
 </template>

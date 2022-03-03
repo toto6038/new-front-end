@@ -60,6 +60,7 @@ const problems = [
                 <th>Tags</th>
                 <th>Quota</th>
                 <th>Score</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -76,6 +77,14 @@ const problems = [
                 </td>
                 <td>{{ quota }}</td>
                 <td>{{ score }}</td>
+                <td>
+                  <div
+                    class="btn btn-sm"
+                    @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/edit`)"
+                  >
+                    <i-uil-edit class="mr-1" /> Edit
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

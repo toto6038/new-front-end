@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
 import { reactive } from "vue";
 
 const homework = {

@@ -12,7 +12,7 @@ const newProblem = reactive<Problem>({
     sampleOutput: [""],
   },
   tags: [],
-  allowedLanguages: 0,
+  allowedLanguage: 0,
   quota: 10,
   type: 0,
   status: 0,
