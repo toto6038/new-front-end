@@ -8,12 +8,12 @@ import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import submissions from "./data.json";
 import { formatTime } from "../../../../../utils/formatTime";
-import { useThemeStore } from "../../../../../stores/theme";
+import { useTheme } from "../../../../../stores/theme";
 import { SUBMISSION_COLOR, SUBMISSION_STATUS } from "../../../../../constants";
 
 use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]);
 
-const themeStore = useThemeStore();
+const theme = useTheme();
 const triedUsernames = ref<string[]>([]);
 const ACUsernames = ref<string[]>([]);
 const ACSubmissions = ref<unknown[]>([]);
@@ -93,7 +93,7 @@ const option = computed(() => {
         <div class="mt-10 flex justify-center">
           <v-chart
             class="mx-auto h-[400px] w-[600px] lg:w-[1000px]"
-            :theme="themeStore.isDark ? 'dark' : ''"
+            :theme="theme.isDark ? 'dark' : ''"
             :option="option"
           />
         </div>

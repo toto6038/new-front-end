@@ -13,6 +13,8 @@ declare module 'vue' {
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilChartLine: typeof import('~icons/uil/chart-line')['default']
+    IUilCloseCircle: typeof import('~icons/uil/close-circle')['default']
+    IUilCrossCircle: typeof import('~icons/uil/cross-circle')['default']
     IUilEdit: typeof import('~icons/uil/edit')['default']
     IUilFacebook: typeof import('~icons/uil/facebook')['default']
     IUilFileUploadAlt: typeof import('~icons/uil/file-upload-alt')['default']
@@ -43,6 +45,8 @@ declare module 'vue' {
     SampleCodeBlock: typeof import('./src/components/SampleCodeBlock.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
+    UiSpinner: typeof import('./src/components/ui-spinner.vue')['default']
+    UISpinner: typeof import('./src/components/UISpinner.vue')['default']
   }
 }
 

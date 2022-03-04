@@ -61,9 +61,9 @@ const links = [
 </script>
 
 <template>
-  <div class="prose mx-auto mt-10 w-full pb-60">
+  <div class="prose mx-auto mt-10 w-full pb-60 font-mono">
     <div class="flex w-full flex-col items-center">
-      <h1>Links</h1>
+      <h1 class="uppercase">Links</h1>
       <div class="flex gap-12">
         <a href="https://fb.me/noj.tw" class="mx-12">
           <i-uil-facebook class="h-28 w-28" />
@@ -75,7 +75,7 @@ const links = [
     </div>
 
     <div class="mt-16 flex w-full flex-col items-center">
-      <h1>Contributors</h1>
+      <h1 class="uppercase">Contributors</h1>
       <div v-for="team in teams" class="flex w-full flex-col items-center">
         <h3>{{ team.title }}</h3>
         <div class="w-fix my-4 grid grid-cols-2 gap-x-40 gap-y-8 md:grid-cols-4 lg:grid-cols-6">

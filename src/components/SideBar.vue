@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { useThemeStore } from "../stores/theme";
+import { useTheme } from "../stores/theme";
 import { useDark, useToggle } from "@vueuse/core";
+import { useSession } from "../stores/session";
 import { watchEffect } from "vue";
 
 const isDark = useDark({
@@ -11,15 +12,17 @@ const isDark = useDark({
   valueLight: "light",
 });
 const toggleDark = useToggle(isDark);
-const themeStore = useThemeStore();
+const theme = useTheme();
 watchEffect(() => {
-  themeStore.setIsDark(isDark.value);
+  theme.setIsDark(isDark.value);
 });
 
 const route = useRoute();
 const matchRoute = (path: string) => {
   return route.matched.some((r) => r.path === path);
 };
+
+const session = useSession();
 </script>
 
 <template>
@@ -39,7 +42,7 @@ const matchRoute = (path: string) => {
         </div>
       </div>
     </li>
-    <li>
+    <li v-if="session.isLogin">
       <div
         :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/courses') }]"
         @click="$router.push('/courses')"
@@ -71,7 +74,7 @@ const matchRoute = (path: string) => {
         <i-uil-moon class="swap-off h-6 w-6" />
       </label>
     </li>
-    <li>
+    <li v-if="session.isAdmin">
       <div
         :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/admin') }]"
         @click="$router.push('/admin')"
@@ -82,7 +85,7 @@ const matchRoute = (path: string) => {
         </div>
       </div>
     </li>
-    <li>
+    <li v-if="session.isLogin">
       <div
         :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/profile') }]"
         @click="$router.push('/profile')"
