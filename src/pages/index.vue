@@ -106,13 +106,13 @@ async function login() {
     <div class="card-container">
       <div class="card min-w-full">
         <div class="card-body">
-          <div v-if="session.isFetching" class="flex justify-center">
+          <div v-if="session.isNotValidated" class="flex justify-center">
             <ui-spinner />
           </div>
           <div v-else class="card-title mb-2">
             {{ session.isLogin ? `Welcome back, ${session.displayedName}` : "Sign in" }}
           </div>
-          <template v-if="!session.isFetching && !session.isLogin">
+          <template v-if="session.isNotLogin">
             <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
               <div>
                 <i-uil-times-circle />

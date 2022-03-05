@@ -44,6 +44,7 @@ declare module 'vue' {
     ProblemForm: typeof import('./src/components/ProblemForm.vue')['default']
     SampleCodeBlock: typeof import('./src/components/SampleCodeBlock.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
+    SkeletonTable: typeof import('./src/components/SkeletonTable.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     UiSpinner: typeof import('./src/components/ui-spinner.vue')['default']
     UISpinner: typeof import('./src/components/UISpinner.vue')['default']

@@ -1,11 +1,14 @@
 import axios from "axios";
 
 export const fetcher = axios.create({
-  baseURL: "/api",
+  baseURL: (import.meta.env.VITE_APP_API_BASE_URL as string) || "/api",
 });
 
 fetcher.interceptors.response.use((response) => {
-  return response.data.data;
+  return {
+    ...response,
+    ...response.data,
+  };
 });
 
 const Auth = {

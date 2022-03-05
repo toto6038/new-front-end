@@ -11,6 +11,9 @@ const publicPages = [/^\/$/, /^\/about$/, /^\/announcements\/[0-9A-Fa-f]+$/];
 
 router.beforeEach(async (to, from) => {
   const session = useSession();
+  if (session.isNotValidated) {
+    await session.validateSession();
+  }
   if (!session.isLogin && !publicPages.some((regex) => regex.test(to.path))) {
     return "/";
   }
