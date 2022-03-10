@@ -1,5 +1,5 @@
 interface Problem {
-  id?: number;
+  problemId?: number;
   problemName: string;
   description: {
     description: string;

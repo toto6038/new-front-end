@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useSession } from "../stores/session";
 import { formatTime } from "../utils/formatTime";
 
 const props = defineProps({
   homework: {
+    type: Object,
+    required: true,
+  },
+  problems: {
     type: Object,
     required: true,
   },
@@ -13,6 +18,7 @@ const props = defineProps({
   },
 });
 
+const session = useSession();
 const STATUS_LABEL = {
   RUNNING: "RUNNING",
   NOT_START: "NOT START",
@@ -35,7 +41,6 @@ const state = computed(() => {
   }
   return STATUS_LABEL.RUNNING;
 });
-props.homework.start;
 </script>
 
 <template>
@@ -56,7 +61,7 @@ props.homework.start;
             <table class="table-compact table w-full">
               <thead>
                 <tr>
-                  <th>Allow submissions from</th>
+                  <th>From</th>
                   <th>Due</th>
                 </tr>
               </thead>
@@ -70,21 +75,49 @@ props.homework.start;
           </div>
         </div>
 
-        <div class="mb-8 w-full lg:flex-1">
+        <div class="lg:flex-2 mb-8 w-full">
           <div class="card-title">Problems</div>
           <table class="table-compact mt-2 table w-full">
             <thead>
               <tr>
                 <th>#</th>
                 <th>PID</th>
+                <th>Name</th>
+                <th>Quota</th>
                 <th>Score</th>
+                <th>Stats</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(pid, index) in homework.problemIds">
-                <td>{{ String.fromCharCode(65 + index) }}</td>
-                <td>{{ pid }}</td>
-                <td>100</td>
+                <td>{{ index + 1 }}</td>
+                <td>
+                  <a class="link" :href="`/course/${$route.params.name}/problem/${pid}`">{{ pid }}</a>
+                </td>
+                <td>
+                  <ui-spinner v-if="!problems[pid.toString()]" />
+                  <span v-else>{{ (problems[pid.toString()] as any).name }}</span>
+                </td>
+                <td>
+                  <ui-spinner v-if="!problems[pid.toString()]" />
+                  <span v-else>{{ (problems[pid.toString()] as any).quota }}</span>
+                </td>
+                <td>
+                  {{
+                    (
+                      homework.studentStatus[session.username] &&
+                      homework.studentStatus[session.username][pid.toString()]
+                    )?.score || "-"
+                  }}
+                </td>
+                <td>
+                  <div
+                    class="btn btn-ghost btn-xs"
+                    @click="$router.push(`/course/${$route.params.name}/problem/${pid}/stats`)"
+                  >
+                    <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" />
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -98,7 +131,7 @@ props.homework.start;
         </div>
       </div>
 
-      <div v-if="homework.id && !preview" class="card-actions justify-end">
+      <div v-if="homework.id && !preview && session.isAdmin" class="card-actions justify-end">
         <div
           class="btn mr-3"
           @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/edit`)"
