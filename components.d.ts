@@ -13,8 +13,6 @@ declare module 'vue' {
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilChartLine: typeof import('~icons/uil/chart-line')['default']
-    IUilCloseCircle: typeof import('~icons/uil/close-circle')['default']
-    IUilCrossCircle: typeof import('~icons/uil/cross-circle')['default']
     IUilEdit: typeof import('~icons/uil/edit')['default']
     IUilFacebook: typeof import('~icons/uil/facebook')['default']
     IUilFileUploadAlt: typeof import('~icons/uil/file-upload-alt')['default']
@@ -26,12 +24,10 @@ declare module 'vue' {
     IUilMoon: typeof import('~icons/uil/moon')['default']
     IUilPlus: typeof import('~icons/uil/plus')['default']
     IUilPlusCircle: typeof import('~icons/uil/plus-circle')['default']
-    IUilQuestion: typeof import('~icons/uil/question')['default']
     IUilRepeat: typeof import('~icons/uil/repeat')['default']
     IUilSave: typeof import('~icons/uil/save')['default']
     IUilSun: typeof import('~icons/uil/sun')['default']
     IUilTimes: typeof import('~icons/uil/times')['default']
-    IUilTimesCiecle: typeof import('~icons/uil/times-ciecle')['default']
     IUilTimesCircle: typeof import('~icons/uil/times-circle')['default']
     IUilTrashAlt: typeof import('~icons/uil/trash-alt')['default']
     IUilUser: typeof import('~icons/uil/user')['default']
@@ -47,7 +43,6 @@ declare module 'vue' {
     SkeletonTable: typeof import('./src/components/SkeletonTable.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     UiSpinner: typeof import('./src/components/ui-spinner.vue')['default']
-    UISpinner: typeof import('./src/components/UISpinner.vue')['default']
   }
 }
 

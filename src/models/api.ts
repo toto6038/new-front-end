@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const fetcher = axios.create({
   baseURL: (import.meta.env.VITE_APP_API_BASE_URL as string) || "/api",
+  withCredentials: true,
 });
 
 fetcher.interceptors.response.use((response) => {
