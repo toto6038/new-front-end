@@ -20,7 +20,7 @@ async function logout() {
       <div class="card-body">
         <div class="card-title justify-between">Profile</div>
 
-        <div class="mt-8 overflow-x-auto">
+        <div class="mt-4 overflow-x-auto">
           <table class="table w-full">
             <thead>
               <tr>

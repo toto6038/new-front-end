@@ -12,7 +12,7 @@ const { data: courses, error, isLoading } = useAxios("/course", fetcher);
     <div class="card-body">
       <div class="card-title">Course List</div>
 
-      <div class="mt-8 overflow-x-auto">
+      <div class="mt-4 overflow-x-auto">
         <skeleton-table v-if="isLoading" :col="2" :row="5" />
         <div v-else-if="error" class="alert alert-error shadow-lg">
           <div>

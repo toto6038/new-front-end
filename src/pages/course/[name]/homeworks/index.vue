@@ -29,7 +29,7 @@ function getProblemMeta(ids: number[]): {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-5 justify-between">
+        <div class="card-title mb-4 justify-between">
           Homeworks
           <div
             v-if="session.isAdmin"

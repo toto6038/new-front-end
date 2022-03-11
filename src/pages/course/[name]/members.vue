@@ -39,7 +39,7 @@ const members = [
       <div class="card-body">
         <div class="card-title">Members</div>
 
-        <div class="mt-8 overflow-x-auto">
+        <div class="mt-4 overflow-x-auto">
           <table class="table w-full">
             <thead>
               <tr>

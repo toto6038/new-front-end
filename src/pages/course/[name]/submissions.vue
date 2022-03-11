@@ -1,54 +1,62 @@
 <script setup lang="ts">
-import { LANG } from "../../../constants";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute } from "vue-router";
+import { computed, reactive, ref, watchEffect } from "vue";
+import queryString from "query-string";
+import { fetcher } from "../../../models/api";
+import { useSession } from "../../../stores/session";
+import { LANG, SUBMISSION_STATUS } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 
-const submissions = [
-  {
-    languageType: 1,
-    lastSend: 1629875668.301,
-    memoryUsage: 4284,
-    problemId: 145,
-    runTime: 8,
-    score: 100,
-    status: 0,
-    submissionId: "6125edd4b07bd4ab4aad81c1",
-    timestamp: 1629875668.226,
-    user: {
-      displayedName: "\u674e\u8056\u6f84",
-      md5: "027c85d32010796c7ad342d4648adb81",
-      role: 2,
-      username: "40947031S",
-    },
-  },
-  {
-    languageType: 1,
-    lastSend: 1629875621.882,
-    memoryUsage: 3572,
-    problemId: 145,
-    runTime: 1,
-    score: 30,
-    status: 5,
-    submissionId: "6125eda5b07bd4ab4aad81aa",
-    timestamp: 1629875621.759,
-    user: {
-      displayedName: "\u674e\u8056\u6f84",
-      md5: "027c85d32010796c7ad342d4648adb81",
-      role: 2,
-      username: "40947031S",
-    },
-  },
-  {
-    languageType: 0,
-    lastSend: 1624631262.949,
-    memoryUsage: 2176,
-    problemId: 174,
-    runTime: 8,
-    score: 10,
-    status: 2,
-    submissionId: "60d5e7de032148778ebcbce5",
-    timestamp: 1624631262.869,
-    user: { displayedName: "", md5: "d1189e2842a272f6f2ed118c903e209b", role: 2, username: "40947903S" },
-  },
+const route = useRoute();
+const session = useSession();
+
+const page = ref(1);
+const searchUsername = ref("");
+const filter = reactive({
+  problem: null,
+  status: null,
+  language: null,
+  username: "",
+});
+const getSubmissionsUrl = computed(() => {
+  const qs = queryString.stringify({
+    offset: (page.value - 1) * 10,
+    count: 10,
+    course: route.params.name,
+    ...(filter.problem ? { problemId: filter.problem } : {}),
+    ...(filter.status ? { status: filter.status } : {}),
+    ...(filter.language ? { languageType: filter.language } : {}),
+    ...(filter.username ? { username: filter.username } : {}),
+  });
+  return `/submission?${qs}`;
+});
+const { execute, data, error, isLoading } = useAxios(fetcher);
+const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+watchEffect(() => {
+  execute(getSubmissionsUrl.value);
+});
+const submissions = computed(() => (data.value as any)?.submissions);
+const submissionCount = computed(() => (data.value as any)?.submissionCount);
+const maxPage = computed(() => {
+  return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
+});
+const problemSelections = computed(() => {
+  if (!problems.value) return [];
+  return problems.value.map(({ problemId, problemName }: any) => ({
+    value: problemId,
+    text: `${problemId} - ${problemName}`,
+  }));
+});
+const submissionStatus = SUBMISSION_STATUS.map((status, index) => ({
+  text: status,
+  value: index - 1,
+}));
+const languages = [
+  { text: "C", value: 0 },
+  { text: "C++", value: 1 },
+  { text: "Python", value: 2 },
+  { text: "Handwritten", value: 3 },
 ];
 </script>
 
@@ -56,10 +64,45 @@ const submissions = [
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title">Submissions</div>
+        <div class="card-title justify-between">
+          Submissions
 
-        <div class="mt-8 overflow-x-auto">
-          <table class="table w-full">
+          <input
+            v-if="session.isAdmin"
+            v-model="searchUsername"
+            type="text"
+            placeholder="Username (exact match)"
+            class="input-bordered input w-full max-w-xs"
+            @keydown.enter="filter.username = searchUsername"
+          />
+        </div>
+
+        <div class="mt-4 overflow-x-auto">
+          <div class="mb-4 flex items-end gap-x-4">
+            <select v-model="filter.problem" class="select-bordered select w-full flex-1">
+              <option :value="null" disabled selected>Problem</option>
+              <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
+            </select>
+
+            <select v-model="filter.status" class="select-bordered select w-full flex-1">
+              <option :value="null" disabled selected>Status</option>
+              <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
+            </select>
+
+            <select v-model="filter.language" class="select-bordered select w-full flex-1">
+              <option :value="null" disabled selected>Language</option>
+              <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
+            </select>
+          </div>
+
+          <skeleton-table v-if="isLoading" :col="9" :row="5" />
+          <div v-else-if="error" class="alert alert-error shadow-lg">
+            <div>
+              <i-uil-times-circle />
+              <span>Oops! Something went wrong when loading submissions.</span>
+            </div>
+          </div>
+          <table v-else class="table w-full">
             <thead>
               <tr>
                 <th>id</th>
@@ -92,6 +135,10 @@ const submissions = [
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="card-actions mt-5">
+          <pagination-buttons v-model="page" :maxPage="maxPage" />
         </div>
       </div>
     </div>

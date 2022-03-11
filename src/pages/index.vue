@@ -68,7 +68,7 @@ async function login() {
       <div class="card min-w-full">
         <div class="card-body">
           <div class="card-title mb-3">Announcement</div>
-          <div class="mt-8 overflow-x-auto">
+          <div class="mt-4 overflow-x-auto">
             <table class="table w-full">
               <thead>
                 <tr>
