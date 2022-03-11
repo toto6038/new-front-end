@@ -1,42 +1,22 @@
 <script setup lang="ts">
-const problems = [
-  {
-    ACUser: 0,
-    problemId: 118,
-    problemName: "Getting Started",
-    quota: 10,
-    status: 0,
-    submitCount: 0,
-    submitter: 128,
-    tags: ["HW0"],
-    type: 0,
-    score: 100,
-  },
-  {
-    ACUser: 0,
-    problemId: 124,
-    problemName: "a_n",
-    quota: 15,
-    status: 0,
-    submitCount: 0,
-    submitter: 291,
-    tags: ["HW1"],
-    type: 0,
-    score: 100,
-  },
-  {
-    ACUser: 0,
-    problemId: 125,
-    problemName: "oo-pe\u030dh sort",
-    quota: 15,
-    status: 0,
-    submitCount: 0,
-    submitter: 615,
-    tags: ["HW1", "BONUX"],
-    type: 0,
-    score: 100,
-  },
-];
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute } from "vue-router";
+import { computed, ref } from "vue";
+import { fetcher } from "../../../models/api";
+import { useSession } from "../../../stores/session";
+
+const session = useSession();
+const route = useRoute();
+const {
+  data: problems,
+  error,
+  isLoading,
+} = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+
+const page = ref(1);
+const maxPage = computed(() => {
+  return problems.value ? Math.ceil(problems.value.length / 10) : 1;
+});
 </script>
 
 <template>
@@ -46,13 +26,24 @@ const problems = [
         <div class="card-title justify-between">
           Problems
 
-          <div class="btn btn-success" @click="$router.push(`/course/${$route.params.name}/problem/new`)">
+          <div
+            v-if="session.isAdmin"
+            class="btn btn-success"
+            @click="$router.push(`/course/${$route.params.name}/problem/new`)"
+          >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </div>
         </div>
 
         <div class="mt-8 overflow-x-auto">
-          <table class="table w-full">
+          <skeleton-table v-if="isLoading" :col="5" :row="5" />
+          <div v-else-if="error" class="alert alert-error shadow-lg">
+            <div>
+              <i-uil-times-circle />
+              <span>Oops! Something went wrong when loading problems.</span>
+            </div>
+          </div>
+          <table v-else class="table w-full">
             <thead>
               <tr>
                 <th>ID</th>
@@ -60,12 +51,15 @@ const problems = [
                 <th>Tags</th>
                 <th>Quota</th>
                 <th>Score</th>
-                <th></th>
+                <th v-if="session.isAdmin"></th>
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="{ problemId, problemName, tags, quota, score } in problems"
+                v-for="{ problemId, problemName, tags, quota, score } in problems.slice(
+                  (page - 1) * 10,
+                  page * 10,
+                )"
                 :key="problemId"
                 class="hover cursor-pointer"
                 @click="$router.push(`/course/${$route.params.name}/problem/${problemId}`)"
@@ -77,7 +71,7 @@ const problems = [
                 </td>
                 <td>{{ quota }}</td>
                 <td>{{ score }}</td>
-                <td>
+                <td v-if="session.isAdmin">
                   <div
                     class="btn btn-sm"
                     @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/edit`)"
@@ -88,6 +82,10 @@ const problems = [
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="card-actions mt-5">
+          <pagination-buttons v-model="page" :maxPage="maxPage" />
         </div>
       </div>
     </div>

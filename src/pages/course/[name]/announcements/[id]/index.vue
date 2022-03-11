@@ -2,13 +2,11 @@
 import { useTitle } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
 import { fetcher } from "../../../../..//models/api";
 
 useTitle("Courses | Normal OJ");
 const route = useRoute();
-const getPostUrl = computed(() => `/ann/${route.params.name}/${route.params.id}`);
-const { data: posts, error, isLoading } = useAxios(getPostUrl.value, fetcher);
+const { data: posts, error, isLoading } = useAxios(`/ann/${route.params.name}/${route.params.id}`, fetcher);
 </script>
 
 <template>

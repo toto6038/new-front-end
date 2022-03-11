@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
 import { fetcher } from "../../../../models/api";
 import { useSession } from "../../../../stores/session";
 
 const session = useSession();
 const route = useRoute();
-const getHomeworkUrl = computed(() => `/course/${route.params.name}/homework`);
-const { data: homeworks, error, isLoading } = useAxios(getHomeworkUrl.value, fetcher);
+const { data: homeworks, error, isLoading } = useAxios(`/course/${route.params.name}/homework`, fetcher);
 const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 
 function getProblemMeta(ids: number[]): {

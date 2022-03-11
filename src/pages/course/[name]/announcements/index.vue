@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
 import { fetcher } from "../../../../models/api";
 import { formatTime } from "../../../../utils/formatTime";
 import { useSession } from "../../../../stores/session";
 
 const session = useSession();
 const route = useRoute();
-const getPostsUrl = computed(() => `/course/${route.params.name}/ann`);
-const { data: posts, error, isLoading } = useAxios(getPostsUrl.value, fetcher);
+const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}/ann`, fetcher);
 </script>
 
 <template>

@@ -55,7 +55,7 @@ const state = computed(() => {
       </div>
 
       <div class="flex flex-wrap lg:flex-nowrap lg:gap-x-8">
-        <div class="mb-8 w-full lg:flex-1">
+        <div class="mb-8 w-full lg:flex-[2_1_0%]">
           <div class="card-title">Availability</div>
           <div class="mt-2 flex flex-wrap overflow-x-auto lg:flex-nowrap">
             <table class="table-compact table w-full">
@@ -75,7 +75,7 @@ const state = computed(() => {
           </div>
         </div>
 
-        <div class="lg:flex-2 mb-8 w-full">
+        <div class="mb-8 w-full lg:flex-[3_1_0%]">
           <div class="card-title">Problems</div>
           <table class="table-compact mt-2 table w-full">
             <thead>

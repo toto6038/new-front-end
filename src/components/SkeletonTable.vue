@@ -25,7 +25,7 @@ defineProps({
     <tbody>
       <tr v-for="i in Math.max(row, 1)">
         <td v-for="j in Math.max(col, 1)" class="py-6">
-          <div class="h-4 w-1/5 rounded bg-slate-300" />
+          <div class="h-4 w-1/3 rounded bg-slate-300" />
         </td>
       </tr>
     </tbody>

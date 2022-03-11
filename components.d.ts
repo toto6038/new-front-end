@@ -34,6 +34,8 @@ declare module 'vue' {
     IUilWrench: typeof import('~icons/uil/wrench')['default']
     JudgeStatus: typeof import('./src/components/JudgeStatus.vue')['default']
     MarkdownRenderer: typeof import('./src/components/MarkdownRenderer.vue')['default']
+    Pagination: typeof import('./src/components/Pagination.vue')['default']
+    PaginationButtons: typeof import('./src/components/PaginationButtons.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     PostForm: typeof import('./src/components/PostForm.vue')['default']
     ProblemCard: typeof import('./src/components/ProblemCard.vue')['default']

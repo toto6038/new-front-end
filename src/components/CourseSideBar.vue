@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useSession } from "../stores/session";
+
+const session = useSession();
 const navs = [
   {
     name: "Announcements",
@@ -16,10 +19,14 @@ const navs = [
     name: "Submissions",
     path: "/submissions",
   },
-  {
-    name: "Members",
-    path: "/members",
-  },
+  ...(session.isAdmin
+    ? [
+        {
+          name: "Members",
+          path: "/members",
+        },
+      ]
+    : []),
 ];
 </script>
 
