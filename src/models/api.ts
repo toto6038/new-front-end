@@ -18,6 +18,11 @@ const Auth = {
   logout: () => fetcher.get<any, any>("/auth/session"),
 };
 
+const Submission = {
+  rejudge: (id: string) => fetcher.get<any, any>(`/submission/${id}/rejudge`),
+};
+
 export default {
   Auth,
+  Submission,
 };

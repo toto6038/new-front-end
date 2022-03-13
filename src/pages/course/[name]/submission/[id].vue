@@ -1,29 +1,55 @@
 <script setup lang="ts">
+import { ref, watchEffect } from "vue";
+import { useClipboard, useIntervalFn } from "@vueuse/core";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute, useRouter } from "vue-router";
 import { LANG } from "../../../../constants";
 import { formatTime } from "../../../../utils/formatTime";
-import { useClipboard } from "@vueuse/core";
-import { useAxios } from "@vueuse/integrations/useAxios";
-import { useRoute } from "vue-router";
-import { fetcher } from "../../../../models/api";
+import api, { fetcher } from "../../../../models/api";
 import { useSession } from "../../../../stores/session";
-import { ref, watchEffect } from "vue";
 
 const session = useSession();
 const route = useRoute();
+const router = useRouter();
 const {
   data: submission,
   error,
   isLoading,
+  execute,
 } = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
 const { copy, copied, isSupported } = useClipboard();
 
-const expandTasks = ref<boolean[]>([]);
+const { pause, isActive } = useIntervalFn(() => {
+  if (submission.value != null) {
+    execute();
+  }
+}, 2000);
 
+const expandTasks = ref<boolean[]>([]);
 watchEffect(() => {
-  if (submission.value != null && submission.value.tasks) {
-    expandTasks.value = submission.value.tasks.map(() => false);
+  if (submission.value != null) {
+    if (submission.value.tasks) {
+      expandTasks.value = submission.value.tasks.map(() => false);
+    }
+    if (submission.value.status !== -1) {
+      pause();
+    }
   }
 });
+
+const isRejudgeLoading = ref(false);
+async function rejudge() {
+  isRejudgeLoading.value = true;
+  try {
+    await api.Submission.rejudge(typeof route.params.id === "string" ? route.params.id : route.params.id[0]);
+    router.go(0);
+  } catch (error) {
+    alert("Request to rejudge failed.");
+    throw error;
+  } finally {
+    isRejudgeLoading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -37,8 +63,8 @@ watchEffect(() => {
 
           <div
             v-if="session.isAdmin"
-            class="btn md:btn-md"
-            @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/submit`)"
+            :class="['btn md:btn-md', isRejudgeLoading && 'loading']"
+            @click="rejudge"
           >
             <i-uil-repeat class="mr-1" /> Rejudge
           </div>
@@ -49,7 +75,7 @@ watchEffect(() => {
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <div class="card-title mb-2 md:text-xl lg:text-2xl">General</div>
-            <skeleton-table v-if="isLoading || !submission" :col="8" :row="1" />
+            <skeleton-table v-if="!submission" :col="8" :row="1" />
             <div v-else-if="error" class="alert alert-error shadow-lg">
               <div>
                 <i-uil-times-circle />
@@ -84,7 +110,10 @@ watchEffect(() => {
             </table>
 
             <div class="card-title mb-2 md:text-xl lg:text-2xl">Detail</div>
-            <skelecton-table v-if="isLoading || !submission" :col="5" :row="5" />
+            <skeleton-table v-if="!submission" :col="5" :row="5" />
+            <div v-else-if="isActive" class="flex items-center">
+              <ui-spinner class="mr-3 h-6 w-6" /> Pending submission will be refetched automatically.
+            </div>
             <table
               v-else
               class="table-compact mb-10 table w-full"
@@ -110,7 +139,7 @@ watchEffect(() => {
                 <tr>
                   <td colspan="5">
                     <div
-                      class="btn-outline btn btn-block btn-sm w-full"
+                      class="btn-outline btn btn-block btn-sm"
                       @click="expandTasks[taskIndex] = !expandTasks[taskIndex]"
                     >
                       {{ expandTasks[taskIndex] ? "Hide all results" : "Show all results" }}
@@ -129,7 +158,7 @@ watchEffect(() => {
           </div>
         </div>
 
-        <skeleton-card v-if="isLoading || !submission" />
+        <skeleton-card v-if="!submission" />
         <div v-else class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <div class="card-title mb-2 md:text-xl lg:text-2xl">
