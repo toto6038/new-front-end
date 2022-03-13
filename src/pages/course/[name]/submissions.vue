@@ -13,22 +13,26 @@ const session = useSession();
 
 const page = ref(1);
 const searchUsername = ref("");
-const filter = reactive({
+const filter = reactive<UserDefinedSubmissionQuery>({
   problem: null,
   status: null,
   language: null,
-  username: "",
+  username: null,
 });
 const getSubmissionsUrl = computed(() => {
-  const qs = queryString.stringify({
+  const query: SubmissionQuery = {
     offset: (page.value - 1) * 10,
     count: 10,
-    course: route.params.name,
-    ...(filter.problem ? { problemId: filter.problem } : {}),
-    ...(filter.status ? { status: filter.status } : {}),
-    ...(filter.language ? { languageType: filter.language } : {}),
-    ...(filter.username ? { username: filter.username } : {}),
-  });
+    course: typeof route.params.name === "string" ? route.params.name : route.params.name[0],
+  };
+  for (const key in filter) {
+    //@ts-ignore FIXME
+    if (filter[key] !== null) {
+      //@ts-ignore FIXME
+      query[key] = filter[key];
+    }
+  }
+  const qs = queryString.stringify(query);
   return `/submission?${qs}`;
 });
 const { execute, data, error, isLoading } = useAxios(fetcher);
@@ -53,9 +57,9 @@ const submissionStatus = SUBMISSION_STATUS.map((status, index) => ({
   value: index - 1,
 }));
 const languages = [
-  { text: "C", value: 0 },
-  { text: "C++", value: 1 },
-  { text: "Python", value: 2 },
+  { text: "c", value: 0 },
+  { text: "cpp", value: 1 },
+  { text: "py3", value: 2 },
   { text: "Handwritten", value: 3 },
 ];
 </script>
@@ -73,24 +77,24 @@ const languages = [
             type="text"
             placeholder="Username (exact match)"
             class="input-bordered input w-full max-w-xs"
-            @keydown.enter="filter.username = searchUsername"
+            @keydown.enter="filter.username = searchUsername || null"
           />
         </div>
 
         <div class="mt-4 overflow-x-auto">
           <div class="mb-4 flex items-end gap-x-4">
             <select v-model="filter.problem" class="select-bordered select w-full flex-1">
-              <option :value="null" disabled selected>Problem</option>
+              <option :value="null" selected>Problem</option>
               <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
             </select>
 
             <select v-model="filter.status" class="select-bordered select w-full flex-1">
-              <option :value="null" disabled selected>Status</option>
+              <option :value="null" selected>Status</option>
               <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
             </select>
 
             <select v-model="filter.language" class="select-bordered select w-full flex-1">
-              <option :value="null" disabled selected>Language</option>
+              <option :value="null" selected>Language</option>
               <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
             </select>
           </div>

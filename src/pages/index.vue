@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -7,24 +7,14 @@ import { useSession } from "../stores/session";
 import { formatTime } from "../utils/formatTime";
 import api from "../models/api";
 import { useRouter } from "vue-router";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { fetcher } from "../models/api";
 
 useTitle("Home | Normal OJ");
 const session = useSession();
 const router = useRouter();
 
-const posts = [
-  {
-    annId: "5fe6c3331117bf688d986cab",
-    createTime: 1608958771,
-    creator: { displayedName: "bogay", md5: "4d8a688b2637fcf029e8d6dd8458bab3", role: 0, username: "bogay" },
-    markdown:
-      "\u5404\u4f4d\u540c\u5b78\u5927\u5bb6\u597d\uff0c\n\u4eca\u65e5\u4e2d\u5348\u56e0\u70ba\u516c\u9928\u6821\u5340\u7a81\u7136\u505c\u96fb\uff0c\u9020\u6210\u6211\u5011\u7684\u4e3b\u6a5f\u95dc\u6a5f\u4e86\u4e00\u9663\u5b50\uff0c\u73fe\u5728\u670d\u52d9\u5df2\u7d93\u4e0a\u7dda\u3002\n\n",
-    pinned: false,
-    title: "\u516c\u9928\u6821\u5340\u505c\u96fb",
-    updateTime: 1608958771,
-    updater: { displayedName: "bogay", md5: "4d8a688b2637fcf029e8d6dd8458bab3", role: 0, username: "bogay" },
-  },
-];
+const { data: posts, error, isLoading } = useAxios("/ann", fetcher);
 const loginForm = reactive({
   username: "",
   password: "",
@@ -69,23 +59,28 @@ async function login() {
         <div class="card-body">
           <div class="card-title mb-3">Announcement</div>
           <div class="mt-4 overflow-x-auto">
+            <skeleton-table v-if="isLoading" :col="3" :row="5" />
+            <div v-else-if="error" class="alert alert-error shadow-lg">
+              <div>
+                <i-uil-times-circle />
+                <span>Oops! Something went wrong when loading announcements.</span>
+              </div>
+            </div>
             <table class="table w-full">
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Author</th>
                   <th>Create At</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="{ title, creator, createTime, annId } in posts"
+                  v-for="{ title, createTime, annId } in posts"
                   class="hover cursor-pointer"
                   @click="$router.push(`/announcements/${annId}`)"
                 >
                   <td>{{ title }}</td>
-                  <td>{{ creator.displayedName }}</td>
                   <td>{{ formatTime(createTime) }}</td>
                   <td v-if="session.isAdmin">
                     <div

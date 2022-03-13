@@ -19,7 +19,7 @@ defineProps({
   <table class="table w-full animate-pulse">
     <thead v-if="header">
       <tr>
-        <th v-for="i in Math.max(col, 1)" />
+        <th class="bg-slate-300" v-for="i in Math.max(col, 1)" />
       </tr>
     </thead>
     <tbody>

@@ -52,7 +52,7 @@ function navigateTo(page: number) {
     </template>
 
     <template v-for="p in pages">
-      <button :class="['btn-outline btn', modelValue === p && 'bg-accent']" @click="navigateTo(p)">
+      <button :class="['btn-outline btn', modelValue === p && 'bg-blue-400']" @click="navigateTo(p)">
         {{ p }}
       </button>
     </template>

@@ -1,6 +1,9 @@
 // the fourth one is handwritten, which wont show in submission list
 export const LANG = ["c", "cpp", "py3", ""];
 
+// the index is important
+export const ROLE = ["Admin", "Teacher", "Student"];
+
 // the order of the submission status & color is important
 // we access both arrays by index submission.status + 1
 export const SUBMISSION_STATUS = [

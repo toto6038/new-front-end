@@ -1,36 +1,24 @@
 <script setup lang="ts">
-const members = [
-  {
-    displayedName: "HIDDEN",
-    md5: "fdc6e7701498a88b7bac02c80a9057e7",
-    role: 2,
-    username: "40712345S",
-  },
-  {
-    displayedName: "HIDDEN",
-    md5: "08e1658db6219a2e478eab75f594829c",
-    role: 2,
-    username: "40712346S",
-  },
-  {
-    displayedName: "HIDDEN",
-    md5: "4dae0195a700a5a5725e8e86710ebc43",
-    role: 2,
-    username: "40712347S",
-  },
-  {
-    displayedName: "HIDDEN",
-    md5: "fc320a3f24cca0333cbf3370cca8ce1f",
-    role: 2,
-    username: "40712348S",
-  },
-  {
-    displayedName: "HIDDEN",
-    md5: "9fae00c1a814de0b5862381f1b216c53",
-    role: 2,
-    username: "40712349S",
-  },
-];
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+import { fetcher } from "../../../models/api";
+import { ROLE } from "../../../constants";
+
+const route = useRoute();
+const sortBy = ref<"username" | "displayedName" | "role">("username");
+const { data, error, isLoading } = useAxios(`/course/${route.params.name}`, fetcher);
+const members = computed(() =>
+  [data.value.teacher, ...data.value?.students, ...data.value?.TAs].sort((a, b) => {
+    if (sortBy.value === "username") {
+      return a.username.localeCompare(b.username);
+    } else if (sortBy.value === "displayedName") {
+      return a.displayedName.localeCompare(b.displayedName);
+    } else if (sortBy.value === "role") {
+      return a.role - b.role;
+    }
+  }),
+);
 </script>
 
 <template>
@@ -40,17 +28,38 @@ const members = [
         <div class="card-title">Members</div>
 
         <div class="mt-4 overflow-x-auto">
-          <table class="table w-full">
+          <div class="mb-4">
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Sort By</span>
+              </label>
+              <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
+                <option value="username">Username</option>
+                <option value="displayedName">Display Name</option>
+                <option value="role">Role</option>
+              </select>
+            </div>
+          </div>
+          <skeleton-table v-if="isLoading" :col="3" :row="5" />
+          <div v-else-if="error" class="alert alert-error shadow-lg">
+            <div>
+              <i-uil-times-circle />
+              <span>Oops! Something went wrong when loading members.</span>
+            </div>
+          </div>
+          <table v-else class="table w-full">
             <thead>
               <tr>
                 <th>username</th>
                 <th>display name</th>
+                <th>role</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="{ username, displayedName } in members" :key="username" class="hover">
+              <tr v-for="{ username, displayedName, role } in members" :key="username" class="hover">
                 <td>{{ username }}</td>
                 <td>{{ displayedName }}</td>
+                <td>{{ ROLE[role] }}</td>
               </tr>
             </tbody>
           </table>

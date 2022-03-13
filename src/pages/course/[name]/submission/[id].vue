@@ -2,93 +2,28 @@
 import { LANG } from "../../../../constants";
 import { formatTime } from "../../../../utils/formatTime";
 import { useClipboard } from "@vueuse/core";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute } from "vue-router";
+import { fetcher } from "../../../../models/api";
+import { useSession } from "../../../../stores/session";
+import { ref, watchEffect } from "vue";
 
-const submission = {
-  code: "#include <iostream>\n#include <assert.h>\n#include <map>\n#define maxn 1005\n#define maxm 500005\nusing namespace std;\nint p[maxn];\nmap<pair<int,int>,bool> vis;\nmap<int,bool> used;\nint find(int x) {\n\treturn (p[x] == x ? x : (p[x]=find(p[x])));\n}\nint main() {\n\tint n, m, u, v, w;\n\tcin >> n >> m;\n\tfor ( int i=0; i<=n; ++i )\tp[i] = i;\n\tfor ( int i=0; i<m; ++i ) {\n\t\tcin >> u >> v >> w;\n\t\tassert(!used[w]);\n\t\tused[w] = true;\n    assert(!vis[make_pair(min(u, v), max(u, v))]);\n    vis[make_pair(min(u, v), max(u, v))] = true;\n\t\tint tu = find(u);\n\t\tint tv = find(v);\n\t\tp[tu] = tv;\n\t}\n\tint gg = find(1);\n\tfor ( int i=2; i<=n; ++i ) {\n\t\tassert(find(i) == gg);\n\t}\n\treturn 0;\t\n}",
-  languageType: 1,
-  lastSend: 1623672969.683,
-  memoryUsage: 30680,
-  problemId: 172,
-  runTime: 409,
-  score: 0,
-  status: 1,
-  submissionId: "60c74889032148778ebc5418",
-  tasks: [
-    {
-      cases: [
-        { execTime: 1, memoryUsage: 3356, status: 1 },
-        { execTime: 1, memoryUsage: 3316, status: 1 },
-        { execTime: 2, memoryUsage: 3436, status: 1 },
-        { execTime: 0, memoryUsage: 3416, status: 1 },
-        { execTime: 2, memoryUsage: 3416, status: 1 },
-      ],
-      execTime: 2,
-      memoryUsage: 3436,
-      score: 0,
-      status: 1,
-    },
-    {
-      cases: [
-        { execTime: 1, memoryUsage: 3312, status: 1 },
-        { execTime: 1, memoryUsage: 3288, status: 1 },
-        { execTime: 1, memoryUsage: 3164, status: 1 },
-        { execTime: 1, memoryUsage: 3332, status: 1 },
-        { execTime: 0, memoryUsage: 3328, status: 1 },
-      ],
-      execTime: 1,
-      memoryUsage: 3332,
-      score: 0,
-      status: 1,
-    },
-    {
-      cases: [
-        { execTime: 1, memoryUsage: 3412, status: 1 },
-        { execTime: 1, memoryUsage: 3356, status: 1 },
-        { execTime: 0, memoryUsage: 3444, status: 1 },
-        { execTime: 1, memoryUsage: 3328, status: 1 },
-        { execTime: 1, memoryUsage: 3284, status: 1 },
-      ],
-      execTime: 1,
-      memoryUsage: 3444,
-      score: 0,
-      status: 1,
-    },
-    {
-      cases: [
-        { execTime: 3, memoryUsage: 3676, status: 1 },
-        { execTime: 0, memoryUsage: 3676, status: 1 },
-        { execTime: 0, memoryUsage: 3656, status: 1 },
-        { execTime: 3, memoryUsage: 3668, status: 1 },
-        { execTime: 4, memoryUsage: 3640, status: 1 },
-      ],
-      execTime: 4,
-      memoryUsage: 3676,
-      score: 0,
-      status: 1,
-    },
-    {
-      cases: [
-        { execTime: 374, memoryUsage: 30652, status: 1 },
-        { execTime: 409, memoryUsage: 30636, status: 1 },
-        { execTime: 355, memoryUsage: 30644, status: 1 },
-        { execTime: 401, memoryUsage: 30680, status: 1 },
-        { execTime: 400, memoryUsage: 30676, status: 1 },
-      ],
-      execTime: 409,
-      memoryUsage: 30680,
-      score: 0,
-      status: 1,
-    },
-  ],
-  timestamp: 1623672969.623,
-  user: {
-    displayedName: "\u52a9\u6559_\u4e8e\u5b50\u7def",
-    md5: "c222b446affb0f9262a45d2e73fd714f",
-    role: 0,
-    username: "TA_TzuWei_Yu",
-  },
-};
+const session = useSession();
+const route = useRoute();
+const {
+  data: submission,
+  error,
+  isLoading,
+} = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
 const { copy, copied, isSupported } = useClipboard();
+
+const expandTasks = ref<boolean[]>([]);
+
+watchEffect(() => {
+  if (submission.value != null && submission.value.tasks) {
+    expandTasks.value = submission.value.tasks.map(() => false);
+  }
+});
 </script>
 
 <template>
@@ -101,6 +36,7 @@ const { copy, copied, isSupported } = useClipboard();
           </div>
 
           <div
+            v-if="session.isAdmin"
             class="btn md:btn-md"
             @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/submit`)"
           >
@@ -113,7 +49,14 @@ const { copy, copied, isSupported } = useClipboard();
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <div class="card-title mb-2 md:text-xl lg:text-2xl">General</div>
-            <table class="mb-10 table w-full">
+            <skeleton-table v-if="isLoading || !submission" :col="8" :row="1" />
+            <div v-else-if="error" class="alert alert-error shadow-lg">
+              <div>
+                <i-uil-times-circle />
+                <span>Oops! Something went wrong when loading submission.</span>
+              </div>
+            </div>
+            <table v-else class="mb-10 table w-full">
               <thead>
                 <tr>
                   <th>Problem</th>
@@ -141,7 +84,12 @@ const { copy, copied, isSupported } = useClipboard();
             </table>
 
             <div class="card-title mb-2 md:text-xl lg:text-2xl">Detail</div>
-            <table class="table-compact mb-10 table w-full" v-for="(task, taskIndex) in submission.tasks">
+            <skelecton-table v-if="isLoading || !submission" :col="5" :row="5" />
+            <table
+              v-else
+              class="table-compact mb-10 table w-full"
+              v-for="(task, taskIndex) in submission.tasks"
+            >
               <thead>
                 <tr>
                   <th>#{{ taskIndex }}</th>
@@ -159,7 +107,17 @@ const { copy, copied, isSupported } = useClipboard();
                   <td>{{ task.memoryUsage }} KB</td>
                   <td>{{ task.score }}</td>
                 </tr>
-                <tr v-for="(taskcase, caseIndex) in task.cases">
+                <tr>
+                  <td colspan="5">
+                    <div
+                      class="btn-outline btn btn-block btn-sm w-full"
+                      @click="expandTasks[taskIndex] = !expandTasks[taskIndex]"
+                    >
+                      {{ expandTasks[taskIndex] ? "Hide all results" : "Show all results" }}
+                    </div>
+                  </td>
+                </tr>
+                <tr v-show="expandTasks[taskIndex]" v-for="(taskcase, caseIndex) in task.cases">
                   <td>{{ taskIndex }}-{{ caseIndex }}</td>
                   <td><judge-status :status="taskcase.status" /></td>
                   <td>{{ taskcase.execTime }} ms</td>
@@ -171,11 +129,13 @@ const { copy, copied, isSupported } = useClipboard();
           </div>
         </div>
 
-        <div class="card min-w-full rounded-none">
+        <skeleton-card v-if="isLoading || !submission" />
+        <div v-else class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <div class="card-title mb-2 md:text-xl lg:text-2xl">
               Source
-              <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission.code)">
+              <!-- ts check bug in `copy(submission.code)` -->
+              <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission?.code || '')">
                 {{ copied ? "Copied!" : "Copy" }}
               </div>
             </div>
