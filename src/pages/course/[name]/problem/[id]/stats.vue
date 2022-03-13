@@ -20,7 +20,7 @@ const { data, error, isLoading } = useAxios(
     offset: 0,
     count: -1,
     course: route.params.name as string,
-    problem: Number(route.params.id),
+    problemId: Number(route.params.id),
   })}`,
   fetcher,
 );
@@ -43,14 +43,12 @@ const top10RunTime = ref<Submission[]>([]);
 const top10MemoryUsage = ref<Submission[]>([]);
 
 watchEffect(() => {
-  const ACUsernames: string[] = [];
   const ACSubmissions: Submission[] = [];
   const triedUsernames: string[] = [];
   let scoreSum: number = 0;
   resultCounts.value = resultCounts.value.map((v) => ({ ...v, value: 0 }));
   for (const submission of submissions.value) {
     if (submission.status === 0) {
-      ACUsernames.push(submission.user.username);
       ACSubmissions.push(submission);
     } else {
       triedUsernames.push(submission.user.username);
@@ -59,6 +57,12 @@ watchEffect(() => {
     scoreSum += submission.score;
   }
   numOfUsersTried.value = new Set(triedUsernames).size;
+  ACSubmissions.forEach((v) => {
+    if (v.user.username === "91099208Y") {
+      console.log(v);
+    }
+  });
+  const ACUsernames: string[] = ACSubmissions.map((v) => v.user.username);
   numOfACUsers.value = new Set(ACUsernames).size;
   avgScore.value = scoreSum / submissions.value.length;
   top10RunTime.value = ACSubmissions.sort((a, b) => a.runTime - b.runTime).slice(0, 10);
@@ -96,6 +100,8 @@ const option = computed(() => ({
       <div class="card-body">
         <div class="card-title md:text-2xl lg:text-3xl">Stats for problem #{{ $route.params.id }}</div>
 
+        <div class="my-2" />
+
         <skeleton-card v-if="isLoading" />
         <div v-else-if="error" class="alert alert-error shadow-lg">
           <div>
@@ -104,7 +110,7 @@ const option = computed(() => ({
           </div>
         </div>
         <template v-else>
-          <div class="stats stats-vertical mt-4 lg:stats-horizontal">
+          <div class="stats stats-vertical lg:stats-horizontal">
             <div class="stat place-items-center">
               <div class="stat-title">Num of users tried</div>
               <div class="stat-value">{{ numOfUsersTried }}</div>
@@ -128,9 +134,12 @@ const option = computed(() => ({
           </div>
         </template>
 
-        <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Run Time</div>
+        <div class="my-2" />
+
+        <div class="card-title md:text-xl lg:text-2xl">Top 10 Run Time</div>
+        <div class="my-1" />
         <skeleton-table v-if="isLoading" :col="4" :row="10" />
-        <table v-else class="table-compact mb-10 table w-full">
+        <table v-else class="table-compact table w-full">
           <thead>
             <tr>
               <th>#</th>
@@ -149,9 +158,12 @@ const option = computed(() => ({
           </tbody>
         </table>
 
-        <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Memory Usage</div>
+        <div class="my-5" />
+
+        <div class="card-title md:text-xl lg:text-2xl">Top 10 Memory Usage</div>
+        <div class="my-1" />
         <skeleton-table v-if="isLoading" :col="4" :row="10" />
-        <table v-else class="table-compact mb-10 table w-full">
+        <table v-else class="table-compact table w-full">
           <thead>
             <tr>
               <th>#</th>
@@ -169,6 +181,8 @@ const option = computed(() => ({
             </tr>
           </tbody>
         </table>
+
+        <div class="my-5" />
       </div>
     </div>
   </div>

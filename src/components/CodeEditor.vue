@@ -33,7 +33,11 @@ const highlighter = (code: string) => {
 </template>
 
 <style>
-.prism-editor__textarea:focus {
-  outline: none;
+.prism-editor__editor {
+  white-space: pre !important;
+  width: 0px !important;
+}
+.prism-editor__container {
+  overflow-x: scroll !important;
 }
 </style>

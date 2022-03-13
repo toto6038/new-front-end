@@ -36,14 +36,14 @@ interface SubmissionQuery {
   offset: number;
   count: number;
   course?: string;
-  problem?: number;
+  problemId?: number;
   status?: number;
   language?: number;
   username?: string;
 }
 
 interface UserDefinedSubmissionQuery {
-  problem?: number | null;
+  problemId?: number | null;
   status?: number | null;
   language?: number | null;
   username?: string | null;

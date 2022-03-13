@@ -139,9 +139,11 @@ async function rejudge() {
                 <tr>
                   <td colspan="5">
                     <div
-                      class="btn-outline btn btn-block btn-sm"
+                      class="btn btn-ghost btn-block btn-sm gap-x-3"
                       @click="expandTasks[taskIndex] = !expandTasks[taskIndex]"
                     >
+                      <i-uil-angle-down v-if="!expandTasks[taskIndex]" />
+                      <i-uil-angle-up v-else />
                       {{ expandTasks[taskIndex] ? "Hide all results" : "Show all results" }}
                     </div>
                   </td>

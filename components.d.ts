@@ -10,6 +10,8 @@ declare module 'vue' {
     DueCountdown: typeof import('./src/components/DueCountdown.vue')['default']
     HomeworkCard: typeof import('./src/components/HomeworkCard.vue')['default']
     HomeworkForm: typeof import('./src/components/HomeworkForm.vue')['default']
+    IUilAngleDown: typeof import('~icons/uil/angle-down')['default']
+    IUilAngleUp: typeof import('~icons/uil/angle-up')['default']
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilChartLine: typeof import('~icons/uil/chart-line')['default']

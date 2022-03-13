@@ -14,7 +14,7 @@ const session = useSession();
 const page = ref(1);
 const searchUsername = ref("");
 const filter = reactive<UserDefinedSubmissionQuery>({
-  problem: null,
+  problemId: null,
   status: null,
   language: null,
   username: null,
@@ -83,7 +83,7 @@ const languages = [
 
         <div class="mt-4 overflow-x-auto">
           <div class="mb-4 flex items-end gap-x-4">
-            <select v-model="filter.problem" class="select-bordered select w-full flex-1">
+            <select v-model="filter.problemId" class="select-bordered select w-full flex-1">
               <option :value="null" selected>Problem</option>
               <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
             </select>
