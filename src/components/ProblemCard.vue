@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import { useSession } from "../stores/session";
 
 defineProps({
   problem: {
     type: Object as PropType<Problem>,
-    required: true,
   },
   isLoading: {
     type: Boolean,
@@ -20,8 +18,6 @@ defineProps({
     default: false,
   },
 });
-
-const session = useSession();
 </script>
 
 <template>

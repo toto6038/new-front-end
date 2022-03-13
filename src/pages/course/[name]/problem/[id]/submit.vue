@@ -1,17 +1,90 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, reactive, watchEffect, computed } from "vue";
 import hljs from "highlight.js";
+import * as zip from "@zip.js/zip.js";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute, useRouter } from "vue-router";
+import useVuelidate from "@vuelidate/core";
+import { required, between } from "@vuelidate/validators";
+import api, { fetcher } from "../../../../../models/api";
 
-const code = ref("");
-const lang = ref<string | null>(null);
+const route = useRoute();
+const router = useRouter();
+const { data: problem, error, isLoading } = useAxios(`/problem/view/${route.params.id}`, fetcher);
+
+const form = reactive({
+  code: "",
+  lang: -1,
+  isLoading: false,
+  isSubmitError: false,
+});
+const rules = {
+  code: { required },
+  lang: { betweenValue: between(0, 3) },
+};
+const errorMessages = {
+  code: "Please paste your source code to submit.",
+  lang: "Please select the programming language.",
+};
+const v$ = useVuelidate(rules, form);
+
+type LangOption = { value: number; text: string; mask: number };
+const ALL_LANGUAGE_OPTIONS: LangOption[] = [
+  { value: 0, text: "c", mask: 1 },
+  { value: 1, text: "cpp", mask: 2 },
+  { value: 2, text: "py", mask: 4 },
+];
+const LANGUAGE_EXTENSION = [".c", ".cpp", ".py"];
+const langOptions = computed<LangOption[]>(() => {
+  if (!problem.value) return [];
+  const availables: LangOption[] = [];
+  ALL_LANGUAGE_OPTIONS.forEach((option) => {
+    if (problem.value.allowedLanguage & option.mask) {
+      availables.push(option);
+    }
+  });
+  if (availables.length === 1) {
+    form.lang = availables[0].value;
+  }
+  return availables;
+});
 
 watchEffect(() => {
-  const detectedLang = hljs.highlightAuto(code.value, ["c", "cpp", "python"]).language;
+  const detectedLang = hljs.highlightAuto(form.code, ["c", "cpp", "python"]).language;
   // Since c and cpp are difficult to distinguish, we only detect python.
-  if (detectedLang === "python") {
-    lang.value = "py3";
+  if (detectedLang === "python" && langOptions.value.some((option) => option.value === 2)) {
+    form.lang = 2;
   }
 });
+
+async function submit() {
+  const isFormCorrect = await v$.value.$validate();
+  if (!isFormCorrect) return;
+  form.isLoading = true;
+  form.isSubmitError = false;
+  try {
+    const blobWriter = new zip.BlobWriter("application/zip");
+    const writer = new zip.ZipWriter(blobWriter);
+    await writer.add(`main${LANGUAGE_EXTENSION[form.lang]}`, new zip.TextReader(form.code));
+    await writer.close();
+    const blob = blobWriter.getData();
+    const formData = new FormData();
+    formData.append("code", blob);
+    const { submissionId } = (
+      await api.Submission.create({
+        problemId: Number(route.params.id),
+        languageType: Number(form.lang),
+      })
+    ).data;
+    await api.Submission.modify(submissionId, formData);
+    router.push(`/course/${route.params.name}/submission/${submissionId}`);
+  } catch (error) {
+    form.isSubmitError = true;
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -21,19 +94,37 @@ watchEffect(() => {
         <div class="card-title md:text-2xl lg:text-3xl">Submit to problem #{{ $route.params.id }}</div>
 
         <div class="card-title mt-10 md:text-lg lg:text-xl">Paste your code here</div>
-        <code-editor v-model="code" class="mt-4" />
+        <code-editor v-model="form.code" class="mt-4" />
+        <span v-show="v$.code.$error" class="text-error-content" v-text="errorMessages.code" />
 
-        <div class="mt-10 flex justify-between">
+        <div v-if="error" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when submitting the code. Try again later.</span>
+          </div>
+        </div>
+
+        <div class="mt-10 flex items-center justify-between">
           <div class="form-control w-full max-w-xs">
-            <select v-model="lang" class="select-bordered select">
-              <option :value="null">Select language</option>
-              <option value="c">c</option>
-              <option value="cpp">cpp</option>
-              <option value="py3">py3</option>
+            <label class="label">
+              <span class="label-text">Language</span>
+              <ui-spinner v-if="isLoading" class="h-6 w-6" />
+            </label>
+            <select
+              v-model="v$.lang.$model"
+              :class="['select-bordered select', v$.lang.$error && 'input-error']"
+            >
+              <option disabled :value="-1">Select language</option>
+              <option v-for="{ text, value } in langOptions" :value="value">{{ text }}</option>
             </select>
+            <label class="label" v-show="v$.lang.$error">
+              <span class="label-text-alt text-error-content" v-text="errorMessages.lang" />
+            </label>
           </div>
 
-          <div class="btn"><i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Submit</div>
+          <div :class="['btn', form.isLoading && 'loading']" @click="submit">
+            <i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Submit
+          </div>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ const getSubmissionsUrl = computed(() => {
   const query: SubmissionQuery = {
     offset: (page.value - 1) * 10,
     count: 10,
-    course: typeof route.params.name === "string" ? route.params.name : route.params.name[0],
+    course: route.params.name as string,
   };
   for (const key in filter) {
     //@ts-ignore FIXME

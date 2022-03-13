@@ -1,72 +1,93 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { use } from "echarts/core";
 import VChart from "vue-echarts";
 import { TooltipComponent, LegendComponent } from "echarts/components";
 import { PieChart } from "echarts/charts";
 import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
-import submissions from "./data.json";
 import { formatTime } from "../../../../../utils/formatTime";
 import { useTheme } from "../../../../../stores/theme";
 import { SUBMISSION_COLOR, SUBMISSION_STATUS } from "../../../../../constants";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute } from "vue-router";
+import queryString from "query-string";
+import { fetcher } from "../../../../../models/api";
+
+const route = useRoute();
+const { data, error, isLoading } = useAxios(
+  `/submission?${queryString.stringify({
+    offset: 0,
+    count: -1,
+    course: route.params.name as string,
+    problem: Number(route.params.id),
+  })}`,
+  fetcher,
+);
+const submissions = computed<Submission[]>(() => (data.value as any)?.submissions || []);
 
 use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]);
 
 const theme = useTheme();
-const triedUsernames = ref<string[]>([]);
-const ACUsernames = ref<string[]>([]);
-const ACSubmissions = ref<unknown[]>([]);
-const scoreSum = ref<number>(0);
-const resultCounts = ref<{ name: string; value: number }[]>(
+const resultCounts = ref(
   SUBMISSION_STATUS.map((status, index) => ({
     name: status,
     value: 0,
     itemStyle: { color: SUBMISSION_COLOR[index] },
   })),
 );
+const numOfUsersTried = ref<number>(-1);
+const numOfACUsers = ref<number>(-1);
+const avgScore = ref<number>(-1);
+const top10RunTime = ref<Submission[]>([]);
+const top10MemoryUsage = ref<Submission[]>([]);
 
-for (const submission of submissions) {
-  if (submission.status === 0) {
-    ACUsernames.value.push(submission.user.username);
-    ACSubmissions.value.push(submission);
-  } else {
-    triedUsernames.value.push(submission.user.username);
+watchEffect(() => {
+  const ACUsernames: string[] = [];
+  const ACSubmissions: Submission[] = [];
+  const triedUsernames: string[] = [];
+  let scoreSum: number = 0;
+  resultCounts.value = resultCounts.value.map((v) => ({ ...v, value: 0 }));
+  for (const submission of submissions.value) {
+    if (submission.status === 0) {
+      ACUsernames.push(submission.user.username);
+      ACSubmissions.push(submission);
+    } else {
+      triedUsernames.push(submission.user.username);
+    }
+    resultCounts.value[submission.status + 1].value++;
+    scoreSum += submission.score;
   }
-  resultCounts.value[submission.status + 1].value++;
-  scoreSum.value += submission.score;
-}
-
-const numOfUsersTried = new Set(triedUsernames.value).size;
-const numOfACUsers = new Set(ACUsernames.value).size;
-const avgScore = scoreSum.value / submissions.length;
-const top10RunTimeSubmissions = submissions.sort((a, b) => a.runTime - b.runTime).slice(0, 10);
-const top10MemoryUsageSubmissions = submissions.sort((a, b) => a.memoryUsage - b.memoryUsage).slice(0, 10);
-const option = computed(() => {
-  return {
-    backgroundColor: "transparent",
-    tooltip: {
-      trigger: "item",
-      formatter: "{a} <br/>{b} : {c} ({d}%)",
-    },
-    legend: {
-      orient: "vertical",
-      left: "0",
-      data: resultCounts.value.filter((item) => item.value > 0).map((item) => item.name),
-    },
-    series: [
-      {
-        name: "Submission Result",
-        type: "pie",
-        radius: ["30%", "70%"],
-        data: resultCounts.value.filter((item) => item.value > 0),
-      },
-    ],
-    textStyle: {
-      fontSize: 14,
-    },
-  };
+  numOfUsersTried.value = new Set(triedUsernames).size;
+  numOfACUsers.value = new Set(ACUsernames).size;
+  avgScore.value = scoreSum / submissions.value.length;
+  top10RunTime.value = ACSubmissions.sort((a, b) => a.runTime - b.runTime).slice(0, 10);
+  top10MemoryUsage.value = ACSubmissions.sort((a, b) => a.memoryUsage - b.memoryUsage).slice(0, 10);
 });
+
+const option = computed(() => ({
+  backgroundColor: "transparent",
+  tooltip: {
+    trigger: "item",
+    formatter: "{a} <br/>{b} : {c} ({d}%)",
+  },
+  legend: {
+    orient: "vertical",
+    left: "0",
+    data: resultCounts.value.filter((item) => item.value > 0).map((item) => item.name),
+  },
+  series: [
+    {
+      name: "Submission Result",
+      type: "pie",
+      radius: ["30%", "70%"],
+      data: resultCounts.value.filter((item) => item.value > 0),
+    },
+  ],
+  textStyle: {
+    fontSize: 14,
+  },
+}));
 </script>
 
 <template>
@@ -75,31 +96,41 @@ const option = computed(() => {
       <div class="card-body">
         <div class="card-title md:text-2xl lg:text-3xl">Stats for problem #{{ $route.params.id }}</div>
 
-        <div class="stats stats-vertical mt-4 lg:stats-horizontal">
-          <div class="stat place-items-center">
-            <div class="stat-title">Num of users tried</div>
-            <div class="stat-value">{{ numOfUsersTried }}</div>
-          </div>
-          <div class="stat place-items-center">
-            <div class="stat-title">Num of AC users</div>
-            <div class="stat-value">{{ numOfACUsers }}</div>
-          </div>
-          <div class="stat place-items-center">
-            <div class="stat-title">Average Score</div>
-            <div class="stat-value">{{ avgScore.toFixed(2) }}</div>
+        <skeleton-card v-if="isLoading" />
+        <div v-else-if="error" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when loading problem stats.</span>
           </div>
         </div>
+        <template v-else>
+          <div class="stats stats-vertical mt-4 lg:stats-horizontal">
+            <div class="stat place-items-center">
+              <div class="stat-title">Num of users tried</div>
+              <div class="stat-value">{{ numOfUsersTried }}</div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">Num of AC users</div>
+              <div class="stat-value">{{ numOfACUsers }}</div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">Average Score</div>
+              <div class="stat-value">{{ avgScore.toFixed(2) }}</div>
+            </div>
+          </div>
 
-        <div class="mt-10 flex justify-center">
-          <v-chart
-            class="mx-auto h-[400px] w-[600px] lg:w-[1000px]"
-            :theme="theme.isDark ? 'dark' : ''"
-            :option="option"
-          />
-        </div>
+          <div class="mt-10 flex justify-center">
+            <v-chart
+              class="mx-auto h-[400px] w-[600px] lg:w-[1000px]"
+              :theme="theme.isDark ? 'dark' : ''"
+              :option="option"
+            />
+          </div>
+        </template>
 
         <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Run Time</div>
-        <table class="table-compact mb-10 table w-full">
+        <skeleton-table v-if="isLoading" :col="4" :row="10" />
+        <table v-else class="table-compact mb-10 table w-full">
           <thead>
             <tr>
               <th>#</th>
@@ -109,7 +140,7 @@ const option = computed(() => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(subm, index) in top10RunTimeSubmissions">
+            <tr v-for="(subm, index) in top10RunTime">
               <td>{{ index + 1 }}</td>
               <td>{{ subm.user.username }}</td>
               <td>{{ subm.runTime }} ms</td>
@@ -119,7 +150,8 @@ const option = computed(() => {
         </table>
 
         <div class="card-title mb-2 md:text-xl lg:text-2xl">Top 10 Memory Usage</div>
-        <table class="table-compact mb-10 table w-full">
+        <skeleton-table v-if="isLoading" :col="4" :row="10" />
+        <table v-else class="table-compact mb-10 table w-full">
           <thead>
             <tr>
               <th>#</th>
@@ -129,7 +161,7 @@ const option = computed(() => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(subm, index) in top10MemoryUsageSubmissions">
+            <tr v-for="(subm, index) in top10MemoryUsage">
               <td>{{ index + 1 }}</td>
               <td>{{ subm.user.username }}</td>
               <td>{{ subm.memoryUsage }} KB</td>

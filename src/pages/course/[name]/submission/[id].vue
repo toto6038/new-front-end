@@ -41,7 +41,7 @@ const isRejudgeLoading = ref(false);
 async function rejudge() {
   isRejudgeLoading.value = true;
   try {
-    await api.Submission.rejudge(typeof route.params.id === "string" ? route.params.id : route.params.id[0]);
+    await api.Submission.rejudge(route.params.id as string);
     router.go(0);
   } catch (error) {
     alert("Request to rejudge failed.");
@@ -74,7 +74,8 @@ async function rejudge() {
 
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <div class="card-title mb-2 md:text-xl lg:text-2xl">General</div>
+            <div class="card-title md:text-xl lg:text-2xl">General</div>
+            <div class="my-1" />
             <skeleton-table v-if="!submission" :col="8" :row="1" />
             <div v-else-if="error" class="alert alert-error shadow-lg">
               <div>
@@ -82,7 +83,7 @@ async function rejudge() {
                 <span>Oops! Something went wrong when loading submission.</span>
               </div>
             </div>
-            <table v-else class="mb-10 table w-full">
+            <table v-else class="table w-full">
               <thead>
                 <tr>
                   <th>Problem</th>
@@ -109,16 +110,15 @@ async function rejudge() {
               </tbody>
             </table>
 
-            <div class="card-title mb-2 md:text-xl lg:text-2xl">Detail</div>
+            <div class="my-4" />
+
+            <div class="card-title md:text-xl lg:text-2xl">Detail</div>
+            <div class="my-1" />
             <skeleton-table v-if="!submission" :col="5" :row="5" />
             <div v-else-if="isActive" class="flex items-center">
               <ui-spinner class="mr-3 h-6 w-6" /> Pending submission will be refetched automatically.
             </div>
-            <table
-              v-else
-              class="table-compact mb-10 table w-full"
-              v-for="(task, taskIndex) in submission.tasks"
-            >
+            <table v-else class="table-compact table w-full" v-for="(task, taskIndex) in submission.tasks">
               <thead>
                 <tr>
                   <th>#{{ taskIndex }}</th>
@@ -158,16 +158,19 @@ async function rejudge() {
           </div>
         </div>
 
+        <div class="my-4" />
+
         <skeleton-card v-if="!submission" />
         <div v-else class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <div class="card-title mb-2 md:text-xl lg:text-2xl">
+            <div class="card-title md:text-xl lg:text-2xl">
               Source
               <!-- ts check bug in `copy(submission.code)` -->
               <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission?.code || '')">
                 {{ copied ? "Copied!" : "Copy" }}
               </div>
             </div>
+            <div class="my-1" />
             <code-editor v-model="submission.code" readonly />
           </div>
         </div>
