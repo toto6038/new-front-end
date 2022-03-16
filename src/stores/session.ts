@@ -16,10 +16,10 @@ enum UserRole {
 export const useSession = defineStore("session", {
   state: () => {
     return {
-      state: -1 as SessionState,
+      state: SessionState.NotValidated,
       username: "",
       displayedName: "",
-      role: -1 as UserRole,
+      role: UserRole.Guest,
       bio: "",
       email: "",
     };
@@ -51,6 +51,7 @@ export const useSession = defineStore("session", {
         this.state = SessionState.IsLogin;
       } catch (error) {
         // 403 means not login
+        this.$reset();
         this.state = SessionState.IsNotLogin;
         // FIXME: show server error ui when fetch session failed (500)
       }

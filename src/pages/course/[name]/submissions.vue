@@ -131,7 +131,11 @@ const languages = [
               >
                 <td>{{ submission.submissionId.slice(-6) }}</td>
                 <td>{{ submission.problemId }}</td>
-                <td>{{ submission.user.username }}</td>
+                <td>
+                  <div class="tooltip" :data-tip="submission.user.displayedName">
+                    <span>{{ submission.user.username }}</span>
+                  </div>
+                </td>
                 <td><judge-status :status="submission.status" /></td>
                 <td>{{ submission.score }}</td>
                 <td>{{ submission.runTime }} ms</td>

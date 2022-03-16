@@ -4,12 +4,17 @@ import { useRoute } from "vue-router";
 import { fetcher } from "../../../../models/api";
 import { useSession } from "../../../../stores/session";
 import { useTitle } from "@vueuse/core";
+import { computed } from "vue";
 
 const session = useSession();
 const route = useRoute();
 useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
-const { data: homeworks, error, isLoading } = useAxios(`/course/${route.params.name}/homework`, fetcher);
+const { data, error, isLoading } = useAxios(`/course/${route.params.name}/homework`, fetcher);
 const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+const homeworks = computed(() => {
+  if (!data.value) return data.value;
+  return data.value.sort((a: any, b: any) => b.start - a.start);
+});
 
 function getProblemMeta(ids: number[]): {
   [key: string]: {

@@ -4,6 +4,7 @@ import { useTheme } from "../stores/theme";
 import { useDark, useToggle } from "@vueuse/core";
 import { useSession } from "../stores/session";
 import { watchEffect } from "vue";
+import { useStorage } from "@vueuse/core";
 
 const isDark = useDark({
   selector: "html",
@@ -12,6 +13,7 @@ const isDark = useDark({
   valueLight: "light",
 });
 const toggleDark = useToggle(isDark);
+const isMini = useStorage("mini-sidebar", false);
 const theme = useTheme();
 watchEffect(() => {
   theme.setIsDark(isDark.value);
@@ -27,74 +29,58 @@ const session = useSession();
 
 <template>
   <label for="noj-drawer" class="drawer-overlay"></label>
-  <ul class="menu w-96 flex-col overflow-y-auto bg-primary py-4 text-white lg:w-28">
+  <ul
+    :class="['menu w-96 flex-col overflow-y-auto bg-primary py-4 text-white', isMini ? 'lg:w-14' : 'lg:w-28']"
+  >
     <div class="my-2 flex justify-center">
-      <img src="../assets/logo.svg" alt="NOJ Logo" class="mb-2 w-14" />
+      <img src="../assets/logo.svg" alt="NOJ Logo" :class="['mb-2', isMini ? 'w-10' : 'w-14']" />
     </div>
     <li>
-      <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/') }]"
-        @click="$router.push('/')"
-      >
-        <div class="flex flex-col items-center">
-          <i-uil-home class="h-6 w-6" />
-          <span class="text-sm">Home</span>
-        </div>
-      </div>
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/') }" to="/">
+        <i-uil-home class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">Home</span>
+      </side-bar-link>
     </li>
     <li v-if="session.isLogin">
-      <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/courses') }]"
-        @click="$router.push('/courses')"
-      >
-        <div class="flex flex-col items-center">
-          <i-uil-book-alt class="h-6 w-6" />
-          <span class="text-sm">Course</span>
-        </div>
-      </div>
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/courses') }" to="/courses">
+        <i-uil-book-alt class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">Course</span>
+      </side-bar-link>
     </li>
     <li>
-      <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/about') }]"
-        @click="$router.push('/about')"
-      >
-        <div class="flex flex-col items-center">
-          <i-uil-map-marker-info class="h-6 w-6" />
-          <span class="text-sm">About</span>
-        </div>
-      </div>
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/about') }" to="/about">
+        <i-uil-map-marker-info class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">About</span>
+      </side-bar-link>
     </li>
 
     <div class="flex-1" />
 
-    <li class="mb-4">
+    <li v-if="session.isAdmin">
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/admin') }" to="/admin">
+        <i-uil-wrench class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">Admin</span>
+      </side-bar-link>
+    </li>
+    <li v-if="session.isLogin">
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/profile') }" to="/profile">
+        <i-uil-user class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">Profile</span>
+      </side-bar-link>
+    </li>
+    <li>
       <label class="swap swap-rotate">
         <input :value="isDark" type="checkbox" @input="() => toggleDark()" />
         <i-uil-sun class="swap-on h-6 w-6" />
         <i-uil-moon class="swap-off h-6 w-6" />
       </label>
     </li>
-    <li v-if="session.isAdmin">
-      <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/admin') }]"
-        @click="$router.push('/admin')"
-      >
-        <div class="flex flex-col items-center">
-          <i-uil-wrench class="h-6 w-6" />
-          <span class="text-sm">Admin</span>
-        </div>
-      </div>
-    </li>
-    <li v-if="session.isLogin">
-      <div
-        :class="['btn btn-primary btn-lg rounded-none p-2', { 'btn-active': matchRoute('/profile') }]"
-        @click="$router.push('/profile')"
-      >
-        <div class="flex flex-col items-center">
-          <i-uil-user class="h-6 w-6" />
-          <span class="text-sm">Profile</span>
-        </div>
-      </div>
+    <li>
+      <label class="swap swap-rotate">
+        <input v-model="isMini" type="checkbox" />
+        <i-uil-angle-double-right class="swap-on h-6 w-6" />
+        <i-uil-angle-double-left class="swap-off h-6 w-6" />
+      </label>
     </li>
   </ul>
 </template>

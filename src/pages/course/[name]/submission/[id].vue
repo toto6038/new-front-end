@@ -89,7 +89,7 @@ async function rejudge() {
               <thead>
                 <tr>
                   <th>Problem</th>
-                  <th>Username</th>
+                  <th>User</th>
                   <th>Status</th>
                   <th>Run Time</th>
                   <th>Memory</th>
@@ -100,8 +100,12 @@ async function rejudge() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{{ submission.problemId }}</td>
-                  <td>{{ submission.user.username }}</td>
+                  <td>
+                    <a class="link" :href="`/course/${$route.params.name}/problem/${submission.problemId}`">
+                      {{ submission.problemId }}
+                    </a>
+                  </td>
+                  <td>{{ submission.user.username }} ({{ submission.user.displayedName }})</td>
                   <td><judge-status :status="submission.status" /></td>
                   <td>{{ submission.runTime }} ms</td>
                   <td>{{ submission.memoryUsage }} KB</td>
