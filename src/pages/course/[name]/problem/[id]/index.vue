@@ -2,8 +2,10 @@
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../../../../models/api";
+import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+useTitle(`Problem - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const { data: problem, error, isLoading } = useAxios(`/problem/view/${route.params.id}`, fetcher);
 </script>
 

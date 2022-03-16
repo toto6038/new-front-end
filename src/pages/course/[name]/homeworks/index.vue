@@ -3,9 +3,11 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../../../models/api";
 import { useSession } from "../../../../stores/session";
+import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
 const { data: homeworks, error, isLoading } = useAxios(`/course/${route.params.name}/homework`, fetcher);
 const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 

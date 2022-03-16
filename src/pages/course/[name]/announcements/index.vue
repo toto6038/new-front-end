@@ -4,9 +4,11 @@ import { useRoute } from "vue-router";
 import { fetcher } from "../../../../models/api";
 import { formatTime } from "../../../../utils/formatTime";
 import { useSession } from "../../../../stores/session";
+import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+useTitle(`Announcements - ${route.params.name} | Normal OJ`);
 const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}/ann`, fetcher);
 </script>
 

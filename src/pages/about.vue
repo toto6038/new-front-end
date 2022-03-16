@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useTitle } from "@vueuse/core";
+
+useTitle("About | Normal OJ");
 const teams = [
   {
     title: "Maintainer",

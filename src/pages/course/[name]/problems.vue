@@ -4,9 +4,11 @@ import { useRoute } from "vue-router";
 import { computed, ref } from "vue";
 import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
+import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+useTitle(`Problems - ${route.params.name} | Normal OJ`);
 const {
   data: problems,
   error,

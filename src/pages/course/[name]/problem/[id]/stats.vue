@@ -13,8 +13,10 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import queryString from "query-string";
 import { fetcher } from "../../../../../models/api";
+import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const { data, error, isLoading } = useAxios(
   `/submission?${queryString.stringify({
     offset: 0,

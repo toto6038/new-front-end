@@ -4,8 +4,10 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../../models/api";
 import { ROLE } from "../../../constants";
+import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+useTitle(`Members - ${route.params.name} | Normal OJ`);
 const sortBy = ref<"username" | "displayedName" | "role">("username");
 const { data, error, isLoading } = useAxios(`/course/${route.params.name}`, fetcher);
 const members = computed(() =>

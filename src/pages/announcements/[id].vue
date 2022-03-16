@@ -4,8 +4,8 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../models/api";
 
-useTitle("Announcements | Normal OJ");
 const route = useRoute();
+useTitle(`Announcement - ${route.params.id} | Normal OJ`);
 const { data: posts, error, isLoading } = useAxios(`/ann/${route.params.id}`, fetcher);
 </script>
 

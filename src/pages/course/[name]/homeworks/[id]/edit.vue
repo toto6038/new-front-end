@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { useTitle } from "@vueuse/core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+useTitle(`Edit Homework - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const homework = {
   end: 1648268228,
   id: "603fe161dbc9fdbe448ed0a4",

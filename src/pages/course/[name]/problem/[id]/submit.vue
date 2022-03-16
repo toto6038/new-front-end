@@ -7,8 +7,10 @@ import { useRoute, useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required, between } from "@vuelidate/validators";
 import api, { fetcher } from "../../../../../models/api";
+import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
 const { data: problem, error, isLoading } = useAxios(`/problem/view/${route.params.id}`, fetcher);
 

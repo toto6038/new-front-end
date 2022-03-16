@@ -7,9 +7,11 @@ import { LANG } from "../../../../constants";
 import { formatTime } from "../../../../utils/formatTime";
 import api, { fetcher } from "../../../../models/api";
 import { useSession } from "../../../../stores/session";
+import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+useTitle(`Submission - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
 const {
   data: submission,

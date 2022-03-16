@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { useTitle } from "@vueuse/core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+useTitle(`New Problem - ${route.params.name} | Normal OJ`);
 const newProblem = reactive<Problem>({
   problemName: "",
   description: {

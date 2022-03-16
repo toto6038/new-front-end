@@ -7,9 +7,11 @@ import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
 import { LANG, SUBMISSION_STATUS } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
+import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
 const session = useSession();
+useTitle(`Submissions - ${route.params.name} | Normal OJ`);
 
 const page = ref(1);
 const searchUsername = ref("");

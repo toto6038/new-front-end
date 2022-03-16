@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { reactive } from "vue";
+import { useTitle } from "@vueuse/core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+useTitle(`New Homework - ${route.params.name} | Normal OJ`);
 const newHomework = reactive<Homework>({
   end: dayjs().add(7, "day").unix(),
   markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,

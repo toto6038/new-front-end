@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { reactive } from "vue";
+import { useTitle } from "@vueuse/core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+useTitle(`Edit Announcement - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const post = {
   annId: "5fe6c3331117bf688d986cab",
   createTime: 1608958771,

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { useTitle } from "@vueuse/core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+useTitle(`Edit Problem - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const problem: Problem = {
   allowedLanguage: 3,
   // courses: ["Algorithm2021"],

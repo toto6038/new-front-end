@@ -2,7 +2,9 @@
 import { useRouter } from "vue-router";
 import api from "../models/api";
 import { useSession } from "../stores/session";
+import { useTitle } from "@vueuse/core";
 
+useTitle("Profile | Normal OJ");
 const router = useRouter();
 const session = useSession();
 const ROLE = ["Admin", "Teacher", "Student"];
