@@ -7,6 +7,7 @@ import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
 import { LANG, SUBMISSION_STATUS } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
+import { timeFromNow } from "../../../utils/timeFromNow";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
@@ -54,6 +55,10 @@ const problemSelections = computed(() => {
     text: `${problemId} - ${problemName}`,
   }));
 });
+const problemNameTable = computed(() => {
+  if (!problems.value) return {};
+  return Object.fromEntries(problems.value.map((p: any) => [p.problemId.toString(), p.problemName]));
+});
 const submissionStatus = SUBMISSION_STATUS.map((status, index) => ({
   text: status,
   value: index - 1,
@@ -83,69 +88,79 @@ const languages = [
           />
         </div>
 
-        <div class="mt-4 overflow-x-auto">
-          <div class="mb-4 flex items-end gap-x-4">
-            <select v-model="filter.problemId" class="select-bordered select w-full flex-1">
-              <option :value="null" selected>Problem</option>
-              <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
-            </select>
+        <div class="my-2" />
+        <div class="mb-4 flex items-end gap-x-4">
+          <select v-model="filter.problemId" class="select-bordered select w-full flex-1">
+            <option :value="null" selected>Problem</option>
+            <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
+          </select>
 
-            <select v-model="filter.status" class="select-bordered select w-full flex-1">
-              <option :value="null" selected>Status</option>
-              <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
-            </select>
+          <select v-model="filter.status" class="select-bordered select w-full flex-1">
+            <option :value="null" selected>Status</option>
+            <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
+          </select>
 
-            <select v-model="filter.language" class="select-bordered select w-full flex-1">
-              <option :value="null" selected>Language</option>
-              <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
-            </select>
-          </div>
-
-          <skeleton-table v-if="isLoading" :col="9" :row="5" />
-          <div v-else-if="error" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>Oops! Something went wrong when loading submissions.</span>
-            </div>
-          </div>
-          <table v-else class="table w-full">
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>pid</th>
-                <th>user</th>
-                <th>result</th>
-                <th>score</th>
-                <th>run time</th>
-                <th>memory</th>
-                <th>lang</th>
-                <th>time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="submission in submissions"
-                :key="submission.submissionId"
-                class="hover cursor-pointer"
-                @click="$router.push(`/course/${$route.params.name}/submission/${submission.submissionId}`)"
-              >
-                <td>{{ submission.submissionId.slice(-6) }}</td>
-                <td>{{ submission.problemId }}</td>
-                <td>
-                  <div class="tooltip" :data-tip="submission.user.displayedName">
-                    <span>{{ submission.user.username }}</span>
-                  </div>
-                </td>
-                <td><judge-status :status="submission.status" /></td>
-                <td>{{ submission.score }}</td>
-                <td>{{ submission.runTime }} ms</td>
-                <td>{{ submission.memoryUsage }} KB</td>
-                <td>{{ LANG[submission.languageType] }}</td>
-                <td>{{ formatTime(submission.timestamp) }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <select v-model="filter.language" class="select-bordered select w-full flex-1">
+            <option :value="null" selected>Language</option>
+            <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
+          </select>
         </div>
+
+        <skeleton-table v-if="isLoading" :col="9" :row="5" />
+        <div v-else-if="error" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when loading submissions.</span>
+          </div>
+        </div>
+        <table v-else class="table w-full">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>pid</th>
+              <th>user</th>
+              <th>result</th>
+              <th>score</th>
+              <th>run time</th>
+              <th>memory</th>
+              <th>lang</th>
+              <th>time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="submission in submissions"
+              :key="submission.submissionId"
+              class="hover cursor-pointer"
+              @click="$router.push(`/course/${$route.params.name}/submission/${submission.submissionId}`)"
+            >
+              <td>{{ submission.submissionId.slice(-6) }}</td>
+              <td>
+                <div
+                  class="tooltip tooltip-bottom"
+                  :data-tip="problemNameTable[`${submission.problemId}`] || 'loading...'"
+                >
+                  <span>{{ submission.problemId }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="tooltip tooltip-bottom" :data-tip="submission.user.displayedName">
+                  <span>{{ submission.user.username }}</span>
+                </div>
+              </td>
+              <td><judge-status :status="submission.status" /></td>
+              <td>{{ submission.score }}</td>
+              <td>{{ submission.runTime }} ms</td>
+              <td>{{ submission.memoryUsage }} KB</td>
+              <td>{{ LANG[submission.languageType] }}</td>
+              <td>
+                <div class="tooltip tooltip-bottom" :data-tip="formatTime(submission.timestamp)">
+                  <span>{{ timeFromNow(submission.timestamp) }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="card-actions mt-5">
           <pagination-buttons v-model="page" :maxPage="maxPage" />

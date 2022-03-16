@@ -29,43 +29,42 @@ const members = computed(() =>
       <div class="card-body">
         <div class="card-title">Members</div>
 
-        <div class="mt-4 overflow-x-auto">
-          <div class="mb-4">
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Sort By</span>
-              </label>
-              <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
-                <option value="username">Username</option>
-                <option value="displayedName">Display Name</option>
-                <option value="role">Role</option>
-              </select>
-            </div>
+        <div class="my-2" />
+        <div class="mb-4">
+          <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Sort By</span>
+            </label>
+            <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
+              <option value="username">Username</option>
+              <option value="displayedName">Display Name</option>
+              <option value="role">Role</option>
+            </select>
           </div>
-          <skeleton-table v-if="isLoading" :col="3" :row="5" />
-          <div v-else-if="error" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>Oops! Something went wrong when loading members.</span>
-            </div>
-          </div>
-          <table v-else class="table w-full">
-            <thead>
-              <tr>
-                <th>username</th>
-                <th>display name</th>
-                <th>role</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="{ username, displayedName, role } in members" :key="username" class="hover">
-                <td>{{ username }}</td>
-                <td>{{ displayedName }}</td>
-                <td>{{ ROLE[role] }}</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
+        <skeleton-table v-if="isLoading" :col="3" :row="5" />
+        <div v-else-if="error" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when loading members.</span>
+          </div>
+        </div>
+        <table v-else class="table w-full">
+          <thead>
+            <tr>
+              <th>username</th>
+              <th>display name</th>
+              <th>role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="{ username, displayedName, role } in members" :key="username" class="hover">
+              <td>{{ username }}</td>
+              <td>{{ displayedName }}</td>
+              <td>{{ ROLE[role] }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
