@@ -53,7 +53,7 @@ const maxPage = computed(() => {
               <th>Tags</th>
               <th>Quota</th>
               <th>Score</th>
-              <th v-if="session.isAdmin"></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -73,12 +73,23 @@ const maxPage = computed(() => {
               </td>
               <td>{{ quota }}</td>
               <td>{{ score }}</td>
-              <td v-if="session.isAdmin">
-                <div
-                  class="btn btn-sm"
-                  @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/edit`)"
-                >
-                  <i-uil-edit class="mr-1" /> Edit
+              <td>
+                <div class="tooltip" data-tip="Stats">
+                  <div
+                    class="btn btn-ghost btn-sm btn-circle mr-3"
+                    @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/stats`)"
+                  >
+                    <i-uil-chart-line class="lg:h-5 lg:w-5" />
+                  </div>
+                </div>
+                <div class="tooltip" data-tip="Edit">
+                  <div
+                    v-if="session.isAdmin"
+                    class="btn btn-ghost btn-sm btn-circle"
+                    @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/edit`)"
+                  >
+                    <i-uil-edit class="lg:h-5 lg:w-5" />
+                  </div>
                 </div>
               </td>
             </tr>

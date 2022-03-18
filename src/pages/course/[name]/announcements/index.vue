@@ -53,11 +53,13 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
               <td>{{ creator.displayedName }}</td>
               <td>{{ formatTime(createTime) }}</td>
               <td v-if="session.isAdmin">
-                <div
-                  class="btn btn-sm"
-                  @click.stop="$router.push(`/course/${$route.params.name}/announcements/${annId}/edit`)"
-                >
-                  <i-uil-edit class="mr-1" /> Edit
+                <div class="tooltip" data-tip="Edit">
+                  <div
+                    class="btn btn-ghost btn-sm btn-circle"
+                    @click.stop="$router.push(`/course/${$route.params.name}/announcements/${annId}/edit`)"
+                  >
+                    <i-uil-edit class="lg:h-5 lg:w-5" />
+                  </div>
                 </div>
               </td>
             </tr>

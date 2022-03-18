@@ -111,11 +111,13 @@ const state = computed(() => {
                   }}
                 </td>
                 <td>
-                  <div
-                    class="btn btn-ghost btn-xs"
-                    @click="$router.push(`/course/${$route.params.name}/problem/${pid}/stats`)"
-                  >
-                    <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" />
+                  <div class="tooltip" data-tip="Stats">
+                    <div
+                      class="btn btn-ghost btn-xs"
+                      @click="$router.push(`/course/${$route.params.name}/problem/${pid}/stats`)"
+                    >
+                      <i-uil-chart-line class="lg:h-5 lg:w-5" />
+                    </div>
                   </div>
                 </td>
               </tr>
