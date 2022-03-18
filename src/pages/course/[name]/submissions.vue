@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { useRoute } from "vue-router";
-import { computed, reactive, ref, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { computed, reactive, ref, watch, watchEffect } from "vue";
 import queryString from "query-string";
 import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
@@ -11,35 +11,53 @@ import { timeFromNow } from "../../../utils/timeFromNow";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+const router = useRouter();
 const session = useSession();
 useTitle(`Submissions - ${route.params.name} | Normal OJ`);
-
-const page = ref(1);
+const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+const page = ref(
+  (() => {
+    const p = Number(route.query.page);
+    return isNaN(p) || p < 1 ? 1 : p;
+  })(),
+);
 const searchUsername = ref("");
 const filter = reactive<UserDefinedSubmissionQuery>({
-  problemId: null,
-  status: null,
-  language: null,
-  username: null,
+  problemId: !isNaN(Number(route.query.problemId)) ? Number(route.query.problemId) : null,
+  status: !isNaN(Number(route.query.status)) ? Number(route.query.status) : null,
+  language: !isNaN(Number(route.query.language)) ? Number(route.query.language) : null,
+  username: (route.query.username as string) ?? null,
 });
-const getSubmissionsUrl = computed(() => {
-  const query: SubmissionQuery = {
-    offset: (page.value - 1) * 10,
-    count: 10,
-    course: route.params.name as string,
+watch(filter, () => {
+  page.value = 1;
+});
+const routeQuery = computed(() => {
+  const query = {
+    page: page.value,
   };
   for (const key in filter) {
     //@ts-ignore FIXME
-    if (filter[key] !== null) {
+    if (filter[key] != null) {
       //@ts-ignore FIXME
       query[key] = filter[key];
     }
   }
+  return query;
+});
+watchEffect(() => {
+  router.replace({ query: { ...routeQuery.value } });
+});
+const getSubmissionsUrl = computed(() => {
+  const query = {
+    ...routeQuery.value,
+    offset: (page.value - 1) * 10,
+    count: 10,
+    course: route.params.name as string,
+  };
   const qs = queryString.stringify(query);
   return `/submission?${qs}`;
 });
 const { execute, data, error, isLoading } = useAxios(fetcher);
-const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 watchEffect(() => {
   execute(getSubmissionsUrl.value);
 });
@@ -104,6 +122,10 @@ const languages = [
             <option :value="null" selected>Language</option>
             <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
           </select>
+
+          <div v-show="filter.problemId || filter.status || filter.language" class="btn">
+            <i-uil-filter-slash class="mr-1" /> Clear
+          </div>
         </div>
 
         <skeleton-table v-if="isLoading" :col="9" :row="5" />

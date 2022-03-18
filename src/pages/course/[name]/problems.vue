@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { useRoute } from "vue-router";
-import { computed, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { computed, ref, watchEffect } from "vue";
 import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
 import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+const router = useRouter();
 useTitle(`Problems - ${route.params.name} | Normal OJ`);
 const {
   data: problems,
@@ -15,7 +16,15 @@ const {
   isLoading,
 } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 
-const page = ref(1);
+const page = ref(!isNaN(Number(route.query.page)) ? Number(route.query.page) : 1);
+watchEffect(() => {
+  if (problems.value != null && (page.value < 1 || page >= problems.value.length)) {
+    page.value = 1;
+  }
+});
+watchEffect(() => {
+  router.replace({ query: { page: page.value } });
+});
 const maxPage = computed(() => {
   return problems.value ? Math.ceil(problems.value.length / 10) : 1;
 });

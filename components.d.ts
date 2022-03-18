@@ -22,6 +22,7 @@ declare module 'vue' {
     IUilEdit: typeof import('~icons/uil/edit')['default']
     IUilFacebook: typeof import('~icons/uil/facebook')['default']
     IUilFileUploadAlt: typeof import('~icons/uil/file-upload-alt')['default']
+    IUilFilterSlash: typeof import('~icons/uil/filter-slash')['default']
     IUilGithub: typeof import('~icons/uil/github')['default']
     IUilHome: typeof import('~icons/uil/home')['default']
     IUilLeftArrowToLeft: typeof import('~icons/uil/left-arrow-to-left')['default']

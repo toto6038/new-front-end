@@ -1,14 +1,27 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, ref, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { fetcher } from "../../../models/api";
 import { ROLE } from "../../../constants";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`Members - ${route.params.name} | Normal OJ`);
-const sortBy = ref<"username" | "displayedName" | "role">("username");
+enum Columns {
+  USERNAME = "username",
+  DISPLAYED_NAME = "displayedName",
+  ROLE = "role",
+}
+const sortBy = ref<Columns>(
+  Object.values(Columns).includes(route.query.sort as Columns)
+    ? (route.query.sort as Columns)
+    : Columns.USERNAME,
+);
+watchEffect(() => {
+  router.replace({ query: { sort: sortBy.value || Columns.USERNAME } });
+});
 const { data, error, isLoading } = useAxios(`/course/${route.params.name}`, fetcher);
 const members = computed(() =>
   [data.value.teacher, ...data.value?.students, ...data.value?.TAs].sort((a, b) => {
@@ -29,16 +42,15 @@ const members = computed(() =>
       <div class="card-body">
         <div class="card-title">Members</div>
 
-        <div class="my-2" />
         <div class="mb-4">
           <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text">Sort By</span>
             </label>
             <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
-              <option value="username">Username</option>
-              <option value="displayedName">Display Name</option>
-              <option value="role">Role</option>
+              <option :value="Columns.USERNAME">Username</option>
+              <option :value="Columns.DISPLAYED_NAME">Display Name</option>
+              <option :value="Columns.ROLE">Role</option>
             </select>
           </div>
         </div>
