@@ -38,13 +38,13 @@ interface SubmissionQuery {
   course?: string;
   problemId?: number;
   status?: number;
-  language?: number;
+  languageType?: number;
   username?: string;
 }
 
 interface UserDefinedSubmissionQuery {
   problemId?: number | null;
   status?: number | null;
-  language?: number | null;
+  languageType?: number | null;
   username?: string | null;
 }

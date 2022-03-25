@@ -15,58 +15,62 @@ const router = useRouter();
 const session = useSession();
 useTitle(`Submissions - ${route.params.name} | Normal OJ`);
 const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
-const page = ref(
-  (() => {
-    const p = Number(route.query.page);
-    return isNaN(p) || p < 1 ? 1 : p;
-  })(),
-);
-const searchUsername = ref("");
-const filter = reactive<UserDefinedSubmissionQuery>({
-  problemId: !isNaN(Number(route.query.problemId)) ? Number(route.query.problemId) : null,
-  status: !isNaN(Number(route.query.status)) ? Number(route.query.status) : null,
-  language: !isNaN(Number(route.query.language)) ? Number(route.query.language) : null,
-  username: (route.query.username as string) ?? null,
-});
-watch(filter, () => {
-  page.value = 1;
-});
-const routeQuery = computed(() => {
-  const query = {
-    page: page.value,
-  };
-  for (const key in filter) {
-    //@ts-ignore FIXME
-    if (filter[key] != null) {
-      //@ts-ignore FIXME
-      query[key] = filter[key];
+// url is the single source of truth
+// 1. grab query parameters from url, store into local states used by inputs
+// 2. when related states changed, replace url with new query parameters
+// 3. when url changed, fetch new data with new query parameters
+function toNumberOrNull(value: string): number | null {
+  const numericValue = Number(value);
+  return !isNaN(numericValue) ? numericValue : null;
+}
+const routeQuery = computed(() => ({
+  page: toNumberOrNull(route.query.page as string) || 1,
+  filter: {
+    problemId: toNumberOrNull(route.query.problemId as string),
+    status: toNumberOrNull(route.query.status as string),
+    languageType: toNumberOrNull(route.query.languageType as string),
+    username: (route.query.username as string) ?? null,
+  },
+}));
+const page = ref(routeQuery.value.page);
+const filter = ref<UserDefinedSubmissionQuery>({ ...routeQuery.value.filter });
+watchEffect(() => {
+  const query: any = { page: page.value };
+  let key: keyof UserDefinedSubmissionQuery;
+  for (key in filter.value) {
+    if (filter.value[key] != null) {
+      query[key] = filter.value[key];
     }
   }
-  return query;
-});
-watchEffect(() => {
-  router.replace({ query: { ...routeQuery.value } });
+  router.replace({ query });
 });
 const getSubmissionsUrl = computed(() => {
-  const query = {
-    ...routeQuery.value,
-    offset: (page.value - 1) * 10,
-    count: 10,
-    course: route.params.name as string,
-  };
-  const qs = queryString.stringify(query);
+  const qs = queryString.stringify(
+    {
+      ...routeQuery.value.filter,
+      offset: (page.value - 1) * 10,
+      count: 10,
+      course: route.params.name as string,
+    },
+    { skipNull: true },
+  );
   return `/submission?${qs}`;
 });
 const { execute, data, error, isLoading } = useAxios(fetcher);
-watchEffect(() => {
-  execute(getSubmissionsUrl.value);
-});
+watch(
+  getSubmissionsUrl,
+  (url) => {
+    execute(url);
+  },
+  { immediate: true },
+);
+const searchUsername = ref("");
 const submissions = computed(() => (data.value as any)?.submissions);
 const submissionCount = computed(() => (data.value as any)?.submissionCount);
 const maxPage = computed(() => {
   return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
 });
-const problemSelections = computed(() => {
+const problemIds = computed(() => {
   if (!problems.value) return [];
   return problems.value.map(({ problemId, problemName }: any) => ({
     value: problemId,
@@ -81,12 +85,18 @@ const submissionStatus = SUBMISSION_STATUS.map((status, index) => ({
   text: status,
   value: index - 1,
 }));
-const languages = [
+const languageTypes = [
   { text: "c", value: 0 },
   { text: "cpp", value: 1 },
   { text: "py3", value: 2 },
   { text: "Handwritten", value: 3 },
 ];
+function clearFilter() {
+  let key: keyof UserDefinedSubmissionQuery;
+  for (key in filter.value) {
+    filter.value[key] = null;
+  }
+}
 </script>
 
 <template>
@@ -110,7 +120,7 @@ const languages = [
         <div class="mb-4 flex items-end gap-x-4">
           <select v-model="filter.problemId" class="select-bordered select w-full flex-1">
             <option :value="null" selected>Problem</option>
-            <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
+            <option v-for="{ text, value } in problemIds" :value="value">{{ text }}</option>
           </select>
 
           <select v-model="filter.status" class="select-bordered select w-full flex-1">
@@ -118,12 +128,16 @@ const languages = [
             <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
           </select>
 
-          <select v-model="filter.language" class="select-bordered select w-full flex-1">
+          <select v-model="filter.languageType" class="select-bordered select w-full flex-1">
             <option :value="null" selected>Language</option>
-            <option v-for="{ text, value } in languages" :value="value">{{ text }}</option>
+            <option v-for="{ text, value } in languageTypes" :value="value">{{ text }}</option>
           </select>
 
-          <div v-show="filter.problemId || filter.status || filter.language" class="btn">
+          <div
+            v-show="filter.problemId || filter.status || filter.languageType"
+            class="btn"
+            @click="clearFilter"
+          >
             <i-uil-filter-slash class="mr-1" /> Clear
           </div>
         </div>

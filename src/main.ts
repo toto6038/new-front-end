@@ -11,6 +11,7 @@ const app = createApp(App);
 
 Sentry.init({
   app,
+  environment: import.meta.env.MODE,
   dsn: "https://de0e8c6700ff429ba4122b05cc21d520@o876599.ingest.sentry.io/6271638",
   integrations: [
     new BrowserTracing({
