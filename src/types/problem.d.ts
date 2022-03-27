@@ -25,3 +25,14 @@ interface Problem {
   // courses: string[];
   // submitCount: number;
 }
+
+interface Stats {
+  statusCount: { [key: string]: number };
+  triedUserCount: number;
+  average: number;
+  std: number;
+  scoreDistribution: number[];
+  acUserRatio: number[];
+  top10RunTime: any[];
+  top10MemoryUsage: any[];
+}

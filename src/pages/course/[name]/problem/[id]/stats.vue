@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+import { computed } from "vue";
 import { use } from "echarts/core";
 import VChart from "vue-echarts";
-import { TooltipComponent, LegendComponent } from "echarts/components";
-import { PieChart } from "echarts/charts";
+import { TooltipComponent, LegendComponent, GridComponent } from "echarts/components";
+import { PieChart, BarChart } from "echarts/charts";
 import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { formatTime } from "../../../../../utils/formatTime";
@@ -11,76 +11,47 @@ import { useTheme } from "../../../../../stores/theme";
 import { SUBMISSION_COLOR, SUBMISSION_STATUS } from "../../../../../constants";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
-import queryString from "query-string";
 import { fetcher } from "../../../../../models/api";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();
-useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
-const { data, error, isLoading } = useAxios(
-  `/submission?${queryString.stringify({
-    offset: 0,
-    count: -1,
-    course: route.params.name as string,
-    problemId: Number(route.params.id),
-  })}`,
-  fetcher,
-);
-const submissions = computed<Submission[]>(() => (data.value as any)?.submissions || []);
-
-use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]);
-
 const theme = useTheme();
-const resultCounts = ref(
-  SUBMISSION_STATUS.map((status, index) => ({
+useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
+use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout, GridComponent, BarChart]);
+
+const { data: stats, error, isLoading } = useAxios<Stats>(`/problem/${route.params.id}/stats`, fetcher);
+const resultCounts = computed(() => {
+  if (!stats.value) return [];
+  return SUBMISSION_STATUS.map((status, index) => ({
     name: status,
-    value: 0,
+    // @ts-ignore
+    value: stats.value.statusCount[String(index - 1)],
     itemStyle: { color: SUBMISSION_COLOR[index] },
-  })),
-);
-const numOfUsersTried = ref<number>(-1);
-const numOfACUsers = ref<number>(-1);
-const avgScore = ref<number>(-1);
-const top10RunTime = ref<Submission[]>([]);
-const top10MemoryUsage = ref<Submission[]>([]);
-
-watchEffect(() => {
-  const ACSubmissions: Submission[] = [];
-  const triedUsernames: string[] = [];
-  let scoreSum: number = 0;
-  resultCounts.value = resultCounts.value.map((v) => ({ ...v, value: 0 }));
-  for (const submission of submissions.value) {
-    if (submission.status === 0) {
-      ACSubmissions.push(submission);
-    } else {
-      triedUsernames.push(submission.user.username);
-    }
-    resultCounts.value[submission.status + 1].value++;
-    scoreSum += submission.score;
-  }
-  numOfUsersTried.value = new Set(triedUsernames).size;
-  ACSubmissions.forEach((v) => {
-    if (v.user.username === "91099208Y") {
-      console.log(v);
-    }
-  });
-  const ACUsernames: string[] = ACSubmissions.map((v) => v.user.username);
-  numOfACUsers.value = new Set(ACUsernames).size;
-  avgScore.value = scoreSum / submissions.value.length;
-  top10RunTime.value = ACSubmissions.sort((a, b) => a.runTime - b.runTime).slice(0, 10);
-  top10MemoryUsage.value = ACSubmissions.sort((a, b) => a.memoryUsage - b.memoryUsage).slice(0, 10);
+  }));
 });
+const triedUserCount = computed(() => stats.value?.triedUserCount || null);
+const acUserRatio = computed(() => stats.value?.acUserRatio || [null, null]);
+const submissionCount = computed(() =>
+  stats.value ? Object.values(stats.value?.statusCount).reduce((a, b) => a + b, 0) : null,
+);
+const avgScore = computed(() => (stats.value ? stats.value.average : null));
+const stdScore = computed(() => (stats.value ? stats.value.std : null));
+const scoreDistribution = computed(() => {
+  if (!stats.value) return {};
+  const counter: { [key: string]: number } = {};
+  stats.value.scoreDistribution.forEach(
+    (score) => (counter[String(score)] = (counter[String(score)] || 0) + 1),
+  );
+  return counter;
+});
+const top10RunTime = computed<Submission[]>(() => stats.value?.top10RunTime || []);
+const top10MemoryUsage = computed<Submission[]>(() => stats.value?.top10MemoryUsage || []);
 
-const option = computed(() => ({
+const pieOption = computed(() => ({
   backgroundColor: "transparent",
   tooltip: {
     trigger: "item",
     formatter: "{a} <br/>{b} : {c} ({d}%)",
-  },
-  legend: {
-    orient: "vertical",
-    left: "0",
-    data: resultCounts.value.filter((item) => item.value > 0).map((item) => item.name),
   },
   series: [
     {
@@ -91,7 +62,27 @@ const option = computed(() => ({
     },
   ],
   textStyle: {
-    fontSize: 14,
+    fontSize: 13,
+  },
+}));
+const barOption = computed(() => ({
+  backgroundColor: "transparent",
+  xAxis: {
+    type: "category",
+    data: Object.keys(scoreDistribution.value),
+  },
+  yAxis: {
+    type: "value",
+    minInterval: 1,
+  },
+  series: [
+    {
+      data: Object.values(scoreDistribution.value),
+      type: "bar",
+    },
+  ],
+  textStyle: {
+    fontSize: 13,
   },
 }));
 </script>
@@ -115,24 +106,49 @@ const option = computed(() => ({
           <div class="stats stats-vertical lg:stats-horizontal">
             <div class="stat place-items-center">
               <div class="stat-title">Num of users tried</div>
-              <div class="stat-value">{{ numOfUsersTried }}</div>
+              <div class="stat-value">
+                <span v-if="!triedUserCount">-</span>
+                <template v-else>
+                  <span>{{ triedUserCount }}</span>
+                  <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
+                </template>
+              </div>
             </div>
             <div class="stat place-items-center">
               <div class="stat-title">Num of AC users</div>
-              <div class="stat-value">{{ numOfACUsers }}</div>
+              <div class="stat-value">
+                <span v-if="!acUserRatio[0]">-</span>
+                <template v-else>
+                  <span>{{ acUserRatio[0] }}</span>
+                  <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
+                </template>
+              </div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">AC Submission Ratio</div>
+              <div class="stat-value">
+                <span v-if="!submissionCount || !stats">-</span>
+                <template v-else>
+                  <span>{{ stats.statusCount[0] }}</span>
+                  <span class="text-sm font-normal">{{ ` / ${submissionCount}` }}</span>
+                </template>
+              </div>
             </div>
             <div class="stat place-items-center">
               <div class="stat-title">Average Score</div>
-              <div class="stat-value">{{ avgScore.toFixed(2) }}</div>
+              <div class="stat-value">{{ avgScore?.toFixed(2) || "-" }}</div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">Standard Deviation</div>
+              <div class="stat-value">{{ stdScore?.toFixed(2) || "-" }}</div>
             </div>
           </div>
 
-          <div class="mt-10 flex justify-center">
-            <v-chart
-              class="mx-auto h-[400px] w-[600px] lg:w-[1000px]"
-              :theme="theme.isDark ? 'dark' : ''"
-              :option="option"
-            />
+          <div class="my-4" />
+
+          <div class="flex">
+            <v-chart class="mx-auto h-[400px]" :theme="theme.isDark ? 'dark' : ''" :option="pieOption" />
+            <v-chart class="mx-auto h-[400px]" :theme="theme.isDark ? 'dark' : ''" :option="barOption" />
           </div>
         </template>
 

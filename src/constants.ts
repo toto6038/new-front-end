@@ -17,6 +17,7 @@ export const SUBMISSION_STATUS = [
   "Judge Error",
   "Output Limit Exceed",
 ];
+export const SUBMISSION_ALIAS = ["PE", "AC", "WA", "CE", "TLE", "MLE", "RE", "JE", "OLE"];
 export const SUBMISSION_COLOR = [
   "#9e675a",
   "#00C853",
