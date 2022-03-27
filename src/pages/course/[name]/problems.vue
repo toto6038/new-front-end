@@ -61,13 +61,12 @@ const maxPage = computed(() => {
               <th>Name</th>
               <th>Tags</th>
               <th>Quota</th>
-              <th>Score</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="{ problemId, problemName, tags, quota, score } in problems.slice(
+              v-for="{ problemId, problemName, tags, quota, submitCount } in problems.slice(
                 (page - 1) * 10,
                 page * 10,
               )"
@@ -80,8 +79,7 @@ const maxPage = computed(() => {
               <td>
                 <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
               </td>
-              <td>{{ quota }}</td>
-              <td>{{ score }}</td>
+              <td>{{ quota - submitCount }} / {{ quota }}</td>
               <td>
                 <div class="tooltip" data-tip="Stats">
                   <div

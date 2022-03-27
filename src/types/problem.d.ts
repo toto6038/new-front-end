@@ -23,7 +23,8 @@ interface Problem {
   // owner: string;
   // defaultCode: string;
   // courses: string[];
-  // submitCount: number;
+  submitCount: number;
+  highScore: number;
 }
 
 interface Stats {

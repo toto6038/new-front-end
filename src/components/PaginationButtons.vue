@@ -40,31 +40,25 @@ function navigateTo(page: number) {
 
 <template>
   <div class="btn-group">
-    <button
-      :class="['btn', modelValue === 1 ? 'btn-disabled' : 'btn-outline']"
-      @click="navigateTo(modelValue - 1)"
-    >
+    <button :class="['btn', { 'btn-disabled': modelValue === 1 }]" @click="navigateTo(modelValue - 1)">
       «
     </button>
     <template v-if="leftTruncated">
-      <button class="btn-outline btn" @click="navigateTo(1)">1</button>
+      <button class="btn" @click="navigateTo(1)">1</button>
       <button class="btn-disabled btn">...</button>
     </template>
 
     <template v-for="p in pages">
-      <button :class="['btn-outline btn', modelValue === p && 'bg-blue-400']" @click="navigateTo(p)">
+      <button :class="['btn', modelValue === p && 'btn-info']" @click="navigateTo(p)">
         {{ p }}
       </button>
     </template>
 
     <template v-if="rightTruncated">
       <button class="btn-disabled btn">...</button>
-      <button class="btn-outline btn" @click="navigateTo(maxPage)">{{ maxPage }}</button>
+      <button class="btn" @click="navigateTo(maxPage)">{{ maxPage }}</button>
     </template>
-    <button
-      :class="['btn', modelValue === maxPage ? 'btn-disabled' : 'btn-outline']"
-      @click="navigateTo(modelValue + 1)"
-    >
+    <button :class="['btn', { 'btn-disabled': modelValue === maxPage }]" @click="navigateTo(modelValue + 1)">
       »
     </button>
   </div>

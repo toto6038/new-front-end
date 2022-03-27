@@ -32,7 +32,7 @@ const session = useSession();
   <ul
     :class="['menu w-96 flex-col overflow-y-auto bg-primary py-4 text-white', isMini ? 'lg:w-14' : 'lg:w-28']"
   >
-    <div class="my-2 flex justify-center">
+    <div class="my-2 flex cursor-pointer justify-center" @click="$router.push('/')">
       <img src="../assets/logo.svg" alt="NOJ Logo" :class="['mb-2', isMini ? 'w-10' : 'w-14']" />
     </div>
     <li>

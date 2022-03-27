@@ -32,19 +32,31 @@ defineProps({
       </div>
 
       <template v-else>
-        <div class="flex flex-wrap items-start justify-between">
+        <div class="flex flex-wrap items-start justify-between gap-y-4">
           <div class="flex flex-col gap-4">
             <div class="card-title md:text-2xl lg:text-3xl">
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
             </div>
-            <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+            <div class="flex">
+              <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+            </div>
           </div>
 
-          <div class="flex items-center">
+          <div class="flex flex-wrap items-center gap-y-4">
             <div class="stats">
-              <div class="stat py-0">
+              <div class="stat place-items-center py-0">
                 <div class="stat-title">Quota</div>
-                <div class="stat-value">{{ problem.quota }}</div>
+                <div class="stat-value">
+                  <span>{{ problem.quota - problem.submitCount }}</span>
+                  <span class="text-sm font-normal">{{ ` / ${problem.quota}` }}</span>
+                </div>
+              </div>
+              <div class="stat place-items-center py-0">
+                <div class="stat-title">Score</div>
+                <div class="stat-value">
+                  <span>{{ problem.highScore }}</span>
+                  <span class="text-sm font-normal">{{ " / 100" }}</span>
+                </div>
               </div>
             </div>
             <div
