@@ -1,4 +1,4 @@
-interface Problem {
+interface EditableProblem {
   problemId?: number;
   problemName: string;
   description: {
@@ -20,6 +20,9 @@ interface Problem {
     timeLimit: number;
     taskScore: number;
   }[];
+}
+
+interface Problem extends EditableProblem {
   // owner: string;
   // defaultCode: string;
   // courses: string[];
