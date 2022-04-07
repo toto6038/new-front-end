@@ -17,6 +17,7 @@ declare module 'vue' {
     IUilBars: typeof import('~icons/uil/bars')['default']
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilChartLine: typeof import('~icons/uil/chart-line')['default']
+    IUilCheckCircle: typeof import('~icons/uil/check-circle')['default']
     IUilEdit: typeof import('~icons/uil/edit')['default']
     IUilFacebook: typeof import('~icons/uil/facebook')['default']
     IUilFileUploadAlt: typeof import('~icons/uil/file-upload-alt')['default']

@@ -16,6 +16,8 @@ const Auth = {
   getSession: () => fetcher.get<any, any>("/auth/me"),
   login: (body: { username: string; password: string }) => fetcher.post<any, any>("/auth/session", body),
   logout: () => fetcher.get<any, any>("/auth/session"),
+  changePassword: (body: { oldPassword: string; newPassword: string }) =>
+    fetcher.post("/auth/change-password", body),
 };
 
 const Submission = {
