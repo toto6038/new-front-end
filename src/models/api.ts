@@ -29,7 +29,13 @@ const Submission = {
   rejudge: (id: string) => fetcher.get<any, any>(`/submission/${id}/rejudge`),
 };
 
+const Copycat = {
+  detect: (body: { course: string; problemId: number; studentNicknames: { [k: string]: string } }) =>
+    fetcher.post("/copycat", body),
+};
+
 export default {
   Auth,
   Submission,
+  Copycat,
 };

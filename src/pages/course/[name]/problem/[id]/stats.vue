@@ -79,6 +79,10 @@ const barOption = computed(() => ({
     {
       data: Object.values(scoreDistribution.value),
       type: "bar",
+      label: {
+        show: true,
+        position: "outside",
+      },
     },
   ],
   textStyle: {
@@ -167,7 +171,7 @@ const barOption = computed(() => ({
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(subm, index) in top10RunTime">
+            <tr v-for="(subm, index) in top10RunTime" :key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ subm.user.username }}</td>
               <td>{{ subm.runTime }} ms</td>
@@ -191,7 +195,7 @@ const barOption = computed(() => ({
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(subm, index) in top10MemoryUsage">
+            <tr v-for="(subm, index) in top10MemoryUsage" :key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ subm.user.username }}</td>
               <td>{{ subm.memoryUsage }} KB</td>
