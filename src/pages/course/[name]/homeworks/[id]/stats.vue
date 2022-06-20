@@ -116,6 +116,31 @@ const barOption = computed(() => ({
     fontSize: 13,
   },
 }));
+function exportCSV() {
+  if (!pids.value) return;
+  const csvHeader: string = ["username", "display name", ...pids.value.map(String), "avg", "sum"].join(",");
+  const csvBody: string = sortedScoreboard.value
+    .map((row: ScoreboardRow): string =>
+      [
+        row.user.username,
+        row.user.displayedName,
+        // @ts-ignore idk
+        ...pids.value.map((pid) => (row[`${pid}`] ? row[`${pid}`].max : 0)),
+        row.avg,
+        row.sum,
+      ].join(","),
+    )
+    .join("\n");
+  const csvData = new Blob([`${csvHeader}\n${csvBody}`], {
+    type: "text/csv;charset=utf-8",
+  });
+  const csvURL = URL.createObjectURL(csvData);
+  const link = document.createElement("a");
+  link.href = csvURL;
+  link.download = `${route.params.name}-${hw.value.name}-scoreboard.csv`;
+  document.body.appendChild(link);
+  link.click();
+}
 </script>
 
 <template>
@@ -164,6 +189,7 @@ const barOption = computed(() => ({
             />
           </div>
           <div :class="['btn', isLoading && 'loading']" @click="() => execute(getScoreboardUrl)">Fetch</div>
+          <div class="btn" @click="() => exportCSV()">Export</div>
         </div>
         <div v-if="hwError || scoreboardError" class="alert alert-error shadow-lg">
           <div>
