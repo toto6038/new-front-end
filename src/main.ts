@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import { createI18n } from "vue-i18n";
+import { config as i18nConfig } from "./i18n";
 import App from "./App.vue";
 import router from "./router";
 import "./index.css";
@@ -8,6 +10,7 @@ import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
 const app = createApp(App);
+const i18n = createI18n(i18nConfig);
 
 Sentry.init({
   app,
@@ -25,4 +28,4 @@ Sentry.init({
   tracesSampleRate: 0.5,
 });
 
-app.use(createPinia()).use(router).mount("#app");
+app.use(i18n).use(createPinia()).use(router).mount("#app");

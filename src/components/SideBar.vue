@@ -5,6 +5,7 @@ import { useDark, useToggle } from "@vueuse/core";
 import { useSession } from "../stores/session";
 import { watchEffect } from "vue";
 import { useStorage } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 
 const isDark = useDark({
   selector: "html",
@@ -13,10 +14,21 @@ const isDark = useDark({
   valueLight: "light",
 });
 const toggleDark = useToggle(isDark);
+
 const isMini = useStorage("mini-sidebar", false);
+
 const theme = useTheme();
 watchEffect(() => {
   theme.setIsDark(isDark.value);
+});
+
+const { locale } = useI18n();
+const localeInStorate = useStorage("locale", locale);
+// initialize with the one in storage
+locale.value = localeInStorate.value;
+// if user change the value, update the storage
+watchEffect(() => {
+  localeInStorate.value = locale.value;
 });
 
 const route = useRoute();
@@ -58,7 +70,7 @@ const session = useSession();
 
     <li v-if="session.isAdmin">
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/admin') }" to="/admin">
-        <i-uil-wrench class="h-6 w-6" />
+        <i-uil-constructor class="h-6 w-6" />
         <span v-show="!isMini" class="text-sm">Admin</span>
       </side-bar-link>
     </li>
@@ -69,10 +81,14 @@ const session = useSession();
       </side-bar-link>
     </li>
     <li>
-      <label class="swap swap-rotate">
-        <input :value="isDark" type="checkbox" @input="() => toggleDark()" />
-        <i-uil-sun class="swap-on h-6 w-6" />
-        <i-uil-moon class="swap-off h-6 w-6" />
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/settings') }" to="/settings">
+        <i-uil-setting class="h-6 w-6" />
+      </side-bar-link>
+    </li>
+    <li>
+      <label class="btn btn-primary rounded-none p-2" @click="() => toggleDark()">
+        <i-uil-sun v-if="isDark" class="swap-on h-6 w-6" />
+        <i-uil-moon v-else class="swap-off h-6 w-6" />
       </label>
     </li>
     <li>
