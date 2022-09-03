@@ -3,6 +3,8 @@ import { createPinia } from "pinia";
 import App from "@/App.vue";
 import router from "@/router";
 import "@/index.css";
+import { createI18n } from "vue-i18n";
+import { config as i18nConfig } from "./i18n";
 import "vue-prism-editor/dist/prismeditor.min.css";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/atom-one-dark.css";
@@ -10,6 +12,7 @@ import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
 const app = createApp(App);
+const i18n = createI18n(i18nConfig);
 
 Sentry.init({
   app,
@@ -27,4 +30,4 @@ Sentry.init({
   tracesSampleRate: 0.5,
 });
 
-app.use(createPinia()).use(router).mount("#app");
+app.use(i18n).use(createPinia()).use(router).mount("#app");
