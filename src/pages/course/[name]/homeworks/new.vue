@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -22,6 +22,8 @@ const problems = [
 function update<K extends keyof Homework>(key: K, value: Homework[K]) {
   newHomework[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -37,9 +39,12 @@ function update<K extends keyof Homework>(key: K, value: Homework[K]) {
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <homework-card :homework="newHomework" preview />
+        <homework-card v-show="openPreview" :homework="newHomework" preview />
       </div>
     </div>
   </div>

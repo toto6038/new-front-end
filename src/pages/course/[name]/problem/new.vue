@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -26,6 +26,8 @@ const newProblem = reactive<EditableProblem>({
 function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
   newProblem[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -41,9 +43,14 @@ function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <problem-card :problem="newProblem" preview />
+        <problem-card v-show="openPreview" :problem="newProblem" preview />
+
+        <div class="mb-[50%]" />
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -20,6 +20,8 @@ const previewPostMockMeta = {
 function update<K extends keyof Post>(key: K, value: Post[K]) {
   newPost[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -35,9 +37,12 @@ function update<K extends keyof Post>(key: K, value: Post[K]) {
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <post-card :post="{ ...previewPostMockMeta, ...newPost }" />
+        <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...newPost }" />
       </div>
     </div>
   </div>
