@@ -101,9 +101,12 @@ async function rejudge() {
               <tbody>
                 <tr>
                   <td>
-                    <a class="link" :href="`/course/${$route.params.name}/problem/${submission.problemId}`">
+                    <router-link
+                      :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
+                      class="link"
+                    >
                       {{ submission.problemId }}
-                    </a>
+                    </router-link>
                   </td>
                   <td>{{ submission.user.username }} ({{ submission.user.displayedName }})</td>
                   <td><judge-status :status="submission.status" /></td>
@@ -174,9 +177,13 @@ async function rejudge() {
             <div class="card-title md:text-xl lg:text-2xl">
               Source
               <!-- ts check bug in `copy(submission.code)` -->
-              <div v-if="isSupported" class="btn btn-info btn-xs ml-3" @click="copy(submission?.code || '')">
+              <button
+                v-if="isSupported"
+                class="btn btn-info btn-xs ml-3"
+                @click="copy(submission?.code || '')"
+              >
                 {{ copied ? "Copied!" : "Copy" }}
-              </div>
+              </button>
             </div>
             <div class="my-1" />
             <code-editor v-model="submission.code" readonly />

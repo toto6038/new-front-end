@@ -32,7 +32,7 @@ const openPreview = ref<boolean>(false);
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
           New Homework
-          <div class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</div>
+          <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
         </div>
 
         <homework-form :value="newHomework" :problems="problems" @update="update" />

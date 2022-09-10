@@ -37,13 +37,13 @@ const maxPage = computed(() => {
         <div class="card-title justify-between">
           Problems
 
-          <div
+          <router-link
             v-if="session.isAdmin"
             class="btn btn-success"
-            @click="$router.push(`/course/${$route.params.name}/problem/new`)"
+            :to="`/course/${$route.params.name}/problem/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
-          </div>
+          </router-link>
         </div>
 
         <div class="my-2" />
@@ -71,32 +71,37 @@ const maxPage = computed(() => {
                 page * 10,
               )"
               :key="problemId"
-              class="hover cursor-pointer"
-              @click="$router.push(`/course/${$route.params.name}/problem/${problemId}`)"
+              class="hover"
             >
-              <td>{{ problemId }}</td>
-              <td>{{ problemName }}</td>
+              <td>
+                <router-link :to="`/course/${$route.params.name}/problem/${problemId}`" class="link">
+                  {{ problemId }}
+                </router-link>
+              </td>
+              <td>
+                {{ problemName }}
+              </td>
               <td>
                 <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
               </td>
               <td>{{ quota - submitCount }} / {{ quota }}</td>
               <td>
                 <div class="tooltip" data-tip="Stats">
-                  <div
+                  <router-link
                     class="btn btn-ghost btn-sm btn-circle mr-3"
-                    @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/stats`)"
+                    :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                   >
                     <i-uil-chart-line class="lg:h-5 lg:w-5" />
-                  </div>
+                  </router-link>
                 </div>
                 <div class="tooltip" data-tip="Edit">
-                  <div
+                  <router-link
                     v-if="session.isAdmin"
                     class="btn btn-ghost btn-sm btn-circle"
-                    @click.stop="$router.push(`/course/${$route.params.name}/problem/${problemId}/edit`)"
+                    :to="`/course/${$route.params.name}/problem/${problemId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />
-                  </div>
+                  </router-link>
                 </div>
               </td>
             </tr>

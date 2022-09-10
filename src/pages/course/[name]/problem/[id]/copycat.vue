@@ -45,7 +45,7 @@ async function detect() {
         <div v-if="!isReportGenerated">No report.</div>
         <div v-else>Report generating...</div>
 
-        <div class="btn" @click="detect"><i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Detect</div>
+        <button class="btn" @click="detect"><i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Detect</button>
 
         <div v-if="data" v-html="data.cpp_report" />
       </div>

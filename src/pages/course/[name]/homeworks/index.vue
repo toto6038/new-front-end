@@ -38,13 +38,13 @@ function getProblemMeta(ids: number[]): {
       <div class="card-body">
         <div class="card-title mb-4 justify-between">
           Homeworks
-          <div
+          <router-link
             v-if="session.isAdmin"
             class="btn btn-success"
-            @click="$router.push(`/course/${$route.params.name}/homeworks/new`)"
+            :to="`/course/${$route.params.name}/homeworks/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
-          </div>
+          </router-link>
         </div>
         <skeleton-card v-if="isLoading" />
         <div v-else-if="error" class="alert alert-error shadow-lg">

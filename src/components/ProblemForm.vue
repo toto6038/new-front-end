@@ -256,9 +256,9 @@ watchEffect(() => {
         <template v-else>
           <div class="flex">
             <span class="mr-3">{{ file.name }}</span>
-            <div class="btn btn-sm" @click="file = null">
+            <button class="btn btn-sm" @click="file = null">
               <i-uil-times />
-            </div>
+            </button>
           </div>
         </template>
       </div>

@@ -75,21 +75,21 @@ async function login() {
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="{ title, createTime, annId } in posts"
-                class="hover cursor-pointer"
-                @click="$router.push(`/announcements/${annId}`)"
-              >
-                <td>{{ title }}</td>
+              <tr v-for="{ title, createTime, annId } in posts" :key="annId" class="hover">
+                <td>
+                  <router-link :to="`/announcements/${annId}`" class="link">
+                    {{ title }}
+                  </router-link>
+                </td>
                 <td>{{ formatTime(createTime) }}</td>
                 <td v-if="session.isAdmin">
                   <div class="tooltip" data-tip="Edit">
-                    <div
+                    <router-link
                       class="btn btn-ghost btn-sm btn-circle"
-                      @click.stop="$router.push(`/course/Public/announcements/${annId}/edit`)"
+                      :to="`/course/Public/announcements/${annId}/edit`"
                     >
                       <i-uil-edit class="lg:h-5 lg:w-5" />
-                    </div>
+                    </router-link>
                   </div>
                 </td>
               </tr>
@@ -152,7 +152,9 @@ async function login() {
               </label>
             </div>
             <div class="form-control mt-6">
-              <div :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">Sign In</div>
+              <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
+                Sign In
+              </button>
             </div>
           </template>
         </div>

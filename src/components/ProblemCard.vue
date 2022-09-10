@@ -59,20 +59,20 @@ defineProps({
                 </div>
               </div>
             </div>
-            <div
+            <router-link
               v-if="!preview"
               class="btn ml-3 md:btn-md lg:btn-lg"
-              @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/submit`)"
+              :to="`/course/${$route.params.name}/problem/${$route.params.id}/submit`"
             >
               <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
-            </div>
-            <div
+            </router-link>
+            <router-link
               v-if="!preview"
               class="btn ml-3 md:btn-md lg:btn-lg"
-              @click="$router.push(`/course/${$route.params.name}/problem/${$route.params.id}/stats`)"
+              :to="`/course/${$route.params.name}/problem/${$route.params.id}/stats`"
             >
               <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
-            </div>
+            </router-link>
           </div>
         </div>
 

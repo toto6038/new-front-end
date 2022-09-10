@@ -124,9 +124,9 @@ async function submit() {
             </label>
           </div>
 
-          <div :class="['btn', form.isLoading && 'loading']" @click="submit">
+          <button :class="['btn', form.isLoading && 'loading']" @click="submit">
             <i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Submit
-          </div>
+          </button>
         </div>
       </div>
     </div>

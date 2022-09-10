@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -24,6 +24,8 @@ const problems = [
 function update<K extends keyof Homework>(key: K, value: Homework[K]) {
   editedHomework[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -32,16 +34,19 @@ function update<K extends keyof Homework>(key: K, value: Homework[K]) {
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
           Edit homework: {{ homework.name }}
-          <div class="btn"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</div>
+          <button class="btn"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</button>
         </div>
 
         <homework-form :value="editedHomework" :problems="problems" @update="update" />
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <homework-card :homework="editedHomework" preview />
+        <homework-card v-show="openPreview" :homework="editedHomework" preview />
       </div>
     </div>
   </div>

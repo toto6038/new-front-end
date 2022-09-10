@@ -164,19 +164,28 @@ function clearFilter() {
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="submission in submissions"
-              :key="submission.submissionId"
-              class="hover cursor-pointer"
-              @click="$router.push(`/course/${$route.params.name}/submission/${submission.submissionId}`)"
-            >
-              <td>{{ submission.submissionId.slice(-6) }}</td>
+            <tr v-for="submission in submissions" :key="submission.submissionId" class="hover">
+              <td>
+                <div class="tooltip tooltip-bottom" data-tip="show details">
+                  <router-link
+                    :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
+                    class="link"
+                  >
+                    {{ submission.submissionId.slice(-6) }}
+                  </router-link>
+                </div>
+              </td>
               <td>
                 <div
                   class="tooltip tooltip-bottom"
                   :data-tip="problemNameTable[`${submission.problemId}`] || 'loading...'"
                 >
-                  <span>{{ submission.problemId }}</span>
+                  <router-link
+                    :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
+                    class="link"
+                  >
+                    {{ submission.problemId }}
+                  </router-link>
                 </div>
               </td>
               <td>
