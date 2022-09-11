@@ -40,3 +40,5 @@ interface Stats {
   top10RunTime: any[];
   top10MemoryUsage: any[];
 }
+
+type LangOption = { value: number; text: string; mask: number };

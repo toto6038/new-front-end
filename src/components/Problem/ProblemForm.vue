@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { PropType, ref, watchEffect } from "vue";
+import { PropType, ref, watchEffect, computed } from "vue";
 import * as zip from "@zip.js/zip.js";
+import { useSourceLang } from "../../composables/useSourceLang";
 
-defineProps({
+const props = defineProps({
   value: {
     type: Object as PropType<Problem>,
     required: true,
@@ -13,6 +14,7 @@ const emit = defineEmits<{
 }>();
 
 const isDrag = ref(false);
+const allowedLanguageSelectModalOpen = ref(false);
 const file = ref<File | null>(null);
 watchEffect(() => {
   isDrag.value = false;
@@ -43,6 +45,11 @@ watchEffect(() => {
     }
     emit("update", "testCase", testCase);
   });
+});
+
+const { selectLangMap, readableLang, selectedLang } = useSourceLang(props.value.allowedLanguage);
+watchEffect(() => {
+  emit("update", "allowedLanguage", selectedLang.value);
 });
 </script>
 
@@ -92,6 +99,21 @@ watchEffect(() => {
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
+        <span class="label-text">Tags</span>
+      </label>
+      <input
+        type="text"
+        class="input-bordered input w-full max-w-xs"
+        :value="value.tags.join(',')"
+        @input="emit('update', 'tags', ($event.target as HTMLInputElement).value.split(','))"
+      />
+      <label class="label">
+        <span class="label-text-alt">Separate with COMMA, e.g. HW1,HW2</span>
+      </label>
+    </div>
+
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
         <span class="label-text">Type</span>
       </label>
       <select
@@ -103,6 +125,25 @@ watchEffect(() => {
         <option value="2">File Upload</option>
       </select>
     </div>
+
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">Allowed Languages</span>
+      </label>
+      <input
+        type="text"
+        class="input-bordered input w-full max-w-xs"
+        :value="readableLang"
+        @focus="allowedLanguageSelectModalOpen = true"
+      />
+    </div>
+    <input
+      v-model="allowedLanguageSelectModalOpen"
+      type="checkbox"
+      id="select-langs-modal"
+      class="modal-toggle"
+    />
+    <AllowedLanguageSelectModel v-model:select-lang-map="selectLangMap" />
 
     <div class="form-control col-span-2 w-full">
       <label class="label">
@@ -236,7 +277,7 @@ watchEffect(() => {
     <div class="form-control col-span-2 w-full">
       <label class="label justify-start">
         <span class="label-text">Testdata</span>
-        <label for="testdata-direction" class="modal-button btn btn-xs ml-3">How to pack testdata</label>
+        <label for="testdata-description" class="modal-button btn btn-xs ml-3">How to pack testdata</label>
       </label>
       <div
         :class="['textarea-bordered textarea min-h-[96px] w-full p-4', isDrag ? 'border-accent' : '']"
@@ -245,7 +286,7 @@ watchEffect(() => {
         @dragleave="isDrag = false"
       >
         <template v-if="!file">
-          <span class="mb-6 mr-6 text-sm">Drop files here or click to upload</span>
+          <span class="mb-6 mr-6 text-sm">Drop File here or Choose File to upload</span>
           <input
             type="file"
             id="file-uploader"
@@ -338,50 +379,6 @@ watchEffect(() => {
       </div>
     </template>
 
-    <input type="checkbox" id="testdata-direction" class="modal-toggle" />
-    <div class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">How to pack testdata</h3>
-        <p class="mt-4">
-          Put all the input/output files in a single `.zip` file, and follow the naming rules below.
-        </p>
-        <p class="mt-2">
-          Name the input file as <code>sstt.in</code>, where <code>ss</code> represents the number of subtasks
-          it belongs to, and <code>tt</code> represents which testcase it is in subtask.
-        </p>
-        <p class="mt-2">
-          Similarly, name the ouput file as <code>sstt.out</code>.
-          <br />
-          Note that <code>ss</code> & <code>tt</code> are zero-indexed.
-        </p>
-        <p class="mt-2">
-          For example, a problem with 3 subtasks, and the number of testcases of each subtask is 3, 5, 15,
-          respectively.
-          <br />
-          The content of zip file is:
-        </p>
-        <pre class="mt-2"><code>{{ [
-          "0000.in",
-          "0000.out",
-          "0001.in",
-          "0001.out",
-          "0002.in",
-          "0002.out",
-          "0100.in",
-          "0100.out",
-          "...",
-          "0104.in",
-          "0104.out",
-          "0200.in",
-          "0200.out",
-          "...",
-          "0214.in",
-          "0214.out",
-        ].join('\n') }}</code></pre>
-        <div class="modal-action">
-          <label for="testdata-direction" class="btn">Got it</label>
-        </div>
-      </div>
-    </div>
+    <TestdataDescriptionModal />
   </div>
 </template>

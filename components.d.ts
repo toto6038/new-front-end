@@ -4,6 +4,9 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AllowedLanguageSelectModel: typeof import('./src/components/Problem/AllowedLanguageSelectModel.vue')['default']
+    AllowedLanguageSelector: typeof import('./src/components/Problem/AllowedLanguageSelector.vue')['default']
+    AllowedLanguagesSelector: typeof import('./src/components/Problem/AllowedLanguagesSelector.vue')['default']
     CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
     CourseSideBar: typeof import('./src/components/CourseSideBar.vue')['default']
     CourseTopBar: typeof import('./src/components/CourseTopBar.vue')['default']
@@ -43,14 +46,15 @@ declare module 'vue' {
     PaginationButtons: typeof import('./src/components/PaginationButtons.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     PostForm: typeof import('./src/components/PostForm.vue')['default']
-    ProblemCard: typeof import('./src/components/ProblemCard.vue')['default']
-    ProblemForm: typeof import('./src/components/ProblemForm.vue')['default']
+    ProblemCard: typeof import('./src/components/Problem/ProblemCard.vue')['default']
+    ProblemForm: typeof import('./src/components/Problem/ProblemForm.vue')['default']
     SampleCodeBlock: typeof import('./src/components/SampleCodeBlock.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
     SideBarLink: typeof import('./src/components/SideBarLink.vue')['default']
     SkeletonCard: typeof import('./src/components/SkeletonCard.vue')['default']
     SkeletonPost: typeof import('./src/components/SkeletonPost.vue')['default']
     SkeletonTable: typeof import('./src/components/SkeletonTable.vue')['default']
+    TestdataDescriptionModal: typeof import('./src/components/Problem/TestdataDescriptionModal.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     UiSpinner: typeof import('./src/components/ui-spinner.vue')['default']
   }

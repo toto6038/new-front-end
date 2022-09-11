@@ -8,6 +8,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, between } from "@vuelidate/validators";
 import api, { fetcher } from "../../../../../models/api";
 import { useTitle } from "@vueuse/core";
+import { LANGUAGE_OPTIONS } from "../../../../../constants";
 
 const route = useRoute();
 useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);
@@ -30,17 +31,11 @@ const errorMessages = {
 };
 const v$ = useVuelidate(rules, form);
 
-type LangOption = { value: number; text: string; mask: number };
-const ALL_LANGUAGE_OPTIONS: LangOption[] = [
-  { value: 0, text: "c", mask: 1 },
-  { value: 1, text: "cpp", mask: 2 },
-  { value: 2, text: "py", mask: 4 },
-];
 const LANGUAGE_EXTENSION = [".c", ".cpp", ".py"];
 const langOptions = computed<LangOption[]>(() => {
   if (!problem.value) return [];
   const availables: LangOption[] = [];
-  ALL_LANGUAGE_OPTIONS.forEach((option) => {
+  LANGUAGE_OPTIONS.forEach((option) => {
     if (problem.value.allowedLanguage & option.mask) {
       availables.push(option);
     }
