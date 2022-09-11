@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, computed, PropType, watch } from "vue";
+import { ref, reactive, computed, watch } from "vue";
 import dayjs from "dayjs";
 
-const props = defineProps({
-  value: {
-    type: Object as PropType<Homework>,
-    required: true,
-  },
-  problems: {
-    type: Array as PropType<{ problemId: number; problemName: string }[]>,
-    required: true,
-  },
-});
+interface Props {
+  value: Homework;
+  problems: { problemId: number; problemName: string }[];
+}
+
+const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: "update", key: keyof Homework, value: Homework[typeof key]): void;
 }>();

@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { PropType, ref, watchEffect, computed } from "vue";
+import { ref, watchEffect } from "vue";
 import * as zip from "@zip.js/zip.js";
 import { useSourceLang } from "../../composables/useSourceLang";
 
-const props = defineProps({
-  value: {
-    type: Object as PropType<Problem>,
-    required: true,
-  },
-});
+interface Props {
+  value: Problem;
+}
+const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: "update", key: keyof Problem, value: Problem[typeof key]): void;
 }>();

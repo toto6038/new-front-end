@@ -5,4 +5,11 @@ interface Homework {
   start: number;
   end: number;
   problemIds: number[];
+  studentStatus: {
+    [username: string]: {
+      [pid: string]: {
+        score: number;
+      };
+    };
+  };
 }

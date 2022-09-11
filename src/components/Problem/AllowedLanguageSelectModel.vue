@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const props = defineProps({
-  selectLangMap: {
-    type: Object,
-    required: true,
-  },
-});
+import { LangMap } from "../../composables/useSourceLang";
+
+interface Props {
+  selectLangMap: LangMap;
+}
+const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: "update:selectLangMap", value: any): void;
 }>();

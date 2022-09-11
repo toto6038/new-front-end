@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import { formatTime } from "../utils/formatTime";
 
-defineProps({
-  post: {
-    type: Object,
-    required: true,
-  },
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Object,
-    default: null,
-  },
-});
+// TODO: type props.error
+interface Props {
+  post: Post;
+  isLoading: boolean;
+  error: any;
+}
+const { post, isLoading = false, error = null } = defineProps<Props>();
 </script>
 
 <template>

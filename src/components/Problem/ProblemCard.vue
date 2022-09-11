@@ -1,23 +1,11 @@
 <script setup lang="ts">
-import { PropType } from "vue";
-
-defineProps({
-  problem: {
-    type: Object as PropType<Problem>,
-  },
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Object,
-    default: null,
-  },
-  preview: {
-    type: Boolean,
-    default: false,
-  },
-});
+interface Props {
+  problem: Problem;
+  isLoading: boolean;
+  error: any;
+  preview: boolean;
+}
+const { problem, isLoading = false, error = null, preview = false } = defineProps<Props>();
 </script>
 
 <template>

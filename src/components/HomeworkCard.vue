@@ -3,20 +3,14 @@ import { computed } from "vue";
 import { useSession } from "../stores/session";
 import { formatTime } from "../utils/formatTime";
 
-const props = defineProps({
-  homework: {
-    type: Object,
-    required: true,
-  },
-  problems: {
-    type: Object,
-    required: true,
-  },
-  preview: {
-    type: Boolean,
-    default: false,
-  },
-});
+interface Props {
+  homework: Homework;
+  problems: { [pid: string]: Problem };
+  preview?: boolean;
+}
+
+const props = defineProps<Props>();
+const { preview = false } = props;
 
 const session = useSession();
 const STATUS_LABEL = {

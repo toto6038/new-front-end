@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { useClipboard } from "@vueuse/core";
 
-defineProps({
-  code: {
-    type: String,
-    default: "",
-  },
-});
+interface Props {
+  code: string;
+}
+const { code = "" } = defineProps<Props>();
 
 const { copy, copied, isSupported } = useClipboard();
 </script>

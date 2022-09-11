@@ -1,6 +1,10 @@
 import { computed, ref } from "vue";
 import { LANGUAGE_OPTIONS } from "../constants";
 
+export type LangMap = {
+  [langName: string]: boolean;
+};
+
 function initializeMap(allowedLanguages: number) {
   const m: { [k: string]: boolean } = {};
   for (const lang of LANGUAGE_OPTIONS) {
@@ -10,8 +14,8 @@ function initializeMap(allowedLanguages: number) {
 }
 
 export function useSourceLang(allowedLanguages: number = 0) {
-  const selectLangMap = ref(initializeMap(allowedLanguages));
-  const readableLang = computed(() => {
+  const selectLangMap = ref<LangMap>(initializeMap(allowedLanguages));
+  const readableLang = computed<string>(() => {
     const l = [];
     for (const lang of LANGUAGE_OPTIONS) {
       if (selectLangMap.value[lang.text]) {
@@ -20,7 +24,7 @@ export function useSourceLang(allowedLanguages: number = 0) {
     }
     return l.join(", ");
   });
-  const selectedLang = computed(() => {
+  const selectedLang = computed<number>(() => {
     let s = 0;
     for (const lang of LANGUAGE_OPTIONS) {
       if (selectLangMap.value[lang.text]) {
