@@ -5,8 +5,6 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AllowedLanguageSelectModel: typeof import('./src/components/Problem/AllowedLanguageSelectModel.vue')['default']
-    AllowedLanguageSelector: typeof import('./src/components/Problem/AllowedLanguageSelector.vue')['default']
-    AllowedLanguagesSelector: typeof import('./src/components/Problem/AllowedLanguagesSelector.vue')['default']
     CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
     CourseSideBar: typeof import('./src/components/CourseSideBar.vue')['default']
     CourseTopBar: typeof import('./src/components/CourseTopBar.vue')['default']

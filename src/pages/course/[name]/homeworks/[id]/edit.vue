@@ -13,6 +13,7 @@ const homework = {
   name: "HW #0",
   problemIds: [118],
   start: 1614820200,
+  studentStatus: {},
 };
 const editedHomework = reactive<Homework>({ ...homework });
 const problems = [

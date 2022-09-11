@@ -17,7 +17,7 @@ const post = {
   updateTime: 1608958771,
   updater: { displayedName: "bogay", md5: "4d8a688b2637fcf029e8d6dd8458bab3", role: 0, username: "bogay" },
 };
-const editedPost = reactive<Post>({
+const editedPost = reactive<EditablePost>({
   title: post.title,
   markdown: post.markdown,
   pinned: post.pinned,
@@ -28,7 +28,7 @@ const previewPostMockMeta = {
   updateTime: dayjs().unix(),
 };
 
-function update<K extends keyof Post>(key: K, value: Post[K]) {
+function update<K extends keyof EditablePost>(key: K, value: EditablePost[K]) {
   editedPost[key] = value;
 }
 

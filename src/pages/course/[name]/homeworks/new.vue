@@ -6,7 +6,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 useTitle(`New Homework - ${route.params.name} | Normal OJ`);
-const newHomework = reactive<Homework>({
+const newHomework = reactive<EditableHomework>({
   end: dayjs().add(7, "day").unix(),
   markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,
   name: "Example",
@@ -19,7 +19,7 @@ const problems = [
   { problemId: 5, problemName: "A+B+D" },
 ];
 
-function update<K extends keyof Homework>(key: K, value: Homework[K]) {
+function update<K extends keyof EditableHomework>(key: K, value: EditableHomework[K]) {
   newHomework[key] = value;
 }
 
