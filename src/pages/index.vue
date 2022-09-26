@@ -77,7 +77,7 @@ async function login() {
             <tbody>
               <tr v-for="{ title, createTime, annId } in posts" :key="annId" class="hover">
                 <td>
-                  <router-link :to="`/announcements/${annId}`" class="link">
+                  <router-link :to="`/announcements/${annId}`" class="link-hover link">
                     {{ title }}
                   </router-link>
                 </td>

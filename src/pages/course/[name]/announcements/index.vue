@@ -46,7 +46,10 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
           <tbody>
             <tr v-for="{ title, creator, createTime, annId } in posts" :key="annId" class="hover">
               <td>
-                <router-link :to="`/course/${$route.params.name}/announcements/${annId}`" class="link">
+                <router-link
+                  :to="`/course/${$route.params.name}/announcements/${annId}`"
+                  class="link-hover link"
+                >
                   {{ title }}
                 </router-link>
               </td>

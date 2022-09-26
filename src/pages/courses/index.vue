@@ -30,7 +30,7 @@ const { data: courses, error, isLoading } = useAxios("/course", fetcher);
         <tbody>
           <tr v-for="{ course, teacher } in courses" :key="course" class="hover">
             <td>
-              <router-link :to="`/course/${course}`" class="link">{{ course }}</router-link>
+              <router-link :to="`/course/${course}`" class="link-hover link">{{ course }}</router-link>
             </td>
             <td>{{ teacher.username }}</td>
           </tr>

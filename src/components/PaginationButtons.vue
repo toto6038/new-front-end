@@ -4,7 +4,7 @@ import { computed } from "vue";
 interface Props {
   modelValue: number;
   maxPage: number;
-  radius: number;
+  radius?: number;
 }
 const { modelValue, maxPage, radius = 2 } = defineProps<Props>();
 const emit = defineEmits<{

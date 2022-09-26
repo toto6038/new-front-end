@@ -8,7 +8,7 @@ import { useSession } from "../../../stores/session";
 import { LANG, SUBMISSION_STATUS } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 import { timeFromNow } from "../../../utils/timeFromNow";
-import { useTitle } from "@vueuse/core";
+import { useTitle, useClipboard } from "@vueuse/core";
 
 const route = useRoute();
 const router = useRouter();
@@ -97,6 +97,10 @@ function clearFilter() {
     filter.value[key] = null;
   }
 }
+const { copy, copied, isSupported } = useClipboard();
+function copySubmissionLink(path: string) {
+  copy(new URL(path, window.location.origin).href);
+}
 </script>
 
 <template>
@@ -166,13 +170,29 @@ function clearFilter() {
           <tbody>
             <tr v-for="submission in submissions" :key="submission.submissionId" class="hover">
               <td>
-                <div class="tooltip tooltip-bottom" data-tip="show details">
-                  <router-link
-                    :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
-                    class="link"
+                <div class="flex items-center">
+                  <div class="tooltip tooltip-bottom" data-tip="show details">
+                    <router-link
+                      :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
+                      class="link"
+                    >
+                      {{ submission.submissionId.slice(-6) }}
+                    </router-link>
+                  </div>
+                  <div
+                    v-if="isSupported"
+                    class="tooltip tooltip-bottom"
+                    :data-tip="copied ? 'copied!' : 'copy link'"
                   >
-                    {{ submission.submissionId.slice(-6) }}
-                  </router-link>
+                    <i-uil-link
+                      class="ml-2 h-4 w-4 cursor-pointer"
+                      @click="
+                        copySubmissionLink(
+                          `/course/${$route.params.name}/submission/${submission.submissionId}`,
+                        )
+                      "
+                    />
+                  </div>
                 </div>
               </td>
               <td>

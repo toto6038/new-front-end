@@ -13,7 +13,7 @@ interface EditableProblem {
   allowedLanguage: number;
   quota: number;
   type: 0 | 1 | 2;
-  status: 0 | 1;
+  status: ProblemStatus;
   testCase: {
     caseCount: number;
     memoryLimit: number;
@@ -41,4 +41,10 @@ interface Stats {
   top10MemoryUsage: any[];
 }
 
+declare enum ProblemStatus {
+  Online = 1,
+  Offline = 2,
+}
+
 type LangOption = { value: number; text: string; mask: number };
+type ProblemUpdater = <K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) => void;

@@ -2,7 +2,7 @@
 import { useClipboard } from "@vueuse/core";
 
 interface Props {
-  code: string;
+  code?: string;
 }
 const { code = "" } = defineProps<Props>();
 

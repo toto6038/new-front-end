@@ -4,8 +4,8 @@ import { formatTime } from "../utils/formatTime";
 // TODO: type props.error
 interface Props {
   post: Post;
-  isLoading: boolean;
-  error: any;
+  isLoading?: boolean;
+  error?: any;
 }
 const { post, isLoading = false, error = null } = defineProps<Props>();
 </script>

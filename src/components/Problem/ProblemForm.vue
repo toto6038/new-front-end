@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, inject } from "vue";
 import * as zip from "@zip.js/zip.js";
-import { useSourceLang } from "../../composables/useSourceLang";
 
-interface Props {
-  value: Problem;
-}
-const props = defineProps<Props>();
-const emit = defineEmits<{
-  (e: "update", key: keyof Problem, value: Problem[typeof key]): void;
-}>();
+// TODO: handling error when problem is undefined
+const problem = inject<EditableProblem>("problem") as EditableProblem;
+// TODO: handling error when updateProblem is undefined
+const updateProblem = inject<ProblemUpdater>("updateProblem") as ProblemUpdater;
 
 const isDrag = ref(false);
-const allowedLanguageSelectModalOpen = ref(false);
 const file = ref<File | null>(null);
 watchEffect(() => {
   isDrag.value = false;
   if (!file.value) {
-    emit("update", "testCase", []);
+    updateProblem("testCase", []);
     return;
   }
   const reader = new zip.ZipReader(new zip.BlobReader(file.value));
@@ -41,13 +36,8 @@ watchEffect(() => {
         break;
       }
     }
-    emit("update", "testCase", testCase);
+    updateProblem("testCase", testCase);
   });
-});
-
-const { selectLangMap, readableLang, selectedLang } = useSourceLang(props.value.allowedLanguage);
-watchEffect(() => {
-  emit("update", "allowedLanguage", selectedLang.value);
 });
 </script>
 
@@ -60,8 +50,8 @@ watchEffect(() => {
       <input
         type="text"
         class="input-bordered input w-full max-w-xs"
-        :value="value.problemName"
-        @input="emit('update', 'problemName', ($event.target as HTMLInputElement).value)"
+        :value="problem.problemName"
+        @input="updateProblem('problemName', ($event.target as HTMLInputElement).value)"
       />
       <label class="label">
         <span class="label-text-alt">At most 64 alphanumeric characters</span>
@@ -74,8 +64,10 @@ watchEffect(() => {
         <input
           type="checkbox"
           class="toggle"
-          :value="value.status"
-          @input="emit('update', 'status', Number(($event.target as HTMLInputElement).value))"
+          :true-value="1"
+          :false-value="0"
+          :value="problem.status"
+          @change="updateProblem('status', (problem.status ^ 1) as 0 | 1)"
         />
       </label>
     </div>
@@ -87,8 +79,8 @@ watchEffect(() => {
       <input
         type="text"
         class="input-bordered input w-full max-w-xs"
-        :value="value.quota"
-        @input="emit('update', 'quota', Number(($event.target as HTMLInputElement).value))"
+        :value="problem.quota"
+        @input="updateProblem('quota', Number(($event.target as HTMLInputElement).value))"
       />
       <label class="label">
         <span class="label-text-alt">Set -1 for unlimited quota</span>
@@ -102,8 +94,8 @@ watchEffect(() => {
       <input
         type="text"
         class="input-bordered input w-full max-w-xs"
-        :value="value.tags.join(',')"
-        @input="emit('update', 'tags', ($event.target as HTMLInputElement).value.split(','))"
+        :value="problem.tags.join(',')"
+        @input="updateProblem('tags', ($event.target as HTMLInputElement).value.split(','))"
       />
       <label class="label">
         <span class="label-text-alt">Separate with COMMA, e.g. HW1,HW2</span>
@@ -116,161 +108,17 @@ watchEffect(() => {
       </label>
       <select
         class="select-bordered select w-full max-w-xs"
-        :value="value.type"
-        @input="emit('update', 'type', Number(($event.target as HTMLSelectElement).value))"
+        :value="problem.type"
+        @input="updateProblem('type', Number(($event.target as HTMLSelectElement).value) as 0 | 1 | 2)"
       >
         <option value="0">Programming</option>
         <option value="2">File Upload</option>
       </select>
     </div>
 
-    <div class="form-control w-full max-w-xs">
-      <label class="label">
-        <span class="label-text">Allowed Languages</span>
-      </label>
-      <input
-        type="text"
-        class="input-bordered input w-full max-w-xs"
-        :value="readableLang"
-        @focus="allowedLanguageSelectModalOpen = true"
-      />
-    </div>
-    <input
-      v-model="allowedLanguageSelectModalOpen"
-      type="checkbox"
-      id="select-langs-modal"
-      class="modal-toggle"
-    />
-    <AllowedLanguageSelectModel v-model:select-lang-map="selectLangMap" />
+    <ProblemAllowedLanguageSelector />
 
-    <div class="form-control col-span-2 w-full">
-      <label class="label">
-        <span class="label-text">Description</span>
-      </label>
-      <textarea
-        class="textarea-bordered textarea h-24"
-        :value="value.description.description"
-        @input="emit('update', 'description', {
-          ...value.description,
-          description: ($event.target as HTMLTextAreaElement).value
-        })"
-      />
-    </div>
-
-    <div class="form-control col-span-2 w-full">
-      <label class="label">
-        <span class="label-text">Input</span>
-      </label>
-      <textarea
-        class="textarea-bordered textarea h-24"
-        :value="value.description.input"
-        @input="emit('update', 'description', {
-          ...value.description,
-          input: ($event.target as HTMLTextAreaElement).value
-        })"
-      />
-    </div>
-
-    <div class="form-control col-span-2 w-full">
-      <label class="label">
-        <span class="label-text">Output</span>
-      </label>
-      <textarea
-        class="textarea-bordered textarea h-24"
-        :value="value.description.output"
-        @input="emit('update', 'description', {
-          ...value.description,
-          output: ($event.target as HTMLTextAreaElement).value
-        })"
-      />
-    </div>
-
-    <div class="form-control col-span-2 w-full">
-      <label class="label">
-        <span class="label-text">Hint</span>
-      </label>
-      <textarea
-        class="textarea-bordered textarea h-24"
-        :value="value.description.hint"
-        @input="emit('update', 'description', {
-          ...value.description,
-          hint: ($event.target as HTMLTextAreaElement).value
-        })"
-      />
-    </div>
-
-    <template v-for="(no, i) in value.description.sampleInput.length">
-      <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text">Sample Input {{ no }}</span>
-        </label>
-        <textarea
-          class="textarea-bordered textarea h-24"
-          :value="value.description.sampleInput[i]"
-          @input="
-            emit('update', 'description', {
-              ...value.description,
-              sampleInput: [
-                ...value.description.sampleInput.slice(0, i),
-                ($event.target as HTMLInputElement).value,
-                ...value.description.sampleInput.slice(i + 1),
-              ],
-            })
-          "
-        />
-      </div>
-
-      <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text">Sample Output {{ no }}</span>
-        </label>
-        <textarea
-          class="textarea-bordered textarea h-24"
-          :value="value.description.sampleOutput[i]"
-          @input="
-            emit('update', 'description', {
-              ...value.description,
-              sampleOutput: [
-                ...value.description.sampleOutput.slice(0, i),
-                ($event.target as HTMLInputElement).value,
-                ...value.description.sampleOutput.slice(i + 1),
-              ],
-            })
-          "
-        />
-      </div>
-    </template>
-
-    <div class="col-span-2 mx-auto">
-      <div class="tooltip" data-tip="append new sample">
-        <div
-          class="btn btn-sm mr-3"
-          @click="
-            emit('update', 'description', {
-              ...value.description,
-              sampleInput: [...value.description.sampleInput, ''],
-              sampleOutput: [...value.description.sampleOutput, ''],
-            })
-          "
-        >
-          <i-uil-plus class="mr-1" />
-        </div>
-      </div>
-      <div class="tooltip" data-tip="remove last sample">
-        <div
-          class="btn btn-sm"
-          @click="
-            emit('update', 'description', {
-              ...value.description,
-              sampleInput: value.description.sampleInput.slice(0, -1),
-              sampleOutput: value.description.sampleOutput.slice(0, -1),
-            })
-          "
-        >
-          <i-uil-minus class="mr-1" />
-        </div>
-      </div>
-    </div>
+    <ProblemDescriptionForm />
 
     <div class="form-control col-span-2 w-full">
       <label class="label justify-start">
@@ -303,7 +151,7 @@ watchEffect(() => {
       </div>
     </div>
 
-    <template v-for="(no, i) in value.testCase.length">
+    <template v-for="(no, i) in problem.testCase.length">
       <div class="grid grid-cols-2">
         <div class="form-control w-full">
           <label class="label">
@@ -312,7 +160,7 @@ watchEffect(() => {
           <input
             type="text"
             class="input-bordered input w-full max-w-xs"
-            :value="value.testCase[i].caseCount"
+            :value="problem.testCase[i].caseCount"
             readonly
           />
         </div>
@@ -324,14 +172,14 @@ watchEffect(() => {
           <input
             type="text"
             class="input-bordered input w-full max-w-xs"
-            :value="value.testCase[i].taskScore"
-            @input="emit('update', 'testCase', [
-              ...value.testCase.slice(0, i),
+            :value="problem.testCase[i].taskScore"
+            @input="updateProblem('testCase', [
+              ...problem.testCase.slice(0, i),
               {
-                ...value.testCase[i],
+                ...problem.testCase[i],
                 taskScore: Number(($event.target as HTMLInputElement).value),
               },
-              ...value.testCase.slice(i + 1),
+              ...problem.testCase.slice(i + 1),
             ])"
           />
         </div>
@@ -344,14 +192,14 @@ watchEffect(() => {
           <input
             type="text"
             class="input-bordered input w-full max-w-xs"
-            :value="value.testCase[i].memoryLimit"
-            @input="emit('update', 'testCase', [
-              ...value.testCase.slice(0, i),
+            :value="problem.testCase[i].memoryLimit"
+            @input="updateProblem('testCase', [
+              ...problem.testCase.slice(0, i),
               {
-                ...value.testCase[i],
+                ...problem.testCase[i],
                 memoryLimit: Number(($event.target as HTMLInputElement).value),
               },
-              ...value.testCase.slice(i + 1),
+              ...problem.testCase.slice(i + 1),
             ])"
           />
         </div>
@@ -363,20 +211,20 @@ watchEffect(() => {
           <input
             type="text"
             class="input-bordered input w-full max-w-xs"
-            :value="value.testCase[i].timeLimit"
-            @input="emit('update', 'testCase', [
-              ...value.testCase.slice(0, i),
+            :value="problem.testCase[i].timeLimit"
+            @input="updateProblem('testCase', [
+              ...problem.testCase.slice(0, i),
               {
-                ...value.testCase[i],
+                ...problem.testCase[i],
                 timeLimit: Number(($event.target as HTMLInputElement).value),
               },
-              ...value.testCase.slice(i + 1),
+              ...problem.testCase.slice(i + 1),
             ])"
           />
         </div>
       </div>
     </template>
 
-    <TestdataDescriptionModal />
+    <ProblemTestdataDescriptionModal />
   </div>
 </template>

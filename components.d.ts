@@ -4,7 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AllowedLanguageSelectModel: typeof import('./src/components/Problem/AllowedLanguageSelectModel.vue')['default']
     CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
     CourseSideBar: typeof import('./src/components/CourseSideBar.vue')['default']
     CourseTopBar: typeof import('./src/components/CourseTopBar.vue')['default']
@@ -26,6 +25,7 @@ declare module 'vue' {
     IUilGithub: typeof import('~icons/uil/github')['default']
     IUilHome: typeof import('~icons/uil/home')['default']
     IUilLeftArrowToLeft: typeof import('~icons/uil/left-arrow-to-left')['default']
+    IUilLink: typeof import('~icons/uil/link')['default']
     IUilMapMarkerInfo: typeof import('~icons/uil/map-marker-info')['default']
     IUilMinus: typeof import('~icons/uil/minus')['default']
     IUilMoon: typeof import('~icons/uil/moon')['default']
@@ -44,15 +44,17 @@ declare module 'vue' {
     PaginationButtons: typeof import('./src/components/PaginationButtons.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     PostForm: typeof import('./src/components/PostForm.vue')['default']
+    ProblemAllowedLanguageSelector: typeof import('./src/components/Problem/Forms/ProblemAllowedLanguageSelector.vue')['default']
     ProblemCard: typeof import('./src/components/Problem/ProblemCard.vue')['default']
+    ProblemDescriptionForm: typeof import('./src/components/Problem/Forms/ProblemDescriptionForm.vue')['default']
     ProblemForm: typeof import('./src/components/Problem/ProblemForm.vue')['default']
+    ProblemTestdataDescriptionModal: typeof import('./src/components/Problem/Forms/ProblemTestdataDescriptionModal.vue')['default']
     SampleCodeBlock: typeof import('./src/components/SampleCodeBlock.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
     SideBarLink: typeof import('./src/components/SideBarLink.vue')['default']
     SkeletonCard: typeof import('./src/components/SkeletonCard.vue')['default']
     SkeletonPost: typeof import('./src/components/SkeletonPost.vue')['default']
     SkeletonTable: typeof import('./src/components/SkeletonTable.vue')['default']
-    TestdataDescriptionModal: typeof import('./src/components/Problem/TestdataDescriptionModal.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     UiSpinner: typeof import('./src/components/ui-spinner.vue')['default']
   }

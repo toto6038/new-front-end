@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
   problem: Problem;
-  isLoading: boolean;
-  error: any;
-  preview: boolean;
+  isLoading?: boolean;
+  error?: any;
+  preview?: boolean;
 }
 const { problem, isLoading = false, error = null, preview = false } = defineProps<Props>();
 </script>

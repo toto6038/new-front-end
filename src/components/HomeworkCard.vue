@@ -9,8 +9,9 @@ interface Props {
   preview?: boolean;
 }
 
-const props = defineProps<Props>();
-const { preview = false } = props;
+const props = withDefaults(defineProps<Props>(), {
+  preview: false,
+});
 
 const session = useSession();
 const STATUS_LABEL = {

@@ -3,7 +3,7 @@ import { PrismEditor } from "vue-prism-editor";
 import hljs from "highlight.js";
 
 interface Props {
-  value: string;
+  value?: string;
   readonly?: boolean;
 }
 const { value = "", readonly = false } = defineProps<Props>();
