@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps({
-  due: {
-    type: Number,
-    required: true,
-  },
-});
+interface Props {
+  due: number;
+}
+
+const props = defineProps<Props>();
 
 const moreThan99Days = ref(false);
 const days = ref(0);

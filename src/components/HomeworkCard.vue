@@ -3,19 +3,14 @@ import { computed } from "vue";
 import { useSession } from "../stores/session";
 import { formatTime } from "../utils/formatTime";
 
-const props = defineProps({
-  homework: {
-    type: Object,
-    required: true,
-  },
-  problems: {
-    type: Object,
-    required: true,
-  },
-  preview: {
-    type: Boolean,
-    default: false,
-  },
+interface Props {
+  homework: Homework;
+  problems: { [pid: string]: Problem };
+  preview?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  preview: false,
 });
 
 const session = useSession();
@@ -92,7 +87,9 @@ const state = computed(() => {
               <tr v-for="(pid, index) in homework.problemIds">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  <a class="link" :href="`/course/${$route.params.name}/problem/${pid}`">{{ pid }}</a>
+                  <router-link class="link" :to="`/course/${$route.params.name}/problem/${pid}`">
+                    {{ pid }}
+                  </router-link>
                 </td>
                 <td>
                   <ui-spinner v-if="!problems[pid.toString()]" />
@@ -112,12 +109,12 @@ const state = computed(() => {
                 </td>
                 <td>
                   <div class="tooltip" data-tip="Stats">
-                    <div
+                    <router-link
                       class="btn btn-ghost btn-xs"
-                      @click="$router.push(`/course/${$route.params.name}/problem/${pid}/stats`)"
+                      :to="`/course/${$route.params.name}/problem/${pid}/stats`"
                     >
                       <i-uil-chart-line class="lg:h-5 lg:w-5" />
-                    </div>
+                    </router-link>
                   </div>
                 </td>
               </tr>
@@ -134,18 +131,12 @@ const state = computed(() => {
       </div>
 
       <div v-if="homework.id && !preview && session.isAdmin" class="card-actions justify-end">
-        <div
-          class="btn mr-3"
-          @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/edit`)"
-        >
+        <router-link class="btn mr-3" :to="`/course/${$route.params.name}/homeworks/${homework.id}/edit`">
           <i-uil-edit class="mr-1 lg:h-5 lg:w-5" /> Edit
-        </div>
-        <div
-          class="btn"
-          @click="$router.push(`/course/${$route.params.name}/homeworks/${homework.id}/stats`)"
-        >
+        </router-link>
+        <router-link class="btn" :to="`/course/${$route.params.name}/homeworks/${homework.id}/stats`">
           <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

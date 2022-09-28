@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -36,6 +36,8 @@ const editedProblem = reactive<EditableProblem>({ ...problem });
 function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
   editedProblem[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -44,16 +46,19 @@ function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
           Edit Problem
-          <div class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</div>
+          <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
         </div>
 
         <problem-form :value="editedProblem" @update="update" />
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <problem-card :problem="editedProblem" preview />
+        <problem-card v-show="openPreview" :problem="editedProblem" preview />
       </div>
     </div>
   </div>

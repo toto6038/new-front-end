@@ -1,5 +1,10 @@
 // the fourth one is handwritten, which wont show in submission list
 export const LANG = ["c", "cpp", "py3", ""];
+export const LANGUAGE_OPTIONS: LangOption[] = [
+  { value: 0, text: "c", mask: 1 },
+  { value: 1, text: "cpp", mask: 2 },
+  { value: 2, text: "py", mask: 4 },
+];
 
 // the index is important
 export const ROLE = ["Admin", "Teacher", "Student"];

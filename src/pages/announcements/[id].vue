@@ -11,9 +11,9 @@ const { data: posts, error, isLoading } = useAxios(`/ann/${route.params.id}`, fe
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <div class="btn btn-sm mb-10" @click="$router.push('/')">
+    <router-link class="btn btn-sm mb-10" to="/">
       <i-uil-left-arrow-to-left class="mr-1" /> Back
-    </div>
+    </router-link>
 
     <post-card :isLoading="isLoading" :error="error" :post="posts && posts[0]" />
   </div>

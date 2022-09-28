@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, computed, PropType, watch } from "vue";
+import { ref, reactive, computed, watch } from "vue";
 import dayjs from "dayjs";
 
-const props = defineProps({
-  value: {
-    type: Object as PropType<Homework>,
-    required: true,
-  },
-  problems: {
-    type: Array as PropType<{ problemId: number; problemName: string }[]>,
-    required: true,
-  },
-});
+interface Props {
+  value: Homework;
+  problems: { problemId: number; problemName: string }[];
+}
+
+const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: "update", key: keyof Homework, value: Homework[typeof key]): void;
 }>();
@@ -106,10 +102,10 @@ function handleEndDateTimeInput(event: any) {
       />
     </div>
 
-    <input v-model="modalOpen" type="checkbox" id="my-modal" class="modal-toggle" />
+    <input v-model="modalOpen" type="checkbox" id="select-problems-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box">
-        <div class="text-lg font-bold">Select problems</div>
+        <div class="text-lg font-bold">Select Problems</div>
         <div class="h-[200px] overflow-y-auto py-4">
           <div v-for="{ problemId, problemName } in problems" class="form-control">
             <label class="label cursor-pointer">
@@ -119,7 +115,7 @@ function handleEndDateTimeInput(event: any) {
           </div>
         </div>
         <div class="modal-action">
-          <label for="my-modal" class="btn">Done</label>
+          <label for="select-problems-modal" class="btn">Done</label>
         </div>
       </div>
     </div>

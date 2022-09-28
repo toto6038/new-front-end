@@ -1,18 +1,10 @@
 <script setup lang="ts">
-defineProps({
-  header: {
-    type: Boolean,
-    default: true,
-  },
-  row: {
-    type: Number,
-    default: 3,
-  },
-  col: {
-    type: Number,
-    default: 3,
-  },
-});
+interface Props {
+  header?: boolean;
+  row?: number;
+  col?: number;
+}
+const { header = true, row = 3, col = 3 } = defineProps<Props>();
 </script>
 
 <template>

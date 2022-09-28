@@ -28,13 +28,10 @@ const { data: courses, error, isLoading } = useAxios("/course", fetcher);
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="{ course, teacher } in courses"
-            :key="course"
-            class="hover cursor-pointer"
-            @click="$router.push(`/course/${course}`)"
-          >
-            <td>{{ course }}</td>
+          <tr v-for="{ course, teacher } in courses" :key="course" class="hover">
+            <td>
+              <router-link :to="`/course/${course}`" class="link-hover link">{{ course }}</router-link>
+            </td>
             <td>{{ teacher.username }}</td>
           </tr>
         </tbody>

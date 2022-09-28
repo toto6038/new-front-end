@@ -2,16 +2,11 @@
 import { PrismEditor } from "vue-prism-editor";
 import hljs from "highlight.js";
 
-defineProps({
-  value: {
-    type: String,
-    default: "",
-  },
-  readonly: {
-    type: Boolean,
-    default: false,
-  },
-});
+interface Props {
+  value?: string;
+  readonly?: boolean;
+}
+const { value = "", readonly = false } = defineProps<Props>();
 
 defineEmits(["input"]);
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 
@@ -17,7 +17,7 @@ const post = {
   updateTime: 1608958771,
   updater: { displayedName: "bogay", md5: "4d8a688b2637fcf029e8d6dd8458bab3", role: 0, username: "bogay" },
 };
-const editedPost = reactive<Post>({
+const editedPost = reactive<EditablePost>({
   title: post.title,
   markdown: post.markdown,
   pinned: post.pinned,
@@ -28,9 +28,11 @@ const previewPostMockMeta = {
   updateTime: dayjs().unix(),
 };
 
-function update<K extends keyof Post>(key: K, value: Post[K]) {
+function update<K extends keyof EditablePost>(key: K, value: EditablePost[K]) {
   editedPost[key] = value;
 }
+
+const openPreview = ref<boolean>(false);
 </script>
 
 <template>
@@ -40,13 +42,15 @@ function update<K extends keyof Post>(key: K, value: Post[K]) {
         <div class="card-title mb-3 flex-wrap justify-between lg:flex-nowrap">
           Edit Announcement
           <div class="flex gap-x-3">
-            <div class="btn-outline btn btn-error btn-sm lg:btn-md">
+            <button class="btn-outline btn btn-error btn-sm lg:btn-md">
               <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
-            </div>
-            <div class="btn btn-warning btn-sm lg:btn-md">
+            </button>
+            <button class="btn btn-warning btn-sm lg:btn-md">
               <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
-            </div>
-            <div class="btn btn-success btn-sm lg:btn-md"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</div>
+            </button>
+            <button class="btn btn-success btn-sm lg:btn-md">
+              <i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save
+            </button>
           </div>
         </div>
 
@@ -54,9 +58,12 @@ function update<K extends keyof Post>(key: K, value: Post[K]) {
 
         <div class="divider" />
 
-        <div class="card-title mb-3">Preview</div>
+        <div class="card-title mb-3">
+          Preview
+          <input v-model="openPreview" type="checkbox" class="toggle" />
+        </div>
 
-        <post-card :post="{ ...previewPostMockMeta, ...editedPost }" />
+        <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...editedPost }" />
       </div>
     </div>
   </div>

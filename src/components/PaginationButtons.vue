@@ -1,33 +1,25 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: Number,
-    required: true,
-  },
-  maxPage: {
-    type: Number,
-    required: true,
-  },
-  radius: {
-    type: Number,
-    default: 2,
-  },
-});
+interface Props {
+  modelValue: number;
+  maxPage: number;
+  radius?: number;
+}
+const { modelValue, maxPage, radius = 2 } = defineProps<Props>();
 const emit = defineEmits<{
   (e: "update:modelValue", value: number): void;
 }>();
 
 const leftTruncated = computed(() => {
-  return props.modelValue - props.radius - 1 > 2;
+  return modelValue - radius - 1 > 2;
 });
 const rightTruncated = computed(() => {
-  return props.maxPage - (props.modelValue + props.radius) > 2;
+  return maxPage - (modelValue + radius) > 2;
 });
 const pages = computed(() => {
-  const l = leftTruncated.value ? props.modelValue - props.radius : 1;
-  const r = rightTruncated.value ? props.modelValue + props.radius : props.maxPage;
+  const l = leftTruncated.value ? modelValue - radius : 1;
+  const r = rightTruncated.value ? modelValue + radius : maxPage;
   const arr = [];
   for (let i = l; i <= r; ++i) arr.push(i);
   return arr;
