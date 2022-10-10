@@ -4,6 +4,8 @@ import App from "./App.vue";
 import router from "./router";
 import "./index.css";
 import "vue-prism-editor/dist/prismeditor.min.css";
+import "katex/dist/katex.min.css";
+import "highlight.js/styles/atom-one-dark.css";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
