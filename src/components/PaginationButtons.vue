@@ -6,23 +6,23 @@ interface Props {
   maxPage: number;
   radius?: number;
 }
-const { modelValue, maxPage, radius = 2 } = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  radius: 2,
+});
 const emit = defineEmits<{
   (e: "update:modelValue", value: number): void;
 }>();
 
 const leftTruncated = computed(() => {
-  return modelValue - radius - 1 > 2;
+  return props.modelValue - props.radius - 1 > 2;
 });
 const rightTruncated = computed(() => {
-  return maxPage - (modelValue + radius) > 2;
+  return props.maxPage - (props.modelValue + props.radius) > 2;
 });
 const pages = computed(() => {
-  const l = leftTruncated.value ? modelValue - radius : 1;
-  const r = rightTruncated.value ? modelValue + radius : maxPage;
-  const arr = [];
-  for (let i = l; i <= r; ++i) arr.push(i);
-  return arr;
+  const l = leftTruncated.value ? props.modelValue - props.radius : 1;
+  const r = rightTruncated.value ? props.modelValue + props.radius : props.maxPage;
+  return Array.from({ length: r - l + 1 }, (_, i) => i + l);
 });
 
 function navigateTo(page: number) {
@@ -50,7 +50,10 @@ function navigateTo(page: number) {
       <button class="btn-disabled btn">...</button>
       <button class="btn" @click="navigateTo(maxPage)">{{ maxPage }}</button>
     </template>
-    <button :class="['btn', { 'btn-disabled': modelValue === maxPage }]" @click="navigateTo(modelValue + 1)">
+    <button
+      :class="['btn', { 'btn-disabled': modelValue === maxPage }]"
+      @click="navigateTo(props.modelValue + 1)"
+    >
       »
     </button>
   </div>
