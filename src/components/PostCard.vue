@@ -7,7 +7,10 @@ interface Props {
   isLoading?: boolean;
   error?: any;
 }
-const { post, isLoading = false, error = null } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  isLoading: false,
+  error: null,
+});
 </script>
 
 <template>

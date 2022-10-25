@@ -6,7 +6,10 @@ interface Props {
   value?: string;
   readonly?: boolean;
 }
-const { value = "", readonly = false } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  value: "",
+  readonly: false,
+});
 
 defineEmits(["input"]);
 

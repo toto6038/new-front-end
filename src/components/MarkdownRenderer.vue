@@ -4,7 +4,9 @@ import renderMarkdown from "../utils/renderMarkdown";
 interface Props {
   md?: string;
 }
-const { md = "" } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  md: "",
+});
 </script>
 
 <template>

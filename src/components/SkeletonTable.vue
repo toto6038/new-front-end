@@ -4,7 +4,11 @@ interface Props {
   row?: number;
   col?: number;
 }
-const { header = true, row = 3, col = 3 } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  header: true,
+  row: 3,
+  col: 3,
+});
 </script>
 
 <template>
