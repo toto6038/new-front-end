@@ -35,13 +35,20 @@ const routeQuery = computed(() => ({
 const page = ref(routeQuery.value.page);
 const filter = ref<UserDefinedSubmissionQuery>({ ...routeQuery.value.filter });
 watchEffect(() => {
-  const query: any = { page: page.value };
+  // effect function runs after page changed or filter changed
+  // TODO: type query
+  const query: any = {};
   let key: keyof UserDefinedSubmissionQuery;
   for (key in filter.value) {
     if (filter.value[key] != null) {
       query[key] = filter.value[key];
+      // if filter did change, reset page to 1
+      if (filter.value[key] !== routeQuery.value.filter[key]) {
+        page.value = 1;
+      }
     }
   }
+  query.page = page.value;
   router.replace({ query });
 });
 const getSubmissionsUrl = computed(() => {
@@ -138,7 +145,7 @@ function copySubmissionLink(path: string) {
           </select>
 
           <div
-            v-show="filter.problemId || filter.status || filter.languageType"
+            v-show="filter.problemId != null || filter.status != null || filter.languageType != null"
             class="btn"
             @click="clearFilter"
           >
