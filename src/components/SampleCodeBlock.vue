@@ -4,7 +4,9 @@ import { useClipboard } from "@vueuse/core";
 interface Props {
   code?: string;
 }
-const { code = "" } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  code: "",
+});
 
 const { copy, copied, isSupported } = useClipboard();
 </script>

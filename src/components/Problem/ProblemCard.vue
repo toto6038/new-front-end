@@ -5,7 +5,11 @@ interface Props {
   error?: any;
   preview?: boolean;
 }
-const { problem, isLoading = false, error = null, preview = false } = defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  isLoading: false,
+  error: null,
+  preview: false,
+});
 </script>
 
 <template>
