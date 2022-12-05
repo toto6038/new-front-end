@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useTitle } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 
 useTitle("About | Normal OJ");
+const { t, locale } = useI18n();
 const teams = [
   {
-    title: "Maintainer",
+    title: t("about.maintainer"),
     people: ["AlaRduTP", "as535364", "asef18766", "Bogay", "skps2010", "Uier"],
   },
   {
-    title: "NTNU CSIE Service Learning 2021 Spring",
+    title: t("about.service_l_2021"),
     people: [
       "AlaRduTP",
       "Alanasdw",
@@ -32,7 +34,7 @@ const teams = [
     ],
   },
   {
-    title: "Red Team of Software Engineering 2019 Fall",
+    title: t("about.swe_2019"),
     people: [
       "aisu-programming",
       "AlaRduTP",
@@ -66,7 +68,7 @@ const links = [
 <template>
   <div class="prose mx-auto mt-10 w-full pb-60 font-mono">
     <div class="flex w-full flex-col items-center">
-      <h1 class="uppercase">Links</h1>
+      <h1 class="uppercase">{{t("about.links")}}</h1>
       <div class="flex gap-12">
         <a href="https://fb.me/noj.tw" class="mx-12">
           <i-uil-facebook class="h-28 w-28" />
@@ -78,7 +80,7 @@ const links = [
     </div>
 
     <div class="mt-16 flex w-full flex-col items-center">
-      <h1 class="uppercase">Contributors</h1>
+      <h1 class="uppercase">{{ t("about.contributor") }}</h1>
       <div v-for="team in teams" class="flex w-full flex-col items-center">
         <h3>{{ team.title }}</h3>
         <div class="w-fix my-4 grid grid-cols-2 gap-x-40 gap-y-8 md:grid-cols-4 lg:grid-cols-6">
