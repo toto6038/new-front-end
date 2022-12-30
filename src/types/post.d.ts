@@ -6,7 +6,7 @@ interface EditablePost {
 
 interface Post extends EditablePost {
   id: string;
-  creator: Session;
+  creator: User;
   updateTime: number;
   createTime: number;
 }

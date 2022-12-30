@@ -13,9 +13,9 @@ fetcher.interceptors.response.use((response) => {
 });
 
 const Auth = {
-  getSession: () => fetcher.get<any, any>("/auth/me"),
-  login: (body: { username: string; password: string }) => fetcher.post<any, any>("/auth/session", body),
-  logout: () => fetcher.get<any, any>("/auth/session"),
+  getSession: () => fetcher.get<UserProperties>("/auth/me"),
+  login: (body: { username: string; password: string }) => fetcher.post("/auth/session", body),
+  logout: () => fetcher.get("/auth/session"),
   changePassword: (body: { oldPassword: string; newPassword: string }) =>
     fetcher.post("/auth/change-password", body),
 };
