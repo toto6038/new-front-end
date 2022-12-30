@@ -14,11 +14,11 @@ const {
   data: problems,
   error,
   isLoading,
-} = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+} = useAxios<ProblemListItem[]>(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 
 const page = ref(!isNaN(Number(route.query.page)) ? Number(route.query.page) : 1);
 watchEffect(() => {
-  if (problems.value != null && (page.value < 1 || page >= problems.value.length)) {
+  if (problems.value != null && (page.value < 1 || page.value >= problems.value.length)) {
     page.value = 1;
   }
 });
@@ -39,7 +39,7 @@ const maxPage = computed(() => {
 
           <router-link
             v-if="session.isAdmin"
-            class="btn btn-success"
+            class="btn-success btn"
             :to="`/course/${$route.params.name}/problem/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
@@ -66,7 +66,7 @@ const maxPage = computed(() => {
           </thead>
           <tbody>
             <tr
-              v-for="{ problemId, problemName, tags, quota, submitCount } in problems.slice(
+              v-for="{ problemId, problemName, tags, quota, submitCount } in (problems || []).slice(
                 (page - 1) * 10,
                 page * 10,
               )"
@@ -82,13 +82,13 @@ const maxPage = computed(() => {
                 {{ problemName }}
               </td>
               <td>
-                <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
+                <span class="badge-info badge mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
               </td>
               <td>{{ quota - submitCount }} / {{ quota }}</td>
               <td>
                 <div class="tooltip" data-tip="Stats">
                   <router-link
-                    class="btn btn-ghost btn-sm btn-circle mr-3"
+                    class="btn-ghost btn-sm btn-circle btn mr-3"
                     :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                   >
                     <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -97,7 +97,7 @@ const maxPage = computed(() => {
                 <div class="tooltip" data-tip="Edit">
                   <router-link
                     v-if="session.isAdmin"
-                    class="btn btn-ghost btn-sm btn-circle"
+                    class="btn-ghost btn-sm btn-circle btn"
                     :to="`/course/${$route.params.name}/problem/${problemId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />

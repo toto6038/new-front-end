@@ -23,7 +23,7 @@ const problem: EditableProblem = {
   },
   problemName: "Getting Started",
   quota: 10,
-  status: 0,
+  status: ProblemStatus.Offline,
   tags: ["HW0"],
   testCase: [
     { caseCount: 10, memoryLimit: 134218, taskScore: 50, timeLimit: 1000 },

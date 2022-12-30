@@ -9,11 +9,11 @@ import { computed } from "@vue/reactivity";
 const route = useRoute();
 useTitle(`Copycat - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const { data: course } = useAxios(`/course/${route.params.name}`, fetcher);
-const { data, error, execute } = useAxios(
+const { data, execute } = useAxios<MossReport>(
   `/copycat?course=${route.params.name}&problemId=${route.params.id}`,
   fetcher,
 );
-const isReportGenerated = computed<boolean>(() => data.value && Object.values(data.value).some(Boolean));
+const isReportGenerated = computed(() => data.value && Object.values(data.value).some(Boolean));
 const { pause, resume } = useIntervalFn(execute, 10000);
 watchEffect(() => {
   if (isReportGenerated) {

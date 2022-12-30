@@ -30,7 +30,7 @@ withDefaults(defineProps<Props>(), {
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
             </div>
             <div class="flex">
-              <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+              <span class="badge-info badge mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>
 

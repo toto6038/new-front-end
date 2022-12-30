@@ -1,3 +1,14 @@
+declare enum ProblemType {
+  OJ = 0,
+  FillIn = 1,
+  HandWritten = 2,
+}
+
+declare enum ProblemStatus {
+  Online = 1,
+  Offline = 2,
+}
+
 interface EditableProblem {
   problemId?: number;
   problemName: string;
@@ -12,25 +23,57 @@ interface EditableProblem {
   tags: string[];
   allowedLanguage: number;
   quota: number;
-  type: 0 | 1 | 2;
+  type: ProblemType;
   status: ProblemStatus;
   testCase: {
+    taskScore: number;
     caseCount: number;
     memoryLimit: number;
     timeLimit: number;
-    taskScore: number;
   }[];
 }
 
-interface Problem extends EditableProblem {
-  // owner: string;
-  // defaultCode: string;
-  // courses: string[];
+interface Problem {
+  problemName: string;
+  description: {
+    description: string;
+    input: string;
+    output: string;
+    hint: string;
+    sampleInput: string[];
+    sampleOutput: string[];
+  };
+  owner: User;
+  tags: string[];
+  allowedLanguage: number;
+  courses: string[];
+  quota: number;
+  defaultCode: string;
+  status: ProblemStatus;
+  type: ProblemType;
+  testCase: {
+    taskScore: number;
+    caseCount: number;
+    memoryLimit: number;
+    timeLimit: number;
+  }[];
   submitCount: number;
   highScore: number;
 }
 
-interface Stats {
+interface ProblemListItem {
+  problemId: number;
+  problemName: string;
+  status: ProblemStatus;
+  ACUser: number;
+  submitter: number;
+  tags: string[];
+  type: ProblemType;
+  quota: number;
+  submitCount: number;
+}
+
+interface ProblemStats {
   statusCount: { [key: string]: number };
   triedUserCount: number;
   average: number;
@@ -41,9 +84,9 @@ interface Stats {
   top10MemoryUsage: any[];
 }
 
-declare enum ProblemStatus {
-  Online = 1,
-  Offline = 2,
+interface MossReport {
+  cpp_report: string;
+  python_report: string;
 }
 
 type LangOption = { value: number; text: string; mask: number };

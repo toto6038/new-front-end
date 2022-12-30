@@ -19,12 +19,16 @@ const theme = useTheme();
 useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
 use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout, GridComponent, BarChart]);
 
-const { data: stats, error, isLoading } = useAxios<Stats>(`/problem/${route.params.id}/stats`, fetcher);
+const {
+  data: stats,
+  error,
+  isLoading,
+} = useAxios<ProblemStats>(`/problem/${route.params.id}/stats`, fetcher);
 const resultCounts = computed(() => {
   if (!stats.value) return [];
   return SUBMISSION_STATUS.map((status, index) => ({
     name: status,
-    // @ts-ignore
+    // @ts-ignore TODO I have no idea
     value: stats.value.statusCount[String(index - 1)],
     itemStyle: { color: SUBMISSION_COLOR[index] },
   }));

@@ -13,7 +13,7 @@ import { LANGUAGE_OPTIONS } from "../../../../../constants";
 const route = useRoute();
 useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
-const { data: problem, error, isLoading } = useAxios(`/problem/view/${route.params.id}`, fetcher);
+const { data: problem, error, isLoading } = useAxios<Problem>(`/problem/view/${route.params.id}`, fetcher);
 
 const form = reactive({
   code: "",
@@ -36,6 +36,7 @@ const langOptions = computed<LangOption[]>(() => {
   if (!problem.value) return [];
   const availables: LangOption[] = [];
   LANGUAGE_OPTIONS.forEach((option) => {
+    // @ts-ignore TODO I have no idea
     if (problem.value.allowedLanguage & option.mask) {
       availables.push(option);
     }
@@ -64,7 +65,7 @@ async function submit() {
     const writer = new zip.ZipWriter(blobWriter);
     await writer.add(`main${LANGUAGE_EXTENSION[form.lang]}`, new zip.TextReader(form.code));
     await writer.close();
-    const blob = blobWriter.getData();
+    const blob = await blobWriter.getData();
     const formData = new FormData();
     formData.append("code", blob);
     const { submissionId } = (
