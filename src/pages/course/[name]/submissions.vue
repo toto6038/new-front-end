@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
-import { computed, reactive, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import queryString from "query-string";
 import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
-import { LANG, SUBMISSION_STATUS } from "../../../constants";
+import { LANG, LANGUAGE_OPTIONS, SUBMISSION_STATUS_CODES } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 import { timeFromNow } from "../../../utils/timeFromNow";
 import { useTitle, useClipboard } from "@vueuse/core";
@@ -14,56 +14,56 @@ const route = useRoute();
 const router = useRouter();
 const session = useSession();
 useTitle(`Submissions - ${route.params.name} | Normal OJ`);
-const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+
 // url is the single source of truth
 // 1. grab query parameters from url, store into local states used by inputs
 // 2. when related states changed, replace url with new query parameters
 // 3. when url changed, fetch new data with new query parameters
-function toNumberOrNull(value: string): number | null {
-  const numericValue = Number(value);
-  return !isNaN(numericValue) ? numericValue : null;
+function removeEmpty(obj: object) {
+  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null && v !== ""));
 }
-const routeQuery = computed(() => ({
-  page: toNumberOrNull(route.query.page as string) || 1,
+const routeQuery = computed<{
+  page: number;
+  filter: SubmissionListFilter;
+}>(() => ({
+  page: parseInt(route.query.page as string, 10) || 1,
   filter: {
-    problemId: toNumberOrNull(route.query.problemId as string),
-    status: toNumberOrNull(route.query.status as string),
-    languageType: toNumberOrNull(route.query.languageType as string),
-    username: (route.query.username as string) ?? null,
+    problemId: route.query.problemId as string,
+    status: route.query.status as string,
+    languageType: route.query.languageType as string,
+    username: route.query.username as string,
   },
 }));
-const page = ref(routeQuery.value.page);
-const filter = ref<UserDefinedSubmissionQuery>({ ...routeQuery.value.filter });
-watchEffect(() => {
-  // effect function runs after page changed or filter changed
-  // TODO: type query
-  const query: any = {};
-  let key: keyof UserDefinedSubmissionQuery;
-  for (key in filter.value) {
-    if (filter.value[key] != null) {
-      query[key] = filter.value[key];
-      // if filter did change, reset page to 1
-      if (filter.value[key] !== routeQuery.value.filter[key]) {
-        page.value = 1;
-      }
-    }
-  }
-  query.page = page.value;
-  router.replace({ query });
-});
-const getSubmissionsUrl = computed(() => {
-  const qs = queryString.stringify(
-    {
-      ...routeQuery.value.filter,
-      offset: (page.value - 1) * 10,
-      count: 10,
-      course: route.params.name as string,
+function mutatePage(newPage: number) {
+  router.replace({
+    query: {
+      page: newPage,
+      ...removeEmpty(routeQuery.value.filter),
     },
-    { skipNull: true },
-  );
+  });
+}
+function mutateFilter(newFilter: Partial<SubmissionListFilter>) {
+  router.replace({
+    query: {
+      page: 1,
+      ...removeEmpty({
+        ...routeQuery.value.filter,
+        ...newFilter,
+      }),
+    },
+  });
+}
+const getSubmissionsUrl = computed(() => {
+  const query: SubmissionListQuery = {
+    ...routeQuery.value.filter,
+    offset: (routeQuery.value.page - 1) * 10,
+    count: 10,
+    course: route.params.name as string,
+  };
+  const qs = queryString.stringify(query, { skipNull: true, skipEmptyString: true });
   return `/submission?${qs}`;
 });
-const { execute, data, error, isLoading } = useAxios(fetcher);
+const { execute, data, error, isLoading } = useAxios<GetSubmissionListResponse>(fetcher);
 watch(
   getSubmissionsUrl,
   (url) => {
@@ -71,39 +71,37 @@ watch(
   },
   { immediate: true },
 );
-const searchUsername = ref("");
-const submissions = computed(() => (data.value as any)?.submissions);
-const submissionCount = computed(() => (data.value as any)?.submissionCount);
+const submissions = computed(() => data.value?.submissions);
+const submissionCount = computed(() => data.value?.submissionCount);
 const maxPage = computed(() => {
   return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
 });
+
+const { data: problems } = useAxios<ProblemListItem[]>(
+  `/problem?offset=0&count=-1&course=${route.params.name}`,
+  fetcher,
+);
 const problemIds = computed(() => {
   if (!problems.value) return [];
-  return problems.value.map(({ problemId, problemName }: any) => ({
-    value: problemId,
+  return problems.value.map(({ problemId, problemName }) => ({
+    value: problemId.toString(),
     text: `${problemId} - ${problemName}`,
   }));
 });
 const problemNameTable = computed(() => {
   if (!problems.value) return {};
-  return Object.fromEntries(problems.value.map((p: any) => [p.problemId.toString(), p.problemName]));
+  return Object.fromEntries(problems.value.map((p) => [p.problemId.toString(), p.problemName]));
 });
-const submissionStatus = SUBMISSION_STATUS.map((status, index) => ({
-  text: status,
-  value: index - 1,
+const submissionStatusCodes = Object.entries(SUBMISSION_STATUS_CODES).map(([statusCode, statusText]) => ({
+  text: statusText,
+  value: statusCode,
 }));
-const languageTypes = [
-  { text: "c", value: 0 },
-  { text: "cpp", value: 1 },
-  { text: "py3", value: 2 },
-  { text: "Handwritten", value: 3 },
-];
-function clearFilter() {
-  let key: keyof UserDefinedSubmissionQuery;
-  for (key in filter.value) {
-    filter.value[key] = null;
-  }
-}
+const languageTypes = LANGUAGE_OPTIONS.map(({ text, value }) => ({
+  text,
+  value: value.toString(),
+}));
+const searchUsername = ref("");
+
 const { copy, copied, isSupported } = useClipboard();
 function copySubmissionLink(path: string) {
   copy(new URL(path, window.location.origin).href);
@@ -123,31 +121,47 @@ function copySubmissionLink(path: string) {
             type="text"
             placeholder="Username (exact match)"
             class="input-bordered input w-full max-w-xs"
-            @keydown.enter="filter.username = searchUsername || null"
+            @keydown.enter="mutateFilter({ username: searchUsername })"
           />
         </div>
 
         <div class="my-2" />
         <div class="mb-4 flex items-end gap-x-4">
-          <select v-model="filter.problemId" class="select-bordered select w-full flex-1">
-            <option :value="null" selected>Problem</option>
+          <select
+            :value="routeQuery.filter.problemId"
+            class="select-bordered select w-full flex-1"
+            @change="(event) => mutateFilter({ problemId: (event.target as HTMLSelectElement).value})"
+          >
+            <option value="" selected>Problem</option>
             <option v-for="{ text, value } in problemIds" :value="value">{{ text }}</option>
           </select>
 
-          <select v-model="filter.status" class="select-bordered select w-full flex-1">
-            <option :value="null" selected>Status</option>
-            <option v-for="{ text, value } in submissionStatus" :value="value">{{ text }}</option>
+          <select
+            :value="routeQuery.filter.status"
+            class="select-bordered select w-full flex-1"
+            @change="(event) => mutateFilter({ status: (event.target as HTMLSelectElement).value})"
+          >
+            <option value="" selected>Status</option>
+            <option v-for="{ text, value } in submissionStatusCodes" :value="value">{{ text }}</option>
           </select>
 
-          <select v-model="filter.languageType" class="select-bordered select w-full flex-1">
-            <option :value="null" selected>Language</option>
+          <select
+            :value="routeQuery.filter.languageType"
+            class="select-bordered select w-full flex-1"
+            @change="(event) => mutateFilter({ languageType: (event.target as HTMLSelectElement).value})"
+          >
+            <option value="" selected>Language</option>
             <option v-for="{ text, value } in languageTypes" :value="value">{{ text }}</option>
           </select>
 
           <div
-            v-show="filter.problemId != null || filter.status != null || filter.languageType != null"
+            v-show="
+              routeQuery.filter.problemId != null ||
+              routeQuery.filter.status != null ||
+              routeQuery.filter.languageType != null
+            "
             class="btn"
-            @click="clearFilter"
+            @click="mutateFilter({ problemId: '', status: '', languageType: '' })"
           >
             <i-uil-filter-slash class="mr-1" /> Clear
           </div>
@@ -205,7 +219,7 @@ function copySubmissionLink(path: string) {
               <td>
                 <div
                   class="tooltip tooltip-bottom"
-                  :data-tip="problemNameTable[`${submission.problemId}`] || 'loading...'"
+                  :data-tip="problemNameTable[submission.problemId.toString()] || 'loading...'"
                 >
                   <router-link
                     :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
@@ -220,7 +234,7 @@ function copySubmissionLink(path: string) {
                   <span>{{ submission.user.username }}</span>
                 </div>
               </td>
-              <td><judge-status :status="submission.status" /></td>
+              <td><judge-status :status="`${submission.status}`" /></td>
               <td>{{ submission.score }}</td>
               <td>{{ submission.runTime }} ms</td>
               <td>{{ submission.memoryUsage }} KB</td>
@@ -235,7 +249,11 @@ function copySubmissionLink(path: string) {
         </table>
 
         <div class="card-actions mt-5">
-          <pagination-buttons v-model="page" :maxPage="maxPage" />
+          <pagination-buttons
+            :modelValue="routeQuery.page"
+            :maxPage="maxPage"
+            @update:modelValue="(newPage: number) => mutatePage(newPage)"
+          />
         </div>
       </div>
     </div>

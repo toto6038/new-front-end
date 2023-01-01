@@ -8,7 +8,7 @@ import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { formatTime } from "../../../../../utils/formatTime";
 import { useTheme } from "../../../../../stores/theme";
-import { SUBMISSION_COLOR, SUBMISSION_STATUS } from "../../../../../constants";
+import { SUBMISSION_STATUS_CODES, SUBMISSION_STATUS_COLORS } from "../../../../../constants";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../../../../models/api";
@@ -26,11 +26,11 @@ const {
 } = useAxios<ProblemStats>(`/problem/${route.params.id}/stats`, fetcher);
 const resultCounts = computed(() => {
   if (!stats.value) return [];
-  return SUBMISSION_STATUS.map((status, index) => ({
-    name: status,
+  return Object.entries(SUBMISSION_STATUS_CODES).map(([statusCode, statusText]) => ({
+    name: statusText,
     // @ts-ignore TODO I have no idea
-    value: stats.value.statusCount[String(index - 1)],
-    itemStyle: { color: SUBMISSION_COLOR[index] },
+    value: stats.value.statusCount[statusCode],
+    itemStyle: { color: SUBMISSION_STATUS_COLORS[statusCode as SubmissionStatusCode] },
   }));
 });
 const triedUserCount = computed(() => stats.value?.triedUserCount || null);

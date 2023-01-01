@@ -9,24 +9,33 @@ import { computed } from "vue";
 const session = useSession();
 const route = useRoute();
 useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
-const { data, error, isLoading } = useAxios(`/course/${route.params.name}/homework`, fetcher);
-const { data: problems } = useAxios(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+const { data, error, isLoading } = useAxios<HomeworkListItem[]>(
+  `/course/${route.params.name}/homework`,
+  fetcher,
+);
+const { data: problems } = useAxios<ProblemListItem[]>(
+  `/problem?offset=0&count=-1&course=${route.params.name}`,
+  fetcher,
+);
 const homeworks = computed(() => {
-  if (!data.value) return data.value;
+  if (!data.value) return [];
   return data.value.sort((a: any, b: any) => b.start - a.start);
 });
 
-function getProblemMeta(ids: number[]): {
-  [key: string]: {
+type ProblemMeta = Record<
+  string,
+  {
     name: string;
-    quota: number | string;
-  };
-} {
+    quota: number | "-";
+  }
+>;
+function getProblemMeta(ids: number[]): ProblemMeta {
   if (!problems.value) return {};
   return Object.fromEntries(
     ids.map((pid) => {
-      const p = problems.value.find((p: Problem) => p.problemId === pid);
-      return [pid.toString(), p ? { name: p.problemName, quota: p.quota } : { name: "-", quota: "-" }];
+      // @ts-ignore TODO I have no idea
+      const p = problems.value.find((p) => p.problemId === pid);
+      return [pid, p ? { name: p.problemName, quota: p.quota } : { name: "-", quota: "-" }];
     }),
   );
 }
@@ -40,7 +49,7 @@ function getProblemMeta(ids: number[]): {
           Homeworks
           <router-link
             v-if="session.isAdmin"
-            class="btn btn-success"
+            class="btn-success btn"
             :to="`/course/${$route.params.name}/homeworks/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New

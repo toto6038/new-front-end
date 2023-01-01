@@ -30,7 +30,7 @@ const Submission = {
     fetcher.put(`/submission/${id}`, body, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
-  rejudge: (id: string) => fetcher.get<any, any>(`/submission/${id}/rejudge`),
+  rejudge: (id: string) => fetcher.get(`/submission/${id}/rejudge`),
 };
 
 const Copycat = {

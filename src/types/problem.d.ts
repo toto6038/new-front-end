@@ -74,7 +74,7 @@ interface ProblemListItem {
 }
 
 interface ProblemStats {
-  statusCount: { [key: string]: number };
+  statusCount: { [key in SubmissionStatusCode]: number };
   triedUserCount: number;
   average: number;
   std: number;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  problem: Problem;
+  problem?: Problem;
   isLoading?: boolean;
   error?: any;
   preview?: boolean;
