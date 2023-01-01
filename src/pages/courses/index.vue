@@ -4,7 +4,7 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { fetcher } from "../../models/api";
 
 useTitle("Courses | Normal OJ");
-const { data: courses, error, isLoading } = useAxios("/course", fetcher);
+const { data: courses, error, isLoading } = useAxios<CourseList>("/course", fetcher);
 </script>
 
 <template>

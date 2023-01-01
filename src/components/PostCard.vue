@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { formatTime } from "../utils/formatTime";
+import { AxiosError } from "axios";
 
-// TODO: type props.error
 interface Props {
-  post: Post;
+  post?: PostListItem;
   isLoading?: boolean;
-  error?: any;
+  error?: AxiosError<PostList>;
 }
 withDefaults(defineProps<Props>(), {
   isLoading: false,
-  error: null,
 });
 </script>
 

@@ -3,23 +3,19 @@ interface ScoreboardHeader {
   selector: (row: ScoreboardRow) => string | number;
 }
 
-type ScoreCell = {
+interface ScoreCell {
   avg: number;
   count: number;
   max: number;
   min: number;
   pid: number;
-};
+}
 
-type ScoreboardRow = {
-  user: {
-    displayedName: string;
-    md5: string;
-    role: number;
-    username: string;
-  };
+interface ScoreboardRow {
+  user: UserInfo;
   avg: number;
   sum: number;
-} & {
-  [key: string]: ScoreCell;
-};
+  [key: `${number}`]: ScoreCell;
+}
+
+type Scoreboard = ScoreboardRow[];

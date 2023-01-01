@@ -77,7 +77,7 @@ const maxPage = computed(() => {
   return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
 });
 
-const { data: problems } = useAxios<ProblemListItem[]>(
+const { data: problems } = useAxios<ProblemList>(
   `/problem?offset=0&count=-1&course=${route.params.name}`,
   fetcher,
 );

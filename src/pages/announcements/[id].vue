@@ -6,12 +6,12 @@ import { fetcher } from "../../models/api";
 
 const route = useRoute();
 useTitle(`Announcement - ${route.params.id} | Normal OJ`);
-const { data: posts, error, isLoading } = useAxios(`/ann/${route.params.id}`, fetcher);
+const { data: posts, error, isLoading } = useAxios<PostList>(`/ann/${route.params.id}`, fetcher);
 </script>
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <router-link class="btn btn-sm mb-10" to="/">
+    <router-link class="btn-sm btn mb-10" to="/">
       <i-uil-left-arrow-to-left class="mr-1" /> Back
     </router-link>
 

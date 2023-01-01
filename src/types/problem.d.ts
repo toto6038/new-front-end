@@ -73,6 +73,8 @@ interface ProblemListItem {
   submitCount: number;
 }
 
+type ProblemList = ProblemListItem[];
+
 interface ProblemStats {
   statusCount: { [key in SubmissionStatusCode]: number };
   triedUserCount: number;
@@ -80,8 +82,8 @@ interface ProblemStats {
   std: number;
   scoreDistribution: number[];
   acUserRatio: number[];
-  top10RunTime: any[];
-  top10MemoryUsage: any[];
+  top10RunTime: SubmissionList;
+  top10MemoryUsage: SubmissionList;
 }
 
 interface MossReport {

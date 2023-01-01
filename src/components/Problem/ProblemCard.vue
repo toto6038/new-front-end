@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { AxiosError } from "axios";
+
 interface Props {
   problem?: Problem;
   isLoading?: boolean;
-  error?: any;
+  error?: AxiosError<Problem>;
   preview?: boolean;
 }
 withDefaults(defineProps<Props>(), {
   isLoading: false,
-  error: null,
   preview: false,
 });
 </script>

@@ -66,8 +66,10 @@ interface SubmissionListItem {
   status: SubmissionStatusCode;
   submissionId: string;
   timestamp: number;
-  user: Pick<User, "username" | "displayedName" | "role" | "md5">;
+  user: UserInfo;
 }
+
+type SubmissionList = SubmissionListItem[];
 
 interface Submission extends SubmissionListItem {
   code: string;
@@ -75,7 +77,7 @@ interface Submission extends SubmissionListItem {
 }
 
 interface GetSubmissionListResponse {
-  submissions: SubmissionListItem[];
+  submissions: SubmissionList;
   submissionCount: number;
 }
 

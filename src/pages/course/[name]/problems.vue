@@ -14,7 +14,7 @@ const {
   data: problems,
   error,
   isLoading,
-} = useAxios<ProblemListItem[]>(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
+} = useAxios<ProblemList>(`/problem?offset=0&count=-1&course=${route.params.name}`, fetcher);
 
 const page = ref(!isNaN(Number(route.query.page)) ? Number(route.query.page) : 1);
 watchEffect(() => {

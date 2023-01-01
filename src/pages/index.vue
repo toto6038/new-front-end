@@ -15,7 +15,8 @@ useTitle("Home | Normal OJ");
 const session = useSession();
 const router = useRouter();
 
-const { data: posts, error, isLoading } = useAxios("/ann", fetcher);
+const { data: posts, error, isLoading } = useAxios<PostList>("/ann", fetcher);
+
 const loginForm = reactive({
   username: "",
   password: "",
@@ -31,7 +32,6 @@ const errorMessages = {
   password: "Please fill out this field.",
 };
 const v$ = useVuelidate(rules, loginForm);
-
 async function login() {
   const isFormCorrect = await v$.value.$validate();
   if (!isFormCorrect) return;

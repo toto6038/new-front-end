@@ -6,7 +6,11 @@ import { fetcher } from "../../../../../models/api";
 
 const route = useRoute();
 useTitle(`Announcement - ${route.params.id} - ${route.params.name} | Normal OJ`);
-const { data: posts, error, isLoading } = useAxios(`/ann/${route.params.name}/${route.params.id}`, fetcher);
+const {
+  data: posts,
+  error,
+  isLoading,
+} = useAxios<PostList>(`/ann/${route.params.name}/${route.params.id}`, fetcher);
 </script>
 
 <template>

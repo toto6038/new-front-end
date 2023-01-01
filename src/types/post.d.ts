@@ -10,3 +10,16 @@ interface Post extends EditablePost {
   updateTime: number;
   createTime: number;
 }
+
+interface PostListItem {
+  annId: string;
+  createTime: number;
+  creator: UserInfo;
+  markdown: string;
+  pinned: boolean;
+  title: string;
+  updateTime: number;
+  updater: UserInfo;
+}
+
+type PostList = PostListItem[];

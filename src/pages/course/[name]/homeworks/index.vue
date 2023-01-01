@@ -9,17 +9,14 @@ import { computed } from "vue";
 const session = useSession();
 const route = useRoute();
 useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
-const { data, error, isLoading } = useAxios<HomeworkListItem[]>(
-  `/course/${route.params.name}/homework`,
-  fetcher,
-);
-const { data: problems } = useAxios<ProblemListItem[]>(
+const { data, error, isLoading } = useAxios<HomeworkList>(`/course/${route.params.name}/homework`, fetcher);
+const { data: problems } = useAxios<ProblemList>(
   `/problem?offset=0&count=-1&course=${route.params.name}`,
   fetcher,
 );
 const homeworks = computed(() => {
   if (!data.value) return [];
-  return data.value.sort((a: any, b: any) => b.start - a.start);
+  return data.value.sort((a, b) => b.start - a.start);
 });
 
 type ProblemMeta = Record<

@@ -19,3 +19,5 @@ interface Homework extends EditableHomework {
 interface HomeworkListItem extends Homework {
   id: string;
 }
+
+type HomeworkList = HomeworkListItem[];

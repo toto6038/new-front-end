@@ -8,6 +8,8 @@ interface User {
   active: boolean;
 }
 
+type UserInfo = Pick<User, "username" | "displayedName" | "role" | "md5">;
+
 interface UserEditorConfig {
   fontSize: number;
   theme: string;
