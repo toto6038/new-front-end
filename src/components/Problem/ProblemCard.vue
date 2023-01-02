@@ -31,7 +31,7 @@ withDefaults(defineProps<Props>(), {
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
             </div>
             <div class="flex">
-              <span class="badge-info badge mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+              <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>
 
@@ -96,10 +96,18 @@ withDefaults(defineProps<Props>(), {
                   <tr v-for="i in problem.description.sampleInput.length">
                     <td class="align-top">{{ i }}</td>
                     <td class="align-top">
-                      <sample-code-block :code="problem.description.sampleInput[i - 1]"></sample-code-block>
+                      <sample-code-block
+                        v-if="problem.description.sampleInput[i - 1]"
+                        :code="problem.description.sampleInput[i - 1]"
+                      ></sample-code-block>
+                      <span v-else class="italic opacity-70">no input</span>
                     </td>
                     <td class="align-top">
-                      <sample-code-block :code="problem.description.sampleOutput[i - 1]"></sample-code-block>
+                      <sample-code-block
+                        v-if="problem.description.sampleOutput[i - 1]"
+                        :code="problem.description.sampleOutput[i - 1]"
+                      ></sample-code-block>
+                      <span v-else class="italic opacity-70">no output</span>
                     </td>
                   </tr>
                 </tbody>
