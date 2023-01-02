@@ -81,8 +81,8 @@ const sortedScoreboard = computed(() => {
 function getCellColor(cell: ScoreCell | undefined) {
   if (!cell) return "";
   if (cell.count === 0) return "bg-gray-200";
-  if (cell.max < 100) return "bg-red-200";
-  return "bg-green-200";
+  if (cell.max < 100) return "bg-red-300 text-neutral";
+  return "bg-green-300 text-neutral";
 }
 const scoreDistribution = computed(() => {
   if (!scoreboard.value) return {};
@@ -221,7 +221,7 @@ function exportCSV() {
                   <div class="text-xs">{{ row[`${pid}`].count }} tries</div>
                 </div>
               </td>
-              <td class="text-center">{{ row.avg }}</td>
+              <td class="text-center">{{ row.avg.toFixed(2) }}</td>
               <td class="text-center">{{ row.sum }}</td>
             </tr>
           </tbody>
