@@ -49,7 +49,14 @@ const openPreview = ref<boolean>(false);
           <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
         </div>
 
-        <problem-form :value="editedProblem" @update="update" />
+        <div class="alert alert-warning">
+          <div>
+            <i-uil-exclamation-octagon />
+            <span>This page in under development</span>
+          </div>
+        </div>
+
+        <!-- <problem-form :value="editedProblem" @update="update" /> -->
 
         <div class="divider" />
 
@@ -58,7 +65,7 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <problem-card v-show="openPreview" :problem="editedProblem" preview />
+        <!-- <problem-card v-show="openPreview" :problem="editedProblem" preview /> -->
       </div>
     </div>
   </div>
