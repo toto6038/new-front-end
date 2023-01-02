@@ -9,18 +9,18 @@ import { useTitle } from "@vueuse/core";
 const route = useRoute();
 const router = useRouter();
 useTitle(`Members - ${route.params.name} | Normal OJ`);
-enum Columns {
+enum MemberTableColumn {
   USERNAME = "username",
   DISPLAYED_NAME = "displayedName",
   ROLE = "role",
 }
-const sortBy = ref<Columns>(
-  Object.values(Columns).includes(route.query.sort as Columns)
-    ? (route.query.sort as Columns)
-    : Columns.USERNAME,
+const sortBy = ref<MemberTableColumn>(
+  Object.values(MemberTableColumn).includes(route.query.sort as MemberTableColumn)
+    ? (route.query.sort as MemberTableColumn)
+    : MemberTableColumn.USERNAME,
 );
 watchEffect(() => {
-  router.replace({ query: { sort: sortBy.value || Columns.USERNAME } });
+  router.replace({ query: { sort: sortBy.value || MemberTableColumn.USERNAME } });
 });
 const { data, error, isLoading } = useAxios<Course>(`/course/${route.params.name}`, fetcher);
 const members = computed(() => {
@@ -41,7 +41,9 @@ const members = computed(() => {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title">Members</div>
+        <div class="card-title">
+          Members <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
+        </div>
 
         <div class="mb-4">
           <div class="form-control w-full max-w-xs">
@@ -49,9 +51,9 @@ const members = computed(() => {
               <span class="label-text">Sort By</span>
             </label>
             <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
-              <option :value="Columns.USERNAME">Username</option>
-              <option :value="Columns.DISPLAYED_NAME">Display Name</option>
-              <option :value="Columns.ROLE">Role</option>
+              <option :value="MemberTableColumn.USERNAME">Username</option>
+              <option :value="MemberTableColumn.DISPLAYED_NAME">Display Name</option>
+              <option :value="MemberTableColumn.ROLE">Role</option>
             </select>
           </div>
         </div>
