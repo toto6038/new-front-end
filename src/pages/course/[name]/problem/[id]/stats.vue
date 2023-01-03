@@ -26,10 +26,10 @@ const {
 } = useAxios<ProblemStats>(`/problem/${route.params.id}/stats`, fetcher);
 const resultCounts = computed(() => {
   if (!stats.value) return [];
+  const _stats = stats.value;
   return Object.entries(SUBMISSION_STATUS_REPR).map(([statusCode, { label, color }]) => ({
     name: label,
-    // @ts-ignore TODO I have no idea
-    value: stats.value.statusCount[statusCode],
+    value: _stats.statusCount[statusCode],
     itemStyle: { color: color },
   }));
 });

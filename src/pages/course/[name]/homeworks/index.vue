@@ -28,10 +28,10 @@ type ProblemMeta = Record<
 >;
 function getProblemMeta(ids: number[]): ProblemMeta {
   if (!problems.value) return {};
+  const _problems = problems.value;
   return Object.fromEntries(
     ids.map((pid) => {
-      // @ts-ignore TODO I have no idea
-      const p = problems.value.find((p) => p.problemId === pid);
+      const p = _problems.find((p) => p.problemId === pid);
       return [pid, p ? { name: p.problemName, quota: p.quota } : { name: "-", quota: "-" }];
     }),
   );
@@ -46,7 +46,7 @@ function getProblemMeta(ids: number[]): ProblemMeta {
           Homeworks
           <router-link
             v-if="session.isAdmin"
-            class="btn-success btn"
+            class="btn btn-success"
             :to="`/course/${$route.params.name}/homeworks/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
