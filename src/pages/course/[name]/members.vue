@@ -22,18 +22,19 @@ const sortBy = ref<Columns>(
 watchEffect(() => {
   router.replace({ query: { sort: sortBy.value || Columns.USERNAME } });
 });
-const { data, error, isLoading } = useAxios(`/course/${route.params.name}`, fetcher);
-const members = computed(() =>
-  [data.value.teacher, ...data.value?.students, ...data.value?.TAs].sort((a, b) => {
+const { data, error, isLoading } = useAxios<Course>(`/course/${route.params.name}`, fetcher);
+const members = computed(() => {
+  if (!data.value) return [];
+  return [data.value.teacher, ...data.value.students, ...data.value.TAs].sort((a, b) => {
     if (sortBy.value === "username") {
       return a.username.localeCompare(b.username);
     } else if (sortBy.value === "displayedName") {
       return a.displayedName.localeCompare(b.displayedName);
-    } else if (sortBy.value === "role") {
+    } else {
       return a.role - b.role;
     }
-  }),
-);
+  });
+});
 </script>
 
 <template>

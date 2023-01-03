@@ -48,7 +48,14 @@ const openJSON = ref<boolean>(false);
           </button>
         </div>
 
-        <problem-form />
+        <div class="alert alert-warning">
+          <div>
+            <i-uil-exclamation-octagon />
+            <span>This page in under development</span>
+          </div>
+        </div>
+
+        <!-- <problem-form /> -->
 
         <div class="divider" />
 
@@ -57,7 +64,7 @@ const openJSON = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <problem-card v-if="openPreview" :problem="newProblem" preview />
+        <!-- <problem-card v-if="openPreview" :problem="newProblem" preview /> -->
 
         <div class="divider my-4" />
 

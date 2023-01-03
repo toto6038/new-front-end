@@ -6,6 +6,7 @@ import { useSession } from "../stores/session";
 import { useTitle } from "@vueuse/core";
 import { required, sameAs } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+import axios from "axios";
 
 useTitle("Profile | Normal OJ");
 const router = useRouter();
@@ -53,13 +54,16 @@ async function changePassword() {
       newPassword: changePasswordForm.newPassword,
     });
     clearForm();
-  } catch (error: any) {
-    if (error.response.data.message === "Wrong Password") {
-      changePasswordForm.errorMsg = "Wrong Password";
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data.message === "Wrong Password") {
+        changePasswordForm.errorMsg = "Wrong Password";
+      } else {
+        changePasswordForm.errorMsg = "Operation failed, please try again later";
+      }
     } else {
-      changePasswordForm.errorMsg = "Operation failed, please try again later";
+      throw error;
     }
-    throw error;
   } finally {
     changePasswordForm.isLoading = false;
   }
@@ -102,7 +106,7 @@ function clearForm() {
       </div>
       <div class="card-actions">
         <div class="mx-auto flex max-w-7xl gap-8 p-4">
-          <button class="btn-outline btn btn-error" @click="logout">Sign out</button>
+          <button class="btn-outline btn-error btn" @click="logout">Sign out</button>
         </div>
       </div>
 
@@ -177,7 +181,7 @@ function clearForm() {
         </div>
         <div class="form-control mt-6">
           <div
-            :class="['btn btn-primary', changePasswordForm.isLoading && 'loading']"
+            :class="['btn-primary btn', changePasswordForm.isLoading && 'loading']"
             @click="changePassword"
           >
             Submit

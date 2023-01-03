@@ -11,6 +11,7 @@ export default defineConfig({
     vue(),
     Pages(),
     Components({
+      dts: "./src/auto/components.d.ts",
       resolvers: [IconsResolver()],
     }),
     Icons(),

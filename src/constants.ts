@@ -6,31 +6,44 @@ export const LANGUAGE_OPTIONS: LangOption[] = [
   { value: 2, text: "py", mask: 4 },
 ];
 
-// the index is important
 export const ROLE = ["Admin", "Teacher", "Student"];
 
-// the order of the submission status & color is important
-// we access both arrays by index submission.status + 1
-export const SUBMISSION_STATUS = [
-  "Pending",
-  "Accepted",
-  "Wrong Answer",
-  "Compile Error",
-  "Time Limit Exceed",
-  "Memory Limit Exceed",
-  "Runtime Error",
-  "Judge Error",
-  "Output Limit Exceed",
-];
-export const SUBMISSION_ALIAS = ["PE", "AC", "WA", "CE", "TLE", "MLE", "RE", "JE", "OLE"];
-export const SUBMISSION_COLOR = [
-  "#9e675a",
-  "#00C853",
-  "#F44336",
-  "#DD2C00",
-  "#9c56a8",
-  "#FF9800",
-  "#2196F3",
-  "#a65a5c",
-  "#BF360C",
-];
+// keyof SUBMISSION_STATUS_REPR please refer to './types/submission.d.ts'
+export const SUBMISSION_STATUS_REPR = {
+  [-1]: {
+    label: "Pending",
+    color: "#9e675a",
+  },
+  [0]: {
+    label: "Accepted",
+    color: "#00C853",
+  },
+  [1]: {
+    label: "Wrong Answer",
+    color: "#F44336",
+  },
+  [2]: {
+    label: "Compile Error",
+    color: "#DD2C00",
+  },
+  [3]: {
+    label: "Time Limit Exceed",
+    color: "#9c56a8",
+  },
+  [4]: {
+    label: "Memory Limit Exceed",
+    color: "#FF9800",
+  },
+  [5]: {
+    label: "Runtime Error",
+    color: "#2196F3",
+  },
+  [6]: {
+    label: "Judge Error",
+    color: "#a65a5c",
+  },
+  [7]: {
+    label: "Output Limit Exceed",
+    color: "#BF360C",
+  },
+} as const;

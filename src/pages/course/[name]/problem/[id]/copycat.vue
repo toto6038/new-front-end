@@ -8,12 +8,12 @@ import { computed } from "@vue/reactivity";
 
 const route = useRoute();
 useTitle(`Copycat - ${route.params.id} - ${route.params.name} | Normal OJ`);
-const { data: course } = useAxios(`/course/${route.params.name}`, fetcher);
-const { data, error, execute } = useAxios(
+const { data: course, error } = useAxios<Course>(`/course/${route.params.name}`, fetcher);
+const { data, execute } = useAxios<MossReport>(
   `/copycat?course=${route.params.name}&problemId=${route.params.id}`,
   fetcher,
 );
-const isReportGenerated = computed<boolean>(() => data.value && Object.values(data.value).some(Boolean));
+const isReportGenerated = computed(() => data.value && Object.values(data.value).some(Boolean));
 const { pause, resume } = useIntervalFn(execute, 10000);
 watchEffect(() => {
   if (isReportGenerated) {
@@ -21,6 +21,7 @@ watchEffect(() => {
   }
 });
 async function detect() {
+  if (!course.value) return;
   const studentNicknames = Object.fromEntries(
     course.value.students.map((student: any) => [student.username, student.displayedName]),
   );
@@ -42,10 +43,17 @@ async function detect() {
       <div class="card-body">
         <div class="card-title md:text-2xl lg:text-3xl">Copycat of problem #{{ $route.params.id }}</div>
 
+        <div v-if="error" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Failed to load course members. Try again later.</span>
+          </div>
+        </div>
+
         <div v-if="!isReportGenerated">No report.</div>
         <div v-else>Report generating...</div>
 
-        <button class="btn" @click="detect"><i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Detect</button>
+        <button class="btn" @click="detect"><i-uil-file-upload-alt class="mr-1 h-5 w-5" />Detect</button>
 
         <div v-if="data" v-html="data.cpp_report" />
       </div>

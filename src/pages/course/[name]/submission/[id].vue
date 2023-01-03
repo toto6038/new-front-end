@@ -13,12 +13,7 @@ const session = useSession();
 const route = useRoute();
 useTitle(`Submission - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
-const {
-  data: submission,
-  error,
-  isLoading,
-  execute,
-} = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
+const { data: submission, error, execute } = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
 const { copy, copied, isSupported } = useClipboard();
 
 const { pause, isActive } = useIntervalFn(() => {
@@ -157,11 +152,11 @@ async function rejudge() {
                     </div>
                   </td>
                 </tr>
-                <tr v-show="expandTasks[taskIndex]" v-for="(taskcase, caseIndex) in task.cases">
+                <tr v-show="expandTasks[taskIndex]" v-for="(_case, caseIndex) in task.cases">
                   <td>{{ taskIndex }}-{{ caseIndex }}</td>
-                  <td><judge-status :status="taskcase.status" /></td>
-                  <td>{{ taskcase.execTime }} ms</td>
-                  <td>{{ taskcase.memoryUsage }} KB</td>
+                  <td><judge-status :status="_case.status" /></td>
+                  <td>{{ _case.execTime }} ms</td>
+                  <td>{{ _case.memoryUsage }} KB</td>
                   <td>-</td>
                 </tr>
               </tbody>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { SUBMISSION_STATUS, SUBMISSION_COLOR } from "../constants";
+import { SUBMISSION_STATUS_REPR } from "../constants";
 
 interface Props {
-  status: number;
+  status: SubmissionStatusCodes;
 }
 defineProps<Props>();
 </script>
 
 <template>
-  <span :style="{ color: SUBMISSION_COLOR[status + 1] }">
-    {{ SUBMISSION_STATUS[status + 1] }}
+  <span :style="{ color: SUBMISSION_STATUS_REPR[status].color }">
+    {{ SUBMISSION_STATUS_REPR[status].label }}
   </span>
 </template>

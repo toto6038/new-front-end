@@ -4,8 +4,8 @@ import { useSession } from "../stores/session";
 import { formatTime } from "../utils/formatTime";
 
 interface Props {
-  homework: Homework;
-  problems: { [pid: string]: Problem };
+  homework: HomeworkListItem;
+  problems: Record<string, { name: string | "-"; quota: number | "-" }>;
   preview?: boolean;
 }
 
@@ -93,11 +93,11 @@ const state = computed(() => {
                 </td>
                 <td>
                   <ui-spinner v-if="!problems[pid.toString()]" />
-                  <span v-else>{{ (problems[pid.toString()] as any).name }}</span>
+                  <span v-else>{{ problems[pid.toString()].name }}</span>
                 </td>
                 <td>
                   <ui-spinner v-if="!problems[pid.toString()]" />
-                  <span v-else>{{ (problems[pid.toString()] as any).quota }}</span>
+                  <span v-else>{{ problems[pid.toString()].quota }}</span>
                 </td>
                 <td>
                   {{
@@ -110,7 +110,7 @@ const state = computed(() => {
                 <td>
                   <div class="tooltip" data-tip="Stats">
                     <router-link
-                      class="btn btn-ghost btn-xs"
+                      class="btn-ghost btn-xs btn"
                       :to="`/course/${$route.params.name}/problem/${pid}/stats`"
                     >
                       <i-uil-chart-line class="lg:h-5 lg:w-5" />

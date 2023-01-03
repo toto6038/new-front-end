@@ -19,7 +19,7 @@ useTitle(`Homework Stats - ${route.params.id} - ${route.params.name} | Normal OJ
 const theme = useTheme();
 use([CanvasRenderer, LabelLayout, GridComponent, BarChart]);
 
-const { data: hw, error: hwError } = useAxios(`/homework/${route.params.id}`, fetcher);
+const { data: hw, error: hwError } = useAxios<Homework>(`/homework/${route.params.id}`, fetcher);
 const pids = ref<number[] | undefined>();
 const scoreboardBegin = ref<number>();
 const scoreboardEnd = ref<number>();
@@ -35,11 +35,11 @@ const startDateTime = computed(
 const endDateTime = computed(
   () => scoreboardEnd.value && dayjs(scoreboardEnd.value * 1000).format("YYYY-MM-DD\THH:mm"),
 );
-function setScoreboardBegin(event: any) {
-  scoreboardBegin.value = dayjs(event.target.value).valueOf() / 1000;
+function setScoreboardBegin(event: Event) {
+  scoreboardBegin.value = dayjs((event.target as HTMLInputElement).value).valueOf() / 1000;
 }
-function setScoreboardEnd(event: any) {
-  scoreboardEnd.value = dayjs(event.target.value).valueOf() / 1000;
+function setScoreboardEnd(event: Event) {
+  scoreboardEnd.value = dayjs((event.target as HTMLInputElement).value).valueOf() / 1000;
 }
 const getScoreboardUrl = computed<string>(() => {
   if (!pids.value || !scoreboardBegin.value || !scoreboardEnd.value) return "";
@@ -50,7 +50,7 @@ const getScoreboardUrl = computed<string>(() => {
   });
   return `/course/${route.params.name}/scoreboard?${qs}`;
 });
-const { execute, data: scoreboard, error: scoreboardError, isLoading } = useAxios(fetcher);
+const { execute, data: scoreboard, error: scoreboardError, isLoading } = useAxios<Scoreboard>(fetcher);
 watch(
   getScoreboardUrl,
   (url) => {
@@ -117,10 +117,10 @@ const barOption = computed(() => ({
   },
 }));
 function exportCSV() {
-  if (!pids.value) return;
+  if (!sortedScoreboard.value || !pids.value) return;
   const csvHeader: string = ["username", "display name", ...pids.value.map(String), "avg", "sum"].join(",");
   const csvBody: string = sortedScoreboard.value
-    .map((row: ScoreboardRow): string =>
+    .map((row: ScoreboardRow) =>
       [
         row.user.username,
         row.user.displayedName,
@@ -137,7 +137,7 @@ function exportCSV() {
   const csvURL = URL.createObjectURL(csvData);
   const link = document.createElement("a");
   link.href = csvURL;
-  link.download = `${route.params.name}-${hw.value.name}-scoreboard.csv`;
+  link.download = `${route.params.name}-${hw.value && hw.value.name}-scoreboard.csv`;
   document.body.appendChild(link);
   link.click();
 }
@@ -147,7 +147,7 @@ function exportCSV() {
   <div class="p-2 pb-40">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title">Stats - {{ hw.name }}</div>
+        <div class="card-title">Stats - {{ hw && hw.name }}</div>
 
         <div class="flex">
           <v-chart class="mx-auto h-[400px]" :theme="theme.isDark ? 'dark' : ''" :option="barOption" />

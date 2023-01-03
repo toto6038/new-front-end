@@ -38,7 +38,14 @@ const openPreview = ref<boolean>(false);
           <button class="btn"><i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save</button>
         </div>
 
-        <homework-form :value="editedHomework" :problems="problems" @update="update" />
+        <div class="alert alert-warning">
+          <div>
+            <i-uil-exclamation-octagon />
+            <span>This page in under development</span>
+          </div>
+        </div>
+
+        <!-- <homework-form :value="editedHomework" :problems="problems" @update="update" /> -->
 
         <div class="divider" />
 
@@ -47,7 +54,7 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <homework-card v-show="openPreview" :homework="editedHomework" preview />
+        <!-- <homework-card v-show="openPreview" :homework="editedHomework" preview /> -->
       </div>
     </div>
   </div>

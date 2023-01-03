@@ -7,7 +7,6 @@ interface EditableHomework {
 }
 
 interface Homework extends EditableHomework {
-  id: string;
   studentStatus: {
     [username: string]: {
       [pid: string]: {
@@ -16,3 +15,9 @@ interface Homework extends EditableHomework {
     };
   };
 }
+
+interface HomeworkListItem extends Homework {
+  id: string;
+}
+
+type HomeworkList = HomeworkListItem[];

@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { AxiosError } from "axios";
+
 interface Props {
-  problem: Problem;
+  problem?: Problem;
   isLoading?: boolean;
-  error?: any;
+  error?: AxiosError<Problem>;
   preview?: boolean;
 }
 withDefaults(defineProps<Props>(), {
   isLoading: false,
-  error: null,
   preview: false,
 });
 </script>
@@ -30,7 +31,7 @@ withDefaults(defineProps<Props>(), {
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
             </div>
             <div class="flex">
-              <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+              <span class="badge-info badge mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>
 

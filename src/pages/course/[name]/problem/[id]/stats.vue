@@ -8,7 +8,7 @@ import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { formatTime } from "../../../../../utils/formatTime";
 import { useTheme } from "../../../../../stores/theme";
-import { SUBMISSION_COLOR, SUBMISSION_STATUS } from "../../../../../constants";
+import { SUBMISSION_STATUS_REPR } from "../../../../../constants";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import { fetcher } from "../../../../../models/api";
@@ -19,14 +19,18 @@ const theme = useTheme();
 useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
 use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout, GridComponent, BarChart]);
 
-const { data: stats, error, isLoading } = useAxios<Stats>(`/problem/${route.params.id}/stats`, fetcher);
+const {
+  data: stats,
+  error,
+  isLoading,
+} = useAxios<ProblemStats>(`/problem/${route.params.id}/stats`, fetcher);
 const resultCounts = computed(() => {
   if (!stats.value) return [];
-  return SUBMISSION_STATUS.map((status, index) => ({
-    name: status,
-    // @ts-ignore
-    value: stats.value.statusCount[String(index - 1)],
-    itemStyle: { color: SUBMISSION_COLOR[index] },
+  return Object.entries(SUBMISSION_STATUS_REPR).map(([statusCode, { label, color }]) => ({
+    name: label,
+    // @ts-ignore TODO I have no idea
+    value: stats.value.statusCount[statusCode],
+    itemStyle: { color: color },
   }));
 });
 const triedUserCount = computed(() => stats.value?.triedUserCount || null);
@@ -44,8 +48,8 @@ const scoreDistribution = computed(() => {
   );
   return counter;
 });
-const top10RunTime = computed<Submission[]>(() => stats.value?.top10RunTime || []);
-const top10MemoryUsage = computed<Submission[]>(() => stats.value?.top10MemoryUsage || []);
+const top10RunTime = computed(() => stats.value?.top10RunTime || []);
+const top10MemoryUsage = computed(() => stats.value?.top10MemoryUsage || []);
 
 const pieOption = computed(() => ({
   backgroundColor: "transparent",

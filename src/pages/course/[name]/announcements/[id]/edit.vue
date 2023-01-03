@@ -54,7 +54,14 @@ const openPreview = ref<boolean>(false);
           </div>
         </div>
 
-        <post-form :value="editedPost" @update="update" />
+        <div class="alert alert-warning">
+          <div>
+            <i-uil-exclamation-octagon />
+            <span>This page in under development</span>
+          </div>
+        </div>
+
+        <!-- <post-form :value="editedPost" @update="update" /> -->
 
         <div class="divider" />
 
@@ -63,7 +70,7 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...editedPost }" />
+        <!-- <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...editedPost }" /> -->
       </div>
     </div>
   </div>

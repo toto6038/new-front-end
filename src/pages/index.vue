@@ -9,12 +9,14 @@ import api from "../models/api";
 import { useRouter } from "vue-router";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { fetcher } from "../models/api";
+import axios from "axios";
 
 useTitle("Home | Normal OJ");
 const session = useSession();
 const router = useRouter();
 
-const { data: posts, error, isLoading } = useAxios("/ann", fetcher);
+const { data: posts, error, isLoading } = useAxios<PostList>("/ann", fetcher);
+
 const loginForm = reactive({
   username: "",
   password: "",
@@ -30,7 +32,6 @@ const errorMessages = {
   password: "Please fill out this field.",
 };
 const v$ = useVuelidate(rules, loginForm);
-
 async function login() {
   const isFormCorrect = await v$.value.$validate();
   if (!isFormCorrect) return;
@@ -44,8 +45,11 @@ async function login() {
     await session.validateSession();
     router.go(0);
   } catch (error) {
-    loginForm.isError = true;
-    throw error;
+    if (axios.isAxiosError(error)) {
+      loginForm.isError = true;
+    } else {
+      throw error;
+    }
   } finally {
     loginForm.isLoading = false;
   }
@@ -85,7 +89,7 @@ async function login() {
                 <td v-if="session.isAdmin">
                   <div class="tooltip" data-tip="Edit">
                     <router-link
-                      class="btn btn-ghost btn-sm btn-circle"
+                      class="btn-ghost btn-sm btn-circle btn"
                       :to="`/course/Public/announcements/${annId}/edit`"
                     >
                       <i-uil-edit class="lg:h-5 lg:w-5" />
@@ -152,7 +156,7 @@ async function login() {
               </label>
             </div>
             <div class="form-control mt-6">
-              <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
+              <button :class="['btn-primary btn', loginForm.isLoading && 'loading']" @click="login">
                 Sign In
               </button>
             </div>

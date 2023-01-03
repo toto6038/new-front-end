@@ -9,7 +9,7 @@ import { useTitle } from "@vueuse/core";
 const session = useSession();
 const route = useRoute();
 useTitle(`Announcements - ${route.params.name} | Normal OJ`);
-const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}/ann`, fetcher);
+const { data: posts, error, isLoading } = useAxios<PostList>(`/course/${route.params.name}/ann`, fetcher);
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
           Announcements
           <router-link
             v-if="session.isAdmin"
-            class="btn btn-success"
+            class="btn-success btn"
             :to="`/course/${$route.params.name}/announcements/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
@@ -58,7 +58,7 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
               <td v-if="session.isAdmin">
                 <div class="tooltip" data-tip="Edit">
                   <router-link
-                    class="btn btn-ghost btn-sm btn-circle"
+                    class="btn-ghost btn-sm btn-circle btn"
                     :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />
