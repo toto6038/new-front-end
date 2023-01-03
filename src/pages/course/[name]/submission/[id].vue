@@ -104,7 +104,7 @@ async function rejudge() {
                     </router-link>
                   </td>
                   <td>{{ submission.user.username }} ({{ submission.user.displayedName }})</td>
-                  <td><judge-status :status="`${submission.status}`" /></td>
+                  <td><judge-status :status="submission.status" /></td>
                   <td>{{ submission.runTime }} ms</td>
                   <td>{{ submission.memoryUsage }} KB</td>
                   <td>{{ submission.score }}</td>
@@ -143,7 +143,7 @@ async function rejudge() {
                 <tr>
                   <td colspan="5">
                     <div
-                      class="btn-ghost btn-block btn-sm btn gap-x-3"
+                      class="btn btn-ghost btn-block btn-sm gap-x-3"
                       @click="expandTasks[taskIndex] = !expandTasks[taskIndex]"
                     >
                       <i-uil-angle-down v-if="!expandTasks[taskIndex]" />
@@ -174,7 +174,7 @@ async function rejudge() {
               <!-- ts check bug in `copy(submission.code)` -->
               <button
                 v-if="isSupported"
-                class="btn-info btn-xs btn ml-3"
+                class="btn btn-info btn-xs ml-3"
                 @click="copy(submission?.code || '')"
               >
                 {{ copied ? "Copied!" : "Copy" }}

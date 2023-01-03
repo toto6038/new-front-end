@@ -5,7 +5,7 @@ import { computed, ref, watch } from "vue";
 import queryString from "query-string";
 import { fetcher } from "../../../models/api";
 import { useSession } from "../../../stores/session";
-import { LANG, LANGUAGE_OPTIONS, SUBMISSION_STATUS_CODES } from "../../../constants";
+import { LANG, LANGUAGE_OPTIONS, SUBMISSION_STATUS_REPR } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 import { timeFromNow } from "../../../utils/timeFromNow";
 import { useTitle, useClipboard } from "@vueuse/core";
@@ -92,9 +92,9 @@ const problemNameTable = computed(() => {
   if (!problems.value) return {};
   return Object.fromEntries(problems.value.map((p) => [p.problemId.toString(), p.problemName]));
 });
-const submissionStatusCodes = Object.entries(SUBMISSION_STATUS_CODES).map(([statusCode, statusText]) => ({
-  text: statusText,
-  value: statusCode,
+const submissionStatusCodes = Object.values(SUBMISSION_STATUS_REPR).map(({ label, color }) => ({
+  text: label,
+  value: color,
 }));
 const languageTypes = LANGUAGE_OPTIONS.map(({ text, value }) => ({
   text,
@@ -234,7 +234,7 @@ function copySubmissionLink(path: string) {
                   <span>{{ submission.user.username }}</span>
                 </div>
               </td>
-              <td><judge-status :status="`${submission.status}`" /></td>
+              <td><judge-status :status="submission.status" /></td>
               <td>{{ submission.score }}</td>
               <td>{{ submission.runTime }} ms</td>
               <td>{{ submission.memoryUsage }} KB</td>
