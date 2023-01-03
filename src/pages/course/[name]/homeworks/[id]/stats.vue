@@ -188,8 +188,10 @@ function exportCSV() {
               @change="setScoreboardEnd"
             />
           </div>
-          <div :class="['btn', isLoading && 'loading']" @click="() => execute(getScoreboardUrl)">Fetch</div>
-          <div class="btn" @click="() => exportCSV()">Export</div>
+          <button :class="['btn', isLoading && 'loading']" @click="() => execute(getScoreboardUrl)">
+            Fetch
+          </button>
+          <button class="btn" @click="() => exportCSV()">Export</button>
         </div>
         <div v-if="hwError || scoreboardError" class="alert alert-error shadow-lg">
           <div>

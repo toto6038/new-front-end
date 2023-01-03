@@ -18,13 +18,13 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
       <div class="card-body">
         <div class="card-title justify-between">
           Announcements
-          <div
+          <router-link
             v-if="session.isAdmin"
             class="btn btn-success"
-            @click="$router.push(`/course/${$route.params.name}/announcements/new`)"
+            :to="`/course/${$route.params.name}/announcements/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
-          </div>
+          </router-link>
         </div>
         <div class="my-2" />
         <skeleton-table v-if="isLoading" :col="3" :row="5" />
@@ -44,22 +44,25 @@ const { data: posts, error, isLoading } = useAxios(`/course/${route.params.name}
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="{ title, creator, createTime, annId } in posts"
-              class="hover cursor-pointer"
-              @click="$router.push(`/course/${$route.params.name}/announcements/${annId}`)"
-            >
-              <td>{{ title }}</td>
+            <tr v-for="{ title, creator, createTime, annId } in posts" :key="annId" class="hover">
+              <td>
+                <router-link
+                  :to="`/course/${$route.params.name}/announcements/${annId}`"
+                  class="link-hover link"
+                >
+                  {{ title }}
+                </router-link>
+              </td>
               <td>{{ creator.displayedName }}</td>
               <td>{{ formatTime(createTime) }}</td>
               <td v-if="session.isAdmin">
                 <div class="tooltip" data-tip="Edit">
-                  <div
+                  <router-link
                     class="btn btn-ghost btn-sm btn-circle"
-                    @click.stop="$router.push(`/course/${$route.params.name}/announcements/${annId}/edit`)"
+                    :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />
-                  </div>
+                  </router-link>
                 </div>
               </td>
             </tr>

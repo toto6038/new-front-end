@@ -44,9 +44,9 @@ const session = useSession();
   <ul
     :class="['menu w-96 flex-col overflow-y-auto bg-primary py-4 text-white', isMini ? 'lg:w-14' : 'lg:w-28']"
   >
-    <div class="my-2 flex cursor-pointer justify-center" @click="$router.push('/')">
+    <router-link class="my-2 flex cursor-pointer justify-center" to="/">
       <img src="../assets/logo.svg" alt="NOJ Logo" :class="['mb-2', isMini ? 'w-10' : 'w-14']" />
-    </div>
+    </router-link>
     <li>
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/') }" to="/">
         <i-uil-home class="h-6 w-6" />

@@ -1,17 +1,13 @@
 <script setup lang="ts">
-defineProps({
-  header: {
-    type: Boolean,
-    default: true,
-  },
-  row: {
-    type: Number,
-    default: 3,
-  },
-  col: {
-    type: Number,
-    default: 3,
-  },
+interface Props {
+  header?: boolean;
+  row?: number;
+  col?: number;
+}
+withDefaults(defineProps<Props>(), {
+  header: true,
+  row: 3,
+  col: 3,
 });
 </script>
 

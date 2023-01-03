@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { SUBMISSION_STATUS, SUBMISSION_COLOR } from "../constants";
-defineProps({
-  status: {
-    type: Number,
-    required: true,
-  },
-});
+
+interface Props {
+  status: number;
+}
+defineProps<Props>();
 </script>
 
 <template>

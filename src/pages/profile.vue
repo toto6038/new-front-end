@@ -102,7 +102,7 @@ function clearForm() {
       </div>
       <div class="card-actions">
         <div class="mx-auto flex max-w-7xl gap-8 p-4">
-          <div class="btn-outline btn btn-error" @click="logout">Sign out</div>
+          <button class="btn-outline btn btn-error" @click="logout">Sign out</button>
         </div>
       </div>
 

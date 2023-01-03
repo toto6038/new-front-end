@@ -8,7 +8,7 @@ import { useSession } from "../../../stores/session";
 import { LANG, SUBMISSION_STATUS } from "../../../constants";
 import { formatTime } from "../../../utils/formatTime";
 import { timeFromNow } from "../../../utils/timeFromNow";
-import { useTitle } from "@vueuse/core";
+import { useTitle, useClipboard } from "@vueuse/core";
 
 const route = useRoute();
 const router = useRouter();
@@ -35,13 +35,20 @@ const routeQuery = computed(() => ({
 const page = ref(routeQuery.value.page);
 const filter = ref<UserDefinedSubmissionQuery>({ ...routeQuery.value.filter });
 watchEffect(() => {
-  const query: any = { page: page.value };
+  // effect function runs after page changed or filter changed
+  // TODO: type query
+  const query: any = {};
   let key: keyof UserDefinedSubmissionQuery;
   for (key in filter.value) {
     if (filter.value[key] != null) {
       query[key] = filter.value[key];
+      // if filter did change, reset page to 1
+      if (filter.value[key] !== routeQuery.value.filter[key]) {
+        page.value = 1;
+      }
     }
   }
+  query.page = page.value;
   router.replace({ query });
 });
 const getSubmissionsUrl = computed(() => {
@@ -97,6 +104,10 @@ function clearFilter() {
     filter.value[key] = null;
   }
 }
+const { copy, copied, isSupported } = useClipboard();
+function copySubmissionLink(path: string) {
+  copy(new URL(path, window.location.origin).href);
+}
 </script>
 
 <template>
@@ -134,7 +145,7 @@ function clearFilter() {
           </select>
 
           <div
-            v-show="filter.problemId || filter.status || filter.languageType"
+            v-show="filter.problemId != null || filter.status != null || filter.languageType != null"
             class="btn"
             @click="clearFilter"
           >
@@ -164,19 +175,44 @@ function clearFilter() {
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="submission in submissions"
-              :key="submission.submissionId"
-              class="hover cursor-pointer"
-              @click="$router.push(`/course/${$route.params.name}/submission/${submission.submissionId}`)"
-            >
-              <td>{{ submission.submissionId.slice(-6) }}</td>
+            <tr v-for="submission in submissions" :key="submission.submissionId" class="hover">
+              <td>
+                <div class="flex items-center">
+                  <div class="tooltip tooltip-bottom" data-tip="show details">
+                    <router-link
+                      :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
+                      class="link"
+                    >
+                      {{ submission.submissionId.slice(-6) }}
+                    </router-link>
+                  </div>
+                  <div
+                    v-if="isSupported"
+                    class="tooltip tooltip-bottom"
+                    :data-tip="copied ? 'copied!' : 'copy link'"
+                  >
+                    <i-uil-link
+                      class="ml-2 h-4 w-4 cursor-pointer"
+                      @click="
+                        copySubmissionLink(
+                          `/course/${$route.params.name}/submission/${submission.submissionId}`,
+                        )
+                      "
+                    />
+                  </div>
+                </div>
+              </td>
               <td>
                 <div
                   class="tooltip tooltip-bottom"
                   :data-tip="problemNameTable[`${submission.problemId}`] || 'loading...'"
                 >
-                  <span>{{ submission.problemId }}</span>
+                  <router-link
+                    :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
+                    class="link"
+                  >
+                    {{ submission.problemId }}
+                  </router-link>
                 </div>
               </td>
               <td>

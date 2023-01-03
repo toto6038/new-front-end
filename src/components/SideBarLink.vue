@@ -1,16 +1,14 @@
 <script setup lang="ts">
-defineProps({
-  to: {
-    type: String,
-    required: true,
-  },
-});
+interface Props {
+  to: string;
+}
+defineProps<Props>();
 </script>
 
 <template>
-  <div class="btn btn-primary rounded-none p-2" @click="$router.push(to)">
+  <router-link class="btn btn-primary rounded-none p-2" :to="to">
     <div class="flex flex-col items-center">
       <slot />
     </div>
-  </div>
+  </router-link>
 </template>

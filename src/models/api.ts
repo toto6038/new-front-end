@@ -20,6 +20,10 @@ const Auth = {
     fetcher.post("/auth/change-password", body),
 };
 
+const Problem = {
+  create: (body: EditableProblem) => fetcher.post("/problem/manage", body),
+};
+
 const Submission = {
   create: (body: { problemId: number; languageType: number }) => fetcher.post("/submission", body),
   modify: (id: string, body: FormData) =>
@@ -36,6 +40,7 @@ const Copycat = {
 
 export default {
   Auth,
+  Problem,
   Submission,
   Copycat,
 };

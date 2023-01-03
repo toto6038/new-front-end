@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: Number,
-    required: true,
-  },
-  maxPage: {
-    type: Number,
-    required: true,
-  },
-  radius: {
-    type: Number,
-    default: 2,
-  },
+interface Props {
+  modelValue: number;
+  maxPage: number;
+  radius?: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  radius: 2,
 });
 const emit = defineEmits<{
   (e: "update:modelValue", value: number): void;
@@ -28,9 +22,7 @@ const rightTruncated = computed(() => {
 const pages = computed(() => {
   const l = leftTruncated.value ? props.modelValue - props.radius : 1;
   const r = rightTruncated.value ? props.modelValue + props.radius : props.maxPage;
-  const arr = [];
-  for (let i = l; i <= r; ++i) arr.push(i);
-  return arr;
+  return Array.from({ length: r - l + 1 }, (_, i) => i + l);
 });
 
 function navigateTo(page: number) {
@@ -58,7 +50,10 @@ function navigateTo(page: number) {
       <button class="btn-disabled btn">...</button>
       <button class="btn" @click="navigateTo(maxPage)">{{ maxPage }}</button>
     </template>
-    <button :class="['btn', { 'btn-disabled': modelValue === maxPage }]" @click="navigateTo(modelValue + 1)">
+    <button
+      :class="['btn', { 'btn-disabled': modelValue === maxPage }]"
+      @click="navigateTo(props.modelValue + 1)"
+    >
       »
     </button>
   </div>

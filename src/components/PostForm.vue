@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { PropType } from "vue";
-
-defineProps({
-  value: {
-    type: Object as PropType<Post>,
-    required: true,
-  },
-});
+interface Props {
+  value: Post;
+}
+defineProps<Props>();
 const emit = defineEmits<{
   (e: "update", key: keyof Post, value: Post[typeof key]): void;
 }>();
