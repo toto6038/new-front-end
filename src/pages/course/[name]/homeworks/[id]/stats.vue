@@ -150,7 +150,12 @@ function exportCSV() {
         <div class="card-title">Stats - {{ hw && hw.name }}</div>
 
         <div class="flex">
-          <v-chart class="mx-auto h-[400px]" :theme="theme.isDark ? 'dark' : ''" :option="barOption" />
+          <v-chart
+            class="mx-auto h-[400px]"
+            :theme="theme.isDark ? 'dark' : ''"
+            :option="barOption"
+            autoresize
+          />
         </div>
 
         <div class="card-title">Scoreboard</div>
