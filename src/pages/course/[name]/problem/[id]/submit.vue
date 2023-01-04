@@ -34,10 +34,10 @@ const v$ = useVuelidate(rules, form);
 const LANGUAGE_EXTENSION = [".c", ".cpp", ".py"];
 const langOptions = computed<LangOption[]>(() => {
   if (!problem.value) return [];
+  const _problem = problem.value;
   const availables: LangOption[] = [];
   LANGUAGE_OPTIONS.forEach((option) => {
-    // @ts-ignore TODO I have no idea
-    if (problem.value.allowedLanguage & option.mask) {
+    if (_problem.allowedLanguage & option.mask) {
       availables.push(option);
     }
   });

@@ -118,14 +118,14 @@ const barOption = computed(() => ({
 }));
 function exportCSV() {
   if (!sortedScoreboard.value || !pids.value) return;
+  const _pids = pids.value;
   const csvHeader: string = ["username", "display name", ...pids.value.map(String), "avg", "sum"].join(",");
   const csvBody: string = sortedScoreboard.value
     .map((row: ScoreboardRow) =>
       [
         row.user.username,
         row.user.displayedName,
-        // @ts-ignore idk
-        ...pids.value.map((pid) => (row[`${pid}`] ? row[`${pid}`].max : 0)),
+        ..._pids.map((pid) => (row[`${pid}`] ? row[`${pid}`].max : 0)),
         row.avg,
         row.sum,
       ].join(","),
