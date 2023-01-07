@@ -13,7 +13,7 @@ const { data, execute } = useAxios<MossReport>(
   fetcher,
 );
 const isReportGenerated = computed(() => data.value && Object.values(data.value).some(Boolean));
-const isGenerateReportFailed = ref(false);
+const isReportGenerationFailed = ref(false);
 const { pause, resume, isActive } = useIntervalFn(execute, 10000, { immediate: false });
 watchEffect(() => {
   if (isReportGenerated.value) {
@@ -24,7 +24,7 @@ watchEffect(() => {
 });
 async function generateReport() {
   if (!course.value) return;
-  isGenerateReportFailed.value = false;
+  isReportGenerationFailed.value = false;
   const studentNicknames = Object.fromEntries(
     course.value.students.map((student: any) => [student.username, student.displayedName]),
   );
@@ -37,7 +37,7 @@ async function generateReport() {
     await api.Copycat.detect(body);
     resume();
   } catch {
-    isGenerateReportFailed.value = true;
+    isReportGenerationFailed.value = true;
   }
 }
 </script>
@@ -55,7 +55,7 @@ async function generateReport() {
           </div>
         </div>
 
-        <div v-if="isGenerateReportFailed">
+        <div v-if="isReportGenerationFailed">
           <button class="btn" @click="generateReport">
             <i-uil-file-upload-alt class="mr-1 h-5 w-5" />Click me to generate report
           </button>
