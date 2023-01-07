@@ -61,7 +61,7 @@ async function submit() {
 
         <announcement-form
           :value="newAnnouncement"
-          :isLoading="isLoading"
+          :is-loading="isLoading"
           :error-msg="errorMsg"
           @update="update"
           @submit="submit"

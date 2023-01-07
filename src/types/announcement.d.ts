@@ -9,7 +9,7 @@ interface AnnouncementCreationForm extends AnnouncementForm {
 }
 
 interface AnnouncementEditionForm extends AnnouncementForm {
-  id: string;
+  annId: string;
 }
 
 interface AnnouncementPreviewForm extends AnnouncementForm {

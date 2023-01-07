@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
 

@@ -47,6 +47,7 @@ const Copycat = {
 const Announcement = {
   create: (body: AnnouncementCreationForm) => fetcher.post<{ annId: string }>("/ann", body),
   modify: (body: AnnouncementEditionForm) => fetcher.put("/ann", body),
+  delete: (body: { annId: string }) => fetcher.delete("/ann", { data: body }),
 }
 
 export default {
