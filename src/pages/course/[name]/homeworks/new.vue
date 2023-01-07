@@ -2,56 +2,101 @@
 import dayjs from "dayjs";
 import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
+import api from "../../../../models/api";
+import { useProblemSelection } from "../../../../composables/useProblemSelection";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`New Homework - ${route.params.name} | Normal OJ`);
-const newHomework = reactive<EditableHomework>({
-  end: dayjs().add(7, "day").unix(),
-  markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,
-  name: "Example",
-  problemIds: [] as number[],
-  start: dayjs().unix(),
-});
-const problems = [
-  { problemId: 3, problemName: "A+B" },
-  { problemId: 4, problemName: "A+B+C" },
-  { problemId: 5, problemName: "A+B+D" },
-];
 
-function update<K extends keyof EditableHomework>(key: K, value: EditableHomework[K]) {
+const isLoading = ref(false);
+const errorMsg = ref("");
+
+const newHomework = reactive<HomeworkForm>({
+  name: "",
+  markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,
+  problemIds: [],
+  start: dayjs().unix(),
+  end: dayjs().add(7, "day").unix(),
+});
+
+const {
+  problemSelections,
+  problemId2Meta,
+  error: fetchError,
+  isLoading: isFetching,
+} = useProblemSelection(route.params.name as string);
+
+function update<K extends keyof HomeworkForm>(key: K, value: HomeworkForm[K]) {
   newHomework[key] = value;
 }
 
 const openPreview = ref<boolean>(false);
+const mockHomeworkMeta = {
+  id: "test id",
+  studentStatus: {},
+};
+
+async function submit() {
+  isLoading.value = true;
+  try {
+    await api.Homework.create({
+      ...newHomework,
+      courseName: route.params.name as string,
+      scoreboardStatus: 0,
+    });
+    router.push(`/course/${route.params.name}/homeworks`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
-          New Homework
-          <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
-        </div>
+        <div class="card-title mb-3 justify-between">New Homework</div>
 
-        <div class="alert alert-warning">
+        <div v-if="fetchError" class="alert alert-error shadow-lg">
           <div>
-            <i-uil-exclamation-octagon />
-            <span>This page in under development</span>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when loading announcement.</span>
           </div>
         </div>
+        <skeleton-card v-else-if="isFetching" />
+        <template v-else>
+          <homework-form
+            :form="newHomework"
+            :problem-selections="problemSelections"
+            :is-loading="isLoading || isFetching"
+            @update="update"
+            @submit="submit"
+          />
 
-        <!-- <homework-form :value="newHomework" :problems="problems" @update="update" /> -->
+          <div class="divider" />
 
-        <div class="divider" />
+          <div class="card-title mb-3">
+            Preview
+            <input v-model="openPreview" type="checkbox" class="toggle" />
+          </div>
 
-        <div class="card-title mb-3">
-          Preview
-          <input v-model="openPreview" type="checkbox" class="toggle" />
-        </div>
-
-        <!-- <homework-card v-show="openPreview" :homework="newHomework" preview /> -->
+          <homework-card
+            v-show="openPreview"
+            :homework="{ ...mockHomeworkMeta, ...newHomework }"
+            :problems="problemId2Meta"
+            preview
+          />
+        </template>
       </div>
     </div>
   </div>

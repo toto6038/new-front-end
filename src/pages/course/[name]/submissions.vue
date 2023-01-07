@@ -9,6 +9,7 @@ import { LANG, LANGUAGE_OPTIONS, SUBMISSION_STATUS_REPR } from "../../../constan
 import { formatTime } from "../../../utils/formatTime";
 import { timeFromNow } from "../../../utils/timeFromNow";
 import { useTitle, useClipboard } from "@vueuse/core";
+import { useProblemSelection } from "../../../composables/useProblemSelection";
 
 const route = useRoute();
 const router = useRouter();
@@ -77,21 +78,12 @@ const maxPage = computed(() => {
   return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
 });
 
-const { data: problems, error: fetchProblemError } = useAxios<ProblemList>(
-  `/problem?offset=0&count=-1&course=${route.params.name}`,
-  fetcher,
-);
-const problemIds = computed(() => {
-  if (!problems.value) return [];
-  return problems.value.map(({ problemId, problemName }) => ({
-    value: problemId.toString(),
-    text: `${problemId} - ${problemName}`,
-  }));
-});
-const problemNameTable = computed(() => {
-  if (!problems.value) return {};
-  return Object.fromEntries(problems.value.map((p) => [p.problemId.toString(), p.problemName]));
-});
+const {
+  problemSelections,
+  problemId2Meta,
+  error: fetchProblemError,
+} = useProblemSelection(route.params.name as string);
+
 const submissionStatusCodes = Object.values(SUBMISSION_STATUS_REPR).map(({ label, color }) => ({
   text: label,
   value: color,
@@ -133,7 +125,7 @@ function copySubmissionLink(path: string) {
             @change="(event) => mutateFilter({ problemId: (event.target as HTMLSelectElement).value})"
           >
             <option value="" selected>Problem</option>
-            <option v-for="{ text, value } in problemIds" :value="value">{{ text }}</option>
+            <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
           </select>
 
           <select
@@ -219,7 +211,7 @@ function copySubmissionLink(path: string) {
               <td>
                 <div
                   class="tooltip tooltip-bottom"
-                  :data-tip="problemNameTable[submission.problemId.toString()] || 'loading...'"
+                  :data-tip="problemId2Meta[submission.problemId.toString()].name || 'loading...'"
                 >
                   <router-link
                     :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
