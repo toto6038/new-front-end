@@ -13,13 +13,13 @@ const { data: courses, error, isLoading } = useAxios<CourseList>("/course", fetc
       <div class="card-title">Course List</div>
 
       <div class="my-2" />
-      <skeleton-table v-if="isLoading" :col="2" :row="5" />
-      <div v-else-if="error" class="alert alert-error shadow-lg">
+      <div v-if="error" class="alert alert-error shadow-lg">
         <div>
           <i-uil-times-circle />
           <span>Oops! Something went wrong when loading courses.</span>
         </div>
       </div>
+      <skeleton-table v-else-if="isLoading" :col="2" :row="5" />
       <table v-else class="table w-full">
         <thead>
           <tr>

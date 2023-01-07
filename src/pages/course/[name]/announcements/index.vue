@@ -20,20 +20,20 @@ const { data: posts, error, isLoading } = useAxios<PostList>(`/course/${route.pa
           Announcements
           <router-link
             v-if="session.isAdmin"
-            class="btn-success btn"
+            class="btn btn-success"
             :to="`/course/${$route.params.name}/announcements/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </router-link>
         </div>
         <div class="my-2" />
-        <skeleton-table v-if="isLoading" :col="3" :row="5" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading announcements.</span>
           </div>
         </div>
+        <skeleton-table v-else-if="isLoading" :col="3" :row="5" />
         <table v-else class="table w-full">
           <thead>
             <tr>
@@ -58,7 +58,7 @@ const { data: posts, error, isLoading } = useAxios<PostList>(`/course/${route.pa
               <td v-if="session.isAdmin">
                 <div class="tooltip" data-tip="Edit">
                   <router-link
-                    class="btn-ghost btn-sm btn-circle btn"
+                    class="btn btn-ghost btn-sm btn-circle"
                     :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />

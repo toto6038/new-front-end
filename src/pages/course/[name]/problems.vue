@@ -39,7 +39,7 @@ const maxPage = computed(() => {
 
           <router-link
             v-if="session.isAdmin"
-            class="btn-success btn"
+            class="btn btn-success"
             :to="`/course/${$route.params.name}/problem/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
@@ -47,13 +47,13 @@ const maxPage = computed(() => {
         </div>
 
         <div class="my-2" />
-        <skeleton-table v-if="isLoading" :col="5" :row="5" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading problems.</span>
           </div>
         </div>
+        <skeleton-table v-else-if="isLoading" :col="5" :row="5" />
         <table v-else class="table w-full">
           <thead>
             <tr>
@@ -82,13 +82,13 @@ const maxPage = computed(() => {
                 {{ problemName }}
               </td>
               <td>
-                <span class="badge-info badge mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
+                <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
               </td>
               <td>{{ quota - submitCount }} / {{ quota }}</td>
               <td>
                 <div class="tooltip" data-tip="Stats">
                   <router-link
-                    class="btn-ghost btn-sm btn-circle btn mr-3"
+                    class="btn btn-ghost btn-sm btn-circle mr-3"
                     :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                   >
                     <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -97,7 +97,7 @@ const maxPage = computed(() => {
                 <div class="tooltip" data-tip="Edit">
                   <router-link
                     v-if="session.isAdmin"
-                    class="btn-ghost btn-sm btn-circle btn"
+                    class="btn btn-ghost btn-sm btn-circle"
                     :to="`/course/${$route.params.name}/problem/${problemId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />

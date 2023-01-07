@@ -57,13 +57,13 @@ const members = computed(() => {
             </select>
           </div>
         </div>
-        <skeleton-table v-if="isLoading" :col="3" :row="5" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading members.</span>
           </div>
         </div>
+        <skeleton-table v-else-if="isLoading" :col="3" :row="5" />
         <table v-else class="table w-full">
           <thead>
             <tr>

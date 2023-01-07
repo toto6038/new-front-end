@@ -16,13 +16,13 @@ withDefaults(defineProps<Props>(), {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <skeleton-post v-if="isLoading || !post" class="w-1/2" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading announcements.</span>
           </div>
         </div>
+        <skeleton-post v-else-if="isLoading || !post" class="w-1/2" />
         <template v-else>
           <div class="card-title mb-8">{{ post.title }}</div>
           <markdown-renderer :md="post.markdown" />
