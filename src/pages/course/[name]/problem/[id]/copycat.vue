@@ -3,8 +3,7 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
 import api, { fetcher } from "../../../../../models/api";
 import { useIntervalFn, useTitle } from "@vueuse/core";
-import { watchEffect } from "vue";
-import { computed } from "@vue/reactivity";
+import { ref, watchEffect, computed } from "vue";
 
 const route = useRoute();
 useTitle(`Copycat - ${route.params.id} - ${route.params.name} | Normal OJ`);
@@ -14,14 +13,18 @@ const { data, execute } = useAxios<MossReport>(
   fetcher,
 );
 const isReportGenerated = computed(() => data.value && Object.values(data.value).some(Boolean));
-const { pause, resume } = useIntervalFn(execute, 10000);
+const isGenerateReportFailed = ref(false);
+const { pause, resume, isActive } = useIntervalFn(execute, 10000, { immediate: false });
 watchEffect(() => {
-  if (isReportGenerated) {
+  if (isReportGenerated.value) {
     pause();
+  } else if (!isActive.value) {
+    generateReport();
   }
 });
-async function detect() {
+async function generateReport() {
   if (!course.value) return;
+  isGenerateReportFailed.value = false;
   const studentNicknames = Object.fromEntries(
     course.value.students.map((student: any) => [student.username, student.displayedName]),
   );
@@ -33,7 +36,9 @@ async function detect() {
   try {
     await api.Copycat.detect(body);
     resume();
-  } catch {}
+  } catch {
+    isGenerateReportFailed.value = true;
+  }
 }
 </script>
 
@@ -50,12 +55,14 @@ async function detect() {
           </div>
         </div>
 
-        <div v-if="!isReportGenerated">No report.</div>
-        <div v-else>Report generating...</div>
+        <div v-if="isGenerateReportFailed">
+          <button class="btn" @click="generateReport">
+            <i-uil-file-upload-alt class="mr-1 h-5 w-5" />Click me to generate report
+          </button>
+        </div>
 
-        <button class="btn" @click="detect"><i-uil-file-upload-alt class="mr-1 h-5 w-5" />Detect</button>
-
-        <div v-if="data" v-html="data.cpp_report" />
+        <div v-if="!data || (!data.cpp_report && !data.python_report)">Report generating...</div>
+        <div v-else v-html="data.cpp_report" />
       </div>
     </div>
   </div>

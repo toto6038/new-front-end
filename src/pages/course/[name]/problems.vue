@@ -88,10 +88,19 @@ const maxPage = computed(() => {
               <td>
                 <div class="tooltip" data-tip="Stats">
                   <router-link
-                    class="btn btn-ghost btn-sm btn-circle mr-3"
+                    class="btn btn-ghost btn-sm btn-circle mr-1"
                     :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                   >
                     <i-uil-chart-line class="lg:h-5 lg:w-5" />
+                  </router-link>
+                </div>
+                <div class="tooltip" data-tip="Copycat">
+                  <router-link
+                    v-if="session.isAdmin"
+                    class="btn btn-ghost btn-sm btn-circle mr-1"
+                    :to="`/course/${$route.params.name}/problem/${problemId}/copycat`"
+                  >
+                    <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />
                   </router-link>
                 </div>
                 <div class="tooltip" data-tip="Edit">

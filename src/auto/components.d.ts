@@ -19,6 +19,8 @@ declare module 'vue' {
     IUilBookAlt: typeof import('~icons/uil/book-alt')['default']
     IUilChartLine: typeof import('~icons/uil/chart-line')['default']
     IUilEdit: typeof import('~icons/uil/edit')['default']
+    IUilFileExclamationAlt: typeof import('~icons/uil/file-exclamation-alt')['default']
+    IUilFileUploadAlt: typeof import('~icons/uil/file-upload-alt')['default']
     IUilFilterSlash: typeof import('~icons/uil/filter-slash')['default']
     IUilHome: typeof import('~icons/uil/home')['default']
     IUilLeftArrowToLeft: typeof import('~icons/uil/left-arrow-to-left')['default']

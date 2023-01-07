@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
+import { useSession } from "../../stores/session";
 
 interface Props {
   problem?: Problem;
@@ -11,6 +12,8 @@ withDefaults(defineProps<Props>(), {
   isLoading: false,
   preview: false,
 });
+
+const session = useSession();
 </script>
 
 <template>
@@ -65,6 +68,14 @@ withDefaults(defineProps<Props>(), {
               :to="`/course/${$route.params.name}/problem/${$route.params.id}/stats`"
             >
               <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
+            </router-link>
+            <router-link
+              v-if="!preview && session.isAdmin"
+              :class="['btn btn-ghost tooltip tooltip-bottom btn-sm ml-3', 'inline-flex']"
+              data-tip="Copycat"
+              :to="`/course/${$route.params.name}/problem/${$route.params.id}/copycat`"
+            >
+              <i-uil-file-exclamation-alt class="mr-1 lg:h-5 lg:w-5" />
             </router-link>
           </div>
         </div>
