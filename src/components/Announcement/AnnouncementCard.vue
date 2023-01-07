@@ -3,7 +3,7 @@ import { formatTime } from "../../utils/formatTime";
 import { AxiosError } from "axios";
 
 interface Props {
-  announcement?: AnnouncementListItem;
+  announcement?: AnnouncementListItem | AnnouncementPreviewForm;
   isLoading?: boolean;
   error?: AxiosError<AnnouncementList>;
 }

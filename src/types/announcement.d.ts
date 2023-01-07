@@ -4,6 +4,20 @@ interface AnnouncementForm {
   pinned: boolean;
 }
 
+interface AnnouncementCreationForm extends AnnouncementForm {
+  courseName: string;
+}
+
+interface AnnouncementEditionForm extends AnnouncementForm {
+  id: string;
+}
+
+interface AnnouncementPreviewForm extends AnnouncementForm {
+  createTime: number;
+  updateTime: number;
+  creator: Pick<UserInfo, 'displayedName'>;
+}
+
 interface Announcement extends AnnouncementForm {
   id: string;
   creator: User;

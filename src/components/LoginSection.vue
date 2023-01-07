@@ -3,7 +3,7 @@ import { reactive } from "vue";
 import { useSession } from "../stores/session";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 import api from "../models/api";
 import axios from "axios";
 
