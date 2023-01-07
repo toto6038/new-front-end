@@ -1,17 +1,17 @@
-interface EditablePost {
+interface AnnouncementForm {
   title: string;
   markdown: string;
   pinned: boolean;
 }
 
-interface Post extends EditablePost {
+interface Announcement extends AnnouncementForm {
   id: string;
   creator: User;
   updateTime: number;
   createTime: number;
 }
 
-interface PostListItem {
+interface AnnouncementListItem {
   annId: string;
   createTime: number;
   creator: UserInfo;
@@ -22,4 +22,4 @@ interface PostListItem {
   updater: UserInfo;
 }
 
-type PostList = PostListItem[];
+type AnnouncementList = AnnouncementListItem[];

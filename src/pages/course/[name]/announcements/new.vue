@@ -6,7 +6,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 useTitle(`New Announcement - ${route.params.name} | Normal OJ`);
-const newPost = reactive<EditablePost>({
+const newPost = reactive<AnnouncementForm>({
   title: "Example",
   markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,
   pinned: false,
@@ -17,7 +17,7 @@ const previewPostMockMeta = {
   updateTime: dayjs().unix(),
 };
 
-function update<K extends keyof EditablePost>(key: K, value: EditablePost[K]) {
+function update<K extends keyof AnnouncementForm>(key: K, value: AnnouncementForm[K]) {
   newPost[key] = value;
 }
 
@@ -40,7 +40,7 @@ const openPreview = ref<boolean>(false);
           </div>
         </div>
 
-        <!-- <post-form :value="newPost" @update="update" /> -->
+        <!-- <announcement-form :value="newPost" @update="update" /> -->
 
         <div class="divider" />
 
@@ -49,7 +49,7 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <!-- <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...newPost }" /> -->
+        <!-- <announcement-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...newPost }" /> -->
       </div>
     </div>
   </div>

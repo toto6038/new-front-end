@@ -17,7 +17,7 @@ const post = {
   updateTime: 1608958771,
   updater: { displayedName: "bogay", md5: "4d8a688b2637fcf029e8d6dd8458bab3", role: 0, username: "bogay" },
 };
-const editedPost = reactive<EditablePost>({
+const editedPost = reactive<AnnouncementForm>({
   title: post.title,
   markdown: post.markdown,
   pinned: post.pinned,
@@ -28,7 +28,7 @@ const previewPostMockMeta = {
   updateTime: dayjs().unix(),
 };
 
-function update<K extends keyof EditablePost>(key: K, value: EditablePost[K]) {
+function update<K extends keyof AnnouncementForm>(key: K, value: AnnouncementForm[K]) {
   editedPost[key] = value;
 }
 
@@ -42,13 +42,13 @@ const openPreview = ref<boolean>(false);
         <div class="card-title mb-3 flex-wrap justify-between lg:flex-nowrap">
           Edit Announcement
           <div class="flex gap-x-3">
-            <button class="btn-outline btn btn-error btn-sm lg:btn-md">
+            <button class="btn-outline btn-error btn-sm btn lg:btn-md">
               <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
             </button>
-            <button class="btn btn-warning btn-sm lg:btn-md">
+            <button class="btn-warning btn-sm btn lg:btn-md">
               <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
             </button>
-            <button class="btn btn-success btn-sm lg:btn-md">
+            <button class="btn-success btn-sm btn lg:btn-md">
               <i-uil-save class="mr-1 lg:h-5 lg:w-5" /> Save
             </button>
           </div>
@@ -61,7 +61,7 @@ const openPreview = ref<boolean>(false);
           </div>
         </div>
 
-        <!-- <post-form :value="editedPost" @update="update" /> -->
+        <!-- <announcement-form :value="editedPost" @update="update" /> -->
 
         <div class="divider" />
 
@@ -70,7 +70,7 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <!-- <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...editedPost }" /> -->
+        <!-- <announcement-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...editedPost }" /> -->
       </div>
     </div>
   </div>

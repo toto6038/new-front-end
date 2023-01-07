@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { formatTime } from "../utils/formatTime";
+import { formatTime } from "../../utils/formatTime";
 import { AxiosError } from "axios";
 
 interface Props {
-  post?: PostListItem;
+  announcement?: AnnouncementListItem;
   isLoading?: boolean;
-  error?: AxiosError<PostList>;
+  error?: AxiosError<AnnouncementList>;
 }
 withDefaults(defineProps<Props>(), {
   isLoading: false,
@@ -22,16 +22,16 @@ withDefaults(defineProps<Props>(), {
             <span>Oops! Something went wrong when loading announcements.</span>
           </div>
         </div>
-        <skeleton-post v-else-if="isLoading || !post" class="w-1/2" />
+        <skeleton-post v-else-if="isLoading || !announcement" class="w-1/2" />
         <template v-else>
-          <div class="card-title mb-8">{{ post.title }}</div>
-          <markdown-renderer :md="post.markdown" />
+          <div class="card-title mb-8">{{ announcement.title }}</div>
+          <markdown-renderer :md="announcement.markdown" />
 
           <div class="mt-4 flex items-center gap-2 text-sm">
-            Last updated: {{ formatTime(post.updateTime) }}
+            Last updated: {{ formatTime(announcement.updateTime) }}
           </div>
           <div class="mt-2 flex items-center gap-2 text-sm">
-            Posted by {{ post.creator.displayedName }} at {{ formatTime(post.createTime) }}
+            Posted by {{ announcement.creator.displayedName }} at {{ formatTime(announcement.createTime) }}
           </div>
         </template>
       </div>

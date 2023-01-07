@@ -7,14 +7,18 @@ import { fetcher } from "../../../../../models/api";
 const route = useRoute();
 useTitle(`Announcement - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const {
-  data: posts,
+  data: announcements,
   error,
   isLoading,
-} = useAxios<PostList>(`/ann/${route.params.name}/${route.params.id}`, fetcher);
+} = useAxios<AnnouncementList>(`/ann/${route.params.name}/${route.params.id}`, fetcher);
 </script>
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <post-card :isLoading="isLoading" :error="error" :post="posts && posts[0]" />
+    <announcement-card
+      :isLoading="isLoading"
+      :error="error"
+      :announcement="announcements && announcements[0]"
+    />
   </div>
 </template>

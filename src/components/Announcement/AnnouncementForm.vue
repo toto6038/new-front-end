@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
-  value: Post;
+  value: Announcement;
 }
 defineProps<Props>();
 const emit = defineEmits<{
-  (e: "update", key: keyof Post, value: Post[typeof key]): void;
+  (e: "update", key: keyof Announcement, value: Announcement[typeof key]): void;
 }>();
 </script>
 

@@ -6,7 +6,7 @@ import { fetcher } from "../models/api";
 
 const session = useSession();
 
-const { data: posts, error, isLoading } = useAxios<PostList>("/ann", fetcher);
+const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/ann", fetcher);
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const { data: posts, error, isLoading } = useAxios<PostList>("/ann", fetcher);
             </tr>
           </thead>
           <tbody>
-            <tr v-for="{ title, createTime, annId } in posts" :key="annId" class="hover">
+            <tr v-for="{ title, createTime, annId } in announcements" :key="annId" class="hover">
               <td>
                 <router-link :to="`/announcements/${annId}`" class="link-hover link">
                   {{ title }}
