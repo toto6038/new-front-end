@@ -50,10 +50,8 @@ export const useSession = defineStore("session", {
         this.email = email;
         this.state = SessionState.IsLogin;
       } catch (error) {
-        // 403 means not login
         this.$reset();
         this.state = SessionState.IsNotLogin;
-        // FIXME: show server error ui when fetch session failed (500)
       }
     },
   },
