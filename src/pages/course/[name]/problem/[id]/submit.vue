@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, reactive, watchEffect, computed } from "vue";
+import { reactive, watchEffect, computed } from "vue";
 import hljs from "highlight.js";
-import * as zip from "@zip.js/zip.js";
+import { BlobWriter, ZipWriter, TextReader } from "@zip.js/zip.js";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import { required, between } from "@vuelidate/validators";
+import { required, between, helpers } from "@vuelidate/validators";
 import api, { fetcher } from "../../../../../models/api";
 import { useTitle } from "@vueuse/core";
 import { LANGUAGE_OPTIONS } from "../../../../../constants";
@@ -22,12 +22,8 @@ const form = reactive({
   isSubmitError: false,
 });
 const rules = {
-  code: { required },
-  lang: { betweenValue: between(0, 3) },
-};
-const errorMessages = {
-  code: "Please paste your source code to submit.",
-  lang: "Please select the programming language.",
+  code: { required: helpers.withMessage("Please paste your source code to submit.", required) },
+  lang: { betweenValue: helpers.withMessage("Please select the programming language.", between(0, 3)) },
 };
 const v$ = useVuelidate(rules, form);
 
@@ -61,11 +57,11 @@ async function submit() {
   form.isLoading = true;
   form.isSubmitError = false;
   try {
-    const blobWriter = new zip.BlobWriter("application/zip");
-    const writer = new zip.ZipWriter(blobWriter);
-    await writer.add(`main${LANGUAGE_EXTENSION[form.lang]}`, new zip.TextReader(form.code));
+    const blobWriter = new BlobWriter("application/zip");
+    const writer = new ZipWriter(blobWriter);
+    await writer.add(`main${LANGUAGE_EXTENSION[form.lang]}`, new TextReader(form.code));
     await writer.close();
-    const blob = await blobWriter.getData();
+    const blob = blobWriter.getData();
     const formData = new FormData();
     formData.append("code", blob);
     const { submissionId } = (
@@ -93,7 +89,7 @@ async function submit() {
 
         <div class="card-title mt-10 md:text-lg lg:text-xl">Paste your code here</div>
         <code-editor v-model="form.code" class="mt-4" />
-        <span v-show="v$.code.$error" class="text-error-content" v-text="errorMessages.code" />
+        <span v-show="v$.code.$error" class="text-error" v-text="v$.code.$errors[0]?.$message" />
 
         <div v-if="error" class="alert alert-error shadow-lg">
           <div>
@@ -116,7 +112,7 @@ async function submit() {
               <option v-for="{ text, value } in langOptions" :key="value" :value="value">{{ text }}</option>
             </select>
             <label class="label" v-show="v$.lang.$error">
-              <span class="label-text-alt text-error-content" v-text="errorMessages.lang" />
+              <span class="label-text-alt text-error" v-text="v$.lang.$errors[0]?.$message" />
             </label>
           </div>
 

@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import api from "../models/api";
 import { useSession } from "../stores/session";
 import { useTitle } from "@vueuse/core";
-import { required, sameAs } from "@vuelidate/validators";
+import { required, sameAs, helpers } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import axios from "axios";
 
@@ -30,14 +30,12 @@ const changePasswordForm = reactive({
 const rules = {
   newPassword: { required },
   oldPassword: { required },
-  confirmPassword: { required, sameAsRef: sameAs(toRef(changePasswordForm, "newPassword")) },
-};
-const errorMessages = {
-  newPassword: "Please fill out this field.",
-  oldPassword: "Please fill out this field.",
   confirmPassword: {
-    required: "Please fill out this field.",
-    sameAsRef: "Password does not match.",
+    required,
+    sameAsRef: helpers.withMessage(
+      "The value must be equal to New Password",
+      sameAs(toRef(changePasswordForm, "newPassword")),
+    ),
   },
 };
 const v$ = useVuelidate(rules, changePasswordForm);
@@ -138,8 +136,8 @@ function clearForm() {
             placeholder="new password"
             :class="['input-bordered input', v$.newPassword.$error && 'input-error']"
           />
-          <label class="label" v-if="v$.newPassword.$error">
-            <span class="label-text-alt text-error-content" v-text="errorMessages.newPassword" />
+          <label class="label" v-show="v$.newPassword.$error">
+            <span class="label-text-alt text-error" v-text="v$.newPassword.$errors[0]?.$message" />
           </label>
         </div>
         <div class="form-control">
@@ -153,14 +151,8 @@ function clearForm() {
             placeholder="new password again"
             :class="['input-bordered input', v$.confirmPassword.$error && 'input-error']"
           />
-          <label class="label" v-if="v$.confirmPassword.$error">
-            <span class="label-text-alt text-error-content">
-              {{
-                v$.confirmPassword.$errors[0].$validator === "sameAsRef"
-                  ? errorMessages.confirmPassword.sameAsRef
-                  : errorMessages.confirmPassword.required
-              }}
-            </span>
+          <label class="label" v-show="v$.confirmPassword.$error">
+            <span class="label-text-alt text-error" v-text="v$.confirmPassword.$errors[0]?.$message" />
           </label>
         </div>
         <div class="form-control">
@@ -175,8 +167,8 @@ function clearForm() {
             :class="['input-bordered input', v$.oldPassword.$error && 'input-error']"
             @keydown.enter="changePassword"
           />
-          <label class="label" v-if="v$.oldPassword.$error">
-            <span class="label-text-alt text-error-content" v-text="errorMessages.oldPassword" />
+          <label class="label" v-show="v$.oldPassword.$error">
+            <span class="label-text-alt text-error" v-text="v$.oldPassword.$errors[0]?.$message" />
           </label>
         </div>
         <div class="form-control mt-6">
