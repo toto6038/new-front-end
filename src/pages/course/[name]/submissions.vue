@@ -77,7 +77,7 @@ const maxPage = computed(() => {
   return submissionCount.value ? Math.ceil(submissionCount.value / 10) : 1;
 });
 
-const { data: problems } = useAxios<ProblemList>(
+const { data: problems, error: fetchProblemError } = useAxios<ProblemList>(
   `/problem?offset=0&count=-1&course=${route.params.name}`,
   fetcher,
 );
@@ -167,7 +167,7 @@ function copySubmissionLink(path: string) {
           </div>
         </div>
 
-        <div v-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error || fetchProblemError" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading submissions.</span>
