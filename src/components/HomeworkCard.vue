@@ -81,6 +81,7 @@ const state = computed(() => {
                 <th>Quota</th>
                 <th>Score</th>
                 <th>Stats</th>
+                <th v-if="session.isAdmin">Copycat</th>
               </tr>
             </thead>
             <tbody>
@@ -110,10 +111,20 @@ const state = computed(() => {
                 <td>
                   <div class="tooltip" data-tip="Stats">
                     <router-link
-                      class="btn-ghost btn-xs btn"
+                      class="btn btn-ghost btn-xs"
                       :to="`/course/${$route.params.name}/problem/${pid}/stats`"
                     >
                       <i-uil-chart-line class="lg:h-5 lg:w-5" />
+                    </router-link>
+                  </div>
+                </td>
+                <td v-if="session.isAdmin">
+                  <div class="tooltip" data-tip="Copycat">
+                    <router-link
+                      class="btn btn-ghost btn-xs"
+                      :to="`/course/${$route.params.name}/problem/${pid}/copycat`"
+                    >
+                      <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />
                     </router-link>
                   </div>
                 </td>

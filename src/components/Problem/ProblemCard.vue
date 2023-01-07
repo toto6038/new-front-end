@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
+import { useSession } from "../../stores/session";
 
 interface Props {
   problem?: Problem;
@@ -11,6 +12,8 @@ withDefaults(defineProps<Props>(), {
   isLoading: false,
   preview: false,
 });
+
+const session = useSession();
 </script>
 
 <template>
@@ -31,7 +34,7 @@ withDefaults(defineProps<Props>(), {
               Problem #{{ $route.params.id }} - {{ problem.problemName }}
             </div>
             <div class="flex">
-              <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+              <span class="badge-info badge mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>
 
@@ -52,20 +55,28 @@ withDefaults(defineProps<Props>(), {
                 </div>
               </div>
             </div>
-            <router-link
-              v-if="!preview"
-              class="btn ml-3 md:btn-md lg:btn-lg"
-              :to="`/course/${$route.params.name}/problem/${$route.params.id}/submit`"
-            >
-              <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
-            </router-link>
-            <router-link
-              v-if="!preview"
-              class="btn ml-3 md:btn-md lg:btn-lg"
-              :to="`/course/${$route.params.name}/problem/${$route.params.id}/stats`"
-            >
-              <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
-            </router-link>
+            <template v-if="!preview">
+              <router-link
+                class="btn ml-3 md:btn-md lg:btn-lg"
+                :to="`/course/${$route.params.name}/problem/${$route.params.id}/submit`"
+              >
+                <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+              </router-link>
+              <router-link
+                class="btn ml-3 md:btn-md lg:btn-lg"
+                :to="`/course/${$route.params.name}/problem/${$route.params.id}/stats`"
+              >
+                <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
+              </router-link>
+              <router-link
+                v-if="session.isAdmin"
+                :class="['btn-ghost tooltip tooltip-bottom btn-sm btn ml-3', 'inline-flex']"
+                data-tip="Copycat"
+                :to="`/course/${$route.params.name}/problem/${$route.params.id}/copycat`"
+              >
+                <i-uil-file-exclamation-alt class="mr-1 lg:h-5 lg:w-5" />
+              </router-link>
+            </template>
           </div>
         </div>
 
