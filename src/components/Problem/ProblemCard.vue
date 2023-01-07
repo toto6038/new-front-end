@@ -16,13 +16,13 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="card min-w-full">
     <div class="card-body">
-      <skeleton-post v-if="isLoading || !problem" class="w-1/2" />
-      <div v-else-if="error" class="alert alert-error shadow-lg">
+      <div v-if="error" class="alert alert-error shadow-lg">
         <div>
           <i-uil-times-circle />
           <span>Oops! Something went wrong when loading announcements.</span>
         </div>
       </div>
+      <skeleton-post v-else-if="isLoading || !problem" class="w-1/2" />
 
       <template v-else>
         <div class="flex flex-wrap items-start justify-between gap-y-4">

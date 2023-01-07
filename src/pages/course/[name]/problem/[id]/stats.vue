@@ -103,13 +103,13 @@ const barOption = computed(() => ({
 
         <div class="my-2" />
 
-        <skeleton-card v-if="isLoading" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading problem stats.</span>
           </div>
         </div>
+        <skeleton-card v-else-if="isLoading" />
         <template v-else>
           <div class="stats stats-vertical lg:stats-horizontal">
             <div class="stat place-items-center">

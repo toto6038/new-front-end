@@ -73,13 +73,13 @@ async function rejudge() {
           <div class="card-body p-0">
             <div class="card-title md:text-xl lg:text-2xl">General</div>
             <div class="my-1" />
-            <skeleton-table v-if="!submission" :col="8" :row="1" />
-            <div v-else-if="error" class="alert alert-error shadow-lg">
+            <div v-if="error" class="alert alert-error shadow-lg">
               <div>
                 <i-uil-times-circle />
                 <span>Oops! Something went wrong when loading submission.</span>
               </div>
             </div>
+            <skeleton-table v-else-if="!submission" :col="8" :row="1" />
             <table v-else class="table w-full">
               <thead>
                 <tr>
@@ -171,9 +171,9 @@ async function rejudge() {
           <div class="card-body p-0">
             <div class="card-title md:text-xl lg:text-2xl">
               Source
-              <!-- ts check bug in `copy(submission.code)` -->
+              <!-- TODO submission?.code should without ? -->
               <button
-                v-if="isSupported"
+                v-if="isSupported && submission"
                 class="btn btn-info btn-xs ml-3"
                 @click="copy(submission?.code || '')"
               >

@@ -63,14 +63,14 @@ async function login() {
         <div class="card-body">
           <div class="card-title mb-3">Announcement</div>
           <div class="my-2" />
-          <skeleton-table v-if="isLoading" :col="3" :row="5" />
-          <div v-else-if="error" class="alert alert-error shadow-lg">
+          <div v-if="error" class="alert alert-error shadow-lg">
             <div>
               <i-uil-times-circle />
               <span>Oops! Something went wrong when loading announcements.</span>
             </div>
           </div>
-          <table class="table w-full">
+          <skeleton-table v-else-if="isLoading" :col="3" :row="5" />
+          <table v-else class="table w-full">
             <thead>
               <tr>
                 <th>Title</th>
@@ -89,7 +89,7 @@ async function login() {
                 <td v-if="session.isAdmin">
                   <div class="tooltip" data-tip="Edit">
                     <router-link
-                      class="btn-ghost btn-sm btn-circle btn"
+                      class="btn btn-ghost btn-sm btn-circle"
                       :to="`/course/Public/announcements/${annId}/edit`"
                     >
                       <i-uil-edit class="lg:h-5 lg:w-5" />
@@ -156,7 +156,7 @@ async function login() {
               </label>
             </div>
             <div class="form-control mt-6">
-              <button :class="['btn-primary btn', loginForm.isLoading && 'loading']" @click="login">
+              <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
                 Sign In
               </button>
             </div>

@@ -52,13 +52,13 @@ function getProblemMeta(ids: number[]): ProblemMeta {
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </router-link>
         </div>
-        <skeleton-card v-if="isLoading" />
-        <div v-else-if="error" class="alert alert-error shadow-lg">
+        <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
             <span>Oops! Something went wrong when loading homeworks.</span>
           </div>
         </div>
+        <skeleton-card v-else-if="isLoading" />
         <homework-card
           v-else
           v-for="homework in homeworks"
