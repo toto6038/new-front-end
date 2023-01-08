@@ -13,6 +13,7 @@ interface HomeworkCreationForm extends HomeworkForm {
 
 interface HomeworkEditionForm extends HomeworkForm {
   scoreboardStatus: 0 | 1;
+  name?: string;
 }
 
 type HomeworkStudentStatus = {
