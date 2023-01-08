@@ -39,7 +39,7 @@ const maxPage = computed(() => {
 
           <router-link
             v-if="session.isAdmin"
-            class="btn btn-success"
+            class="btn-success btn"
             :to="`/course/${$route.params.name}/problem/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
@@ -82,13 +82,13 @@ const maxPage = computed(() => {
                 {{ problemName }}
               </td>
               <td>
-                <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
+                <span class="badge-info badge mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
               </td>
               <td>{{ quota - submitCount }} / {{ quota }}</td>
               <td>
                 <div class="tooltip" data-tip="Stats">
                   <router-link
-                    class="btn btn-ghost btn-sm btn-circle mr-1"
+                    class="btn-ghost btn-sm btn-circle btn mr-1"
                     :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                   >
                     <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -97,7 +97,7 @@ const maxPage = computed(() => {
                 <div class="tooltip" data-tip="Copycat">
                   <router-link
                     v-if="session.isAdmin"
-                    class="btn btn-ghost btn-sm btn-circle mr-1"
+                    class="btn-ghost btn-sm btn-circle btn mr-1"
                     :to="`/course/${$route.params.name}/problem/${problemId}/copycat`"
                   >
                     <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />
@@ -106,7 +106,7 @@ const maxPage = computed(() => {
                 <div class="tooltip" data-tip="Edit">
                   <router-link
                     v-if="session.isAdmin"
-                    class="btn btn-ghost btn-sm btn-circle"
+                    class="btn-ghost btn-sm btn-circle btn"
                     :to="`/course/${$route.params.name}/problem/${problemId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />

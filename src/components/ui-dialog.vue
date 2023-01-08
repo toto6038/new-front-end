@@ -51,7 +51,7 @@ function closeModal() {
             </div>
 
             <div class="mt-4">
-              <button type="button" class="btn btn-info btn-sm" @click="closeModal">OK</button>
+              <button type="button" class="btn-info btn-sm btn" @click="closeModal">OK</button>
             </div>
           </div>
         </TransitionChild>

@@ -46,7 +46,7 @@ function getProblemMeta(ids: number[]): ProblemMeta {
           Homeworks
           <router-link
             v-if="session.isAdmin"
-            class="btn btn-success"
+            class="btn-success btn"
             :to="`/course/${$route.params.name}/homeworks/new`"
           >
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
