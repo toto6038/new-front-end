@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useGlobal } from "../stores/global";
+import { useGlobal } from "@/stores/global";
 
 export const fetcher = axios.create({
   baseURL: (import.meta.env.VITE_APP_API_BASE_URL as string) || "/api",

@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import App from "./App.vue";
-import router from "./router";
-import "./index.css";
+import App from "@/App.vue";
+import router from "@/router";
+import "@/index.css";
 import "vue-prism-editor/dist/prismeditor.min.css";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/atom-one-dark.css";

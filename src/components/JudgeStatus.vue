@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SUBMISSION_STATUS_REPR } from "../constants";
+import { SUBMISSION_STATUS_REPR } from "@/constants";
 
 interface Props {
   status: SubmissionStatusCodes;

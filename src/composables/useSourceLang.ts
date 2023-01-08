@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import { LANGUAGE_OPTIONS } from "../constants";
+import { LANGUAGE_OPTIONS } from "@/constants";
 
 export type LangMap = {
   [langName: string]: boolean;

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { useTheme } from "../stores/theme";
+import { useTheme } from "@/stores/theme";
 import { useDark, useToggle } from "@vueuse/core";
-import { useSession } from "../stores/session";
+import { useSession } from "@/stores/session";
 import { watchEffect } from "vue";
 import { useStorage } from "@vueuse/core";
 

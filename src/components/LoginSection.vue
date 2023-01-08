@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { reactive } from "vue";
-import { useSession } from "../stores/session";
+import { useSession } from "@/stores/session";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import api from "../models/api";
+import api from "@/models/api";
 import axios from "axios";
 
 const router = useRouter();

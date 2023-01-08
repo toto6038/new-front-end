@@ -3,9 +3,9 @@ import { ref, watchEffect } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute, useRouter } from "vue-router";
 import { useAxios } from "@vueuse/integrations/useAxios";
-import api, { fetcher } from "../../../../../models/api";
+import api, { fetcher } from "@/models/api";
 import axios from "axios";
-import { useProblemSelection } from "../../../../../composables/useProblemSelection";
+import { useProblemSelection } from "@/composables/useProblemSelection";
 
 const route = useRoute();
 const router = useRouter();

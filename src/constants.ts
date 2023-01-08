@@ -8,7 +8,7 @@ export const LANGUAGE_OPTIONS: LangOption[] = [
 
 export const ROLE = ["Admin", "Teacher", "Student"];
 
-// keyof SUBMISSION_STATUS_REPR please refer to './types/submission.d.ts'
+// keyof SUBMISSION_STATUS_REPR please refer to '@/types/submission.d.ts'
 export const SUBMISSION_STATUS_REPR = {
   [-1]: {
     label: "Pending",

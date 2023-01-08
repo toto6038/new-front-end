@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatTime } from "../../utils/formatTime";
+import { formatTime } from "@/utils/formatTime";
 import { AxiosError } from "axios";
 
 interface Props {

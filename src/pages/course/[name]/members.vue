@@ -2,8 +2,8 @@
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { fetcher } from "../../../models/api";
-import { ROLE } from "../../../constants";
+import { fetcher } from "@/models/api";
+import { ROLE } from "@/constants";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();

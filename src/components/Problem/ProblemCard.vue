@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { useSession } from "../../stores/session";
+import { useSession } from "@/stores/session";
 
 interface Props {
   problem?: Problem;

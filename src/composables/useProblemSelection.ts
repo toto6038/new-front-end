@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { fetcher } from "../models/api";
+import { fetcher } from "@/models/api";
 
 type ProblemSelections = { value: string; text: string }[];
 type ProblemId2Meta = Record<string, { name: string | "-"; quota: number | "-" }>;

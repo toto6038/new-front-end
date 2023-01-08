@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useSession } from "../stores/session";
-import { formatTime } from "../utils/formatTime";
+import { useSession } from "@/stores/session";
+import { formatTime } from "@/utils/formatTime";
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { fetcher } from "../models/api";
+import { fetcher } from "@/models/api";
 
 const session = useSession();
 
