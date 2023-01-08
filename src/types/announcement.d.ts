@@ -15,7 +15,7 @@ interface AnnouncementEditionForm extends AnnouncementForm {
 interface AnnouncementPreviewForm extends AnnouncementForm {
   createTime: number;
   updateTime: number;
-  creator: Pick<UserInfo, 'displayedName'>;
+  creator: Pick<UserInfo, "displayedName">;
 }
 
 interface Announcement extends AnnouncementForm {

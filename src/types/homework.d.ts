@@ -22,7 +22,7 @@ type HomeworkStudentStatus = {
       score: number;
     };
   };
-}
+};
 
 interface HomeworkPreviewForm extends HomeworkForm {
   id: string;

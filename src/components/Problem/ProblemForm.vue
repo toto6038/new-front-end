@@ -123,7 +123,7 @@ watchEffect(() => {
     <div class="form-control col-span-2 w-full">
       <label class="label justify-start">
         <span class="label-text">Testdata</span>
-        <label for="testdata-description" class="modal-button btn btn-xs ml-3">How to pack testdata</label>
+        <label for="testdata-description" class="modal-button btn-xs btn ml-3">How to pack testdata</label>
       </label>
       <div
         :class="['textarea-bordered textarea min-h-[96px] w-full p-4', isDrag ? 'border-accent' : '']"
@@ -143,7 +143,7 @@ watchEffect(() => {
         <template v-else>
           <div class="flex">
             <span class="mr-3">{{ file.name }}</span>
-            <button class="btn btn-sm" @click="file = null">
+            <button class="btn-sm btn" @click="file = null">
               <i-uil-times />
             </button>
           </div>

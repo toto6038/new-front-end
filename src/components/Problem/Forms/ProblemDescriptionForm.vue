@@ -109,7 +109,7 @@ const updateProblem = inject<ProblemUpdater>("updateProblem") as ProblemUpdater;
   <div class="col-span-2 mx-auto">
     <div class="tooltip" data-tip="append new sample">
       <div
-        class="btn btn-sm mr-3"
+        class="btn-sm btn mr-3"
         @click="
           updateProblem('description', {
             ...problem.description,
@@ -123,7 +123,7 @@ const updateProblem = inject<ProblemUpdater>("updateProblem") as ProblemUpdater;
     </div>
     <div class="tooltip" data-tip="remove last sample">
       <div
-        class="btn btn-sm"
+        class="btn-sm btn"
         @click="
           updateProblem('description', {
             ...problem.description,
