@@ -75,10 +75,17 @@ async function submit() {
         </div>
         <skeleton-card v-else-if="isFetching" />
         <template v-else>
+          <div v-if="errorMsg" class="alert alert-error shadow-lg">
+            <div>
+              <i-uil-times-circle />
+              <span>{{ errorMsg }}</span>
+            </div>
+          </div>
+
           <homework-form
             :form="newHomework"
             :problem-selections="problemSelections"
-            :is-loading="isLoading || isFetching"
+            :is-loading="isLoading"
             @update="update"
             @submit="submit"
           />

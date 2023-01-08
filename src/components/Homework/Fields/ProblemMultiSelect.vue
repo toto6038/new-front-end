@@ -12,11 +12,7 @@ defineEmits<{
 </script>
 
 <template>
-  <Listbox
-    :model-value="modelValue"
-    multiple
-    @update:model-value="(v) => $emit('update:model-value', [...new Set([...modelValue, ...v])])"
-  >
+  <Listbox :model-value="modelValue" multiple @update:model-value="(v) => $emit('update:model-value', v)">
     <div class="relative mt-1">
       <ListboxButton class="input-bordered input w-full max-w-xs text-left">
         <span class="block truncate">{{ modelValue.join(", ") }}</span>

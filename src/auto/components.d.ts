@@ -31,6 +31,7 @@ declare module 'vue' {
     IUilSave: typeof import('~icons/uil/save')['default']
     IUilSun: typeof import('~icons/uil/sun')['default']
     IUilTimesCircle: typeof import('~icons/uil/times-circle')['default']
+    IUilTrashAlt: typeof import('~icons/uil/trash-alt')['default']
     IUilUser: typeof import('~icons/uil/user')['default']
     IUilWrench: typeof import('~icons/uil/wrench')['default']
     JudgeStatus: typeof import('./../components/JudgeStatus.vue')['default']
