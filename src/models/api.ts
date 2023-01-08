@@ -31,7 +31,7 @@ const Problem = {
 };
 
 const Submission = {
-  create: (body: { problemId: number; languageType: number }) => fetcher.post("/submission", body),
+  create: (body: { problemId: number; languageType: number }) => fetcher.post<{ submissionId: string }>("/submission", body),
   modify: (id: string, body: FormData) =>
     fetcher.put(`/submission/${id}`, body, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -44,9 +44,16 @@ const Copycat = {
     fetcher.post("/copycat", body),
 };
 
+const Announcement = {
+  create: (body: AnnouncementCreationForm) => fetcher.post<{ annId: string }>("/ann", body),
+  modify: (body: AnnouncementEditionForm) => fetcher.put("/ann", body),
+  delete: (body: { annId: string }) => fetcher.delete("/ann", { data: body }),
+}
+
 export default {
   Auth,
   Problem,
   Submission,
   Copycat,
+  Announcement,
 };

@@ -2,45 +2,70 @@
 import dayjs from "dayjs";
 import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import api from "../../../../models/api";
+import axios from "axios";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`New Announcement - ${route.params.name} | Normal OJ`);
-const newPost = reactive<EditablePost>({
-  title: "Example",
+
+const isLoading = ref(false);
+const errorMsg = ref("");
+
+const newAnnouncement = reactive<AnnouncementForm>({
+  title: "",
   markdown: `_Markdown_ & $\\text{katex}$ are supported.\n![](https://64.media.tumblr.com/2e2d5f1e4f0667c181c3afa9ef8cca1b/tumblr_mu4kbwQ0eY1qki7dgo1_500.gifv)`,
   pinned: false,
 });
-const previewPostMockMeta = {
-  creator: { displayedName: "bogay" },
+
+function update<K extends keyof AnnouncementForm>(key: K, value: AnnouncementForm[K]) {
+  newAnnouncement[key] = value;
+}
+
+const openPreview = ref<boolean>(false);
+const mockAnnouncementMeta = {
+  creator: { displayedName: "Ijichi Nijika" },
   createTime: dayjs().unix(),
   updateTime: dayjs().unix(),
 };
 
-function update<K extends keyof EditablePost>(key: K, value: EditablePost[K]) {
-  newPost[key] = value;
+async function submit() {
+  isLoading.value = true;
+  try {
+    const { annId } = (
+      await api.Announcement.create({
+        ...newAnnouncement,
+        courseName: route.params.name as string,
+      })
+    ).data;
+    router.push(`/course/${route.params.name}/announcements/${annId}`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
 }
-
-const openPreview = ref<boolean>(false);
 </script>
 
 <template>
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
-          New Announcement
-          <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
-        </div>
+        <div class="card-title mb-3">New Announcement</div>
 
-        <div class="alert alert-warning">
-          <div>
-            <i-uil-exclamation-octagon />
-            <span>This page in under development</span>
-          </div>
-        </div>
-
-        <!-- <post-form :value="newPost" @update="update" /> -->
+        <announcement-form
+          :value="newAnnouncement"
+          :is-loading="isLoading"
+          :error-msg="errorMsg"
+          @update="update"
+          @submit="submit"
+        />
 
         <div class="divider" />
 
@@ -49,7 +74,11 @@ const openPreview = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <!-- <post-card v-show="openPreview" :post="{ ...previewPostMockMeta, ...newPost }" /> -->
+        <announcement-card
+          v-show="openPreview"
+          :announcement="{ ...mockAnnouncementMeta, ...newAnnouncement }"
+          class="rounded border-2 border-slate-300"
+        />
       </div>
     </div>
   </div>

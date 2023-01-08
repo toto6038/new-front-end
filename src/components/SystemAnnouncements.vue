@@ -1,35 +1,19 @@
 <script setup lang="ts">
+import { useSession } from "../stores/session";
+import { formatTime } from "../utils/formatTime";
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { useRoute } from "vue-router";
-import { fetcher } from "../../../../models/api";
-import { formatTime } from "../../../../utils/formatTime";
-import { useSession } from "../../../../stores/session";
-import { useTitle } from "@vueuse/core";
+import { fetcher } from "../models/api";
 
 const session = useSession();
-const route = useRoute();
-useTitle(`Announcements - ${route.params.name} | Normal OJ`);
-const {
-  data: announcements,
-  error,
-  isLoading,
-} = useAxios<AnnouncementList>(`/course/${route.params.name}/ann`, fetcher);
+
+const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/ann", fetcher);
 </script>
 
 <template>
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title justify-between">
-          Announcements
-          <router-link
-            v-if="session.isAdmin"
-            class="btn-success btn"
-            :to="`/course/${$route.params.name}/announcements/new`"
-          >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
-          </router-link>
-        </div>
+        <div class="card-title mb-3">Announcement</div>
         <div class="my-2" />
         <div v-if="error" class="alert alert-error shadow-lg">
           <div>
@@ -42,28 +26,23 @@ const {
           <thead>
             <tr>
               <th>Title</th>
-              <th>Author</th>
               <th>Create At</th>
               <th v-if="session.isAdmin"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="{ title, creator, createTime, annId } in announcements" :key="annId" class="hover">
+            <tr v-for="{ title, createTime, annId } in announcements" :key="annId" class="hover">
               <td>
-                <router-link
-                  :to="`/course/${$route.params.name}/announcements/${annId}`"
-                  class="link-hover link"
-                >
+                <router-link :to="`/announcements/${annId}`" class="link-hover link">
                   {{ title }}
                 </router-link>
               </td>
-              <td>{{ creator.displayedName }}</td>
               <td>{{ formatTime(createTime) }}</td>
               <td v-if="session.isAdmin">
                 <div class="tooltip" data-tip="Edit">
                   <router-link
                     class="btn-ghost btn-sm btn-circle btn"
-                    :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
+                    :to="`/course/Public/announcements/${annId}/edit`"
                   >
                     <i-uil-edit class="lg:h-5 lg:w-5" />
                   </router-link>
