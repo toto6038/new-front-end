@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useSession } from "../stores/session";
-import { formatTime } from "../utils/formatTime";
+import { useSession } from "../../stores/session";
+import { formatTime } from "../../utils/formatTime";
 
 interface Props {
-  homework: HomeworkListItem;
+  homework: HomeworkListItem | HomeworkPreviewForm;
   problems: Record<string, { name: string | "-"; quota: number | "-" }>;
   preview?: boolean;
 }
@@ -111,7 +111,7 @@ const state = computed(() => {
                 <td>
                   <div class="tooltip" data-tip="Stats">
                     <router-link
-                      class="btn btn-ghost btn-xs"
+                      class="btn-ghost btn-xs btn"
                       :to="`/course/${$route.params.name}/problem/${pid}/stats`"
                     >
                       <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -121,7 +121,7 @@ const state = computed(() => {
                 <td v-if="session.isAdmin">
                   <div class="tooltip" data-tip="Copycat">
                     <router-link
-                      class="btn btn-ghost btn-xs"
+                      class="btn-ghost btn-xs btn"
                       :to="`/course/${$route.params.name}/problem/${pid}/copycat`"
                     >
                       <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />

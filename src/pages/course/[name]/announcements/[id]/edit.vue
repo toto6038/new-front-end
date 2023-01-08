@@ -23,7 +23,7 @@ const announcement = computed(() => announcements.value && announcements.value[0
 
 const edittingAnnouncement = ref<AnnouncementForm>();
 watchEffect(() => {
-  if (announcement) {
+  if (announcement.value) {
     edittingAnnouncement.value = announcement.value;
   }
 });
