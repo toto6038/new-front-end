@@ -6,9 +6,9 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required, between, helpers } from "@vuelidate/validators";
-import api, { fetcher } from "../../../../../models/api";
+import api, { fetcher } from "@/models/api";
 import { useTitle } from "@vueuse/core";
-import { LANGUAGE_OPTIONS } from "../../../../../constants";
+import { LANGUAGE_OPTIONS } from "@/constants";
 
 const route = useRoute();
 useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);

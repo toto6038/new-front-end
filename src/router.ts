@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "pages-generated";
-import { useSession } from "./stores/session";
+import { useSession } from "@/stores/session";
 
 const router = createRouter({
   history: createWebHistory(),

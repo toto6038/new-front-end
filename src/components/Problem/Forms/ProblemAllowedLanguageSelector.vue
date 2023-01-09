@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, watchEffect } from "vue";
-import { useSourceLang } from "../../../composables/useSourceLang";
+import { useSourceLang } from "@/composables/useSourceLang";
 
 // TODO: handling error when problem is undefined
 const problem = inject<EditableProblem>("problem") as EditableProblem;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobal } from "./stores/global";
+import { useGlobal } from "@/stores/global";
 import { TransitionRoot } from "@headlessui/vue";
 
 const global = useGlobal();

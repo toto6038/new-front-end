@@ -2,8 +2,8 @@
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref, watchEffect } from "vue";
-import { fetcher } from "../../../models/api";
-import { useSession } from "../../../stores/session";
+import { fetcher } from "@/models/api";
+import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
 
 const session = useSession();

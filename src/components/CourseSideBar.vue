@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSession } from "../stores/session";
+import { useSession } from "@/stores/session";
 
 const session = useSession();
 const navs = [

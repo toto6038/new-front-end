@@ -4,7 +4,7 @@ import { ref, watchEffect, computed } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
-import api, { fetcher } from "../../../../../models/api";
+import api, { fetcher } from "@/models/api";
 import axios from "axios";
 
 const route = useRoute();

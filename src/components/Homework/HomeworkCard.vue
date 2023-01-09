@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useSession } from "../../stores/session";
-import { formatTime } from "../../utils/formatTime";
+import { useSession } from "@/stores/session";
+import { formatTime } from "@/utils/formatTime";
 
 interface Props {
   homework: HomeworkListItem | HomeworkPreviewForm;

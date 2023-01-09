@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useGlobal } from "../stores/global";
+import { useGlobal } from "@/stores/global";
 
 export const fetcher = axios.create({
   baseURL: (import.meta.env.VITE_APP_API_BASE_URL as string) || "/api",
@@ -31,6 +31,7 @@ const Auth = {
 
 const Problem = {
   create: (body: EditableProblem) => fetcher.post("/problem/manage", body),
+  getTestCaseUrl: (problemId: number) => `${fetcher.defaults.baseURL}/problem/${problemId}/testcase`,
 };
 
 const Submission = {

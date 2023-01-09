@@ -4,8 +4,8 @@ import { ref, reactive } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-import api from "../../../../models/api";
-import { useProblemSelection } from "../../../../composables/useProblemSelection";
+import api from "@/models/api";
+import { useProblemSelection } from "@/composables/useProblemSelection";
 
 const route = useRoute();
 const router = useRouter();

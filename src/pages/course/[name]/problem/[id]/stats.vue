@@ -6,12 +6,12 @@ import { TooltipComponent, LegendComponent, GridComponent } from "echarts/compon
 import { PieChart, BarChart } from "echarts/charts";
 import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
-import { formatTime } from "../../../../../utils/formatTime";
-import { useTheme } from "../../../../../stores/theme";
-import { SUBMISSION_STATUS_REPR } from "../../../../../constants";
+import { formatTime } from "@/utils/formatTime";
+import { useTheme } from "@/stores/theme";
+import { SUBMISSION_STATUS_REPR } from "@/constants";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute } from "vue-router";
-import { fetcher } from "../../../../../models/api";
+import { fetcher } from "@/models/api";
 import { useTitle } from "@vueuse/core";
 
 const route = useRoute();

@@ -3,10 +3,10 @@ import { ref, watchEffect } from "vue";
 import { useClipboard, useIntervalFn } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
-import { LANG } from "../../../../constants";
-import { formatTime } from "../../../../utils/formatTime";
-import api, { fetcher } from "../../../../models/api";
-import { useSession } from "../../../../stores/session";
+import { LANG } from "@/constants";
+import { formatTime } from "@/utils/formatTime";
+import api, { fetcher } from "@/models/api";
+import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
 
 const session = useSession();

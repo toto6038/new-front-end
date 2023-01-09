@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { useSession } from "../../stores/session";
+import { useSession } from "@/stores/session";
+import api from "@/models/api";
 
 interface Props {
   problem?: Problem;
@@ -14,6 +15,10 @@ withDefaults(defineProps<Props>(), {
 });
 
 const session = useSession();
+
+function downloadTestCase(problemId: number) {
+  window.location.assign(api.Problem.getTestCaseUrl(problemId));
+}
 </script>
 
 <template>
@@ -55,28 +60,37 @@ const session = useSession();
                 </div>
               </div>
             </div>
-            <template v-if="!preview">
+
+            <div class="ml-3 flex flex-wrap place-items-center gap-x-3" v-if="!preview">
               <router-link
-                class="btn ml-3 md:btn-md lg:btn-lg"
+                class="btn md:btn-md lg:btn-lg"
                 :to="`/course/${$route.params.name}/problem/${$route.params.id}/submit`"
               >
-                <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+                <i-uil-file-upload-alt class="lg:h-5 lg:w-5" /> Submit
               </router-link>
               <router-link
-                class="btn ml-3 md:btn-md lg:btn-lg"
+                class="btn md:btn-md lg:btn-lg"
                 :to="`/course/${$route.params.name}/problem/${$route.params.id}/stats`"
               >
-                <i-uil-chart-line class="mr-1 lg:h-5 lg:w-5" /> Stats
+                <i-uil-chart-line class="lg:h-5 lg:w-5" /> Stats
               </router-link>
               <router-link
                 v-if="session.isAdmin"
-                :class="['btn-ghost tooltip tooltip-bottom btn-sm btn ml-3', 'inline-flex']"
+                :class="['btn-ghost tooltip tooltip-bottom btn-sm btn', 'inline-flex']"
                 data-tip="Copycat"
                 :to="`/course/${$route.params.name}/problem/${$route.params.id}/copycat`"
               >
-                <i-uil-file-exclamation-alt class="mr-1 lg:h-5 lg:w-5" />
+                <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />
               </router-link>
-            </template>
+              <button
+                v-if="session.isAdmin"
+                :class="['btn-ghost tooltip tooltip-bottom btn-sm btn', 'inline-flex']"
+                data-tip="Download test case"
+                @click="downloadTestCase(Number.parseInt($route.params.id as string, 10))"
+              >
+                <i-uil-folder-download class="lg:h-5 lg:w-5" />
+              </button>
+            </div>
           </div>
         </div>
 
