@@ -84,9 +84,9 @@ const {
   error: fetchProblemError,
 } = useProblemSelection(route.params.name as string);
 
-const submissionStatusCodes = Object.values(SUBMISSION_STATUS_REPR).map(({ label, color }) => ({
+const submissionStatusCodes = Object.entries(SUBMISSION_STATUS_REPR).map(([statusCode, { label }]) => ({
   text: label,
-  value: color,
+  value: statusCode,
 }));
 const languageTypes = LANGUAGE_OPTIONS.map(({ text, value }) => ({
   text,
