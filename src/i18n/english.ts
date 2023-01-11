@@ -18,6 +18,9 @@ export default {
     title: "Title",
     create_t: "Create At",
     login_f: "Login Failed: Your username/email or password is incorrect",
-    
+    username: "Username / Email",
+    username_p: "username or email",
+    pw: "Password",
+    pw_p: "password",
   },
 };

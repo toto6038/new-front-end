@@ -119,13 +119,13 @@ async function login() {
             </div>
             <div class="form-control">
               <label class="label">
-                <span class="label-text">Username / Email</span>
+                <span class="label-text">{{t("index.username")}}</span>
               </label>
               <input
                 v-model="v$.username.$model"
                 type="text"
                 name="username"
-                placeholder="username or email"
+                placeholder='{{t("index.username_p")}}'
                 :class="['input-bordered input', v$.username.$error && 'input-error']"
               />
               <label class="label" v-show="v$.username.$error">
@@ -134,13 +134,13 @@ async function login() {
             </div>
             <div class="form-control">
               <label class="label">
-                <span class="label-text">Password</span>
+                <span class="label-text">{{t("index.pw")}}</span>
               </label>
               <input
                 v-model="v$.password.$model"
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder='{{t("index.pw")}}'
                 :class="['input-bordered input', v$.password.$error && 'input-error']"
                 @keydown.enter="login"
               />
