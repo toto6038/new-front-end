@@ -3,8 +3,10 @@ import { useSession } from "@/stores/session";
 import { formatTime } from "@/utils/formatTime";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { fetcher } from "@/models/api";
+import { useI18n } from "vue-i18n";
 
 const session = useSession();
+const { t, locale } = useI18n();
 
 const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/ann", fetcher);
 </script>
@@ -13,7 +15,7 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3">Announcement</div>
+        <div class="card-title mb-3">{{ t("index.ann") }}</div>
         <div class="my-2" />
 
         <data-status-wrapper :error="error" :is-loading="isLoading">
@@ -24,8 +26,8 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Create At</th>
+                  <th>{{ t("index.title") }}</th>
+                  <th>{{ t("index.create_t") }}</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>

@@ -6,9 +6,11 @@ import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import api from "@/models/api";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 const session = useSession();
+const { t, locale } = useI18n();
 
 const loginForm = reactive({
   username: "",
@@ -61,7 +63,7 @@ async function login() {
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
             <div>
               <i-uil-times-circle />
-              <span>Login Failed: Your username/email or password is incorrect</span>
+              <span>{{ t("index.login_f") }}</span>
             </div>
           </div>
           <div class="form-control">

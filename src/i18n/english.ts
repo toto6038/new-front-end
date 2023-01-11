@@ -12,4 +12,12 @@ export default {
     swe_2019: "Red Team of Software Engineering 2019 Fall",
   },
   course: {},
+  index: {
+    ann: "Announcements",
+    error: "Oops! Something went wrong when loading announcements.",
+    title: "Title",
+    create_t: "Create At",
+    login_f: "Login Failed: Your username/email or password is incorrect",
+    
+  },
 };
