@@ -9,10 +9,12 @@ import api from "../models/api";
 import { useRouter } from "vue-router";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { fetcher } from "../models/api";
+import { useI18n } from "vue-i18n";
 
 useTitle("Home | Normal OJ");
 const session = useSession();
 const router = useRouter();
+const { t, locale } = useI18n();
 
 const { data: posts, error, isLoading } = useAxios("/ann", fetcher);
 const loginForm = reactive({
@@ -57,20 +59,20 @@ async function login() {
     <div class="card-container">
       <div class="card min-w-full">
         <div class="card-body">
-          <div class="card-title mb-3">Announcement</div>
+          <div class="card-title mb-3">{{t("index.ann")}}</div>
           <div class="my-2" />
           <skeleton-table v-if="isLoading" :col="3" :row="5" />
           <div v-else-if="error" class="alert alert-error shadow-lg">
             <div>
               <i-uil-times-circle />
-              <span>Oops! Something went wrong when loading announcements.</span>
+              <span>{{t("index.error")}}</span>
             </div>
           </div>
           <table class="table w-full">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Create At</th>
+                <th>{{t("index.title")}}</th>
+                <th>{{t("index.create_t")}}</th>
                 <th v-if="session.isAdmin"></th>
               </tr>
             </thead>
@@ -112,7 +114,7 @@ async function login() {
             <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
               <div>
                 <i-uil-times-circle />
-                <span>Login Failed: Your username/email or password is incorrect</span>
+                <span>{{t("index.login_f")}}</span>
               </div>
             </div>
             <div class="form-control">
