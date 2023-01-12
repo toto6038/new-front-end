@@ -89,7 +89,7 @@ async function login() {
               v-model="v$.password.$model"
               type="password"
               name="password"
-              :placeholder="t('index.pw')"
+              :placeholder="t('index.pw_p')"
               :class="['input-bordered input', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />
