@@ -30,7 +30,7 @@ const Auth = {
 };
 
 const Problem = {
-  create: (body: EditableProblem) => fetcher.post("/problem/manage", body),
+  create: (body: ProblemForm) => fetcher.post("/problem/manage", body),
   getTestCaseUrl: (problemId: number) => `${fetcher.defaults.baseURL}/problem/${problemId}/testcase`,
 };
 

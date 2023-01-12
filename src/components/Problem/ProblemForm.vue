@@ -1,21 +1,57 @@
 <script setup lang="ts">
 import { ref, watchEffect, inject } from "vue";
-import * as zip from "@zip.js/zip.js";
+import useVuelidate from "@vuelidate/core";
+import { required, maxLength, minValue, between, helpers } from "@vuelidate/validators";
+import { ZipReader, BlobReader } from "@zip.js/zip.js";
 
 // TODO: handling error when problem is undefined
-const problem = inject<EditableProblem>("problem") as EditableProblem;
-// TODO: handling error when updateProblem is undefined
-const updateProblem = inject<ProblemUpdater>("updateProblem") as ProblemUpdater;
+const problem = inject<ProblemForm>("problem") as ProblemForm;
+
+const emits = defineEmits<{
+  (e: "update", key: keyof ProblemForm, value: ProblemForm[typeof key]): void;
+}>();
+
+const rules = {
+  problemName: { required, maxLength: maxLength(64) },
+  description: {
+    description: { maxLength: maxLength(10000) },
+    input: { maxLength: maxLength(10000) },
+    output: { maxLength: maxLength(10000) },
+    hint: { maxLength: maxLength(10000) },
+    sampleInput: {
+      itemMaxLength: helpers.withMessage("The length of each sample input should <= 1024", (v: string[]) =>
+        v.every((d) => d.length <= 1024),
+      ),
+    },
+    sampleOutput: {
+      itemMaxLength: helpers.withMessage("The length of each sample input should <= 1024", (v: string[]) =>
+        v.every((d) => d.length <= 1024),
+      ),
+    },
+  },
+  tags: { itemMaxLength: (v: string[]) => v.every((d) => d.length <= 16) },
+  allowedLanguage: { required, between: between(1, 7) },
+  quota: { required, minValue: minValue(-1) },
+  type: {},
+  status: {},
+  testCase: {},
+};
+const v$ = useVuelidate(rules, problem);
+
+function update(key: keyof ProblemForm, value: ProblemForm[typeof key]) {
+  emits("update", key, value);
+  v$.value[key].$touch();
+}
 
 const isDrag = ref(false);
 const file = ref<File | null>(null);
 watchEffect(() => {
   isDrag.value = false;
   if (!file.value) {
-    updateProblem("testCase", []);
+    update("testCase", []);
     return;
   }
-  const reader = new zip.ZipReader(new zip.BlobReader(file.value));
+  const reader = new ZipReader(new BlobReader(file.value));
   reader.getEntries().then((entries) => {
     const filenames = entries.map(({ filename }) => filename);
     const inputs = filenames.filter((filename) => filename.endsWith(".in"));
@@ -36,7 +72,7 @@ watchEffect(() => {
         break;
       }
     }
-    updateProblem("testCase", testCase);
+    update("testCase", testCase);
   });
 });
 </script>
@@ -49,12 +85,12 @@ watchEffect(() => {
       </label>
       <input
         type="text"
-        class="input-bordered input w-full max-w-xs"
+        :class="['input-bordered input w-full max-w-xs', v$.problemName.$error && 'input-error']"
         :value="problem.problemName"
-        @input="updateProblem('problemName', ($event.target as HTMLInputElement).value)"
+        @input="update('problemName', ($event.target as HTMLInputElement).value)"
       />
-      <label class="label">
-        <span class="label-text-alt">At most 64 alphanumeric characters</span>
+      <label class="label" v-show="v$.problemName.$error">
+        <span class="label-text-alt text-error" v-text="v$.problemName.$errors[0]?.$message" />
       </label>
     </div>
 
@@ -63,11 +99,11 @@ watchEffect(() => {
         <span class="label-text">Hidden</span>
         <input
           type="checkbox"
-          class="toggle"
+          class="toggle-success toggle"
           :true-value="1"
           :false-value="0"
           :value="problem.status"
-          @change="updateProblem('status', (problem.status ^ 1) as 0 | 1)"
+          @change="update('status', (problem.status ^ 1) as 0 | 1)"
         />
       </label>
     </div>
@@ -78,12 +114,14 @@ watchEffect(() => {
       </label>
       <input
         type="text"
-        class="input-bordered input w-full max-w-xs"
+        :class="['input-bordered input w-full max-w-xs', v$.quota.$error && 'input-error']"
         :value="problem.quota"
-        @input="updateProblem('quota', Number(($event.target as HTMLInputElement).value))"
+        @input="update('quota', Number(($event.target as HTMLInputElement).value))"
       />
       <label class="label">
-        <span class="label-text-alt">Set -1 for unlimited quota</span>
+        <span class="label-text-alt">
+          {{ v$.quota.$error ? v$.quota.$errors[0]?.$message : "Set -1 for unlimited quota" }}
+        </span>
       </label>
     </div>
 
@@ -93,12 +131,14 @@ watchEffect(() => {
       </label>
       <input
         type="text"
-        class="input-bordered input w-full max-w-xs"
+        :class="['input-bordered input w-full max-w-xs', v$.tags.$error && 'input-error']"
         :value="problem.tags.join(',')"
-        @input="updateProblem('tags', ($event.target as HTMLInputElement).value.split(','))"
+        @input="update('tags', ($event.target as HTMLInputElement).value.split(','))"
       />
       <label class="label">
-        <span class="label-text-alt">Separate with COMMA, e.g. HW1,HW2</span>
+        <span class="label-text-alt">
+          {{ v$.tags.$error ? v$.tags.$errors[0]?.$message : "Separate with COMMA, e.g. HW1,HW2" }}
+        </span>
       </label>
     </div>
 
@@ -109,16 +149,27 @@ watchEffect(() => {
       <select
         class="select-bordered select w-full max-w-xs"
         :value="problem.type"
-        @input="updateProblem('type', Number(($event.target as HTMLSelectElement).value) as 0 | 1 | 2)"
+        @input="update('type', Number(($event.target as HTMLSelectElement).value) as 0 | 1 | 2)"
       >
         <option value="0">Programming</option>
         <option value="2">File Upload</option>
       </select>
     </div>
 
-    <ProblemAllowedLanguageSelector />
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">Allowed Languages</span>
+      </label>
+      <language-multi-select
+        :model-value="problem.allowedLanguage"
+        @update:model-value="(newValue) => update('allowedLanguage', newValue)"
+      />
+      <label class="label" v-show="v$.allowedLanguage.$error">
+        <span class="label-text-alt text-error" v-text="v$.allowedLanguage.$errors[0]?.$message" />
+      </label>
+    </div>
 
-    <ProblemDescriptionForm />
+    <ProblemDescriptionForm :v$="v$" @update="(...args) => update(...args)" />
 
     <div class="form-control col-span-2 w-full">
       <label class="label justify-start">
@@ -173,7 +224,7 @@ watchEffect(() => {
             type="text"
             class="input-bordered input w-full max-w-xs"
             :value="problem.testCase[i].taskScore"
-            @input="updateProblem('testCase', [
+            @input="update('testCase', [
               ...problem.testCase.slice(0, i),
               {
                 ...problem.testCase[i],
@@ -193,7 +244,7 @@ watchEffect(() => {
             type="text"
             class="input-bordered input w-full max-w-xs"
             :value="problem.testCase[i].memoryLimit"
-            @input="updateProblem('testCase', [
+            @input="update('testCase', [
               ...problem.testCase.slice(0, i),
               {
                 ...problem.testCase[i],
@@ -212,7 +263,7 @@ watchEffect(() => {
             type="text"
             class="input-bordered input w-full max-w-xs"
             :value="problem.testCase[i].timeLimit"
-            @input="updateProblem('testCase', [
+            @input="update('testCase', [
               ...problem.testCase.slice(0, i),
               {
                 ...problem.testCase[i],
