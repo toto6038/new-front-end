@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { useSession } from "../../stores/session";
 
 interface Props {
-  problem?: Problem;
+  problem?: Omit<Problem, "owner" | "courses" | "defaultCode">;
   isLoading?: boolean;
   error?: AxiosError<Problem>;
   preview?: boolean;

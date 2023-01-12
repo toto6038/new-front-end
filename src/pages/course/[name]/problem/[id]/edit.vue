@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 useTitle(`Edit Problem - ${route.params.id} - ${route.params.name} | Normal OJ`);
-const problem: EditableProblem = {
+const problem: ProblemForm = {
   allowedLanguage: 3,
   // courses: ["Algorithm2021"],
   // defaultCode: "",
@@ -31,9 +31,9 @@ const problem: EditableProblem = {
   ],
   type: 0,
 };
-const editedProblem = reactive<EditableProblem>({ ...problem });
+const editedProblem = reactive<ProblemForm>({ ...problem });
 
-function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
+function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
   editedProblem[key] = value;
 }
 

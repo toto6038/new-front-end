@@ -6,17 +6,20 @@ export const fetcher = axios.create({
   withCredentials: true,
 });
 
-fetcher.interceptors.response.use((response) => {
-  return {
-    ...response,
-    ...response.data,
-  };
-}, error => {
-  const global = useGlobal();
-  if (error?.response?.status >= 500) {
-    global.onServerError();
-  }
-});
+fetcher.interceptors.response.use(
+  (response) => {
+    return {
+      ...response,
+      ...response.data,
+    };
+  },
+  (error) => {
+    const global = useGlobal();
+    if (error?.response?.status >= 500) {
+      global.onServerError();
+    }
+  },
+);
 
 const Auth = {
   getSession: () => fetcher.get<UserProperties>("/auth/me"),
@@ -27,11 +30,12 @@ const Auth = {
 };
 
 const Problem = {
-  create: (body: EditableProblem) => fetcher.post("/problem/manage", body),
+  create: (body: ProblemForm) => fetcher.post("/problem/manage", body),
 };
 
 const Submission = {
-  create: (body: { problemId: number; languageType: number }) => fetcher.post<{ submissionId: string }>("/submission", body),
+  create: (body: { problemId: number; languageType: number }) =>
+    fetcher.post<{ submissionId: string }>("/submission", body),
   modify: (id: string, body: FormData) =>
     fetcher.put(`/submission/${id}`, body, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -48,13 +52,13 @@ const Announcement = {
   create: (body: AnnouncementCreationForm) => fetcher.post<{ annId: string }>("/ann", body),
   modify: (body: AnnouncementEditionForm) => fetcher.put("/ann", body),
   delete: (body: { annId: string }) => fetcher.delete("/ann", { data: body }),
-}
+};
 
 const Homework = {
   create: (body: HomeworkCreationForm) => fetcher.post("/homework", body),
   modify: (id: string, body: HomeworkEditionForm) => fetcher.put(`/homework/${id}`, body),
-  delete: (id: string) => fetcher.delete(`/homework/${id}`)
-}
+  delete: (id: string) => fetcher.delete(`/homework/${id}`),
+};
 
 export default {
   Auth,
@@ -62,5 +66,5 @@ export default {
   Submission,
   Copycat,
   Announcement,
-  Homework
+  Homework,
 };

@@ -9,8 +9,7 @@ declare enum ProblemStatus {
   Offline = 2,
 }
 
-interface EditableProblem {
-  problemId?: number;
+interface ProblemForm {
   problemName: string;
   description: {
     description: string;
@@ -92,4 +91,4 @@ interface MossReport {
 }
 
 type LangOption = { value: number; text: string; mask: number };
-type ProblemUpdater = <K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) => void;
+type ProblemUpdater = <K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) => void;

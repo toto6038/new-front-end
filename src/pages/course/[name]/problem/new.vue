@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { ref, provide } from "vue";
 import { useTitle } from "@vueuse/core";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
+import api from "../../../../models/api";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`New Problem - ${route.params.name} | Normal OJ`);
 
-const newProblem = ref<EditableProblem>({
+const isLoading = ref(false);
+const errorMsg = ref("");
+
+const newProblem = ref<ProblemForm>({
   problemName: "",
   description: {
     description: "",
@@ -23,17 +29,36 @@ const newProblem = ref<EditableProblem>({
   status: 1,
   testCase: [],
 });
-function updateNewProblem<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
+function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
   newProblem.value[key] = value;
 }
-provide<EditableProblem>("problem", newProblem.value);
-provide<typeof updateNewProblem>("updateProblem", updateNewProblem);
+provide<ProblemForm>("problem", newProblem.value);
 
-function submit() {
-  console.log(JSON.stringify(newProblem.value, null, 2));
+async function submit() {
+  isLoading.value = true;
+  try {
+    await api.Problem.create({
+      ...newProblem.value,
+    });
+    router.push(`/course/${route.params.name}/homeworks`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 const openPreview = ref<boolean>(false);
+const mockProblemMeta = {
+  highScore: 0,
+  submitCount: 0,
+};
+
 const openJSON = ref<boolean>(false);
 </script>
 
@@ -48,14 +73,7 @@ const openJSON = ref<boolean>(false);
           </button>
         </div>
 
-        <div class="alert alert-warning">
-          <div>
-            <i-uil-exclamation-octagon />
-            <span>This page in under development</span>
-          </div>
-        </div>
-
-        <!-- <problem-form /> -->
+        <problem-form @update="update" />
 
         <div class="divider" />
 
@@ -64,7 +82,7 @@ const openJSON = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <!-- <problem-card v-if="openPreview" :problem="newProblem" preview /> -->
+        <problem-card v-if="openPreview" :problem="{ ...newProblem, ...mockProblemMeta }" preview />
 
         <div class="divider my-4" />
 
