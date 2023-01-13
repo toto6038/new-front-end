@@ -7,11 +7,13 @@ import { useTitle } from "@vueuse/core";
 import { required, sameAs, helpers } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
 
 useTitle("Profile | Normal OJ");
 const router = useRouter();
 const session = useSession();
 const ROLE = ["Admin", "Teacher", "Student"];
+const { t, locale } = useI18n();
 
 async function logout() {
   await api.Auth.logout();
@@ -27,6 +29,7 @@ const changePasswordForm = reactive({
   errorMsg: "",
   isFinished: false,
 });
+// TODO: integrate vue-i18n & Vuelidate error message
 const rules = {
   newPassword: { required },
   oldPassword: { required },
@@ -36,6 +39,14 @@ const rules = {
       "The value must be equal to New Password",
       sameAs(toRef(changePasswordForm, "newPassword")),
     ),
+  },
+};
+const errorMessages = {
+  newPassword: t("profile.err.new_pw"),
+  oldPassword: t("profile.err.old_pw"),
+  confirmPassword: {
+    required: t("profile.err.confirm_pw.required"),
+    sameAsRef: t("profile.err.confirm_pw.sameAsRef"),
   },
 };
 const v$ = useVuelidate(rules, changePasswordForm);
@@ -86,10 +97,10 @@ function clearForm() {
         <table class="table w-full">
           <thead>
             <tr>
-              <th>Username</th>
-              <th>Display Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>{{ t("profile.username") }}</th>
+              <th>{{ t("profile.dispname") }}</th>
+              <th>{{ t("profile.email") }}</th>
+              <th>{{ t("profile.role") }}</th>
             </tr>
           </thead>
           <tbody>

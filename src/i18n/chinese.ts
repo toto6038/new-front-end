@@ -3,7 +3,6 @@ export default {
     title: "設定",
     select_lang: "選擇語言",
   },
-  profile: {},
   about: {
     contributor:"貢獻者",
     links:"連結",
@@ -17,10 +16,25 @@ export default {
     error: "噢不！載入公告時出現了技術錯誤。",
     title: "標題",
     create_t: "建立時間",
-    login_f: "登入失敗：使用者名稱 / 電子郵件地址或是密碼輸入錯誤",
-    username: "使用者名稱 / 電子郵件地址",
-    username_p: "請輸入使用者名稱或是電子郵件地址",
+    login_f: "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
+    username: "帳號 / 電子郵件地址",
+    username_p: "帳號 / 電子郵件地址",
     pw: "密碼",
-    pw_p: "請輸入密碼",
+    pw_p: "密碼",
+  },
+  profile: {
+    err:{
+      new_pw: "請填寫此欄位。",
+      old_pw: "請填寫此欄位。",
+      confirm_pw: {
+        required: "請填寫此欄位。",
+        sameAsRef: "密碼不符合。",
+      },
+    },
+    username: "帳號",
+    dispname: "顯示名稱",
+    email: "電子郵件",
+    role: "角色",
+
   },
 };
