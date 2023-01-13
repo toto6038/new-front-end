@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "commit": "cz"
   },
   "dependencies": {
     "@sentry/tracing": "^6.19.7",
@@ -41,6 +42,7 @@
     "@types/markdown-it": "^12.2.3",
     "@vitejs/plugin-vue": "^2.2.0",
     "autoprefixer": "^10.4.2",
+    "commitizen": "^4.2.6",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "postcss": "^8.4.6",

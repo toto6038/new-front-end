@@ -3,7 +3,6 @@ export default {
     title: "Settings",
     select_lang: "Select your preferred language",
   },
-  profile: {},
   about: {
     contributor:"Contributor",
     links:"Links",
@@ -22,5 +21,20 @@ export default {
     username_p: "username or email",
     pw: "Password",
     pw_p: "password",
+  },
+  profile: {
+    err:{
+      new_pw: "Please fill out this field.",
+      old_pw: "Please fill out this field.",
+      confirm_pw: {
+        required: "Please fill out this field.",
+        sameAsRef: "Password does not match.",
+      },
+    },
+    username: "Username",
+    dispname: "Display Name",
+    email: "Email",
+    role: "Role",
+
   },
 };
