@@ -19,6 +19,7 @@ interface ProblemForm {
     sampleInput: string[];
     sampleOutput: string[];
   };
+  courses: string[];
   tags: string[];
   allowedLanguage: number;
   quota: number;
@@ -32,30 +33,9 @@ interface ProblemForm {
   }[];
 }
 
-interface Problem {
-  problemName: string;
-  description: {
-    description: string;
-    input: string;
-    output: string;
-    hint: string;
-    sampleInput: string[];
-    sampleOutput: string[];
-  };
+interface Problem extends ProblemForm {
   owner: User;
-  tags: string[];
-  allowedLanguage: number;
-  courses: string[];
-  quota: number;
   defaultCode: string;
-  status: ProblemStatus;
-  type: ProblemType;
-  testCase: {
-    taskScore: number;
-    caseCount: number;
-    memoryLimit: number;
-    timeLimit: number;
-  }[];
   submitCount: number;
   highScore: number;
 }

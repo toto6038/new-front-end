@@ -27,7 +27,7 @@ function downloadTestCase(problemId: number) {
       <div v-if="error" class="alert alert-error shadow-lg">
         <div>
           <i-uil-times-circle />
-          <span>Oops! Something went wrong when loading announcements.</span>
+          <span>Oops! Something went wrong when loading problem.</span>
         </div>
       </div>
       <skeleton-post v-else-if="isLoading || !problem" class="w-1/2" />

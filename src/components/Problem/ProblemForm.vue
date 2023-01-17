@@ -7,8 +7,14 @@ import { ZipReader, BlobReader } from "@zip.js/zip.js";
 // TODO: handling error when problem is undefined
 const problem = inject<ProblemForm>("problem") as ProblemForm;
 
+const props = defineProps<{
+  isLoading: boolean;
+  testdata: File | null;
+}>();
 const emits = defineEmits<{
   (e: "update", key: keyof ProblemForm, value: ProblemForm[typeof key]): void;
+  (e: "update:testdata", value: File | null): void;
+  (e: "submit"): void;
 }>();
 
 const rules = {
@@ -29,6 +35,7 @@ const rules = {
       ),
     },
   },
+  courses: {},
   tags: { itemMaxLength: (v: string[]) => v.every((d) => d.length <= 16) },
   allowedLanguage: { required, between: between(1, 7) },
   quota: { required, minValue: minValue(-1) },
@@ -43,22 +50,28 @@ function update(key: keyof ProblemForm, value: ProblemForm[typeof key]) {
   v$.value[key].$touch();
 }
 
+async function submit() {
+  const isFormCorrect = await v$.value.$validate();
+  if (isFormCorrect) {
+    emits("submit");
+  }
+}
+
 const isDrag = ref(false);
-const file = ref<File | null>(null);
 watchEffect(() => {
   isDrag.value = false;
-  if (!file.value) {
+  if (!props.testdata) {
     update("testCase", []);
     return;
   }
-  const reader = new ZipReader(new BlobReader(file.value));
+  const reader = new ZipReader(new BlobReader(props.testdata));
   reader.getEntries().then((entries) => {
     const filenames = entries.map(({ filename }) => filename);
     const inputs = filenames.filter((filename) => filename.endsWith(".in"));
     const outputs = filenames.filter((filename) => filename.endsWith(".out"));
     if (inputs.length !== outputs.length) {
       alert(`Input and output files are not matched. (got ${inputs.length} .in, ${outputs.length} .out)`);
-      file.value = null;
+      emits("update:testdata", null);
       return;
     }
     let i = 0;
@@ -177,24 +190,24 @@ watchEffect(() => {
         <label for="testdata-description" class="modal-button btn-xs btn ml-3">How to pack testdata</label>
       </label>
       <div
-        :class="['textarea-bordered textarea min-h-[96px] w-full p-4', isDrag ? 'border-accent' : '']"
-        @drop.prevent="file = ($event.dataTransfer as any).files[0]"
+        :class="['textarea-bordered textarea w-full p-4', isDrag ? 'border-accent' : '']"
+        @drop.prevent="$emit('update:testdata', $event.dataTransfer?.files?.[0])"
         @dragover.prevent="isDrag = true"
         @dragleave="isDrag = false"
       >
-        <template v-if="!file">
+        <template v-if="!testdata">
           <span class="mb-6 mr-6 text-sm">Drop File here or Choose File to upload</span>
           <input
             type="file"
             id="file-uploader"
             accept=".zip"
-            @change="file = ($event.target as any).files[0]"
+            @change="$emit('update:testdata', ($event.target as HTMLInputElement).files?.[0])"
           />
         </template>
         <template v-else>
           <div class="flex">
-            <span class="mr-3">{{ file.name }}</span>
-            <button class="btn-sm btn" @click="file = null">
+            <span class="mr-3">{{ testdata.name }}</span>
+            <button class="btn-sm btn" @click="$emit('update:testdata', null)">
               <i-uil-times />
             </button>
           </div>
@@ -203,79 +216,86 @@ watchEffect(() => {
     </div>
 
     <template v-for="(no, i) in problem.testCase.length">
-      <div class="grid grid-cols-2">
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">testcases in subtask {{ no }}</span>
-          </label>
-          <input
-            type="text"
-            class="input-bordered input w-full max-w-xs"
-            :value="problem.testCase[i].caseCount"
-            readonly
-          />
-        </div>
+      <div class="col-span-2">
+        <div class="font-semibold">Subtask {{ no }}</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">The number of testcases</span>
+            </label>
+            <input
+              type="text"
+              class="input-bordered input w-full max-w-xs"
+              :value="problem.testCase[i].caseCount"
+              readonly
+            />
+          </div>
 
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Score of subtask {{ no }}</span>
-          </label>
-          <input
-            type="text"
-            class="input-bordered input w-full max-w-xs"
-            :value="problem.testCase[i].taskScore"
-            @input="update('testCase', [
-              ...problem.testCase.slice(0, i),
-              {
-                ...problem.testCase[i],
-                taskScore: Number(($event.target as HTMLInputElement).value),
-              },
-              ...problem.testCase.slice(i + 1),
-            ])"
-          />
-        </div>
-      </div>
-      <div class="grid grid-cols-2">
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Memory Limit (KB)</span>
-          </label>
-          <input
-            type="text"
-            class="input-bordered input w-full max-w-xs"
-            :value="problem.testCase[i].memoryLimit"
-            @input="update('testCase', [
-              ...problem.testCase.slice(0, i),
-              {
-                ...problem.testCase[i],
-                memoryLimit: Number(($event.target as HTMLInputElement).value),
-              },
-              ...problem.testCase.slice(i + 1),
-            ])"
-          />
-        </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">Score</span>
+            </label>
+            <input
+              type="text"
+              class="input-bordered input w-full max-w-xs"
+              :value="problem.testCase[i].taskScore"
+              @input="update('testCase', [
+                ...problem.testCase.slice(0, i),
+                {
+                  ...problem.testCase[i],
+                  taskScore: Number(($event.target as HTMLInputElement).value),
+                },
+                ...problem.testCase.slice(i + 1),
+              ])"
+            />
+          </div>
 
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Time Limit (ms)</span>
-          </label>
-          <input
-            type="text"
-            class="input-bordered input w-full max-w-xs"
-            :value="problem.testCase[i].timeLimit"
-            @input="update('testCase', [
-              ...problem.testCase.slice(0, i),
-              {
-                ...problem.testCase[i],
-                timeLimit: Number(($event.target as HTMLInputElement).value),
-              },
-              ...problem.testCase.slice(i + 1),
-            ])"
-          />
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">Memory Limit (KB)</span>
+            </label>
+            <input
+              type="text"
+              class="input-bordered input w-full max-w-xs"
+              :value="problem.testCase[i].memoryLimit"
+              @input="update('testCase', [
+                ...problem.testCase.slice(0, i),
+                {
+                  ...problem.testCase[i],
+                  memoryLimit: Number(($event.target as HTMLInputElement).value),
+                },
+                ...problem.testCase.slice(i + 1),
+              ])"
+            />
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">Time Limit (ms)</span>
+            </label>
+            <input
+              type="text"
+              class="input-bordered input w-full max-w-xs"
+              :value="problem.testCase[i].timeLimit"
+              @input="update('testCase', [
+                ...problem.testCase.slice(0, i),
+                {
+                  ...problem.testCase[i],
+                  timeLimit: Number(($event.target as HTMLInputElement).value),
+                },
+                ...problem.testCase.slice(i + 1),
+              ])"
+            />
+          </div>
         </div>
       </div>
     </template>
 
     <ProblemTestdataDescriptionModal />
+  </div>
+  <div class="mt-4 flex justify-end">
+    <button :class="['btn-success btn', isLoading && 'loading']" @click="submit">
+      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+    </button>
   </div>
 </template>

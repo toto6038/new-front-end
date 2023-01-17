@@ -32,6 +32,12 @@ const Auth = {
 const Problem = {
   create: (body: ProblemForm) => fetcher.post("/problem/manage", body),
   getTestCaseUrl: (problemId: number) => `${fetcher.defaults.baseURL}/problem/${problemId}/testcase`,
+  modify: (id: string | number, body: ProblemForm) => fetcher.put(`/problem/manage/${id}`, body),
+  modifyTestdata: (id: string | number, body: FormData) =>
+    fetcher.put(`/problem/manage/${id}`, body, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
+  delete: (id: string | number) => fetcher.delete(`/problem/manage/${id}`),
 };
 
 const Submission = {

@@ -22,6 +22,7 @@ const newProblem = ref<ProblemForm>({
     sampleInput: [""],
     sampleOutput: [""],
   },
+  courses: [],
   tags: [],
   allowedLanguage: 1,
   quota: 10,
@@ -33,14 +34,26 @@ function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
   newProblem.value[key] = value;
 }
 provide<ProblemForm>("problem", newProblem.value);
+const testdata = ref<File | null>(null);
 
 async function submit() {
+  if (!testdata.value) {
+    alert("Testdata not provided");
+    return;
+  }
   isLoading.value = true;
   try {
-    await api.Problem.create({
-      ...newProblem.value,
-    });
-    router.push(`/course/${route.params.name}/homeworks`);
+    const { problemId } = (
+      await api.Problem.create({
+        ...newProblem.value,
+      })
+    ).data;
+
+    // TODO: additional handling if testcase upload fail
+    const testdataForm = new FormData();
+    testdataForm.append("case", testdata.value);
+    await api.Problem.modifyTestdata(problemId, testdataForm);
+    router.push(`/course/${route.params.name}/problem/${problemId}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       errorMsg.value = error.response.data.message;
@@ -66,14 +79,9 @@ const openJSON = ref<boolean>(false);
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
-          New Problem
-          <button class="btn" @click="submit">
-            <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
-          </button>
-        </div>
+        <div class="card-title mb-3 justify-between">New Problem</div>
 
-        <problem-form @update="update" />
+        <problem-form :is-loading="isLoading" v-model:testdata="testdata" @update="update" @submit="submit" />
 
         <div class="divider" />
 
