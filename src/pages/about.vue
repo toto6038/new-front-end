@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useTitle} from "@vueuse/core";
 import ScrollMagic from "scrollmagic"
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref} from "vue";
 
 useTitle("About | Normal OJ");
 const teams = [
@@ -10,14 +10,20 @@ const teams = [
 		people: ["AlaRduTP", "as535364", "asef18766", "Bogay", "skps2010", "Uier"],
 	},
 	{
+		title: "NTNU CSIE Service Learning 2022 Fall",
+		people: [
+			"180079995",
+			"aokblast",
+			"howard9199",
+			"laporchen",
+			"Misawai"
+		],
+	},
+	{
 		title: "NTNU CSIE Service Learning 2021 Spring",
 		people: [
-			"AlaRduTP",
 			"Alanasdw",
-			"as535364",
-			"asef18766",
 			"BirkhoffLee",
-			"Bogay",
 			"eoleedi",
 			"jw910731",
 			"littlepenguin89106",
@@ -26,10 +32,8 @@ const teams = [
 			"RuiRabbit",
 			"RUJRSJ",
 			"simon5955687",
-			"skps2010",
 			"sophie8909",
 			"toto6038",
-			"Uier",
 			"YingMuo",
 		],
 	},
