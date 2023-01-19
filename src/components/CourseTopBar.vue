@@ -51,7 +51,7 @@ const items: ComputedRef<{ [k: string | symbol]: { path: null | string; text: st
     <div class="breadcrumbs flex-1 text-sm">
       <ul>
         <li>
-          <a :href="`/course/${route.params.name}`">{{ route.params.name }}</a>
+          <router-link :to="`/course/${route.params.name}`">{{ route.params.name }}</router-link>
         </li>
         <template v-if="route.name">
           <li v-for="{ path, text } in items[route.name]" :key="text">
