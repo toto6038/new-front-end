@@ -90,7 +90,11 @@ watch(
           break;
         }
       }
-      update("testCaseInfo", { ...problem.value.testCaseInfo, tasks: testCase });
+      if (testCase.length > 0) {
+        update("testCaseInfo", { ...problem.value.testCaseInfo, tasks: testCase });
+      } else {
+        alert("No Test Data found in the zip file! (壓縮檔內只需要測資文字檔，不需要資料夾)");
+      }
     });
   },
 );
@@ -190,62 +194,63 @@ watch(
 
     <ProblemDescriptionForm :v$="v$" @update="(...args) => update(...args)" />
 
-    <div class="form-control col-span-2 w-full">
-      <label class="label justify-start">
-        <span class="label-text">Testdata</span>
-        <label for="testdata-description" class="modal-button btn-xs btn ml-3">How to pack testdata</label>
-      </label>
-      <div
-        :class="['textarea-bordered textarea w-full p-4', isDrag ? 'border-accent' : '']"
-        @drop.prevent="$emit('update:testdata', $event.dataTransfer?.files?.[0])"
-        @dragover.prevent="isDrag = true"
-        @dragleave="isDrag = false"
-      >
-        <template v-if="!testdata">
-          <span class="mb-6 mr-6 text-sm">Drop File here or Choose File to upload</span>
-          <input
-            type="file"
-            id="file-uploader"
-            accept=".zip"
-            @change="$emit('update:testdata', ($event.target as HTMLInputElement).files?.[0])"
-          />
-        </template>
-        <template v-else>
-          <div class="flex">
-            <span class="mr-3">{{ testdata.name }}</span>
-            <button class="btn-sm btn" @click="$emit('update:testdata', null)">
-              <i-uil-times />
-            </button>
-          </div>
-        </template>
-      </div>
-    </div>
-
-    <template v-for="(no, i) in problem.testCaseInfo.tasks.length">
-      <div class="col-span-2">
-        <div class="font-semibold">Subtask {{ no }}</div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          <div class="form-control w-full">
-            <label class="label">
-              <span class="label-text">The number of testcases</span>
-            </label>
+    <template v-if="problem.type !== 2">
+      <div class="form-control col-span-2 w-full">
+        <label class="label justify-start">
+          <span class="label-text">Testdata</span>
+          <label for="testdata-description" class="modal-button btn-xs btn ml-3">How to pack testdata</label>
+        </label>
+        <div
+          :class="['textarea-bordered textarea w-full p-4', isDrag ? 'border-accent' : '']"
+          @drop.prevent="$emit('update:testdata', $event.dataTransfer?.files?.[0])"
+          @dragover.prevent="isDrag = true"
+          @dragleave="isDrag = false"
+        >
+          <template v-if="!testdata">
+            <span class="mb-6 mr-6 text-sm">Drop File here or Choose File to upload</span>
             <input
-              type="text"
-              class="input-bordered input w-full max-w-xs"
-              :value="problem.testCaseInfo.tasks[i].caseCount"
-              readonly
+              type="file"
+              id="file-uploader"
+              accept=".zip"
+              @change="$emit('update:testdata', ($event.target as HTMLInputElement).files?.[0])"
             />
-          </div>
+          </template>
+          <template v-else>
+            <div class="flex">
+              <span class="mr-3">{{ testdata.name }}</span>
+              <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+                <i-uil-times />
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
 
-          <div class="form-control w-full">
-            <label class="label">
-              <span class="label-text">Score</span>
-            </label>
-            <input
-              type="text"
-              class="input-bordered input w-full max-w-xs"
-              :value="problem.testCaseInfo.tasks[i].taskScore"
-              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+      <template v-for="(no, i) in problem.testCaseInfo.tasks.length">
+        <div class="col-span-2">
+          <div class="font-semibold">Subtask {{ no }}</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div class="form-control w-full">
+              <label class="label">
+                <span class="label-text">The number of testcases</span>
+              </label>
+              <input
+                type="text"
+                class="input-bordered input w-full max-w-xs"
+                :value="problem.testCaseInfo.tasks[i].caseCount"
+                readonly
+              />
+            </div>
+
+            <div class="form-control w-full">
+              <label class="label">
+                <span class="label-text">Score</span>
+              </label>
+              <input
+                type="text"
+                class="input-bordered input w-full max-w-xs"
+                :value="problem.testCaseInfo.tasks[i].taskScore"
+                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
                 ...problem.testCaseInfo.tasks.slice(0, i),
                 {
                   ...problem.testCaseInfo.tasks[i],
@@ -253,18 +258,18 @@ watch(
                 },
                 ...problem.testCaseInfo.tasks.slice(i + 1),
               ]})"
-            />
-          </div>
+              />
+            </div>
 
-          <div class="form-control w-full">
-            <label class="label">
-              <span class="label-text">Memory Limit (KB)</span>
-            </label>
-            <input
-              type="text"
-              class="input-bordered input w-full max-w-xs"
-              :value="problem.testCaseInfo.tasks[i].memoryLimit"
-              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+            <div class="form-control w-full">
+              <label class="label">
+                <span class="label-text">Memory Limit (KB)</span>
+              </label>
+              <input
+                type="text"
+                class="input-bordered input w-full max-w-xs"
+                :value="problem.testCaseInfo.tasks[i].memoryLimit"
+                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
                 ...problem.testCaseInfo.tasks.slice(0, i),
                 {
                   ...problem.testCaseInfo.tasks[i],
@@ -272,18 +277,18 @@ watch(
                 },
                 ...problem.testCaseInfo.tasks.slice(i + 1),
               ]})"
-            />
-          </div>
+              />
+            </div>
 
-          <div class="form-control w-full">
-            <label class="label">
-              <span class="label-text">Time Limit (ms)</span>
-            </label>
-            <input
-              type="text"
-              class="input-bordered input w-full max-w-xs"
-              :value="problem.testCaseInfo.tasks[i].timeLimit"
-              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+            <div class="form-control w-full">
+              <label class="label">
+                <span class="label-text">Time Limit (ms)</span>
+              </label>
+              <input
+                type="text"
+                class="input-bordered input w-full max-w-xs"
+                :value="problem.testCaseInfo.tasks[i].timeLimit"
+                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
                 ...problem.testCaseInfo.tasks.slice(0, i),
                 {
                   ...problem.testCaseInfo.tasks[i],
@@ -291,10 +296,11 @@ watch(
                 },
                 ...problem.testCaseInfo.tasks.slice(i + 1),
               ]})"
-            />
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </template>
 
     <ProblemTestdataDescriptionModal />
