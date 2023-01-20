@@ -4,7 +4,7 @@ import { useSession } from "@/stores/session";
 import api from "@/models/api";
 
 interface Props {
-  problem?: Omit<Problem, "owner" | "courses" | "defaultCode">;
+  problem?: Problem;
   isLoading?: boolean;
   error?: AxiosError<Problem>;
   preview?: boolean;

@@ -9,6 +9,13 @@ declare enum ProblemStatus {
   Offline = 2,
 }
 
+interface ProblemTestCase {
+  taskScore: number;
+  caseCount: number;
+  memoryLimit: number;
+  timeLimit: number;
+}
+
 interface ProblemForm {
   problemName: string;
   description: {
@@ -25,19 +32,39 @@ interface ProblemForm {
   quota: number;
   type: ProblemType;
   status: ProblemStatus;
-  testCase: {
-    taskScore: number;
-    caseCount: number;
-    memoryLimit: number;
-    timeLimit: number;
-  }[];
+  testCaseInfo: {
+    language: number;
+    fillInTemplate: string;
+    tasks: ProblemTestCase[];
+  };
+  canViewStdout: boolean;
+  defaultCode: string;
 }
 
-interface Problem extends ProblemForm {
-  owner: User;
+interface Problem {
+  problemName: string;
+  description: {
+    description: string;
+    input: string;
+    output: string;
+    hint: string;
+    sampleInput: string[];
+    sampleOutput: string[];
+  };
+  courses: string[];
+  tags: string[];
+  allowedLanguage: number;
+  quota: number;
+  type: ProblemType;
+  status: ProblemStatus;
+  testCase: ProblemTestCase[];
+  canViewStdout: boolean;
+  owner: string;
   defaultCode: string;
   submitCount: number;
   highScore: number;
+  ACUser: number;
+  submitter: number;
 }
 
 interface ProblemListItem {

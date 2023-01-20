@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, watchEffect, inject } from "vue";
+import { ref, watch, inject, Ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength, minValue, between, helpers } from "@vuelidate/validators";
 import { ZipReader, BlobReader } from "@zip.js/zip.js";
 
-// TODO: handling error when problem is undefined
-const problem = inject<ProblemForm>("problem") as ProblemForm;
+// TODO: handling error when `problem` or `problem.value` is undefined
+// This component only renders when `problem` is not undefined
+const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
 
 const props = defineProps<{
   isLoading: boolean;
@@ -41,9 +42,11 @@ const rules = {
   quota: { required, minValue: minValue(-1) },
   type: {},
   status: {},
-  testCase: {},
+  testCaseInfo: {},
+  canViewStdout: {},
+  defaultCode: {},
 };
-const v$ = useVuelidate(rules, problem);
+const v$ = useVuelidate(rules, problem.value);
 
 function update(key: keyof ProblemForm, value: ProblemForm[typeof key]) {
   emits("update", key, value);
@@ -58,36 +61,39 @@ async function submit() {
 }
 
 const isDrag = ref(false);
-watchEffect(() => {
-  isDrag.value = false;
-  if (!props.testdata) {
-    update("testCase", []);
-    return;
-  }
-  const reader = new ZipReader(new BlobReader(props.testdata));
-  reader.getEntries().then((entries) => {
-    const filenames = entries.map(({ filename }) => filename);
-    const inputs = filenames.filter((filename) => filename.endsWith(".in"));
-    const outputs = filenames.filter((filename) => filename.endsWith(".out"));
-    if (inputs.length !== outputs.length) {
-      alert(`Input and output files are not matched. (got ${inputs.length} .in, ${outputs.length} .out)`);
-      emits("update:testdata", null);
+watch(
+  () => props.testdata,
+  () => {
+    isDrag.value = false;
+    if (!props.testdata) {
+      update("testCaseInfo", { ...problem.value.testCaseInfo, tasks: [] });
       return;
     }
-    let i = 0;
-    const testCase = [];
-    while (true) {
-      const caseCount = inputs.filter((filename) => filename.startsWith(`0${i}`.slice(-2))).length;
-      if (caseCount > 0) {
-        testCase.push({ caseCount, memoryLimit: 134218, taskScore: 0, timeLimit: 1000 });
-        i++;
-      } else {
-        break;
+    const reader = new ZipReader(new BlobReader(props.testdata));
+    reader.getEntries().then((entries) => {
+      const filenames = entries.map(({ filename }) => filename);
+      const inputs = filenames.filter((filename) => filename.endsWith(".in"));
+      const outputs = filenames.filter((filename) => filename.endsWith(".out"));
+      if (inputs.length !== outputs.length) {
+        alert(`Input and output files are not matched. (got ${inputs.length} .in, ${outputs.length} .out)`);
+        emits("update:testdata", null);
+        return;
       }
-    }
-    update("testCase", testCase);
-  });
-});
+      let i = 0;
+      const testCase = [];
+      while (true) {
+        const caseCount = inputs.filter((filename) => filename.startsWith(`0${i}`.slice(-2))).length;
+        if (caseCount > 0) {
+          testCase.push({ caseCount, memoryLimit: 134218, taskScore: 0, timeLimit: 1000 });
+          i++;
+        } else {
+          break;
+        }
+      }
+      update("testCaseInfo", { ...problem.value.testCaseInfo, tasks: testCase });
+    });
+  },
+);
 </script>
 
 <template>
@@ -215,7 +221,7 @@ watchEffect(() => {
       </div>
     </div>
 
-    <template v-for="(no, i) in problem.testCase.length">
+    <template v-for="(no, i) in problem.testCaseInfo.tasks.length">
       <div class="col-span-2">
         <div class="font-semibold">Subtask {{ no }}</div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -226,7 +232,7 @@ watchEffect(() => {
             <input
               type="text"
               class="input-bordered input w-full max-w-xs"
-              :value="problem.testCase[i].caseCount"
+              :value="problem.testCaseInfo.tasks[i].caseCount"
               readonly
             />
           </div>
@@ -238,15 +244,15 @@ watchEffect(() => {
             <input
               type="text"
               class="input-bordered input w-full max-w-xs"
-              :value="problem.testCase[i].taskScore"
-              @input="update('testCase', [
-                ...problem.testCase.slice(0, i),
+              :value="problem.testCaseInfo.tasks[i].taskScore"
+              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+                ...problem.testCaseInfo.tasks.slice(0, i),
                 {
-                  ...problem.testCase[i],
+                  ...problem.testCaseInfo.tasks[i],
                   taskScore: Number(($event.target as HTMLInputElement).value),
                 },
-                ...problem.testCase.slice(i + 1),
-              ])"
+                ...problem.testCaseInfo.tasks.slice(i + 1),
+              ]})"
             />
           </div>
 
@@ -257,15 +263,15 @@ watchEffect(() => {
             <input
               type="text"
               class="input-bordered input w-full max-w-xs"
-              :value="problem.testCase[i].memoryLimit"
-              @input="update('testCase', [
-                ...problem.testCase.slice(0, i),
+              :value="problem.testCaseInfo.tasks[i].memoryLimit"
+              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+                ...problem.testCaseInfo.tasks.slice(0, i),
                 {
-                  ...problem.testCase[i],
+                  ...problem.testCaseInfo.tasks[i],
                   memoryLimit: Number(($event.target as HTMLInputElement).value),
                 },
-                ...problem.testCase.slice(i + 1),
-              ])"
+                ...problem.testCaseInfo.tasks.slice(i + 1),
+              ]})"
             />
           </div>
 
@@ -276,15 +282,15 @@ watchEffect(() => {
             <input
               type="text"
               class="input-bordered input w-full max-w-xs"
-              :value="problem.testCase[i].timeLimit"
-              @input="update('testCase', [
-                ...problem.testCase.slice(0, i),
+              :value="problem.testCaseInfo.tasks[i].timeLimit"
+              @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
+                ...problem.testCaseInfo.tasks.slice(0, i),
                 {
-                  ...problem.testCase[i],
+                  ...problem.testCaseInfo.tasks[i],
                   timeLimit: Number(($event.target as HTMLInputElement).value),
                 },
-                ...problem.testCase.slice(i + 1),
-              ])"
+                ...problem.testCaseInfo.tasks.slice(i + 1),
+              ]})"
             />
           </div>
         </div>

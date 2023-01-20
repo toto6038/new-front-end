@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, provide, Ref } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
@@ -19,19 +19,35 @@ const {
   isLoading: isFetching,
 } = useAxios<Problem>(`/problem/view/${route.params.id}`, fetcher);
 
-const edittingProblem = ref<Problem>();
+const edittingProblem = ref<ProblemForm>();
 watchEffect(() => {
   if (problem.value) {
-    edittingProblem.value = { ...problem.value };
+    edittingProblem.value = {
+      ...problem.value,
+      testCaseInfo: {
+        language: 0,
+        fillInTemplate: "",
+        tasks: problem.value.testCase.slice(),
+      },
+    };
   }
 });
-function update<K extends keyof Problem>(key: K, value: Problem[K]) {
+function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
   if (!edittingProblem.value) return;
   edittingProblem.value[key] = value;
 }
+provide<Ref<ProblemForm | undefined>>("problem", edittingProblem);
 const testdata = ref<File | null>(null);
 
 const openPreview = ref<boolean>(false);
+const mockProblemMeta = {
+  owner: "",
+  highScore: 0,
+  submitCount: 0,
+  ACUser: 0,
+  submitter: 0,
+};
+
 const openJSON = ref<boolean>(false);
 
 async function submit() {
@@ -45,8 +61,8 @@ async function submit() {
       const testdataForm = new FormData();
       testdataForm.append("case", testdata.value);
       await api.Problem.modifyTestdata(route.params.id as string, testdataForm);
-      router.push(`/course/${route.params.name}/problem/${route.params.id}`);
     }
+    router.push(`/course/${route.params.name}/problem/${route.params.id}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       errorMsg.value = error.response.data.message;
@@ -129,7 +145,15 @@ async function delete_() {
             <input v-model="openPreview" type="checkbox" class="toggle" />
           </div>
 
-          <problem-card v-if="openPreview" :problem="{ ...edittingProblem }" preview />
+          <problem-card
+            v-if="openPreview"
+            :problem="{
+              ...mockProblemMeta,
+              ...edittingProblem,
+              testCase: edittingProblem.testCaseInfo.tasks,
+            }"
+            preview
+          />
 
           <div class="divider my-4" />
 

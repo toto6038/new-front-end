@@ -22,16 +22,29 @@ const newProblem = ref<ProblemForm>({
     sampleInput: [""],
     sampleOutput: [""],
   },
-  courses: [],
+  courses: [route.params.name as string],
+  defaultCode: "",
   tags: [],
-  allowedLanguage: 1,
+  allowedLanguage: 3,
   quota: 10,
   type: 0,
   status: 1,
-  testCase: [],
+  testCaseInfo: {
+    language: 0,
+    fillInTemplate: "",
+    tasks: [],
+  },
+  canViewStdout: false,
 });
-function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
-  newProblem.value[key] = value;
+function update<K extends keyof ProblemForm>(
+  key: K,
+  value: ProblemForm[K] | ((arg: ProblemForm[K]) => ProblemForm[K]),
+) {
+  if (typeof value === "function") {
+    newProblem.value[key] = value(newProblem.value[key]);
+  } else {
+    newProblem.value[key] = value;
+  }
 }
 provide<ProblemForm>("problem", newProblem.value);
 const testdata = ref<File | null>(null);
@@ -68,8 +81,11 @@ async function submit() {
 
 const openPreview = ref<boolean>(false);
 const mockProblemMeta = {
+  owner: "",
   highScore: 0,
   submitCount: 0,
+  ACUser: 0,
+  submitter: 0,
 };
 
 const openJSON = ref<boolean>(false);
@@ -90,7 +106,11 @@ const openJSON = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <problem-card v-if="openPreview" :problem="{ ...newProblem, ...mockProblemMeta }" preview />
+        <problem-card
+          v-if="openPreview"
+          :problem="{ ...mockProblemMeta, ...newProblem, testCase: newProblem.testCaseInfo.tasks }"
+          preview
+        />
 
         <div class="divider my-4" />
 
