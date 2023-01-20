@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { ref, provide } from "vue";
 import { useTitle } from "@vueuse/core";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
+import api from "@/models/api";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`New Problem - ${route.params.name} | Normal OJ`);
 
-const newProblem = ref<EditableProblem>({
+const isLoading = ref(false);
+const errorMsg = ref("");
+
+const newProblem = ref<ProblemForm>({
   problemName: "",
   description: {
     description: "",
@@ -16,24 +22,72 @@ const newProblem = ref<EditableProblem>({
     sampleInput: [""],
     sampleOutput: [""],
   },
+  courses: [route.params.name as string],
+  defaultCode: "",
   tags: [],
-  allowedLanguage: 1,
+  allowedLanguage: 3,
   quota: 10,
   type: 0,
   status: 1,
-  testCase: [],
+  testCaseInfo: {
+    language: 0,
+    fillInTemplate: "",
+    tasks: [],
+  },
+  canViewStdout: false,
 });
-function updateNewProblem<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
-  newProblem.value[key] = value;
+function update<K extends keyof ProblemForm>(
+  key: K,
+  value: ProblemForm[K] | ((arg: ProblemForm[K]) => ProblemForm[K]),
+) {
+  if (typeof value === "function") {
+    newProblem.value[key] = value(newProblem.value[key]);
+  } else {
+    newProblem.value[key] = value;
+  }
 }
-provide<EditableProblem>("problem", newProblem.value);
-provide<typeof updateNewProblem>("updateProblem", updateNewProblem);
+provide<ProblemForm>("problem", newProblem.value);
+const testdata = ref<File | null>(null);
 
-function submit() {
-  console.log(JSON.stringify(newProblem.value, null, 2));
+async function submit() {
+  if (!testdata.value) {
+    alert("Testdata not provided");
+    return;
+  }
+  isLoading.value = true;
+  try {
+    const { problemId } = (
+      await api.Problem.create({
+        ...newProblem.value,
+      })
+    ).data;
+
+    // TODO: additional handling if testcase upload fail
+    const testdataForm = new FormData();
+    testdataForm.append("case", testdata.value);
+    await api.Problem.modifyTestdata(problemId, testdataForm);
+    router.push(`/course/${route.params.name}/problem/${problemId}`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 const openPreview = ref<boolean>(false);
+const mockProblemMeta = {
+  owner: "",
+  highScore: 0,
+  submitCount: 0,
+  ACUser: 0,
+  submitter: 0,
+};
+
 const openJSON = ref<boolean>(false);
 </script>
 
@@ -41,21 +95,9 @@ const openJSON = ref<boolean>(false);
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">
-          New Problem
-          <button class="btn" @click="submit">
-            <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
-          </button>
-        </div>
+        <div class="card-title mb-3 justify-between">New Problem</div>
 
-        <div class="alert alert-warning">
-          <div>
-            <i-uil-exclamation-octagon />
-            <span>This page in under development</span>
-          </div>
-        </div>
-
-        <!-- <problem-form /> -->
+        <problem-form :is-loading="isLoading" v-model:testdata="testdata" @update="update" @submit="submit" />
 
         <div class="divider" />
 
@@ -64,7 +106,11 @@ const openJSON = ref<boolean>(false);
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
-        <!-- <problem-card v-if="openPreview" :problem="newProblem" preview /> -->
+        <problem-card
+          v-if="openPreview"
+          :problem="{ ...mockProblemMeta, ...newProblem, testCase: newProblem.testCaseInfo.tasks }"
+          preview
+        />
 
         <div class="divider my-4" />
 

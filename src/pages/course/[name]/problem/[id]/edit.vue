@@ -1,43 +1,100 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, watchEffect, provide, Ref } from "vue";
 import { useTitle } from "@vueuse/core";
-import { useRoute } from "vue-router";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import { useRoute, useRouter } from "vue-router";
+import api, { fetcher } from "../../../../../models/api";
+import axios from "axios";
 
 const route = useRoute();
+const router = useRouter();
 useTitle(`Edit Problem - ${route.params.id} - ${route.params.name} | Normal OJ`);
-const problem: EditableProblem = {
-  allowedLanguage: 3,
-  // courses: ["Algorithm2021"],
-  // defaultCode: "",
-  // owner: "TA_TzuWei_Yu",
-  // submitCount: 0,
-  description: {
-    description:
-      "Welcome to the course! We prepared a simple problem for you to warm up, and familiar with the interface of Normal Online Judge also.\n\nInstead of the A+B problem (it's too boring right? even your grandma can solve it), we are going to solve a problem about [Fibonacci number](https://en.wikipedia.org/wiki/Fibonacci_number).\n\nGiven the $n$-th and $(n+1)$-th Fibonacci number, answer the $(n+2)$-th Fibonacci number.",
-    hint: "wolfrevo",
-    input:
-      "The first line contains a single number $N$.\nFor the next $N$ lines, each line contains two space-separated numbers $F_n$ and $F_{n+1}$, representing the $n$-th and $(n+1)$-th Fibonacci number.\n\nFor all test data, it is guaranteed:\n- $1 \\leq N \\leq 10^5$\n- $0 \\leq F_n,\\ F_{n+1} \\leq 2^{31}-1$\n#### Subtask1 (50%)\n- $0 \\leq F_n,\\ F_{n+1} \\leq 10$\n#### Subtask2 (50%)\n- No other restrictions.\n",
-    output: "For $N$ lines of input, output the answers in each line respectively.\n",
-    sampleInput: ["1\n3 5", "2\n13 21\n39088169 63245986"],
-    sampleOutput: ["8", "34\n102334155"],
-  },
-  problemName: "Getting Started",
-  quota: 10,
-  status: ProblemStatus.Offline,
-  tags: ["HW0"],
-  testCase: [
-    { caseCount: 10, memoryLimit: 134218, taskScore: 50, timeLimit: 1000 },
-    { caseCount: 10, memoryLimit: 134218, taskScore: 50, timeLimit: 1000 },
-  ],
-  type: 0,
-};
-const editedProblem = reactive<EditableProblem>({ ...problem });
 
-function update<K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) {
-  editedProblem[key] = value;
+const isLoading = ref(false);
+const errorMsg = ref("");
+
+const {
+  data: problem,
+  error: fetchError,
+  isLoading: isFetching,
+} = useAxios<Problem>(`/problem/view/${route.params.id}`, fetcher);
+
+const edittingProblem = ref<ProblemForm>();
+watchEffect(() => {
+  if (problem.value) {
+    edittingProblem.value = {
+      ...problem.value,
+      testCaseInfo: {
+        language: 0,
+        fillInTemplate: "",
+        tasks: problem.value.testCase.slice(),
+      },
+    };
+  }
+});
+function update<K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) {
+  if (!edittingProblem.value) return;
+  edittingProblem.value[key] = value;
 }
+provide<Ref<ProblemForm | undefined>>("problem", edittingProblem);
+const testdata = ref<File | null>(null);
 
 const openPreview = ref<boolean>(false);
+const mockProblemMeta = {
+  owner: "",
+  highScore: 0,
+  submitCount: 0,
+  ACUser: 0,
+  submitter: 0,
+};
+
+const openJSON = ref<boolean>(false);
+
+async function submit() {
+  if (!edittingProblem.value) return;
+
+  isLoading.value = true;
+  try {
+    await api.Problem.modify(route.params.id as string, edittingProblem.value);
+
+    if (testdata.value) {
+      const testdataForm = new FormData();
+      testdataForm.append("case", testdata.value);
+      await api.Problem.modifyTestdata(route.params.id as string, testdataForm);
+    }
+    router.push(`/course/${route.params.name}/problem/${route.params.id}`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
+}
+async function discard() {
+  if (!confirm("Are u sure?")) return;
+  router.push(`/course/${route.params.name}/problems`);
+}
+async function delete_() {
+  isLoading.value = true;
+  if (!confirm("Are u sure?")) return;
+  try {
+    await api.Problem.delete(route.params.id as string);
+    router.push(`/course/${route.params.name}/problems`);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -45,27 +102,70 @@ const openPreview = ref<boolean>(false);
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title mb-3 justify-between">
-          Edit Problem
-          <button class="btn"><i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit</button>
-        </div>
-
-        <div class="alert alert-warning">
-          <div>
-            <i-uil-exclamation-octagon />
-            <span>This page in under development</span>
+          Edit Problem: {{ $route.params.id }} - {{ edittingProblem?.problemName }}
+          <div class="flex gap-x-3">
+            <button
+              :class="['btn-outline btn-error btn-sm btn lg:btn-md', isLoading && 'loading']"
+              @click="delete_"
+            >
+              <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
+            </button>
+            <button :class="['btn-warning btn-sm btn lg:btn-md', isLoading && 'loading']" @click="discard">
+              <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
+            </button>
           </div>
         </div>
 
-        <!-- <problem-form :value="editedProblem" @update="update" /> -->
-
-        <div class="divider" />
-
-        <div class="card-title mb-3">
-          Preview
-          <input v-model="openPreview" type="checkbox" class="toggle" />
+        <div v-if="fetchError" class="alert alert-error shadow-lg">
+          <div>
+            <i-uil-times-circle />
+            <span>Oops! Something went wrong when loading problem.</span>
+          </div>
         </div>
+        <skeleton-card v-else-if="isFetching || !edittingProblem" />
+        <template v-else>
+          <div v-if="errorMsg" class="alert alert-error shadow-lg">
+            <div>
+              <i-uil-times-circle />
+              <span>{{ errorMsg }}</span>
+            </div>
+          </div>
 
-        <!-- <problem-card v-show="openPreview" :problem="editedProblem" preview /> -->
+          <problem-form
+            :is-loading="isLoading"
+            v-model:testdata="testdata"
+            @update="update"
+            @submit="submit"
+          />
+
+          <div class="divider" />
+
+          <div class="card-title mb-3">
+            Preview
+            <input v-model="openPreview" type="checkbox" class="toggle" />
+          </div>
+
+          <problem-card
+            v-if="openPreview"
+            :problem="{
+              ...mockProblemMeta,
+              ...edittingProblem,
+              testCase: edittingProblem.testCaseInfo.tasks,
+            }"
+            preview
+          />
+
+          <div class="divider my-4" />
+
+          <div class="card-title mb-3">
+            JSON
+            <input v-model="openJSON" type="checkbox" class="toggle" />
+          </div>
+
+          <pre v-if="openJSON">{{ JSON.stringify(edittingProblem, null, 2) }}</pre>
+
+          <div class="mb-[50%]" />
+        </template>
       </div>
     </div>
   </div>
