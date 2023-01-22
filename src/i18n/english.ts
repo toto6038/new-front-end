@@ -18,11 +18,14 @@ export default {
     create_t: "Create At",
     login_f: "Login Failed: Your username/email or password is incorrect",
     username: "Username / Email",
-    username_p: "username or email",
     pw: "Password",
-    pw_p: "password",
+    placeholder: {
+      username: "username or email",
+      pw: "password",
+    },
   },
   profile: {
+    title: "Profile",
     err:{
       new_pw: "Please fill out this field.",
       old_pw: "Please fill out this field.",
@@ -35,6 +38,18 @@ export default {
     dispname: "Display Name",
     email: "Email",
     role: "Role",
-
+    pw: {
+      change: "Change Password",
+      change_msg:  "Password has been successfully changed",
+      new: "New Password",
+      confirm: "Confirm New Password",
+      current: "Current Password",
+      placeholder: {
+        new: "new password",
+        again: "new password again",
+        current: "current password",
+      },
+      submit: "Submit",
+    },
   },
 };

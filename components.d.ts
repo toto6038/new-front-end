@@ -23,6 +23,7 @@ declare module 'vue' {
     IUilLeftArrowToLeft: typeof import('~icons/uil/left-arrow-to-left')['default']
     IUilMapMarkerInfo: typeof import('~icons/uil/map-marker-info')['default']
     IUilMoon: typeof import('~icons/uil/moon')['default']
+    IUilPlusCircle: typeof import('~icons/uil/plus-circle')['default']
     IUilSetting: typeof import('~icons/uil/setting')['default']
     IUilSun: typeof import('~icons/uil/sun')['default']
     IUilTimesCircle: typeof import('~icons/uil/times-circle')['default']

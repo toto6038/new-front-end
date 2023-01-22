@@ -91,7 +91,7 @@ function clearForm() {
   <div class="card-container">
     <div class="card">
       <div class="card-body">
-        <div class="card-title justify-between">Profile</div>
+        <div class="card-title justify-between">{{t("profile.title")}}</div>
 
         <div class="my-2" />
         <table class="table w-full">
@@ -120,7 +120,7 @@ function clearForm() {
       </div>
 
       <div class="card-body">
-        <div class="card-title justify-between">Change Password</div>
+        <div class="card-title justify-between">{{t("profile.pw.change")}}</div>
 
         <div class="my-2" />
 
@@ -133,18 +133,18 @@ function clearForm() {
         <div class="alert alert-success shadow-lg" v-else-if="changePasswordForm.isFinished">
           <div>
             <i-uil-check-circle />
-            <span>Password has been successfully changed</span>
+            <span>{{t("profile.pw.change_msg")}}</span>
           </div>
         </div>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">New Password</span>
+            <span class="label-text">{{t("profile.pw.new")}}</span>
           </label>
           <input
             v-model="v$.newPassword.$model"
             type="password"
             name="password"
-            placeholder="new password"
+            :placeholder="t('profile.pw.placeholder.new')"
             :class="['input-bordered input', v$.newPassword.$error && 'input-error']"
           />
           <label class="label" v-show="v$.newPassword.$error">
@@ -153,13 +153,13 @@ function clearForm() {
         </div>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Confirm New Password</span>
+            <span class="label-text">{{t("profile.pw.confirm")}}</span>
           </label>
           <input
             v-model="v$.confirmPassword.$model"
             type="password"
             name="password"
-            placeholder="new password again"
+            :placeholder="t('profile.pw.placeholder.again')"
             :class="['input-bordered input', v$.confirmPassword.$error && 'input-error']"
           />
           <label class="label" v-show="v$.confirmPassword.$error">
@@ -168,13 +168,13 @@ function clearForm() {
         </div>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Current Password</span>
+            <span class="label-text">{{t("profile.pw.current")}}</span>
           </label>
           <input
             v-model="v$.oldPassword.$model"
             type="password"
             name="password"
-            placeholder="current password"
+            :placeholder="t('profile.pw.placeholder.current')"
             :class="['input-bordered input', v$.oldPassword.$error && 'input-error']"
             @keydown.enter="changePassword"
           />
@@ -187,7 +187,7 @@ function clearForm() {
             :class="['btn-primary btn', changePasswordForm.isLoading && 'loading']"
             @click="changePassword"
           >
-            Submit
+            {{t("profile.pw.submit")}}
           </div>
         </div>
       </div>

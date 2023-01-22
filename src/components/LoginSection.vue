@@ -74,7 +74,7 @@ async function login() {
               v-model="v$.username.$model"
               type="text"
               name="username"
-              :placeholder="t('index.username_p')"
+              :placeholder="t('index.placeholder.username')"
               :class="['input-bordered input', v$.username.$error && 'input-error']"
             />
             <label class="label" v-show="v$.username.$error">
@@ -89,7 +89,7 @@ async function login() {
               v-model="v$.password.$model"
               type="password"
               name="password"
-              :placeholder="t('index.pw_p')"
+              :placeholder="t('index.placeholder.pw')"
               :class="['input-bordered input', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />

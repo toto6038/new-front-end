@@ -18,11 +18,14 @@ export default {
     create_t: "建立時間",
     login_f: "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
     username: "帳號 / 電子郵件地址",
-    username_p: "帳號 / 電子郵件地址",
     pw: "密碼",
-    pw_p: "密碼",
+    placeholder: {
+      username: "帳號 / 電子郵件地址",
+      pw: "密碼",
+    },
   },
   profile: {
+    title : "個人資料",
     err:{
       new_pw: "請填寫此欄位。",
       old_pw: "請填寫此欄位。",
@@ -35,6 +38,18 @@ export default {
     dispname: "顯示名稱",
     email: "電子郵件",
     role: "角色",
-
+    pw: {
+      change: "變更密碼",
+      change_msg:  "密碼已成功變更",
+      new: "新密碼",
+      confirm: "確認新密碼",
+      current: "舊密碼",
+      placeholder: {
+        new: "新密碼",
+        again: "再輸入一次新密碼",
+        current: "舊密碼",
+      },
+      submit: "送出",
+    },
   },
 };
