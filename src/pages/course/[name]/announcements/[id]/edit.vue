@@ -103,35 +103,34 @@ function discard() {
           </div>
         </div>
 
-        <div v-if="fetchError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading announcement.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching || !edittingAnnouncement" />
-        <template v-else>
-          <announcement-form
-            :value="edittingAnnouncement"
-            :is-loading="isLoading"
-            :error-msg="errorMsg"
-            @update="update"
-            @submit="submit"
-          />
+        <data-status-wrapper :error="fetchError" :is-loading="isFetching">
+          <template v-slot:loading>
+            <skeleton-card />
+          </template>
+          <template v-slot:data>
+            <announcement-form
+              v-if="edittingAnnouncement"
+              :value="edittingAnnouncement"
+              :is-loading="isLoading"
+              :error-msg="errorMsg"
+              @update="update"
+              @submit="submit"
+            />
 
-          <div class="divider" />
+            <div class="divider" />
 
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
+            <div class="card-title mb-3">
+              Preview
+              <input v-model="openPreview" type="checkbox" class="toggle" />
+            </div>
 
-          <announcement-card
-            v-show="openPreview"
-            :post="{ ...previewPostMockMeta, ...edittingAnnouncement }"
-            class="rounded border-2 border-slate-300"
-          />
-        </template>
+            <announcement-card
+              v-show="openPreview"
+              :post="{ ...previewPostMockMeta, ...edittingAnnouncement }"
+              class="rounded border-2 border-slate-300"
+            />
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>
