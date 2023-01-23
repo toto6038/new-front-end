@@ -10,7 +10,19 @@ export default {
     service_l_2021: "NTNU CSIE Service Learning 2021 Spring",
     swe_2019: "Red Team of Software Engineering 2019 Fall",
   },
-  course: {},
+  course: {
+    ann: {
+      index: {
+        title:"Announcements",
+        err:"Oops! Something went wrong when loading announcements.",
+        table: {
+          title: "Title",
+          author: "Author",
+          time: "Create At",
+        },
+      },
+    },
+  },
   index: {
     ann: "Announcements",
     error: "Oops! Something went wrong when loading announcements.",
@@ -50,6 +62,11 @@ export default {
         current: "current password",
       },
       submit: "Submit",
+    },
+  },
+  ann: {
+    id: {
+      back: "Back",
     },
   },
 };
