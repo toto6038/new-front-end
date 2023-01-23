@@ -11,6 +11,13 @@ const { data: problem, error, isLoading } = useAxios<Problem>(`/problem/view/${r
 
 <template>
   <div class="card-container pb-40">
-    <problem-card :problem="problem" :isLoading="isLoading" :error="error" />
+    <data-status-wrapper :error="error" :is-loading="isLoading">
+      <template #loading>
+        <skeleton-card />
+      </template>
+      <template #data>
+        <problem-card v-if="problem" :problem="problem" />
+      </template>
+    </data-status-wrapper>
   </div>
 </template>
