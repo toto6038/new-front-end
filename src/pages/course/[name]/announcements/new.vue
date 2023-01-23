@@ -5,13 +5,13 @@ import { useTitle } from "@vueuse/core";
 import { useRoute, useRouter } from "vue-router";
 import api from "@/models/api";
 import axios from "axios";
+import AnnouncementForm from "@/components/Announcement/AnnouncementForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`New Announcement - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof AnnouncementForm>>();
 
 const newAnnouncement = reactive<AnnouncementForm>({
   title: "",
@@ -31,7 +31,9 @@ const mockAnnouncementMeta = {
 };
 
 async function submit() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+
+  formElement.value.isLoading = true;
   try {
     const { annId } = (
       await api.Announcement.create({
@@ -42,13 +44,13 @@ async function submit() {
     router.push(`/course/${route.params.name}/announcements/${annId}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 </script>
@@ -59,13 +61,7 @@ async function submit() {
       <div class="card-body">
         <div class="card-title mb-3">New Announcement</div>
 
-        <announcement-form
-          :value="newAnnouncement"
-          :is-loading="isLoading"
-          :error-msg="errorMsg"
-          @update="update"
-          @submit="submit"
-        />
+        <announcement-form :value="newAnnouncement" ref="formElement" @update="update" @submit="submit" />
 
         <div class="divider" />
 

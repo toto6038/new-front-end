@@ -6,13 +6,13 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import api from "@/models/api";
 import { useProblemSelection } from "@/composables/useProblemSelection";
+import HomeworkForm from "@/components/Homework/HomeworkForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`New Homework - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof HomeworkForm>>();
 
 const newHomework = reactive<HomeworkForm>({
   name: "",
@@ -40,7 +40,9 @@ const mockHomeworkMeta = {
 };
 
 async function submit() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+
+  formElement.value.isLoading = true;
   try {
     await api.Homework.create({
       ...newHomework,
@@ -50,13 +52,13 @@ async function submit() {
     router.push(`/course/${route.params.name}/homeworks`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 </script>
@@ -72,17 +74,10 @@ async function submit() {
             <skeleton-card />
           </template>
           <template #data>
-            <div v-if="errorMsg" class="alert alert-error shadow-lg">
-              <div>
-                <i-uil-times-circle />
-                <span>{{ errorMsg }}</span>
-              </div>
-            </div>
-
             <homework-form
               :form="newHomework"
               :problem-selections="problemSelections"
-              :is-loading="isLoading"
+              ref="formElement"
               @update="update"
               @submit="submit"
             />

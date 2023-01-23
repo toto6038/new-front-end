@@ -6,19 +6,19 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
 import api, { fetcher } from "@/models/api";
 import axios from "axios";
+import AnnouncementForm from "@/components/Announcement/AnnouncementForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`Edit Announcement - ${route.params.id} - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof AnnouncementForm>>();
 
 const {
   data: announcements,
   error: fetchError,
   isLoading: isFetching,
-} = useAxios<AnnouncementList>(`/ann/${route.params.id}`, fetcher);
+} = useAxios<AnnouncementList>(`/ann/${route.params.name}/${route.params.id}`, fetcher);
 const announcement = computed(() => announcements.value && announcements.value[0]);
 
 const edittingAnnouncement = ref<AnnouncementForm>();
@@ -41,9 +41,9 @@ const previewPostMockMeta = computed(() => ({
 }));
 
 async function submit() {
-  if (!edittingAnnouncement.value) return;
+  if (!edittingAnnouncement.value || !formElement.value) return;
 
-  isLoading.value = true;
+  formElement.value.isLoading = true;
   try {
     await api.Announcement.modify({
       ...edittingAnnouncement.value,
@@ -52,30 +52,32 @@ async function submit() {
     router.push(`/course/${route.params.name}/announcements/${route.params.id}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 async function delete_() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+
+  formElement.value.isLoading = true;
   if (!confirm("Are u sure?")) return;
   try {
     await api.Announcement.delete({ annId: route.params.id as string });
     router.push(`/course/${route.params.name}/announcements`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 function discard() {
@@ -92,12 +94,15 @@ function discard() {
           Edit Announcement
           <div class="flex gap-x-3">
             <button
-              :class="['btn-outline btn-error btn-sm btn lg:btn-md', isLoading && 'loading']"
+              :class="['btn-outline btn-error btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
               @click="delete_"
             >
               <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
             </button>
-            <button :class="['btn-warning btn-sm btn lg:btn-md', isLoading && 'loading']" @click="discard">
+            <button
+              :class="['btn-warning btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
+              @click="discard"
+            >
               <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
             </button>
           </div>
@@ -111,8 +116,7 @@ function discard() {
             <template v-if="edittingAnnouncement">
               <announcement-form
                 :value="edittingAnnouncement"
-                :is-loading="isLoading"
-                :error-msg="errorMsg"
+                ref="formElement"
                 @update="update"
                 @submit="submit"
               />
