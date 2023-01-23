@@ -159,86 +159,86 @@ function copySubmissionLink(path: string) {
           </div>
         </div>
 
-        <div v-if="error || fetchProblemError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading submissions.</span>
-          </div>
-        </div>
-        <skeleton-table v-else-if="isLoading" :col="9" :row="5" />
-        <table v-else class="table w-full">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>pid</th>
-              <th>user</th>
-              <th>result</th>
-              <th>score</th>
-              <th>run time</th>
-              <th>memory</th>
-              <th>lang</th>
-              <th>time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="submission in submissions" :key="submission.submissionId" class="hover">
-              <td>
-                <div class="flex items-center">
-                  <div class="tooltip tooltip-bottom" data-tip="show details">
-                    <router-link
-                      :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
-                      class="link"
+        <data-status-wrapper :error="error || fetchProblemError" :is-loading="isLoading">
+          <template #loading>
+            <skeleton-table :col="9" :row="5" />
+          </template>
+          <template #data>
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>pid</th>
+                  <th>user</th>
+                  <th>result</th>
+                  <th>score</th>
+                  <th>run time</th>
+                  <th>memory</th>
+                  <th>lang</th>
+                  <th>time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="submission in submissions" :key="submission.submissionId" class="hover">
+                  <td>
+                    <div class="flex items-center">
+                      <div class="tooltip tooltip-bottom" data-tip="show details">
+                        <router-link
+                          :to="`/course/${$route.params.name}/submission/${submission.submissionId}`"
+                          class="link"
+                        >
+                          {{ submission.submissionId.slice(-6) }}
+                        </router-link>
+                      </div>
+                      <div
+                        v-if="isSupported"
+                        class="tooltip tooltip-bottom"
+                        :data-tip="copied ? 'copied!' : 'copy link'"
+                      >
+                        <i-uil-link
+                          class="ml-2 h-4 w-4 cursor-pointer"
+                          @click="
+                            copySubmissionLink(
+                              `/course/${$route.params.name}/submission/${submission.submissionId}`,
+                            )
+                          "
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="tooltip tooltip-bottom"
+                      :data-tip="problemId2Meta[submission.problemId.toString()].name || 'loading...'"
                     >
-                      {{ submission.submissionId.slice(-6) }}
-                    </router-link>
-                  </div>
-                  <div
-                    v-if="isSupported"
-                    class="tooltip tooltip-bottom"
-                    :data-tip="copied ? 'copied!' : 'copy link'"
-                  >
-                    <i-uil-link
-                      class="ml-2 h-4 w-4 cursor-pointer"
-                      @click="
-                        copySubmissionLink(
-                          `/course/${$route.params.name}/submission/${submission.submissionId}`,
-                        )
-                      "
-                    />
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div
-                  class="tooltip tooltip-bottom"
-                  :data-tip="problemId2Meta[submission.problemId.toString()].name || 'loading...'"
-                >
-                  <router-link
-                    :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
-                    class="link"
-                  >
-                    {{ submission.problemId }}
-                  </router-link>
-                </div>
-              </td>
-              <td>
-                <div class="tooltip tooltip-bottom" :data-tip="submission.user.displayedName">
-                  <span>{{ submission.user.username }}</span>
-                </div>
-              </td>
-              <td><judge-status :status="submission.status" /></td>
-              <td>{{ submission.score }}</td>
-              <td>{{ submission.runTime }} ms</td>
-              <td>{{ submission.memoryUsage }} KB</td>
-              <td>{{ LANG[submission.languageType] }}</td>
-              <td>
-                <div class="tooltip tooltip-bottom" :data-tip="formatTime(submission.timestamp)">
-                  <span>{{ timeFromNow(submission.timestamp) }}</span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                      <router-link
+                        :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
+                        class="link"
+                      >
+                        {{ submission.problemId }}
+                      </router-link>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tooltip tooltip-bottom" :data-tip="submission.user.displayedName">
+                      <span>{{ submission.user.username }}</span>
+                    </div>
+                  </td>
+                  <td><judge-status :status="submission.status" /></td>
+                  <td>{{ submission.score }}</td>
+                  <td>{{ submission.runTime }} ms</td>
+                  <td>{{ submission.memoryUsage }} KB</td>
+                  <td>{{ LANG[submission.languageType] }}</td>
+                  <td>
+                    <div class="tooltip tooltip-bottom" :data-tip="formatTime(submission.timestamp)">
+                      <span>{{ timeFromNow(submission.timestamp) }}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </template>
+        </data-status-wrapper>
 
         <div class="card-actions mt-5">
           <pagination-buttons

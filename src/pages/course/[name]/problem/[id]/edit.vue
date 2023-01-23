@@ -116,56 +116,56 @@ async function delete_() {
           </div>
         </div>
 
-        <div v-if="fetchError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading problem.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching || !edittingProblem" />
-        <template v-else>
-          <div v-if="errorMsg" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>{{ errorMsg }}</span>
-            </div>
-          </div>
+        <data-status-wrapper :error="fetchError" :is-loading="isFetching">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <template v-if="edittingProblem">
+              <div v-if="errorMsg" class="alert alert-error shadow-lg">
+                <div>
+                  <i-uil-times-circle />
+                  <span>{{ errorMsg }}</span>
+                </div>
+              </div>
 
-          <problem-form
-            :is-loading="isLoading"
-            v-model:testdata="testdata"
-            @update="update"
-            @submit="submit"
-          />
+              <problem-form
+                :is-loading="isLoading"
+                v-model:testdata="testdata"
+                @update="update"
+                @submit="submit"
+              />
 
-          <div class="divider" />
+              <div class="divider" />
 
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
+              <div class="card-title mb-3">
+                Preview
+                <input v-model="openPreview" type="checkbox" class="toggle" />
+              </div>
 
-          <problem-card
-            v-if="openPreview"
-            :problem="{
-              ...mockProblemMeta,
-              ...edittingProblem,
-              testCase: edittingProblem.testCaseInfo.tasks,
-            }"
-            preview
-          />
+              <problem-card
+                v-if="openPreview"
+                :problem="{
+                  ...mockProblemMeta,
+                  ...edittingProblem,
+                  testCase: edittingProblem.testCaseInfo.tasks,
+                }"
+                preview
+              />
 
-          <div class="divider my-4" />
+              <div class="divider my-4" />
 
-          <div class="card-title mb-3">
-            JSON
-            <input v-model="openJSON" type="checkbox" class="toggle" />
-          </div>
+              <div class="card-title mb-3">
+                JSON
+                <input v-model="openJSON" type="checkbox" class="toggle" />
+              </div>
 
-          <pre v-if="openJSON">{{ JSON.stringify(edittingProblem, null, 2) }}</pre>
+              <pre v-if="openJSON">{{ JSON.stringify(edittingProblem, null, 2) }}</pre>
 
-          <div class="mb-[50%]" />
-        </template>
+              <div class="mb-[50%]" />
+            </template>
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

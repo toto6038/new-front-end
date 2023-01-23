@@ -105,43 +105,46 @@ function discard() {
           </div>
         </div>
 
-        <div v-if="fetchError || fetchProblemError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading announcement.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching || isFetchingProblem || !edittingHomework" />
-        <template v-else>
-          <div v-if="errorMsg" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>{{ errorMsg }}</span>
-            </div>
-          </div>
+        <data-status-wrapper
+          :error="fetchError || fetchProblemError"
+          :is-loading="isFetching || isFetchingProblem"
+        >
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <template v-if="edittingHomework">
+              <div v-if="errorMsg" class="alert alert-error shadow-lg">
+                <div>
+                  <i-uil-times-circle />
+                  <span>{{ errorMsg }}</span>
+                </div>
+              </div>
 
-          <homework-form
-            :form="edittingHomework"
-            :problem-selections="problemSelections"
-            :is-loading="isLoading"
-            @update="update"
-            @submit="submit"
-          />
+              <homework-form
+                :form="edittingHomework"
+                :problem-selections="problemSelections"
+                :is-loading="isLoading"
+                @update="update"
+                @submit="submit"
+              />
 
-          <div class="divider" />
+              <div class="divider" />
 
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
+              <div class="card-title mb-3">
+                Preview
+                <input v-model="openPreview" type="checkbox" class="toggle" />
+              </div>
 
-          <homework-card
-            v-show="openPreview"
-            :homework="{ ...edittingHomework, id: route.params.id as string }"
-            :problems="problemId2Meta"
-            preview
-          />
-        </template>
+              <homework-card
+                v-show="openPreview"
+                :homework="{ ...edittingHomework, id: route.params.id as string }"
+                :problems="problemId2Meta"
+                preview
+              />
+            </template>
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

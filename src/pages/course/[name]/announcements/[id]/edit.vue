@@ -35,9 +35,9 @@ function update<K extends keyof AnnouncementForm>(key: K, value: AnnouncementFor
 
 const openPreview = ref<boolean>(false);
 const previewPostMockMeta = computed(() => ({
-  creator: announcement.value?.creator,
-  createTime: announcement.value?.createTime,
-  updateTime: dayjs().unix(),
+  creator: announcement.value?.creator || { displayedName: "Ijichi Nijika" },
+  createTime: announcement.value?.createTime || dayjs().unix(),
+  updateTime: announcement.value?.updateTime || dayjs().unix(),
 }));
 
 async function submit() {
@@ -103,35 +103,35 @@ function discard() {
           </div>
         </div>
 
-        <div v-if="fetchError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading announcement.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching || !edittingAnnouncement" />
-        <template v-else>
-          <announcement-form
-            :value="edittingAnnouncement"
-            :is-loading="isLoading"
-            :error-msg="errorMsg"
-            @update="update"
-            @submit="submit"
-          />
+        <data-status-wrapper :error="fetchError" :is-loading="isFetching">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <template v-if="edittingAnnouncement">
+              <announcement-form
+                :value="edittingAnnouncement"
+                :is-loading="isLoading"
+                :error-msg="errorMsg"
+                @update="update"
+                @submit="submit"
+              />
 
-          <div class="divider" />
+              <div class="divider" />
 
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
+              <div class="card-title mb-3">
+                Preview
+                <input v-model="openPreview" type="checkbox" class="toggle" />
+              </div>
 
-          <announcement-card
-            v-show="openPreview"
-            :post="{ ...previewPostMockMeta, ...edittingAnnouncement }"
-            class="rounded border-2 border-slate-300"
-          />
-        </template>
+              <announcement-card
+                v-show="openPreview"
+                :announcement="{ ...previewPostMockMeta, ...edittingAnnouncement }"
+                class="rounded border-2 border-slate-300"
+              />
+            </template>
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

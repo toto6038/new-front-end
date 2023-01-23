@@ -52,21 +52,20 @@ function getProblemMeta(ids: number[]): ProblemMeta {
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
           </router-link>
         </div>
-        <div v-if="error || fetchProblemError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading homeworks.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isLoading" />
-        <homework-card
-          v-else
-          v-for="homework in homeworks"
-          :key="homework.id"
-          :homework="homework"
-          :problems="getProblemMeta(homework.problemIds)"
-          class="mb-2"
-        />
+        <data-status-wrapper :error="error || fetchProblemError" :is-loading="isLoading">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <homework-card
+              v-for="homework in homeworks"
+              :key="homework.id"
+              :homework="homework"
+              :problems="getProblemMeta(homework.problemIds)"
+              class="mb-2"
+            />
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

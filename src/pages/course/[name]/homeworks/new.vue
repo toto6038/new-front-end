@@ -67,43 +67,41 @@ async function submit() {
       <div class="card-body">
         <div class="card-title mb-3 justify-between">New Homework</div>
 
-        <div v-if="fetchError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading announcement.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching" />
-        <template v-else>
-          <div v-if="errorMsg" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>{{ errorMsg }}</span>
+        <data-status-wrapper :error="fetchError" :is-loading="isFetching">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <div v-if="errorMsg" class="alert alert-error shadow-lg">
+              <div>
+                <i-uil-times-circle />
+                <span>{{ errorMsg }}</span>
+              </div>
             </div>
-          </div>
 
-          <homework-form
-            :form="newHomework"
-            :problem-selections="problemSelections"
-            :is-loading="isLoading"
-            @update="update"
-            @submit="submit"
-          />
+            <homework-form
+              :form="newHomework"
+              :problem-selections="problemSelections"
+              :is-loading="isLoading"
+              @update="update"
+              @submit="submit"
+            />
 
-          <div class="divider" />
+            <div class="divider" />
 
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
+            <div class="card-title mb-3">
+              Preview
+              <input v-model="openPreview" type="checkbox" class="toggle" />
+            </div>
 
-          <homework-card
-            v-show="openPreview"
-            :homework="{ ...mockHomeworkMeta, ...newHomework }"
-            :problems="problemId2Meta"
-            preview
-          />
-        </template>
+            <homework-card
+              v-show="openPreview"
+              :homework="{ ...mockHomeworkMeta, ...newHomework }"
+              :problems="problemId2Meta"
+              preview
+            />
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

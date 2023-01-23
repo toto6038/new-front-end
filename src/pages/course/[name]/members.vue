@@ -57,29 +57,29 @@ const members = computed(() => {
             </select>
           </div>
         </div>
-        <div v-if="error" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading members.</span>
-          </div>
-        </div>
-        <skeleton-table v-else-if="isLoading" :col="3" :row="5" />
-        <table v-else class="table w-full">
-          <thead>
-            <tr>
-              <th>username</th>
-              <th>display name</th>
-              <th>role</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="{ username, displayedName, role } in members" :key="username" class="hover">
-              <td>{{ username }}</td>
-              <td>{{ displayedName }}</td>
-              <td>{{ ROLE[role] }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <data-status-wrapper :error="error" :is-loading="isLoading">
+          <template #loading>
+            <skeleton-table :col="3" :row="5" />
+          </template>
+          <template #data>
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>username</th>
+                  <th>display name</th>
+                  <th>role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="{ username, displayedName, role } in members" :key="username" class="hover">
+                  <td>{{ username }}</td>
+                  <td>{{ displayedName }}</td>
+                  <td>{{ ROLE[role] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>
