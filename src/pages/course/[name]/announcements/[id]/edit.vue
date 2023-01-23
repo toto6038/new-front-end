@@ -35,9 +35,9 @@ function update<K extends keyof AnnouncementForm>(key: K, value: AnnouncementFor
 
 const openPreview = ref<boolean>(false);
 const previewPostMockMeta = computed(() => ({
-  creator: announcement.value?.creator,
-  createTime: announcement.value?.createTime,
-  updateTime: dayjs().unix(),
+  creator: announcement.value?.creator || { displayedName: "Ijichi Nijika" },
+  createTime: announcement.value?.createTime || dayjs().unix(),
+  updateTime: announcement.value?.updateTime || dayjs().unix(),
 }));
 
 async function submit() {
@@ -104,31 +104,32 @@ function discard() {
         </div>
 
         <data-status-wrapper :error="fetchError" :is-loading="isFetching">
-          <template v-slot:loading>
+          <template #loading>
             <skeleton-card />
           </template>
-          <template v-slot:data>
-            <announcement-form
-              v-if="edittingAnnouncement"
-              :value="edittingAnnouncement"
-              :is-loading="isLoading"
-              :error-msg="errorMsg"
-              @update="update"
-              @submit="submit"
-            />
+          <template #data>
+            <template v-if="edittingAnnouncement">
+              <announcement-form
+                :value="edittingAnnouncement"
+                :is-loading="isLoading"
+                :error-msg="errorMsg"
+                @update="update"
+                @submit="submit"
+              />
 
-            <div class="divider" />
+              <div class="divider" />
 
-            <div class="card-title mb-3">
-              Preview
-              <input v-model="openPreview" type="checkbox" class="toggle" />
-            </div>
+              <div class="card-title mb-3">
+                Preview
+                <input v-model="openPreview" type="checkbox" class="toggle" />
+              </div>
 
-            <announcement-card
-              v-show="openPreview"
-              :post="{ ...previewPostMockMeta, ...edittingAnnouncement }"
-              class="rounded border-2 border-slate-300"
-            />
+              <announcement-card
+                v-show="openPreview"
+                :announcement="{ ...previewPostMockMeta, ...edittingAnnouncement }"
+                class="rounded border-2 border-slate-300"
+              />
+            </template>
           </template>
         </data-status-wrapper>
       </div>

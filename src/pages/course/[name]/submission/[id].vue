@@ -13,7 +13,12 @@ const session = useSession();
 const route = useRoute();
 useTitle(`Submission - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
-const { data: submission, error, execute } = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
+const {
+  data: submission,
+  error,
+  isLoading,
+  execute,
+} = useAxios<Submission>(`/submission/${route.params.id}`, fetcher);
 const { copy, copied, isSupported } = useClipboard();
 
 const { pause, isActive } = useIntervalFn(() => {
@@ -73,46 +78,47 @@ async function rejudge() {
           <div class="card-body p-0">
             <div class="card-title md:text-xl lg:text-2xl">General</div>
             <div class="my-1" />
-            <div v-if="error" class="alert alert-error shadow-lg">
-              <div>
-                <i-uil-times-circle />
-                <span>Oops! Something went wrong when loading submission.</span>
-              </div>
-            </div>
-            <skeleton-table v-else-if="!submission" :col="8" :row="1" />
-            <table v-else class="table w-full">
-              <thead>
-                <tr>
-                  <th>Problem</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Run Time</th>
-                  <th>Memory</th>
-                  <th>Score</th>
-                  <th>Lang</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <router-link
-                      :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
-                      class="link"
-                    >
-                      {{ submission.problemId }}
-                    </router-link>
-                  </td>
-                  <td>{{ submission.user.username }} ({{ submission.user.displayedName }})</td>
-                  <td><judge-status :status="submission.status" /></td>
-                  <td>{{ submission.runTime }} ms</td>
-                  <td>{{ submission.memoryUsage }} KB</td>
-                  <td>{{ submission.score }}</td>
-                  <td>{{ LANG[submission.languageType] }}</td>
-                  <td>{{ formatTime(submission.timestamp) }}</td>
-                </tr>
-              </tbody>
-            </table>
+
+            <data-status-wrapper :error="error" :is-loading="isLoading">
+              <template #loading>
+                <skeleton-table :col="8" :row="1" />
+              </template>
+              <template #data>
+                <table v-if="submission" class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Problem</th>
+                      <th>User</th>
+                      <th>Status</th>
+                      <th>Run Time</th>
+                      <th>Memory</th>
+                      <th>Score</th>
+                      <th>Lang</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <router-link
+                          :to="`/course/${$route.params.name}/problem/${submission.problemId}`"
+                          class="link"
+                        >
+                          {{ submission.problemId }}
+                        </router-link>
+                      </td>
+                      <td>{{ submission.user.username }} ({{ submission.user.displayedName }})</td>
+                      <td><judge-status :status="submission.status" /></td>
+                      <td>{{ submission.runTime }} ms</td>
+                      <td>{{ submission.memoryUsage }} KB</td>
+                      <td>{{ submission.score }}</td>
+                      <td>{{ LANG[submission.languageType] }}</td>
+                      <td>{{ formatTime(submission.timestamp) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </template>
+            </data-status-wrapper>
 
             <div class="my-4" />
 

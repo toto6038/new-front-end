@@ -19,7 +19,11 @@ useTitle(`Homework Stats - ${route.params.id} - ${route.params.name} | Normal OJ
 const theme = useTheme();
 use([CanvasRenderer, LabelLayout, GridComponent, BarChart]);
 
-const { data: hw, error: hwError } = useAxios<Homework>(`/homework/${route.params.id}`, fetcher);
+const {
+  data: hw,
+  error: hwError,
+  isLoading: isHWFetching,
+} = useAxios<Homework>(`/homework/${route.params.id}`, fetcher);
 const pids = ref<number[] | undefined>();
 const scoreboardBegin = ref<number>();
 const scoreboardEnd = ref<number>();
@@ -50,7 +54,12 @@ const getScoreboardUrl = computed<string>(() => {
   });
   return `/course/${route.params.name}/scoreboard?${qs}`;
 });
-const { execute, data: scoreboard, error: scoreboardError, isLoading } = useAxios<Scoreboard>(fetcher);
+const {
+  execute,
+  data: scoreboard,
+  error: scoreboardError,
+  isLoading: isScoreboardFetching,
+} = useAxios<Scoreboard>(fetcher);
 watch(
   getScoreboardUrl,
   (url) => {
@@ -193,44 +202,50 @@ function exportCSV() {
               @change="setScoreboardEnd"
             />
           </div>
-          <button :class="['btn', isLoading && 'loading']" @click="() => execute(getScoreboardUrl)">
+          <button
+            :class="['btn', isScoreboardFetching && 'loading']"
+            @click="() => execute(getScoreboardUrl)"
+          >
             Fetch
           </button>
           <button class="btn" @click="() => exportCSV()">Export</button>
         </div>
-        <div v-if="hwError || scoreboardError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when fetching the scoreboard. Try again later.</span>
-          </div>
-        </div>
-        <skeleton-table v-else-if="!hw || !scoreboard" :col="7" :row="20" />
-        <table v-else class="table">
-          <thead>
-            <tr>
-              <th>user</th>
-              <th class="text-center" v-for="pid in pids" :key="pid">{{ pid }}</th>
-              <th class="text-center">avg</th>
-              <th class="text-center">sum</th>
-            </tr>
-          </thead>
-          <tbody class="font-mono">
-            <tr v-for="row in sortedScoreboard" :key="row.user.username">
-              <td>{{ row.user.username }} ({{ row.user.displayedName }})</td>
-              <td v-for="pid in pids" :key="pid" class="p-0">
-                <div
-                  v-if="row[`${pid}`]"
-                  :class="['flex h-full flex-col py-2 px-4 text-center', getCellColor(row[`${pid}`])]"
-                >
-                  <div class="text-md">{{ row[`${pid}`].max }}</div>
-                  <div class="text-xs">{{ row[`${pid}`].count }} tries</div>
-                </div>
-              </td>
-              <td class="text-center">{{ row.avg.toFixed(2) }}</td>
-              <td class="text-center">{{ row.sum }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <data-status-wrapper
+          :error="hwError || scoreboardError"
+          :is-loading="isHWFetching || isScoreboardFetching"
+        >
+          <template #loading>
+            <skeleton-table :col="7" :row="20" />
+          </template>
+          <template #data>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>user</th>
+                  <th class="text-center" v-for="pid in pids" :key="pid">{{ pid }}</th>
+                  <th class="text-center">avg</th>
+                  <th class="text-center">sum</th>
+                </tr>
+              </thead>
+              <tbody class="font-mono">
+                <tr v-for="row in sortedScoreboard" :key="row.user.username">
+                  <td>{{ row.user.username }} ({{ row.user.displayedName }})</td>
+                  <td v-for="pid in pids" :key="pid" class="p-0">
+                    <div
+                      v-if="row[`${pid}`]"
+                      :class="['flex h-full flex-col py-2 px-4 text-center', getCellColor(row[`${pid}`])]"
+                    >
+                      <div class="text-md">{{ row[`${pid}`].max }}</div>
+                      <div class="text-xs">{{ row[`${pid}`].count }} tries</div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{ row.avg.toFixed(2) }}</td>
+                  <td class="text-center">{{ row.sum }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

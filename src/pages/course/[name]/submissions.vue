@@ -160,10 +160,10 @@ function copySubmissionLink(path: string) {
         </div>
 
         <data-status-wrapper :error="error || fetchProblemError" :is-loading="isLoading">
-          <template v-slot:loading>
+          <template #loading>
             <skeleton-table :col="9" :row="5" />
           </template>
-          <template v-slot:data>
+          <template #data>
             <table class="table w-full">
               <thead>
                 <tr>
