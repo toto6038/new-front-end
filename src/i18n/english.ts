@@ -29,6 +29,24 @@ export default {
         err: "Oops! Something went wrong when loading homeworks."
       },
     },
+    problem: {
+      submit: {
+        err: {
+          code: "Please paste your source code to submit.",
+          lang: "Please select the programming language.",
+          msg: "Oops! Something went wrong when submitting the code. Try again later.",
+        },
+        card: {
+          title: "Submit to problem #",
+          placeholder: "Paste your code here",
+        },
+        lang: {
+          text: "Language",
+          select: "Select language",
+        },
+        text: "Submit",
+      },
+    },
   },
   index: {
     ann: "Announcements",
