@@ -22,6 +22,13 @@ export default {
         },
       },
     },
+    hw: {
+      index: {
+        title: "Homeworks",
+        new: "New",
+        err: "Oops! Something went wrong when loading homeworks."
+      },
+    },
   },
   index: {
     ann: "Announcements",

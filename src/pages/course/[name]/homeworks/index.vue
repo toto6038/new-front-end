@@ -5,9 +5,12 @@ import { fetcher } from "@/models/api";
 import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 const session = useSession();
 const route = useRoute();
+const { t, locale } = useI18n();
+
 useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
 const { data, error, isLoading } = useAxios<HomeworkList>(`/course/${route.params.name}/homework`, fetcher);
 const { data: problems, error: fetchProblemError } = useAxios<ProblemList>(
@@ -43,13 +46,13 @@ function getProblemMeta(ids: number[]): ProblemMeta {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title mb-4 justify-between">
-          Homeworks
+          {{ t("course.hw.index") }}
           <router-link
             v-if="session.isAdmin"
             class="btn-success btn"
             :to="`/course/${$route.params.name}/homeworks/new`"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ t("course.hw.index.new") }}
           </router-link>
         </div>
         <data-status-wrapper :error="error || fetchProblemError" :is-loading="isLoading">
