@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
 
 interface Props {
   value: Announcement | AnnouncementForm;
-  isLoading: boolean;
-  errorMsg: string;
 }
 const props = defineProps<Props>();
+const isLoading = ref(false);
+const errorMsg = ref("");
+defineExpose({ isLoading, errorMsg });
 
 const rules = {
   title: { required, maxLength: maxLength(64) },
@@ -34,6 +36,12 @@ async function submit() {
 </script>
 
 <template>
+  <div v-if="errorMsg" class="alert alert-error shadow-lg">
+    <div>
+      <i-uil-times-circle />
+      <span>{{ errorMsg }}</span>
+    </div>
+  </div>
   <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
     <div class="form-control w-full max-w-xs">
       <label class="label">

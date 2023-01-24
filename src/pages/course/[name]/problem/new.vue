@@ -4,13 +4,13 @@ import { useTitle } from "@vueuse/core";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import api from "@/models/api";
+import ProblemForm from "@/components/Problem/ProblemForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`New Problem - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof ProblemForm>>();
 
 const newProblem = ref<ProblemForm>({
   problemName: "",
@@ -50,11 +50,12 @@ provide<ProblemForm>("problem", newProblem.value);
 const testdata = ref<File | null>(null);
 
 async function submit() {
+  if (!formElement.value) return;
   if (!testdata.value) {
     alert("Testdata not provided");
     return;
   }
-  isLoading.value = true;
+  formElement.value.isLoading = true;
   try {
     const { problemId } = (
       await api.Problem.create({
@@ -69,13 +70,13 @@ async function submit() {
     router.push(`/course/${route.params.name}/problem/${problemId}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 
@@ -97,7 +98,7 @@ const openJSON = ref<boolean>(false);
       <div class="card-body">
         <div class="card-title mb-3 justify-between">New Problem</div>
 
-        <problem-form :is-loading="isLoading" v-model:testdata="testdata" @update="update" @submit="submit" />
+        <problem-form ref="formElement" v-model:testdata="testdata" @update="update" @submit="submit" />
 
         <div class="divider" />
 

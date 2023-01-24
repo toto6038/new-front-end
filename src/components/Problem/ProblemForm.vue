@@ -9,9 +9,11 @@ import { ZipReader, BlobReader } from "@zip.js/zip.js";
 const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
 
 const props = defineProps<{
-  isLoading: boolean;
   testdata: File | null;
 }>();
+const isLoading = ref(false);
+const errorMsg = ref("");
+defineExpose({ isLoading, errorMsg });
 const emits = defineEmits<{
   (e: "update", key: keyof ProblemForm, value: ProblemForm[typeof key]): void;
   (e: "update:testdata", value: File | null): void;
@@ -101,6 +103,12 @@ watch(
 </script>
 
 <template>
+  <div v-if="errorMsg" class="alert alert-error shadow-lg">
+    <div>
+      <i-uil-times-circle />
+      <span>{{ errorMsg }}</span>
+    </div>
+  </div>
   <div class="grid grid-cols-2 gap-y-4">
     <div class="form-control w-full max-w-xs">
       <label class="label">

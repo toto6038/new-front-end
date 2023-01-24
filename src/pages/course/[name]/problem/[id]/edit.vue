@@ -3,15 +3,15 @@ import { ref, watchEffect, provide, Ref } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
-import api, { fetcher } from "../../../../../models/api";
+import api, { fetcher } from "@/models/api";
 import axios from "axios";
+import ProblemForm from "@/components/Problem/ProblemForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`Edit Problem - ${route.params.id} - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof ProblemForm>>();
 
 const {
   data: problem,
@@ -51,9 +51,9 @@ const mockProblemMeta = {
 const openJSON = ref<boolean>(false);
 
 async function submit() {
-  if (!edittingProblem.value) return;
+  if (!edittingProblem.value || !formElement.value) return;
 
-  isLoading.value = true;
+  formElement.value.isLoading = true;
   try {
     await api.Problem.modify(route.params.id as string, edittingProblem.value);
 
@@ -65,13 +65,13 @@ async function submit() {
     router.push(`/course/${route.params.name}/problem/${route.params.id}`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 async function discard() {
@@ -79,20 +79,21 @@ async function discard() {
   router.push(`/course/${route.params.name}/problems`);
 }
 async function delete_() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+  formElement.value.isLoading = true;
   if (!confirm("Are u sure?")) return;
   try {
     await api.Problem.delete(route.params.id as string);
     router.push(`/course/${route.params.name}/problems`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 </script>
@@ -105,12 +106,15 @@ async function delete_() {
           Edit Problem: {{ $route.params.id }} - {{ edittingProblem?.problemName }}
           <div class="flex gap-x-3">
             <button
-              :class="['btn-outline btn-error btn-sm btn lg:btn-md', isLoading && 'loading']"
+              :class="['btn-outline btn-error btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
               @click="delete_"
             >
               <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
             </button>
-            <button :class="['btn-warning btn-sm btn lg:btn-md', isLoading && 'loading']" @click="discard">
+            <button
+              :class="['btn-warning btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
+              @click="discard"
+            >
               <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
             </button>
           </div>
@@ -122,19 +126,7 @@ async function delete_() {
           </template>
           <template #data>
             <template v-if="edittingProblem">
-              <div v-if="errorMsg" class="alert alert-error shadow-lg">
-                <div>
-                  <i-uil-times-circle />
-                  <span>{{ errorMsg }}</span>
-                </div>
-              </div>
-
-              <problem-form
-                :is-loading="isLoading"
-                v-model:testdata="testdata"
-                @update="update"
-                @submit="submit"
-              />
+              <problem-form ref="formElement" v-model:testdata="testdata" @update="update" @submit="submit" />
 
               <div class="divider" />
 

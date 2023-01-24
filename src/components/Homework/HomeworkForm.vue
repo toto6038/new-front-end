@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRef, computed } from "vue";
+import { toRef, computed, ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength, minValue, helpers } from "@vuelidate/validators";
 import dayjs from "dayjs";
@@ -7,9 +7,11 @@ import dayjs from "dayjs";
 interface Props {
   form: HomeworkForm;
   problemSelections: { text: string; value: string }[];
-  isLoading: boolean;
 }
 const props = defineProps<Props>();
+const isLoading = ref(false);
+const errorMsg = ref("");
+defineExpose({ isLoading, errorMsg });
 
 const rules = {
   name: { required, maxLength: maxLength(64) },
@@ -53,6 +55,12 @@ async function submit() {
 </script>
 
 <template>
+  <div v-if="errorMsg" class="alert alert-error shadow-lg">
+    <div>
+      <i-uil-times-circle />
+      <span>{{ errorMsg }}</span>
+    </div>
+  </div>
   <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
     <div class="form-control w-full max-w-xs">
       <label class="label">

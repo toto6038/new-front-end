@@ -6,13 +6,13 @@ import { useAxios } from "@vueuse/integrations/useAxios";
 import api, { fetcher } from "@/models/api";
 import axios from "axios";
 import { useProblemSelection } from "@/composables/useProblemSelection";
+import HomeworkForm from "@/components/Homework/HomeworkForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`Edit Homework - ${route.params.id} - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof HomeworkForm>>();
 
 const {
   data: homework,
@@ -41,9 +41,9 @@ const {
 const openPreview = ref<boolean>(false);
 
 async function submit() {
-  if (!edittingHomework.value || !homework.value) return;
+  if (!edittingHomework.value || !homework.value || !formElement.value) return;
 
-  isLoading.value = true;
+  formElement.value.isLoading = true;
   try {
     await api.Homework.modify(route.params.id as string, {
       ...edittingHomework.value,
@@ -54,30 +54,31 @@ async function submit() {
     router.push(`/course/${route.params.name}/homeworks`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 async function delete_() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+  formElement.value.isLoading = true;
   if (!confirm("Are u sure?")) return;
   try {
     await api.Homework.delete(route.params.id as string);
     router.push(`/course/${route.params.name}/homeworks`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 function discard() {
@@ -94,12 +95,15 @@ function discard() {
           Edit homework: {{ edittingHomework?.name }}
           <div class="flex gap-x-3">
             <button
-              :class="['btn-outline btn-error btn-sm btn lg:btn-md', isLoading && 'loading']"
+              :class="['btn-outline btn-error btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
               @click="delete_"
             >
               <i-uil-trash-alt class="mr-1 lg:h-5 lg:w-5" /> Delete
             </button>
-            <button :class="['btn-warning btn-sm btn lg:btn-md', isLoading && 'loading']" @click="discard">
+            <button
+              :class="['btn-warning btn-sm btn lg:btn-md', formElement?.isLoading && 'loading']"
+              @click="discard"
+            >
               <i-uil-times-circle class="mr-1 lg:h-5 lg:w-5" /> Discard Changes
             </button>
           </div>
@@ -114,17 +118,10 @@ function discard() {
           </template>
           <template #data>
             <template v-if="edittingHomework">
-              <div v-if="errorMsg" class="alert alert-error shadow-lg">
-                <div>
-                  <i-uil-times-circle />
-                  <span>{{ errorMsg }}</span>
-                </div>
-              </div>
-
               <homework-form
                 :form="edittingHomework"
                 :problem-selections="problemSelections"
-                :is-loading="isLoading"
+                ref="formElement"
                 @update="update"
                 @submit="submit"
               />
