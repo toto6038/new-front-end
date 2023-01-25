@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { useRoute, useRouter } from "vue-router";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import { fetcher } from "@/models/api";
 import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
@@ -22,7 +22,7 @@ watchEffect(() => {
     page.value = 1;
   }
 });
-watchEffect(() => {
+watch(page, () => {
   router.replace({ query: { page: page.value } });
 });
 const maxPage = computed(() => {
