@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAxios } from "@vueuse/integrations/useAxios";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { fetcher } from "@/models/api";
 import { ROLE } from "@/constants";
@@ -19,7 +19,7 @@ const sortBy = ref<MemberTableColumn>(
     ? (route.query.sort as MemberTableColumn)
     : MemberTableColumn.USERNAME,
 );
-watchEffect(() => {
+watch(sortBy, () => {
   router.replace({ query: { sort: sortBy.value || MemberTableColumn.USERNAME } });
 });
 const { data, error, isLoading } = useAxios<Course>(`/course/${route.params.name}`, fetcher);
