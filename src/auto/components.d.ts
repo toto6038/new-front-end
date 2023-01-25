@@ -25,6 +25,7 @@ declare module 'vue' {
     IUilMoon: typeof import('~icons/uil/moon')['default']
     IUilPlusCircle: typeof import('~icons/uil/plus-circle')['default']
     IUilSun: typeof import('~icons/uil/sun')['default']
+    IUilTimes: typeof import('~icons/uil/times')['default']
     IUilTimesCircle: typeof import('~icons/uil/times-circle')['default']
     IUilUser: typeof import('~icons/uil/user')['default']
     IUilWrench: typeof import('~icons/uil/wrench')['default']

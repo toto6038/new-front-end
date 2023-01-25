@@ -2,12 +2,15 @@
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { fetcher } from "@/models/api";
+import api, { fetcher } from "@/models/api";
 import { ROLE } from "@/constants";
 import { useTitle } from "@vueuse/core";
+import { useSession, UserRole } from "@/stores/session";
+import axios from "axios";
 
 const route = useRoute();
 const router = useRouter();
+const session = useSession();
 useTitle(`Members - ${route.params.name} | Normal OJ`);
 enum MemberTableColumn {
   USERNAME = "username",
@@ -35,6 +38,44 @@ const members = computed(() => {
     }
   });
 });
+
+const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
+
+const isOpen = ref(false);
+const newMembers = ref<File>();
+const newMembersCSVString = ref("");
+const isProcessingSignup = ref(false);
+const errorMsg = ref("");
+const previewCSV = ref<{ headers?: string[]; body?: string[][] }>({});
+watch(newMembers, () => {
+  if (!newMembers.value) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    if (typeof evt.target?.result !== "string") return;
+    newMembersCSVString.value = evt.target?.result;
+    const rows = newMembersCSVString.value.split("\n");
+    previewCSV.value.headers = rows[0].split(",");
+    previewCSV.value.body = rows.slice(1).map((r) => r.split(","));
+  };
+  reader.readAsText(newMembers.value);
+});
+async function submit() {
+  if (!newMembersCSVString.value) return;
+  isProcessingSignup.value = true;
+  try {
+    await api.Auth.batchSignup({ newUsers: newMembersCSVString.value, course: route.params.name as string });
+    router.go(0);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMsg.value = error.response.data.message;
+    } else {
+      errorMsg.value = "Unknown error occurred :(";
+    }
+    throw error;
+  } finally {
+    isProcessingSignup.value = false;
+  }
+}
 </script>
 
 <template>
@@ -43,6 +84,12 @@ const members = computed(() => {
       <div class="card-body">
         <div class="card-title">
           Members <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
+
+          <div class="flex-1" />
+
+          <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn-success btn">
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New Members
+          </label>
         </div>
 
         <div class="mb-4">
@@ -80,6 +127,65 @@ const members = computed(() => {
             </table>
           </template>
         </data-status-wrapper>
+      </div>
+    </div>
+
+    <input v-model="isOpen" type="checkbox" id="my-modal" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box">
+        上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：
+        <ul class="ml-4 list-disc">
+          <li v-for="h in ['username', 'email', 'password']">
+            <code>{{ h }}</code>
+          </li>
+          <li v-for="h in ['displayedName', 'role']">
+            <code>{{ h }}</code> (optional)
+          </li>
+        </ul>
+        第二列開始每列一個成員
+
+        <div class="my-4" />
+
+        <div class="alert alert-error shadow-lg" v-if="errorMsg">
+          <div>
+            <i-uil-times-circle />
+            <span>{{ errorMsg }}</span>
+          </div>
+        </div>
+
+        <template v-if="!newMembers">
+          <input
+            type="file"
+            id="file-uploader"
+            accept=".csv"
+            @change="newMembers = ($event.target as HTMLInputElement).files?.[0]"
+          />
+        </template>
+        <template v-else>
+          <table class="table-auto">
+            <thead>
+              <tr v-if="previewCSV.headers">
+                <th v-for="h in previewCSV.headers">{{ h }}</th>
+              </tr>
+            </thead>
+            <tbody v-if="previewCSV.body">
+              <tr v-for="r in previewCSV.body">
+                <td v-for="c in r">
+                  {{ c }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex">
+            <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+              <i-uil-times />
+            </button>
+          </div>
+        </template>
+        <div class="modal-action">
+          <label for="my-modal" class="btn-ghost btn">Cancel</label>
+          <div :class="['btn-success btn ml-3', isProcessingSignup && 'loading']" @click="submit">Submit</div>
+        </div>
       </div>
     </div>
   </div>
