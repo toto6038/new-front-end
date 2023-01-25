@@ -10,3 +10,8 @@ interface Course {
   TAs: UserInfo[];
   students: UserInfo[];
 }
+
+interface CourseForm {
+  course: string;
+  teacher: UserInfo["username"];
+}

@@ -18,6 +18,7 @@ fetcher.interceptors.response.use(
     if (error?.response?.status >= 500) {
       global.onServerError();
     }
+    throw error;
   },
 );
 
@@ -27,6 +28,7 @@ const Auth = {
   logout: () => fetcher.get("/auth/session"),
   changePassword: (body: { oldPassword: string; newPassword: string }) =>
     fetcher.post("/auth/change-password", body),
+  batchSignup: (body: { newUsers: string; course: string }) => fetcher.post("/auth/batch-signup", body),
 };
 
 const Problem = {
@@ -67,6 +69,10 @@ const Homework = {
   delete: (id: string) => fetcher.delete(`/homework/${id}`),
 };
 
+const Course = {
+  create: (body: CourseForm) => fetcher.post("/course", body),
+};
+
 export default {
   Auth,
   Problem,
@@ -74,4 +80,5 @@ export default {
   Copycat,
   Announcement,
   Homework,
+  Course,
 };
