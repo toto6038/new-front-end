@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import api from "@/models/api";
 
-enum SessionState {
+export enum SessionState {
   NotValidated = -1,
   IsNotLogin = 0,
   IsLogin = 1,
 }
-enum UserRole {
+
+export enum UserRole {
   Guest = -1,
   Admin = 0,
   Teacher = 1,

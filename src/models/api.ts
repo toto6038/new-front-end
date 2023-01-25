@@ -67,6 +67,10 @@ const Homework = {
   delete: (id: string) => fetcher.delete(`/homework/${id}`),
 };
 
+const Course = {
+  create: (body: CourseForm) => fetcher.post("/course", body),
+};
+
 export default {
   Auth,
   Problem,
@@ -74,4 +78,5 @@ export default {
   Copycat,
   Announcement,
   Homework,
+  Course,
 };

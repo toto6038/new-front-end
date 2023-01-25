@@ -2,15 +2,28 @@
 import { useTitle } from "@vueuse/core";
 import { useAxios } from "@vueuse/integrations/useAxios";
 import { fetcher } from "@/models/api";
+import { useSession, UserRole } from "@/stores/session";
 
 useTitle("Courses | Normal OJ");
 const { data: courses, error, isLoading } = useAxios<CourseList>("/course", fetcher);
+
+const session = useSession();
+const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
 </script>
 
 <template>
   <div class="card mx-auto max-w-5xl shadow-xl">
     <div class="card-body">
-      <div class="card-title">Course List</div>
+      <div class="card-title justify-between">
+        Course List
+        <router-link
+          v-if="rolesCanCreateCourse.includes(session.role)"
+          class="btn-success btn"
+          to="/courses/new"
+        >
+          <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+        </router-link>
+      </div>
 
       <div class="my-2" />
 
