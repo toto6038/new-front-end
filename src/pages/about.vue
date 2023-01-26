@@ -80,39 +80,25 @@ function updateScrollAnimation() {
     })
       .setClassToggle(id, "visible")
       .addTo(scrollController);
+    if (idx == 0) {
+      new ScrollMagic.Scene({
+        triggerElement: id,
+        triggerHook: 0.65,
+        duration: duration,
+      })
+        .setClassToggle("#scroll-hint", "visible")
+        .addTo(scrollController);
+    }
   });
-  new ScrollMagic.Scene({
-    triggerElement: "#scroll-hint",
-    triggerHook: 1,
-    duration: "80%",
-  })
-    .setClassToggle("#scroll-hint", "visible")
-    .addTo(scrollController);
-  new ScrollMagic.Scene({
-    triggerElement: "#links",
-    triggerHook: 0.5,
-    duration: "80%",
-    offset: 20,
-  })
-    .setClassToggle("#links", "visible")
-    .addTo(scrollController);
-}
-
-const aboutWrapper = ref<HTMLElement>();
-const noScroll = ref(true);
-function hideScrollHint() {
-  console.log("scrolled");
-  noScroll.value = true;
 }
 onMounted(() => {
   updateScrollAnimation();
   window.addEventListener("resize", updateScrollAnimation);
-  aboutWrapper.value?.addEventListener("scroll", hideScrollHint);
 });
 </script>
 
 <template>
-  <div ref="aboutWrapper" class="prose mx-auto mt-10 w-full pb-60 font-mono" id="links">
+  <div class="prose mx-auto mt-10 w-full pb-60 font-mono" id="links">
     <div class="flex w-full flex-col items-center">
       <h1 class="uppercase">Links</h1>
       <div class="flex gap-12">
@@ -125,9 +111,9 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="mt-16 flex w-full flex-col items-center" :onscroll="hideScrollHint">
+    <div class="mt-16 flex w-full flex-col items-center">
       <h1 class="uppercase">Contributors</h1>
-      <div v-if="noScroll" id="scroll-hint" class="absolute bottom-16">
+      <div id="scroll-hint" class="reveal visible absolute bottom-16">
         <i-uil-angle-double-down class="h-16 w-16" />
       </div>
       <div
