@@ -9,8 +9,14 @@ declare enum ProblemStatus {
   Offline = 2,
 }
 
-interface EditableProblem {
-  problemId?: number;
+interface ProblemTestCase {
+  taskScore: number;
+  caseCount: number;
+  memoryLimit: number;
+  timeLimit: number;
+}
+
+interface ProblemForm {
   problemName: string;
   description: {
     description: string;
@@ -20,17 +26,19 @@ interface EditableProblem {
     sampleInput: string[];
     sampleOutput: string[];
   };
+  courses: string[];
   tags: string[];
   allowedLanguage: number;
   quota: number;
   type: ProblemType;
   status: ProblemStatus;
-  testCase: {
-    taskScore: number;
-    caseCount: number;
-    memoryLimit: number;
-    timeLimit: number;
-  }[];
+  testCaseInfo: {
+    language: number;
+    fillInTemplate: string;
+    tasks: ProblemTestCase[];
+  };
+  canViewStdout: boolean;
+  defaultCode: string;
 }
 
 interface Problem {
@@ -43,22 +51,20 @@ interface Problem {
     sampleInput: string[];
     sampleOutput: string[];
   };
-  owner: User;
+  courses: string[];
   tags: string[];
   allowedLanguage: number;
-  courses: string[];
   quota: number;
-  defaultCode: string;
-  status: ProblemStatus;
   type: ProblemType;
-  testCase: {
-    taskScore: number;
-    caseCount: number;
-    memoryLimit: number;
-    timeLimit: number;
-  }[];
+  status: ProblemStatus;
+  testCase: ProblemTestCase[];
+  canViewStdout: boolean;
+  owner: string;
+  defaultCode: string;
   submitCount: number;
   highScore: number;
+  ACUser: number;
+  submitter: number;
 }
 
 interface ProblemListItem {
@@ -92,4 +98,4 @@ interface MossReport {
 }
 
 type LangOption = { value: number; text: string; mask: number };
-type ProblemUpdater = <K extends keyof EditableProblem>(key: K, value: EditableProblem[K]) => void;
+type ProblemUpdater = <K extends keyof ProblemForm>(key: K, value: ProblemForm[K]) => void;

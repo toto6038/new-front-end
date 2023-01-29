@@ -15,10 +15,13 @@ const {
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <announcement-card
-      :isLoading="isLoading"
-      :error="error"
-      :announcement="announcements && announcements[0]"
-    />
+    <data-status-wrapper :error="error" :is-loading="isLoading">
+      <template #loading>
+        <skeleton-card />
+      </template>
+      <template #data>
+        <announcement-card v-if="announcements" :announcement="announcements[0]" />
+      </template>
+    </data-status-wrapper>
   </div>
 </template>

@@ -103,72 +103,70 @@ const barOption = computed(() => ({
 
         <div class="my-2" />
 
-        <div v-if="error" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading problem stats.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isLoading" />
-        <template v-else>
-          <div class="stats stats-vertical lg:stats-horizontal">
-            <div class="stat place-items-center">
-              <div class="stat-title">Num of users tried</div>
-              <div class="stat-value">
-                <span v-if="!triedUserCount">-</span>
-                <template v-else>
-                  <span>{{ triedUserCount }}</span>
-                  <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
-                </template>
+        <data-status-wrapper :error="error" :is-loading="isLoading">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <div class="stats stats-vertical lg:stats-horizontal">
+              <div class="stat place-items-center">
+                <div class="stat-title">Num of users tried</div>
+                <div class="stat-value">
+                  <span v-if="!triedUserCount">-</span>
+                  <template v-else>
+                    <span>{{ triedUserCount }}</span>
+                    <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
+                  </template>
+                </div>
+              </div>
+              <div class="stat place-items-center">
+                <div class="stat-title">Num of AC users</div>
+                <div class="stat-value">
+                  <span v-if="!acUserRatio[0]">-</span>
+                  <template v-else>
+                    <span>{{ acUserRatio[0] }}</span>
+                    <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
+                  </template>
+                </div>
+              </div>
+              <div class="stat place-items-center">
+                <div class="stat-title">AC Submission Ratio</div>
+                <div class="stat-value">
+                  <span v-if="!submissionCount || !stats">-</span>
+                  <template v-else>
+                    <span>{{ stats.statusCount[0] }}</span>
+                    <span class="text-sm font-normal">{{ ` / ${submissionCount}` }}</span>
+                  </template>
+                </div>
+              </div>
+              <div class="stat place-items-center">
+                <div class="stat-title">Average Score</div>
+                <div class="stat-value">{{ avgScore?.toFixed(2) || "-" }}</div>
+              </div>
+              <div class="stat place-items-center">
+                <div class="stat-title">Standard Deviation</div>
+                <div class="stat-value">{{ stdScore?.toFixed(2) || "-" }}</div>
               </div>
             </div>
-            <div class="stat place-items-center">
-              <div class="stat-title">Num of AC users</div>
-              <div class="stat-value">
-                <span v-if="!acUserRatio[0]">-</span>
-                <template v-else>
-                  <span>{{ acUserRatio[0] }}</span>
-                  <span class="text-sm font-normal">{{ ` / ${acUserRatio[1]}` }}</span>
-                </template>
-              </div>
-            </div>
-            <div class="stat place-items-center">
-              <div class="stat-title">AC Submission Ratio</div>
-              <div class="stat-value">
-                <span v-if="!submissionCount || !stats">-</span>
-                <template v-else>
-                  <span>{{ stats.statusCount[0] }}</span>
-                  <span class="text-sm font-normal">{{ ` / ${submissionCount}` }}</span>
-                </template>
-              </div>
-            </div>
-            <div class="stat place-items-center">
-              <div class="stat-title">Average Score</div>
-              <div class="stat-value">{{ avgScore?.toFixed(2) || "-" }}</div>
-            </div>
-            <div class="stat place-items-center">
-              <div class="stat-title">Standard Deviation</div>
-              <div class="stat-value">{{ stdScore?.toFixed(2) || "-" }}</div>
-            </div>
-          </div>
 
-          <div class="my-4" />
+            <div class="my-4" />
 
-          <div class="flex">
-            <v-chart
-              class="mx-auto h-[400px]"
-              :theme="theme.isDark ? 'dark' : ''"
-              :option="pieOption"
-              autoresize
-            />
-            <v-chart
-              class="mx-auto h-[400px]"
-              :theme="theme.isDark ? 'dark' : ''"
-              :option="barOption"
-              autoresize
-            />
-          </div>
-        </template>
+            <div class="flex">
+              <v-chart
+                class="mx-auto h-[400px]"
+                :theme="theme.isDark ? 'dark' : ''"
+                :option="pieOption"
+                autoresize
+              />
+              <v-chart
+                class="mx-auto h-[400px]"
+                :theme="theme.isDark ? 'dark' : ''"
+                :option="barOption"
+                autoresize
+              />
+            </div>
+          </template>
+        </data-status-wrapper>
 
         <div class="my-2" />
 

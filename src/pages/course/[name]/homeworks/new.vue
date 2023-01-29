@@ -6,13 +6,13 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import api from "@/models/api";
 import { useProblemSelection } from "@/composables/useProblemSelection";
+import HomeworkForm from "@/components/Homework/HomeworkForm.vue";
 
 const route = useRoute();
 const router = useRouter();
 useTitle(`New Homework - ${route.params.name} | Normal OJ`);
 
-const isLoading = ref(false);
-const errorMsg = ref("");
+const formElement = ref<InstanceType<typeof HomeworkForm>>();
 
 const newHomework = reactive<HomeworkForm>({
   name: "",
@@ -40,7 +40,9 @@ const mockHomeworkMeta = {
 };
 
 async function submit() {
-  isLoading.value = true;
+  if (!formElement.value) return;
+
+  formElement.value.isLoading = true;
   try {
     await api.Homework.create({
       ...newHomework,
@@ -50,13 +52,13 @@ async function submit() {
     router.push(`/course/${route.params.name}/homeworks`);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
-      errorMsg.value = error.response.data.message;
+      formElement.value.errorMsg = error.response.data.message;
     } else {
-      errorMsg.value = "Unknown error occurred :(";
+      formElement.value.errorMsg = "Unknown error occurred :(";
     }
     throw error;
   } finally {
-    isLoading.value = false;
+    formElement.value.isLoading = false;
   }
 }
 </script>
@@ -67,43 +69,34 @@ async function submit() {
       <div class="card-body">
         <div class="card-title mb-3 justify-between">New Homework</div>
 
-        <div v-if="fetchError" class="alert alert-error shadow-lg">
-          <div>
-            <i-uil-times-circle />
-            <span>Oops! Something went wrong when loading announcement.</span>
-          </div>
-        </div>
-        <skeleton-card v-else-if="isFetching" />
-        <template v-else>
-          <div v-if="errorMsg" class="alert alert-error shadow-lg">
-            <div>
-              <i-uil-times-circle />
-              <span>{{ errorMsg }}</span>
+        <data-status-wrapper :error="fetchError" :is-loading="isFetching">
+          <template #loading>
+            <skeleton-card />
+          </template>
+          <template #data>
+            <homework-form
+              :form="newHomework"
+              :problem-selections="problemSelections"
+              ref="formElement"
+              @update="update"
+              @submit="submit"
+            />
+
+            <div class="divider" />
+
+            <div class="card-title mb-3">
+              Preview
+              <input v-model="openPreview" type="checkbox" class="toggle" />
             </div>
-          </div>
 
-          <homework-form
-            :form="newHomework"
-            :problem-selections="problemSelections"
-            :is-loading="isLoading"
-            @update="update"
-            @submit="submit"
-          />
-
-          <div class="divider" />
-
-          <div class="card-title mb-3">
-            Preview
-            <input v-model="openPreview" type="checkbox" class="toggle" />
-          </div>
-
-          <homework-card
-            v-show="openPreview"
-            :homework="{ ...mockHomeworkMeta, ...newHomework }"
-            :problems="problemId2Meta"
-            preview
-          />
-        </template>
+            <homework-card
+              v-show="openPreview"
+              :homework="{ ...mockHomeworkMeta, ...newHomework }"
+              :problems="problemId2Meta"
+              preview
+            />
+          </template>
+        </data-status-wrapper>
       </div>
     </div>
   </div>

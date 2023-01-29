@@ -36,7 +36,7 @@ const navs = [
       v-for="{ name, path } in navs"
       :class="[{ 'border-l-4 border-blue-500': $route.path === `/course/${$route.params.name}${path}` }]"
     >
-      <a :href="`/course/${$route.params.name}${path}`">{{ name }}</a>
+      <router-link :to="`/course/${$route.params.name}${path}`">{{ name }}</router-link>
     </li>
   </ul>
 </template>

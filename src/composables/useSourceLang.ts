@@ -1,42 +1,32 @@
 import { computed, ref } from "vue";
 import { LANGUAGE_OPTIONS } from "@/constants";
 
-export type LangMap = {
-  [langName: string]: boolean;
-};
-
 function initializeMap(allowedLanguages: number) {
-  const m: { [k: string]: boolean } = {};
+  const m = [];
   for (const lang of LANGUAGE_OPTIONS) {
-    m[lang.text] = Boolean(allowedLanguages & lang.mask);
+    if (allowedLanguages & lang.mask) {
+      m.push(lang.mask);
+    }
   }
   return m;
 }
 
 export function useSourceLang(allowedLanguages: number = 0) {
-  const selectLangMap = ref<LangMap>(initializeMap(allowedLanguages));
+  const selectedLangs = ref<number[]>(initializeMap(allowedLanguages));
   const readableLang = computed<string>(() => {
-    const l = [];
-    for (const lang of LANGUAGE_OPTIONS) {
-      if (selectLangMap.value[lang.text]) {
-        l.push(lang.text);
-      }
-    }
-    return l.join(", ");
+    return LANGUAGE_OPTIONS.filter(({ mask }) => selectedLangs.value.includes(mask))
+      .map(({ text }) => text)
+      .join(", ");
   });
-  const selectedLang = computed<number>(() => {
-    let s = 0;
-    for (const lang of LANGUAGE_OPTIONS) {
-      if (selectLangMap.value[lang.text]) {
-        s += lang.mask;
-      }
-    }
-    return s;
+  const selectedLangNumber = computed<number>(() => {
+    return LANGUAGE_OPTIONS.filter(({ mask }) => selectedLangs.value.includes(mask))
+      .map(({ mask }) => mask)
+      .reduce((a, b) => a + b, 0);
   });
 
   return {
-    selectLangMap,
+    selectedLangs,
     readableLang,
-    selectedLang,
+    selectedLangNumber,
   };
 }

@@ -18,6 +18,7 @@ fetcher.interceptors.response.use(
     if (error?.response?.status >= 500) {
       global.onServerError();
     }
+    throw error;
   },
 );
 
@@ -27,11 +28,18 @@ const Auth = {
   logout: () => fetcher.get("/auth/session"),
   changePassword: (body: { oldPassword: string; newPassword: string }) =>
     fetcher.post("/auth/change-password", body),
+  batchSignup: (body: { newUsers: string; course: string }) => fetcher.post("/auth/batch-signup", body),
 };
 
 const Problem = {
-  create: (body: EditableProblem) => fetcher.post("/problem/manage", body),
+  create: (body: ProblemForm) => fetcher.post("/problem/manage", body),
   getTestCaseUrl: (problemId: number) => `${fetcher.defaults.baseURL}/problem/${problemId}/testcase`,
+  modify: (id: string | number, body: ProblemForm) => fetcher.put(`/problem/manage/${id}`, body),
+  modifyTestdata: (id: string | number, body: FormData) =>
+    fetcher.put(`/problem/manage/${id}`, body, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
+  delete: (id: string | number) => fetcher.delete(`/problem/manage/${id}`),
 };
 
 const Submission = {
@@ -61,6 +69,10 @@ const Homework = {
   delete: (id: string) => fetcher.delete(`/homework/${id}`),
 };
 
+const Course = {
+  create: (body: CourseForm) => fetcher.post("/course", body),
+};
+
 export default {
   Auth,
   Problem,
@@ -68,4 +80,5 @@ export default {
   Copycat,
   Announcement,
   Homework,
+  Course,
 };
