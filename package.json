@@ -29,7 +29,7 @@
     "pinia": "^2.0.11",
     "query-string": "^7.1.1",
     "scrollmagic": "^2.0.8",
-    "vue": "^3.2.25",
+    "vue": "^3.2.45",
     "vue-echarts": "^6.0.2",
     "vue-prism-editor": "^2.0.0-alpha.2",
     "vue-router": "^4.0.12"
@@ -41,7 +41,7 @@
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.11.18",
     "@types/scrollmagic": "^2.0.3",
-    "@vitejs/plugin-vue": "^2.2.0",
+    "@vitejs/plugin-vue": "^4.0.0",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
