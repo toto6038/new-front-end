@@ -198,6 +198,12 @@ export default {
         },
       },
     },
+    courseSideBar: {
+      ann: "公告",
+      hw: "作業",
+      prob: "題目",
+      submit: "繳交狀態",
+    },
     sideBar: {
       home: "首頁",
       course: "課程",
