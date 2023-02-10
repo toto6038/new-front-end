@@ -119,4 +119,35 @@ export default {
       back: "Back",
     },
   },
+  components: {
+    hw: {
+      hwCard: {
+        statusLabel: {
+          running: "RUNNING",
+          notStart: "NOT START",
+          over: "OVER",
+        },
+        availability:{
+          text: "Availability",
+          from: "From",
+          due: "Due",
+        },
+        problems: {
+          text: "Problems",
+          id: "#",
+          pid: "PID",
+          name: "Name",
+          quota: "Quota",
+          score: "Score",
+          stats: "Stats",
+          copycat: "Copycat",
+        },
+        description: {
+          text: "Description",
+          edit: "Edit",
+          stats: "Stats",
+        },
+      },
+    },
+  },
 };
