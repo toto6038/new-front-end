@@ -148,6 +148,27 @@ export default {
           stats: "Stats",
         },
       },
+      hwForm: {
+
+      },
+    },
+    problem: {
+      forms: {
+        probDescForm: {
+          desc: "Description",
+          input: "Input",
+          output: "Output",
+          hint: "Hint",
+          err: {
+            input: "Sample Input Error: ",
+            output: "Sample Output Error: ",
+          },
+          sample: {
+            input: "Sample Input ",
+            output: "Sample Output ",
+          },
+        },
+      },
     },
     sideBar: {
       home: "Home",
