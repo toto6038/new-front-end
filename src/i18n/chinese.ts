@@ -167,7 +167,37 @@ export default {
           },
         },
       },
-    },  
+      probCard: {
+        title: "題目編號 ",
+        quota: "額度",
+        score: "得分",
+        submit: "提交",
+        stats: "數據",
+        card: {
+          desc: "說明",
+          input: "輸入",
+          output: "輸出",
+          ex: "範例",
+          sample: {
+            id: "編號",
+            input: "輸入",
+            output: "輸出",
+            no: {
+              input: "無輸入",
+              output: "無輸出",
+            },
+          },
+          hint: "提示",
+          subtasks: {
+            title: "子任務",
+            id: "編號",
+            tl: "執行時間限制",
+            ml: "記憶體限制",
+            score: "配分",
+          },
+        },
+      },
+    },
     sideBar: {
       home: "首頁",
       course: "課程",
