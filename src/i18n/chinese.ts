@@ -236,6 +236,12 @@ export default {
       hw: "作業",
       prob: "題目",
       submit: "繳交狀態",
+    }, 
+    loginSection: {
+      welcome: "歡迎回來， ",
+      signin: "登入",
+      forgot: "忘記密碼?",
+      button: "登入",
     },
     sideBar: {
       home: "首頁",
