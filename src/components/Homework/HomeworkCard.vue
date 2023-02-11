@@ -114,7 +114,7 @@ const state = computed(() => {
                 <td>
                   <div class="tooltip" data-tip="Stats">
                     <router-link
-                      class="btn-ghost btn btn-xs"
+                      class="btn btn-ghost btn-xs"
                       :to="`/course/${$route.params.name}/problem/${pid}/stats`"
                     >
                       <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -124,7 +124,7 @@ const state = computed(() => {
                 <td v-if="session.isAdmin">
                   <div class="tooltip" data-tip="Copycat">
                     <router-link
-                      class="btn-ghost btn btn-xs"
+                      class="btn btn-ghost btn-xs"
                       :to="`/course/${$route.params.name}/problem/${pid}/copycat`"
                     >
                       <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />

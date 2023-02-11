@@ -68,7 +68,7 @@ const links = [
 <template>
   <div class="prose mx-auto mt-10 w-full pb-60 font-mono">
     <div class="flex w-full flex-col items-center">
-      <h1 class="uppercase">{{t("about.links")}}</h1>
+      <h1 class="uppercase">{{ t("about.links") }}</h1>
       <div class="flex gap-12">
         <a href="https://fb.me/noj.tw" class="mx-12">
           <i-uil-facebook class="h-28 w-28" />

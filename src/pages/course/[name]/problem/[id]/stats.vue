@@ -15,7 +15,7 @@ import { fetcher } from "@/models/api";
 import { useTitle } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 
-const {t} = useI18n();
+const { t } = useI18n();
 const route = useRoute();
 const theme = useTheme();
 useTitle(`Problem Stats - ${route.params.id} - ${route.params.name} | Normal OJ`);
@@ -101,7 +101,9 @@ const barOption = computed(() => ({
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title md:text-2xl lg:text-3xl">{{ t("course.problem.stats.title") }}{{ $route.params.id }}</div>
+        <div class="card-title md:text-2xl lg:text-3xl">
+          {{ t("course.problem.stats.title") }}{{ $route.params.id }}
+        </div>
 
         <div class="my-2" />
 

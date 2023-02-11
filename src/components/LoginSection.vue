@@ -57,7 +57,8 @@ async function login() {
           <ui-spinner />
         </div>
         <div v-else class="card-title mb-2">
-          {{ session.isLogin ? t("components.loginSection.welcome") : t("components.loginSection.signin") }} {{ session.isLogin ? `${session.displayedName}` : " " }}
+          {{ session.isLogin ? t("components.loginSection.welcome") : t("components.loginSection.signin") }}
+          {{ session.isLogin ? `${session.displayedName}` : " " }}
         </div>
         <template v-if="session.isNotLogin">
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
@@ -75,7 +76,7 @@ async function login() {
               type="text"
               name="username"
               :placeholder="t('index.placeholder.username')"
-              :class="['input-bordered input', v$.username.$error && 'input-error']"
+              :class="['input input-bordered', v$.username.$error && 'input-error']"
             />
             <label class="label" v-show="v$.username.$error">
               <span class="label-text-alt text-error" v-text="v$.username.$errors[0]?.$message" />
@@ -90,11 +91,11 @@ async function login() {
               type="password"
               name="password"
               :placeholder="t('index.placeholder.pw')"
-              :class="['input-bordered input', v$.password.$error && 'input-error']"
+              :class="['input input-bordered', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />
             <label class="label flex-row-reverse">
-              <a href="#" class="link-hover label-text-alt link">{{ t("components.loginSection.forgot") }}</a>
+              <a href="#" class="link link-hover label-text-alt">{{ t("components.loginSection.forgot") }}</a>
               <span
                 v-show="v$.password.$error"
                 class="label-text-alt text-error"
@@ -103,7 +104,7 @@ async function login() {
             </label>
           </div>
           <div class="form-control mt-6">
-            <button :class="['btn-primary btn', loginForm.isLoading && 'loading']" @click="login">
+            <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
               {{ t("components.loginSection.button") }}
             </button>
           </div>

@@ -4,7 +4,7 @@ import { useSession } from "@/stores/session";
 import api from "@/models/api";
 import { useI18n } from "vue-i18n";
 
-const {t} = useI18n();
+const { t } = useI18n();
 
 interface Props {
   problem: Problem;
@@ -31,7 +31,7 @@ function downloadTestCase(problemId: number) {
             {{ t("components.problem.probCard.title") }}{{ $route.params.id }} - {{ problem.problemName }}
           </div>
           <div class="flex">
-            <span class="badge-info badge mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
+            <span class="badge badge-info mr-1" v-for="tag in problem.tags" :key="tag">{{ tag }}</span>
           </div>
         </div>
 
@@ -68,7 +68,7 @@ function downloadTestCase(problemId: number) {
             </router-link>
             <router-link
               v-if="session.isAdmin"
-              :class="['btn-ghost tooltip tooltip-bottom btn-sm btn', 'inline-flex']"
+              :class="['btn tooltip tooltip-bottom btn-ghost btn-sm', 'inline-flex']"
               data-tip="Copycat"
               :to="`/course/${$route.params.name}/problem/${$route.params.id}/copycat`"
             >
@@ -76,7 +76,7 @@ function downloadTestCase(problemId: number) {
             </router-link>
             <button
               v-if="session.isAdmin"
-              :class="['btn-ghost tooltip tooltip-bottom btn-sm btn', 'inline-flex']"
+              :class="['btn tooltip tooltip-bottom btn-ghost btn-sm', 'inline-flex']"
               data-tip="Download test case"
               @click="downloadTestCase(Number.parseInt($route.params.id as string, 10))"
             >
@@ -90,13 +90,19 @@ function downloadTestCase(problemId: number) {
 
       <div class="card min-w-full rounded-none">
         <div class="card-body p-0">
-          <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.desc") }}</div>
+          <div class="card-title md:text-xl lg:text-2xl">
+            {{ t("components.problem.probCard.card.desc") }}
+          </div>
           <markdown-renderer class="mb-10" :md="problem.description.description" />
 
-          <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.input") }}</div>
+          <div class="card-title md:text-xl lg:text-2xl">
+            {{ t("components.problem.probCard.card.input") }}
+          </div>
           <markdown-renderer class="mb-10" :md="problem.description.input" />
 
-          <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.output") }}</div>
+          <div class="card-title md:text-xl lg:text-2xl">
+            {{ t("components.problem.probCard.card.output") }}
+          </div>
           <markdown-renderer class="mb-10" :md="problem.description.output" />
 
           <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.ex") }}</div>
@@ -117,24 +123,32 @@ function downloadTestCase(problemId: number) {
                       v-if="problem.description.sampleInput[i - 1]"
                       :code="problem.description.sampleInput[i - 1]"
                     ></sample-code-block>
-                    <span v-else class="italic opacity-70">{{ t("components.problem.probCard.card.sample.no.input") }}</span>
+                    <span v-else class="italic opacity-70">{{
+                      t("components.problem.probCard.card.sample.no.input")
+                    }}</span>
                   </td>
                   <td class="align-top">
                     <sample-code-block
                       v-if="problem.description.sampleOutput[i - 1]"
                       :code="problem.description.sampleOutput[i - 1]"
                     ></sample-code-block>
-                    <span v-else class="italic opacity-70">{{ t("components.problem.probCard.card.sample.no.output") }}</span>
+                    <span v-else class="italic opacity-70">{{
+                      t("components.problem.probCard.card.sample.no.output")
+                    }}</span>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.hint") }}</div>
+          <div class="card-title md:text-xl lg:text-2xl">
+            {{ t("components.problem.probCard.card.hint") }}
+          </div>
           <markdown-renderer class="mb-10" :md="problem.description.hint" />
 
-          <div class="card-title md:text-xl lg:text-2xl">{{ t("components.problem.probCard.card.subtasks.title") }}</div>
+          <div class="card-title md:text-xl lg:text-2xl">
+            {{ t("components.problem.probCard.card.subtasks.title") }}
+          </div>
           <table class="table w-full">
             <thead>
               <tr>

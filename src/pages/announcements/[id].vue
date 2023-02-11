@@ -18,7 +18,7 @@ const {
 
 <template>
   <div class="mx-auto flex max-w-7xl gap-8 p-4">
-    <router-link class="btn-sm btn mb-10" to="/">
+    <router-link class="btn btn-sm mb-10" to="/">
       <i-uil-left-arrow-to-left class="mr-1" /> {{ t("ann.id.back") }}
     </router-link>
 

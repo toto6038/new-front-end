@@ -15,7 +15,7 @@ import { useI18n } from "vue-i18n";
 const route = useRoute();
 const router = useRouter();
 const session = useSession();
-const {t} = useI18n();
+const { t } = useI18n();
 
 useTitle(`Submissions - ${route.params.name} | Normal OJ`);
 
@@ -108,14 +108,14 @@ function copySubmissionLink(path: string) {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title justify-between">
-          {{ t("course.submissions.text")}}
+          {{ t("course.submissions.text") }}
 
           <input
             v-if="session.isAdmin"
             v-model="searchUsername"
             type="text"
             placeholder="Username (exact match)"
-            class="input-bordered input w-full max-w-xs"
+            class="input input-bordered w-full max-w-xs"
             @keydown.enter="mutateFilter({ username: searchUsername })"
           />
         </div>
@@ -124,16 +124,16 @@ function copySubmissionLink(path: string) {
         <div class="mb-4 flex items-end gap-x-4">
           <select
             :value="routeQuery.filter.problemId"
-            class="select-bordered select w-full flex-1"
+            class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ problemId: (event.target as HTMLSelectElement).value})"
           >
-            <option value="" selected>{{ t("course.submissions.problem")}}</option>
+            <option value="" selected>{{ t("course.submissions.problem") }}</option>
             <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
           </select>
 
           <select
             :value="routeQuery.filter.status"
-            class="select-bordered select w-full flex-1"
+            class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ status: (event.target as HTMLSelectElement).value})"
           >
             <option value="" selected>{{ t("course.submissions.status") }}</option>
@@ -142,10 +142,10 @@ function copySubmissionLink(path: string) {
 
           <select
             :value="routeQuery.filter.languageType"
-            class="select-bordered select w-full flex-1"
+            class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ languageType: (event.target as HTMLSelectElement).value})"
           >
-            <option value="" selected>{{ t("course.submissions.lang")}}</option>
+            <option value="" selected>{{ t("course.submissions.lang") }}</option>
             <option v-for="{ text, value } in languageTypes" :value="value">{{ text }}</option>
           </select>
 

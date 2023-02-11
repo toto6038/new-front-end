@@ -2,7 +2,7 @@
 import { inject, Ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const {t} = useI18n();
+const { t } = useI18n();
 
 defineProps<{
   // TODO: hard to type validator, does vuelidate have child component validation?
@@ -23,12 +23,14 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
       <span class="label-text">{{ t("components.problem.forms.probDescForm.desc") }}</span>
     </label>
     <textarea
-      :class="['textarea-bordered textarea h-24', v$.description.description.$error && 'textarea-error']"
+      :class="['textarea textarea-bordered h-24', v$.description.description.$error && 'textarea-error']"
       :value="problem.description.description"
-      @input="$emit('update', 'description', {
+      @input="
+        $emit('update', 'description', {
           ...problem.description,
-          description: ($event.target as HTMLTextAreaElement).value
-        })"
+          description: ($event.target as HTMLTextAreaElement).value,
+        })
+      "
     />
     <label class="label" v-show="v$.description.description.$error">
       <span class="label-text-alt text-error" v-text="v$.description.description.$errors[0]?.$message" />
@@ -40,12 +42,14 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
       <span class="label-text">{{ t("components.problem.forms.probDescForm.input") }}</span>
     </label>
     <textarea
-      :class="['textarea-bordered textarea h-24', v$.description.input.$error && 'textarea-error']"
+      :class="['textarea textarea-bordered h-24', v$.description.input.$error && 'textarea-error']"
       :value="problem.description.input"
-      @input="$emit('update', 'description', {
+      @input="
+        $emit('update', 'description', {
           ...problem.description,
-          input: ($event.target as HTMLTextAreaElement).value
-        })"
+          input: ($event.target as HTMLTextAreaElement).value,
+        })
+      "
     />
     <label class="label" v-show="v$.description.input.$error">
       <span class="label-text-alt text-error" v-text="v$.description.input.$errors[0]?.$message" />
@@ -57,12 +61,14 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
       <span class="label-text">{{ t("components.problem.forms.probDescForm.output") }}</span>
     </label>
     <textarea
-      :class="['textarea-bordered textarea h-24', v$.description.output.$error && 'textarea-error']"
+      :class="['textarea textarea-bordered h-24', v$.description.output.$error && 'textarea-error']"
       :value="problem.description.output"
-      @input="$emit('update', 'description', {
+      @input="
+        $emit('update', 'description', {
           ...problem.description,
-          output: ($event.target as HTMLTextAreaElement).value
-        })"
+          output: ($event.target as HTMLTextAreaElement).value,
+        })
+      "
     />
     <label class="label" v-show="v$.description.output.$error">
       <span class="label-text-alt text-error" v-text="v$.description.output.$errors[0]?.$message" />
@@ -74,12 +80,14 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
       <span class="label-text">{{ t("components.problem.forms.probDescForm.hint") }}</span>
     </label>
     <textarea
-      :class="['textarea-bordered textarea h-24', v$.description.hint.$error && 'textarea-error']"
+      :class="['textarea textarea-bordered h-24', v$.description.hint.$error && 'textarea-error']"
       :value="problem.description.hint"
-      @input="$emit('update', 'description', {
+      @input="
+        $emit('update', 'description', {
           ...problem.description,
-          hint: ($event.target as HTMLTextAreaElement).value
-        })"
+          hint: ($event.target as HTMLTextAreaElement).value,
+        })
+      "
     />
     <label class="label" v-show="v$.description.hint.$error">
       <span class="label-text-alt text-error" v-text="v$.description.hint.$errors[0]?.$message" />
@@ -88,10 +96,12 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
 
   <div class="col-span-2 flex w-full">
     <div class="rounded border border-error p-4" v-show="v$.description.sampleInput.$invalid">
-      {{ t("components.problem.forms.probDescForm.err.input") }}{{ v$.description.sampleInput.$silentErrors[0]?.$message }}
+      {{ t("components.problem.forms.probDescForm.err.input")
+      }}{{ v$.description.sampleInput.$silentErrors[0]?.$message }}
     </div>
     <div class="rounded border border-error p-4" v-show="v$.description.sampleOutput.$invalid">
-      {{ t("components.problem.forms.probDescForm.err.output") }}{{ v$.description.sampleOutput.$silentErrors[0]?.$message }}
+      {{ t("components.problem.forms.probDescForm.err.output")
+      }}{{ v$.description.sampleOutput.$silentErrors[0]?.$message }}
     </div>
   </div>
 
@@ -101,18 +111,18 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
         <span class="label-text">{{ t("components.problem.forms.probDescForm.sample.input") }}{{ no }}</span>
       </label>
       <textarea
-        class="textarea-bordered textarea h-24"
+        class="textarea textarea-bordered h-24"
         :value="problem.description.sampleInput[i]"
         @input="
-            $emit('update', 'description', {
-              ...problem.description,
-              sampleInput: [
-                ...problem.description.sampleInput.slice(0, i),
-                ($event.target as HTMLInputElement).value,
-                ...problem.description.sampleInput.slice(i + 1),
-              ],
-            })
-          "
+          $emit('update', 'description', {
+            ...problem.description,
+            sampleInput: [
+              ...problem.description.sampleInput.slice(0, i),
+              ($event.target as HTMLInputElement).value,
+              ...problem.description.sampleInput.slice(i + 1),
+            ],
+          })
+        "
       />
     </div>
 
@@ -121,18 +131,18 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
         <span class="label-text">{{ t("components.problem.forms.probDescForm.sample.input") }}{{ no }}</span>
       </label>
       <textarea
-        class="textarea-bordered textarea h-24"
+        class="textarea textarea-bordered h-24"
         :value="problem.description.sampleOutput[i]"
         @input="
-            $emit('update', 'description', {
-              ...problem.description,
-              sampleOutput: [
-                ...problem.description.sampleOutput.slice(0, i),
-                ($event.target as HTMLInputElement).value,
-                ...problem.description.sampleOutput.slice(i + 1),
-              ],
-            })
-          "
+          $emit('update', 'description', {
+            ...problem.description,
+            sampleOutput: [
+              ...problem.description.sampleOutput.slice(0, i),
+              ($event.target as HTMLInputElement).value,
+              ...problem.description.sampleOutput.slice(i + 1),
+            ],
+          })
+        "
       />
     </div>
   </template>
@@ -140,7 +150,7 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
   <div class="col-span-2 mx-auto">
     <div class="tooltip" data-tip="append new sample">
       <div
-        class="btn-sm btn mr-3"
+        class="btn btn-sm mr-3"
         @click="
           $emit('update', 'description', {
             ...problem.description,
@@ -154,7 +164,7 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
     </div>
     <div class="tooltip" data-tip="remove last sample">
       <div
-        class="btn-sm btn"
+        class="btn btn-sm"
         @click="
           $emit('update', 'description', {
             ...problem.description,

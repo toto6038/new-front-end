@@ -18,7 +18,7 @@ function closeModal() {
 <template>
   <TransitionRoot appear :show="modelValue" as="template">
     <Dialog as="div" :open="modelValue" @close="closeModal" class="fixed inset-0 z-10 overflow-y-auto">
-      <div class="modal-open modal">
+      <div class="modal modal-open">
         <TransitionChild
           as="template"
           enter="duration-300 ease-out"
@@ -51,7 +51,7 @@ function closeModal() {
             </div>
 
             <div class="mt-4">
-              <button type="button" class="btn-info btn-sm btn" @click="closeModal">OK</button>
+              <button type="button" class="btn btn-info btn-sm" @click="closeModal">OK</button>
             </div>
           </div>
         </TransitionChild>

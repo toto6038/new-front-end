@@ -87,7 +87,7 @@ async function submit() {
 
           <div class="flex-1" />
 
-          <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn-success btn">
+          <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn btn-success">
             <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New Members
           </label>
         </div>
@@ -97,7 +97,7 @@ async function submit() {
             <label class="label">
               <span class="label-text">Sort By</span>
             </label>
-            <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
+            <select v-model="sortBy" class="select select-bordered w-full max-w-xs">
               <option :value="MemberTableColumn.USERNAME">Username</option>
               <option :value="MemberTableColumn.DISPLAYED_NAME">Display Name</option>
               <option :value="MemberTableColumn.ROLE">Role</option>
@@ -177,14 +177,14 @@ async function submit() {
             </tbody>
           </table>
           <div class="flex">
-            <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+            <button class="btn btn-sm" @click="$emit('update:testdata', null)">
               <i-uil-times />
             </button>
           </div>
         </template>
         <div class="modal-action">
-          <label for="my-modal" class="btn-ghost btn">Cancel</label>
-          <div :class="['btn-success btn ml-3', isProcessingSignup && 'loading']" @click="submit">Submit</div>
+          <label for="my-modal" class="btn btn-ghost">Cancel</label>
+          <div :class="['btn btn-success ml-3', isProcessingSignup && 'loading']" @click="submit">Submit</div>
         </div>
       </div>
     </div>

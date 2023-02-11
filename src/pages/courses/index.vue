@@ -5,8 +5,7 @@ import { fetcher } from "@/models/api";
 import { useSession, UserRole } from "@/stores/session";
 import { useI18n } from "vue-i18n";
 
-
-const {t} = useI18n();
+const { t } = useI18n();
 
 useTitle("Courses | Normal OJ");
 const { data: courses, error, isLoading } = useAxios<CourseList>("/course", fetcher);
@@ -22,7 +21,7 @@ const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
         {{ t("courses.index.list") }}
         <router-link
           v-if="rolesCanCreateCourse.includes(session.role)"
-          class="btn-success btn"
+          class="btn btn-success"
           to="/courses/new"
         >
           <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
@@ -46,7 +45,7 @@ const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
             <tbody>
               <tr v-for="{ course, teacher } in courses" :key="course" class="hover">
                 <td>
-                  <router-link :to="`/course/${course}`" class="link-hover link">{{ course }}</router-link>
+                  <router-link :to="`/course/${course}`" class="link link-hover">{{ course }}</router-link>
                 </td>
                 <td>{{ teacher.username }}</td>
               </tr>

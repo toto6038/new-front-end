@@ -5,7 +5,7 @@ import { useI18n } from "vue-i18n";
 interface Props {
   due: number;
 }
-const {t} = useI18n();
+const { t } = useI18n();
 const props = defineProps<Props>();
 
 const moreThan99Days = ref(false);
