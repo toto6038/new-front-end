@@ -46,6 +46,32 @@ export default {
         },
         text: "提交",
       },
+      stats: {
+        title: "數據檢視－題號",
+        general: {
+          tried: "已嘗試使用者數量",
+          ac: "評判為接受使用者數量",
+          acRatio: "評判為接受比率",
+          avg: "平均分數",
+          sd: "標準差",
+        },
+        table: {
+          rt: {
+            title: "執行時間前十名",
+            id: "名次",
+            user: "使用者",
+            rt: "執行時間",
+            time: "繳交時間",
+          },
+          mem: {
+            title: "記憶體用量前十名",
+            id: "名次",
+            user: "使用者",
+            mem: "記憶體用量",
+            time: "繳交時間",
+          },
+        },
+      },
     },
     problems: {
       text: "題目",
@@ -115,7 +141,6 @@ export default {
       },
     },
   },
-  
   index: {
     ann: "公告",
     error: "噢不！載入公告時出現了技術錯誤。",
@@ -170,7 +195,7 @@ export default {
           notStart: "未開始",
           over: "已結束",
         },
-        availability:{
+        availability: {
           text: "期限",
           from: "自",
           due: "至",
@@ -245,7 +270,7 @@ export default {
       hw: "作業",
       prob: "題目",
       submit: "繳交狀態",
-    }, 
+    },
     loginSection: {
       welcome: "歡迎回來， ",
       signin: "登入",
@@ -257,10 +282,10 @@ export default {
       course: "課程",
       about: "關於",
       admin: "管理",
-      profile: "個人", 
+      profile: "個人",
     },
     dueCountdown: {
-      days:"日",
+      days: "日",
       hours: "小時",
       min: "分",
       sec: "秒",

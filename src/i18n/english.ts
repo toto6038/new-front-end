@@ -4,17 +4,17 @@ export default {
     select_lang: "Select your preferred language",
   },
   about: {
-    contributor:"Contributor",
-    links:"Links",
-    maintainer:"Maintainer",
+    contributor: "Contributor",
+    links: "Links",
+    maintainer: "Maintainer",
     service_l_2021: "NTNU CSIE Service Learning 2021 Spring",
     swe_2019: "Red Team of Software Engineering 2019 Fall",
   },
   course: {
     ann: {
       index: {
-        title:"Announcements",
-        err:"Oops! Something went wrong when loading announcements.",
+        title: "Announcements",
+        err: "Oops! Something went wrong when loading announcements.",
         table: {
           title: "Title",
           author: "Author",
@@ -26,7 +26,7 @@ export default {
       index: {
         title: "Homeworks",
         new: "New",
-        err: "Oops! Something went wrong when loading homeworks."
+        err: "Oops! Something went wrong when loading homeworks.",
       },
     },
     problem: {
@@ -45,6 +45,32 @@ export default {
           select: "Select language",
         },
         text: "Submit",
+      },
+      stats: {
+        title: "Stats for problem #",
+        general: {
+          tried: "Num of users tried",
+          ac: "Num of AC users",
+          acRatio: "AC Submission Ratio",
+          avg: "Average Score",
+          sd: "Standard Deviation",
+        },
+        table: {
+          rt: {
+            title: "Top 10 Run Time",
+            id: "#",
+            user: "User",
+            rt: "Run Time",
+            time: "Time",
+          },
+          mem: {
+            title: "Top 10 Memory Usage",
+            id: "#",
+            user: "User",
+            mem: "Memory Usage",
+            time: "Time",
+          },
+        },
       },
     },
     problems: {
@@ -130,7 +156,7 @@ export default {
   },
   profile: {
     title: "Profile",
-    err:{
+    err: {
       new_pw: "Please fill out this field.",
       old_pw: "Please fill out this field.",
       confirm_pw: {
@@ -144,7 +170,7 @@ export default {
     role: "Role",
     pw: {
       change: "Change Password",
-      change_msg:  "Password has been successfully changed",
+      change_msg: "Password has been successfully changed",
       new: "New Password",
       confirm: "Confirm New Password",
       current: "Current Password",
@@ -169,7 +195,7 @@ export default {
           notStart: "NOT START",
           over: "OVER",
         },
-        availability:{
+        availability: {
           text: "Availability",
           from: "From",
           due: "Due",
@@ -190,9 +216,7 @@ export default {
           stats: "Stats",
         },
       },
-      hwForm: {
-
-      },
+      hwForm: {},
     },
     problem: {
       forms: {
@@ -241,16 +265,14 @@ export default {
           },
         },
       },
-    },  
+    },
     courseSideBar: {
       ann: "Announcements",
       hw: "Homeworks",
       prob: "Problems",
       submit: "Submissions",
-    }, 
-    courseTopBar: {
-
     },
+    courseTopBar: {},
     loginSection: {
       welcome: "Welcome back, ",
       signin: "Sign in",
@@ -262,10 +284,10 @@ export default {
       course: "Course",
       about: "About",
       admin: "Admin",
-      profile: "Profile", 
+      profile: "Profile",
     },
     dueCountdown: {
-      days:"days",
+      days: "days",
       hours: "hours",
       min: "min",
       sec: "sec",
