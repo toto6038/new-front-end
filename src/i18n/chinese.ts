@@ -236,7 +236,7 @@ export default {
       hw: "作業",
       prob: "題目",
       submit: "繳交狀態",
-    }, 
+    },
     loginSection: {
       welcome: "歡迎回來， ",
       signin: "登入",
@@ -249,6 +249,12 @@ export default {
       about: "關於",
       admin: "管理",
       profile: "個人", 
+    },
+    dueCountdown: {
+      days:"日",
+      hours: "小時",
+      min: "分",
+      sec: "秒",
     },
   },
   constant: {

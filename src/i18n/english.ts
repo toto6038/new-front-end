@@ -255,6 +255,12 @@ export default {
       admin: "Admin",
       profile: "Profile", 
     },
+    dueCountdown: {
+      days:"days",
+      hours: "hours",
+      min: "min",
+      sec: "sec",
+    },
   },
   constant: {
     submissionStatus: {
