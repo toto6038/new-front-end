@@ -106,6 +106,15 @@ export default {
       },
     },
   },
+  courses: {
+    index: {
+      list: "課程清單",
+      table: {
+        course: "課程",
+        teacher: "教師",
+      },
+    },
+  },
   
   index: {
     ann: "公告",
@@ -236,7 +245,7 @@ export default {
       hw: "作業",
       prob: "題目",
       submit: "繳交狀態",
-    },
+    }, 
     loginSection: {
       welcome: "歡迎回來， ",
       signin: "登入",
