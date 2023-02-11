@@ -6,7 +6,7 @@ import { fetcher } from "@/models/api";
 import { useI18n } from "vue-i18n";
 
 const session = useSession();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/ann", fetcher);
 </script>
@@ -42,7 +42,7 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
                   <td v-if="session.isAdmin">
                     <div class="tooltip" data-tip="Edit">
                       <router-link
-                        class="btn btn-ghost btn-sm btn-circle"
+                        class="btn btn-ghost btn-circle btn-sm"
                         :to="`/course/Public/announcements/${annId}/edit`"
                       >
                         <i-uil-edit class="lg:h-5 lg:w-5" />

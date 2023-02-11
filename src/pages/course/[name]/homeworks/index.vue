@@ -9,7 +9,7 @@ import { useI18n } from "vue-i18n";
 
 const session = useSession();
 const route = useRoute();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 useTitle(`Homeworks - ${route.params.name} | Normal OJ`);
 const { data, error, isLoading } = useAxios<HomeworkList>(`/course/${route.params.name}/homework`, fetcher);

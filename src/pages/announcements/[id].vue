@@ -6,7 +6,7 @@ import { fetcher } from "@/models/api";
 import { useI18n } from "vue-i18n";
 
 const route = useRoute();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 useTitle(`Announcement - ${route.params.id} | Normal OJ`);
 const {

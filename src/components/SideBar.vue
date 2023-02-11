@@ -22,14 +22,7 @@ watchEffect(() => {
   theme.setIsDark(isDark.value);
 });
 
-const { t, locale } = useI18n();
-const localeInStorate = useStorage("locale", locale);
-// initialize with the one in storage
-locale.value = localeInStorate.value;
-// if user change the value, update the storage
-watchEffect(() => {
-  localeInStorate.value = locale.value;
-});
+const { t } = useI18n();
 
 const route = useRoute();
 const matchRoute = (path: string) => {

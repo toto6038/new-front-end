@@ -9,7 +9,7 @@ import { useI18n } from "vue-i18n";
 
 const session = useSession();
 const route = useRoute();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 useTitle(`Announcements - ${route.params.name} | Normal OJ`);
 const {
@@ -65,7 +65,7 @@ const {
                   <td v-if="session.isAdmin">
                     <div class="tooltip" data-tip="Edit">
                       <router-link
-                        class="btn btn-ghost btn-sm btn-circle"
+                        class="btn btn-ghost btn-circle btn-sm"
                         :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
                       >
                         <i-uil-edit class="lg:h-5 lg:w-5" />

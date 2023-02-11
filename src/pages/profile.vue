@@ -13,7 +13,7 @@ useTitle("Profile | Normal OJ");
 const router = useRouter();
 const session = useSession();
 const ROLE = ["Admin", "Teacher", "Student"];
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 async function logout() {
   await api.Auth.logout();

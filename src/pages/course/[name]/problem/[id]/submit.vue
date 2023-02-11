@@ -12,7 +12,7 @@ import { LANGUAGE_OPTIONS } from "@/constants";
 import { useI18n } from "vue-i18n";
 
 const route = useRoute();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
