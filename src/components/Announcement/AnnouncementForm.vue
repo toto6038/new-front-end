@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
+import { useI18n } from "vue-i18n";
 
 interface Props {
   value: Announcement | AnnouncementForm;
@@ -33,6 +34,8 @@ async function submit() {
     emit("submit");
   }
 }
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -45,7 +48,7 @@ async function submit() {
   <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Title</span>
+        <span class="label-text">{{ t("components.ann.form.titleField") }}</span>
       </label>
       <input
         type="text"
@@ -60,7 +63,7 @@ async function submit() {
 
     <div class="form-control">
       <label class="label cursor-pointer justify-start gap-x-4">
-        <span class="label-text">Pin to top</span>
+        <span class="label-text">{{ t("components.ann.form.pinToggle") }}</span>
         <input
           type="checkbox"
           class="toggle toggle-success"
@@ -72,7 +75,7 @@ async function submit() {
 
     <div class="form-control w-full lg:col-span-2">
       <label class="label">
-        <span class="label-text">Description</span>
+        <span class="label-text">{{ t("components.ann.form.descField") }}</span>
       </label>
       <textarea
         :class="['textarea textarea-bordered h-24', v$.markdown.$error && 'textarea-error']"
@@ -86,7 +89,7 @@ async function submit() {
   </div>
   <div class="mt-4 flex justify-end">
     <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
-      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ t("components.ann.form.submit") }}
     </button>
   </div>
 </template>

@@ -21,6 +21,11 @@ export default {
           author: "Author",
           time: "Create At",
         },
+        new: "New",
+      },
+      new: {
+        title: "New Announcement",
+        preview: "Preview",
       },
     },
     hw: {
@@ -29,8 +34,17 @@ export default {
         new: "New",
         err: "Oops! Something went wrong when loading homeworks.",
       },
+      new: {
+        title: "New Homework",
+        preview: "Preview",
+      },
     },
     problem: {
+      new: {
+        title: "New Problem",
+        preview: "Preview",
+        json: "JSON（for developer）",
+      },
       submit: {
         err: {
           code: "Please paste your source code to submit.",
@@ -81,6 +95,7 @@ export default {
       name: "Name",
       tags: "Tags",
       quota: "Quota",
+      new: "New",
     },
     submissions: {
       text: "Submissions",
@@ -133,6 +148,16 @@ export default {
         copy: "Copy",
       },
     },
+    members: {
+      title: "Members",
+      new: "New Members",
+      sortBy: "Sort By",
+      cancel: "Cancel",
+      submit: "Submit",
+      csvUploadHint1:
+        "Please upload a CSV file to add members, the first row (header) of the csv could contain:",
+      csvUploadHint2: "from the second row, place one member's data in one row",
+    },
   },
   courses: {
     index: {
@@ -141,6 +166,13 @@ export default {
         course: "Course",
         teacher: "Teacher",
       },
+      new: "New",
+    },
+    new: {
+      title: "New Course",
+      nameField: "Course Name",
+      teacherField: "Teacher",
+      submit: "Submit",
     },
   },
   index: {
@@ -190,7 +222,27 @@ export default {
     },
   },
   components: {
+    ann: {
+      form: {
+        titleField: "Title",
+        pinToggle: "Pin to top",
+        descField: "Description",
+        submit: "Submit",
+      },
+      card: {
+        lastUpdate: "Last updated: {time}",
+        postBy: "Posted by {author} at {time}",
+      },
+    },
     hw: {
+      form: {
+        nameField: "Name",
+        problems: "Problems",
+        fromField: "From",
+        dueField: "Due",
+        descField: "Description",
+        submit: "Submit",
+      },
       hwCard: {
         statusLabel: {
           running: "RUNNING",
@@ -222,6 +274,23 @@ export default {
     },
     problem: {
       forms: {
+        nameField: "Name",
+        hiddenToggle: "Hidden",
+        quotaField: "Quota",
+        quotaHint: "Set -1 for unlimited quota",
+        tags: "Tags",
+        tagsHint: "Separate with COMMA, e.g. HW1,HW2",
+        type: "Type",
+        allowedLangs: "Allowed Languages",
+        testdata: "Testdata",
+        howToPack: "How to pack testdata",
+        dropFile: "Drop File here or Choose File to upload",
+        subtask: "Subtask {no}",
+        numOfCases: "The number of testcases",
+        score: "Score",
+        memoryLimit: "Memory Limit (KB)",
+        timeLimit: "Time Limit (ms)",
+        submit: "Submit",
         probDescForm: {
           desc: "Description",
           input: "Input",
@@ -236,6 +305,16 @@ export default {
             output: "Sample Output ",
           },
         },
+        testdataRule1:
+          "Put all the input/output files in a single `.zip` file, and follow the naming rules below.",
+        testdataRule2:
+          'Name the input file as "sstt.in", where "ss" represents the number of subtasks it belongs to, and "tt" represents which testcase it is in subtask.',
+        testdataRule3:
+          'Similarly, name the ouput file as "sstt.out", NOTE THAT "ss" & "tt" are zero-indexed.',
+        testdataRule4:
+          "For example, a problem with 3 subtasks, and the number of testcases of each subtask is 3, 5, 15, respectively.",
+        testdataRule5: "The content of zip file is:",
+        gotIt: "Got it",
       },
       probCard: {
         title: "Problem #",
@@ -273,6 +352,7 @@ export default {
       hw: "Homeworks",
       prob: "Problems",
       submit: "Submissions",
+      member: "Members",
     },
     courseTopBar: {},
     loginSection: {

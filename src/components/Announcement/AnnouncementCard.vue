@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { formatTime } from "@/utils/formatTime";
+import { useI18n } from "vue-i18n";
 
 interface Props {
   announcement: AnnouncementListItem | AnnouncementPreviewForm;
 }
 defineProps<Props>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -15,10 +18,15 @@ defineProps<Props>();
         <markdown-renderer :md="announcement.markdown" />
 
         <div class="mt-4 flex items-center gap-2 text-sm">
-          Last updated: {{ formatTime(announcement.updateTime) }}
+          {{ t("components.ann.card.lastUpdate", { time: formatTime(announcement.updateTime) }) }}
         </div>
         <div class="mt-2 flex items-center gap-2 text-sm">
-          Posted by {{ announcement.creator.displayedName }} at {{ formatTime(announcement.createTime) }}
+          {{
+            t("components.ann.card.postBy", {
+              author: announcement.creator.displayedName,
+              time: formatTime(announcement.createTime),
+            })
+          }}
         </div>
       </div>
     </div>

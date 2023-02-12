@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide, Ref } from "vue";
 import { useTitle } from "@vueuse/core";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
@@ -46,7 +46,7 @@ function update<K extends keyof ProblemForm>(
     newProblem.value[key] = value;
   }
 }
-provide<ProblemForm>("problem", newProblem.value);
+provide<Ref<ProblemForm>>("problem", newProblem);
 const testdata = ref<File | null>(null);
 
 async function submit() {
@@ -96,14 +96,14 @@ const openJSON = ref<boolean>(false);
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">New Problem</div>
+        <div class="card-title mb-3 justify-between">{{ $t("course.problem.new.title") }}</div>
 
         <problem-form ref="formElement" v-model:testdata="testdata" @update="update" @submit="submit" />
 
         <div class="divider" />
 
         <div class="card-title mb-3">
-          Preview
+          {{ $t("course.problem.new.preview") }}
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 
@@ -116,7 +116,7 @@ const openJSON = ref<boolean>(false);
         <div class="divider my-4" />
 
         <div class="card-title mb-3">
-          JSON
+          {{ $t("course.problem.new.json") }}
           <input v-model="openJSON" type="checkbox" class="toggle" />
         </div>
 

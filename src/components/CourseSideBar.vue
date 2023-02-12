@@ -25,7 +25,7 @@ const navs = [
   ...(session.isAdmin
     ? [
         {
-          name: "Members",
+          name: t("components.courseSideBar.member"),
           path: "/members",
         },
       ]

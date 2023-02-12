@@ -24,7 +24,7 @@ const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
           class="btn btn-success"
           to="/courses/new"
         >
-          <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+          <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ t("courses.index.new") }}
         </router-link>
       </div>
 

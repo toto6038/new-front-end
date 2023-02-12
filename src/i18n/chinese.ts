@@ -21,6 +21,11 @@ export default {
           author: "發布者",
           time: "發布時間",
         },
+        new: "新增",
+      },
+      new: {
+        title: "新增公告",
+        preview: "預覽",
       },
     },
     hw: {
@@ -29,8 +34,17 @@ export default {
         new: "新增",
         err: "Oops! Something went wrong when loading homeworks.",
       },
+      new: {
+        title: "新增作業",
+        preview: "預覽",
+      },
     },
     problem: {
+      new: {
+        title: "新增題目",
+        preview: "預覽",
+        json: "JSON（供開發人員檢查）",
+      },
       submit: {
         err: {
           code: "請在此貼上你的原始碼以利繳交。",
@@ -81,6 +95,7 @@ export default {
       name: "題名",
       tags: "標籤",
       quota: "額度",
+      new: "新增",
     },
     submissions: {
       text: "繳交狀態",
@@ -133,6 +148,15 @@ export default {
         copy: "複製",
       },
     },
+    members: {
+      title: "成員",
+      new: "新增",
+      soryBy: "排序依據",
+      cancel: "取消",
+      submit: "送出",
+      csvUploadHint1: "上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：",
+      csvUploadHint2: "第二列開始每列為一個成員的資料",
+    },
   },
   courses: {
     index: {
@@ -141,6 +165,13 @@ export default {
         course: "課程",
         teacher: "教師",
       },
+      new: "新增",
+    },
+    new: {
+      title: "新增課程",
+      nameField: "課程名稱",
+      teacherField: "課程教師",
+      submit: "送出",
     },
   },
   index: {
@@ -190,7 +221,27 @@ export default {
     },
   },
   components: {
+    ann: {
+      form: {
+        titleField: "標題",
+        pinToggle: "置頂",
+        descField: "內容",
+        submit: "送出",
+      },
+      card: {
+        lastUpdate: "最後更新時間：{time}",
+        postBy: "由 {author} 張貼於 {time}",
+      },
+    },
     hw: {
+      form: {
+        nameField: "作業名稱",
+        problems: "題目集",
+        fromField: "開始時間",
+        dueField: "截止時間",
+        descField: "說明",
+        submit: "送出",
+      },
       hwCard: {
         statusLabel: {
           running: "進行中",
@@ -221,6 +272,23 @@ export default {
     },
     problem: {
       forms: {
+        nameField: "題目名稱",
+        hiddenToggle: "隱藏",
+        quotaField: "額度",
+        quotaHint: "若輸入 -1 則為無額度限制",
+        tags: "標籤",
+        tagsHint: "多個標籤以逗號分隔，例如：「HW1,HW2」",
+        type: "題型",
+        allowedLangs: "作答語言",
+        testdata: "測資",
+        howToPack: "了解測資檔案格式",
+        dropFile: "拖曳檔案至此，或透過右方按鈕選擇檔案",
+        subtask: "子任務 {no}",
+        numOfCases: "測資筆數",
+        score: "子任務分數",
+        memoryLimit: "記憶體限制（MB）",
+        timeLimit: "執行時間限制（ms）",
+        submit: "送出",
         probDescForm: {
           desc: "說明",
           input: "輸入",
@@ -235,6 +303,13 @@ export default {
             output: "範例輸出 ",
           },
         },
+        testdataRule1: "您需要將所有的輸入輸出檔置於一個 .zip 檔，且必須遵照以下命名規則",
+        testdataRule2:
+          '輸入檔的檔名應為 "sstt.in"，其中 "ss" 代表是第幾個子任務，而 "tt" 代表是該子任務中的第幾筆測資',
+        testdataRule3: '同樣地，輸出檔的檔名應為 "sstt.out"，另請注意 "ss" 和 "tt" 是從零開始編號.',
+        testdataRule4: "舉例來說，一個有 3 個子任務的題目，其子任務的測資數量分別是 3, 5, 15",
+        testdataRule5: "那麼 zip 檔內應該包含這些檔案：",
+        gotIt: "好的",
       },
       probCard: {
         title: "題目編號 ",
@@ -272,6 +347,7 @@ export default {
       hw: "作業",
       prob: "題目",
       submit: "繳交狀態",
+      member: "成員",
     },
     loginSection: {
       welcome: "歡迎回來， ",

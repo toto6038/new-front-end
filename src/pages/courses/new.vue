@@ -6,6 +6,7 @@ import api from "@/models/api";
 import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
+import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 useTitle(`New Course | Normal OJ`);
@@ -41,13 +42,15 @@ async function submit() {
     isLoading.value = false;
   }
 }
+
+const { t } = useI18n();
 </script>
 
 <template>
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3">New Course</div>
+        <div class="card-title mb-3">{{ t("courses.new.title") }}</div>
 
         <div v-if="errorMsg" class="alert alert-error shadow-lg">
           <div>
@@ -58,7 +61,7 @@ async function submit() {
 
         <div class="form-control w-full max-w-xs">
           <label class="label">
-            <span class="label-text">Course Name</span>
+            <span class="label-text">{{ t("courses.new.nameField") }}</span>
           </label>
           <input
             v-model="v$.course.$model"
@@ -72,7 +75,7 @@ async function submit() {
 
         <div class="form-control w-full max-w-xs">
           <label class="label">
-            <span class="label-text">Teacher</span>
+            <span class="label-text">{{ t("courses.new.teacherField") }}</span>
           </label>
           <input
             v-model="v$.teacher.$model"
@@ -86,7 +89,7 @@ async function submit() {
 
         <div class="mt-4 flex">
           <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
-            <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+            <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ t("courses.new.submit") }}
           </button>
         </div>
       </div>

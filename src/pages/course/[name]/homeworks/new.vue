@@ -67,7 +67,7 @@ async function submit() {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3 justify-between">New Homework</div>
+        <div class="card-title mb-3 justify-between">{{ $t("course.hw.new.title") }}</div>
 
         <data-status-wrapper :error="fetchError" :is-loading="isFetching">
           <template #loading>
@@ -85,7 +85,7 @@ async function submit() {
             <div class="divider" />
 
             <div class="card-title mb-3">
-              Preview
+              {{ $t("course.hw.new.preview") }}
               <input v-model="openPreview" type="checkbox" class="toggle" />
             </div>
 

@@ -30,7 +30,7 @@ const {
             class="btn btn-success"
             :to="`/course/${$route.params.name}/announcements/new`"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ t("course.ann.index.new") }}
           </router-link>
         </div>
 

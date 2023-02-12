@@ -83,19 +83,20 @@ async function submit() {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title">
-          Members <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
+          {{ $t("course.members.title") }}
+          <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
 
           <div class="flex-1" />
 
           <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn btn-success">
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New Members
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ $t("course.members.new") }}
           </label>
         </div>
 
         <div class="mb-4">
           <div class="form-control w-full max-w-xs">
             <label class="label">
-              <span class="label-text">Sort By</span>
+              <span class="label-text">{{ $t("course.members.sortBy") }}</span>
             </label>
             <select v-model="sortBy" class="select select-bordered w-full max-w-xs">
               <option :value="MemberTableColumn.USERNAME">Username</option>
@@ -183,8 +184,10 @@ async function submit() {
           </div>
         </template>
         <div class="modal-action">
-          <label for="my-modal" class="btn btn-ghost">Cancel</label>
-          <div :class="['btn btn-success ml-3', isProcessingSignup && 'loading']" @click="submit">Submit</div>
+          <label for="my-modal" class="btn btn-ghost">{{ $t("course.members.cancel") }}</label>
+          <div :class="['btn btn-success ml-3', isProcessingSignup && 'loading']" @click="submit">
+            {{ $t("course.members.submit") }}
+          </div>
         </div>
       </div>
     </div>

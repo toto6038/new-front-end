@@ -2,24 +2,20 @@
   <input type="checkbox" id="testdata-description" class="modal-toggle" />
   <div class="modal">
     <div class="modal-box">
-      <h3 class="text-lg font-bold">How to pack testdata</h3>
+      <h3 class="text-lg font-bold">{{ $t("components.problem.forms.howToPack") }}</h3>
       <p class="mt-4">
-        Put all the input/output files in a single `.zip` file, and follow the naming rules below.
+        {{ $t("components.problem.forms.testdataRule1") }}
       </p>
       <p class="mt-2">
-        Name the input file as <code>sstt.in</code>, where <code>ss</code> represents the number of subtasks
-        it belongs to, and <code>tt</code> represents which testcase it is in subtask.
+        {{ $t("components.problem.forms.testdataRule2") }}
       </p>
       <p class="mt-2">
-        Similarly, name the ouput file as <code>sstt.out</code>.
+        {{ $t("components.problem.forms.testdataRule3") }}
+      </p>
+      <p class="mt-2">
+        {{ $t("components.problem.forms.testdataRule4") }}
         <br />
-        Note that <code>ss</code> & <code>tt</code> are zero-indexed.
-      </p>
-      <p class="mt-2">
-        For example, a problem with 3 subtasks, and the number of testcases of each subtask is 3, 5, 15,
-        respectively.
-        <br />
-        The content of zip file is:
+        {{ $t("components.problem.forms.testdataRule5") }}
       </p>
       <pre class="mt-2"><code>{{ [
           "0000.in",
@@ -40,7 +36,7 @@
           "0214.out",
         ].join('\n') }}</code></pre>
       <div class="modal-action">
-        <label for="testdata-description" class="btn">Got it</label>
+        <label for="testdata-description" class="btn">{{ $t("components.problem.forms.gotIt") }}</label>
       </div>
     </div>
   </div>
