@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useI18n } from "vue-i18n";
 
 interface Props {
   due: number;
 }
-const { t } = useI18n();
 const props = defineProps<Props>();
 
 const moreThan99Days = ref(false);
@@ -47,25 +45,25 @@ setInterval(updateRemainTime, 1000);
         <template v-if="moreThan99Days">{{ ">" }}</template>
         <span :style="`--value: ${days}`"></span>
       </span>
-      <span class="text-sm">{{ t("components.dueCountdown.days") }}</span>
+      <span class="text-sm">{{ $t("components.dueCountdown.days") }}</span>
     </div>
     <div class="flex flex-col">
       <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${hours}`"></span>
       </span>
-      <span class="text-sm">{{ t("components.dueCountdown.hours") }}</span>
+      <span class="text-sm">{{ $t("components.dueCountdown.hours") }}</span>
     </div>
     <div class="flex flex-col">
       <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${minutes}`"></span>
       </span>
-      <span class="text-sm">{{ t("components.dueCountdown.min") }}</span>
+      <span class="text-sm">{{ $t("components.dueCountdown.min") }}</span>
     </div>
     <div class="flex flex-col">
       <span class="countdown font-mono text-3xl">
         <span :style="`--value: ${seconds}`"></span>
       </span>
-      <span class="text-sm">{{ t("components.dueCountdown.sec") }}</span>
+      <span class="text-sm">{{ $t("components.dueCountdown.sec") }}</span>
     </div>
   </div>
 </template>

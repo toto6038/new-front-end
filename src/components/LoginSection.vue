@@ -6,11 +6,9 @@ import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import api from "@/models/api";
 import axios from "axios";
-import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 const session = useSession();
-const { t } = useI18n();
 
 const loginForm = reactive({
   username: "",
@@ -57,25 +55,25 @@ async function login() {
           <ui-spinner />
         </div>
         <div v-else class="card-title mb-2">
-          {{ session.isLogin ? t("components.loginSection.welcome") : t("components.loginSection.signin") }}
+          {{ session.isLogin ? $t("components.loginSection.welcome") : $t("components.loginSection.signin") }}
           {{ session.isLogin ? `${session.displayedName}` : " " }}
         </div>
         <template v-if="session.isNotLogin">
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
             <div>
               <i-uil-times-circle />
-              <span>{{ t("index.login_f") }}</span>
+              <span>{{ $t("index.login_f") }}</span>
             </div>
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">{{ t("index.username") }}</span>
+              <span class="label-text">{{ $t("index.username") }}</span>
             </label>
             <input
               v-model="v$.username.$model"
               type="text"
               name="username"
-              :placeholder="t('index.placeholder.username')"
+              :placeholder="$t('index.placeholder.username')"
               :class="['input input-bordered', v$.username.$error && 'input-error']"
             />
             <label class="label" v-show="v$.username.$error">
@@ -84,18 +82,20 @@ async function login() {
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">{{ t("index.pw") }}</span>
+              <span class="label-text">{{ $t("index.pw") }}</span>
             </label>
             <input
               v-model="v$.password.$model"
               type="password"
               name="password"
-              :placeholder="t('index.placeholder.pw')"
+              :placeholder="$t('index.placeholder.pw')"
               :class="['input input-bordered', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />
             <label class="label flex-row-reverse">
-              <a href="#" class="link link-hover label-text-alt">{{ t("components.loginSection.forgot") }}</a>
+              <a href="#" class="link link-hover label-text-alt">{{
+                $t("components.loginSection.forgot")
+              }}</a>
               <span
                 v-show="v$.password.$error"
                 class="label-text-alt text-error"
@@ -105,7 +105,7 @@ async function login() {
           </div>
           <div class="form-control mt-6">
             <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
-              {{ t("components.loginSection.button") }}
+              {{ $t("components.loginSection.button") }}
             </button>
           </div>
         </template>

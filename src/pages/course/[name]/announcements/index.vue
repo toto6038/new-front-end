@@ -5,11 +5,9 @@ import { fetcher } from "@/models/api";
 import { formatTime } from "@/utils/formatTime";
 import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
-import { useI18n } from "vue-i18n";
 
 const session = useSession();
 const route = useRoute();
-const { t } = useI18n();
 
 useTitle(`Announcements - ${route.params.name} | Normal OJ`);
 const {
@@ -24,13 +22,13 @@ const {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title justify-between">
-          {{ t("course.ann.index.title") }}
+          {{ $t("course.ann.index.title") }}
           <router-link
             v-if="session.isAdmin"
             class="btn btn-success"
             :to="`/course/${$route.params.name}/announcements/new`"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ t("course.ann.index.new") }}
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ $t("course.ann.index.new") }}
           </router-link>
         </div>
 
@@ -44,9 +42,9 @@ const {
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>{{ t("course.ann.index.table.title") }}</th>
-                  <th>{{ t("course.ann.index.table.author") }}</th>
-                  <th>{{ t("course.ann.index.table.time") }}</th>
+                  <th>{{ $t("course.ann.index.table.title") }}</th>
+                  <th>{{ $t("course.ann.index.table.author") }}</th>
+                  <th>{{ $t("course.ann.index.table.time") }}</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>

@@ -10,12 +10,10 @@ import { formatTime } from "@/utils/formatTime";
 import { timeFromNow } from "@/utils/timeFromNow";
 import { useTitle, useClipboard } from "@vueuse/core";
 import { useProblemSelection } from "@/composables/useProblemSelection";
-import { useI18n } from "vue-i18n";
 
 const route = useRoute();
 const router = useRouter();
 const session = useSession();
-const { t } = useI18n();
 
 useTitle(`Submissions - ${route.params.name} | Normal OJ`);
 
@@ -108,7 +106,7 @@ function copySubmissionLink(path: string) {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title justify-between">
-          {{ t("course.submissions.text") }}
+          {{ $t("course.submissions.text") }}
 
           <input
             v-if="session.isAdmin"
@@ -127,7 +125,7 @@ function copySubmissionLink(path: string) {
             class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ problemId: (event.target as HTMLSelectElement).value})"
           >
-            <option value="" selected>{{ t("course.submissions.problem") }}</option>
+            <option value="" selected>{{ $t("course.submissions.problem") }}</option>
             <option v-for="{ text, value } in problemSelections" :value="value">{{ text }}</option>
           </select>
 
@@ -136,7 +134,7 @@ function copySubmissionLink(path: string) {
             class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ status: (event.target as HTMLSelectElement).value})"
           >
-            <option value="" selected>{{ t("course.submissions.status") }}</option>
+            <option value="" selected>{{ $t("course.submissions.status") }}</option>
             <option v-for="{ text, value } in submissionStatusCodes" :value="value">{{ text }}</option>
           </select>
 
@@ -145,7 +143,7 @@ function copySubmissionLink(path: string) {
             class="select select-bordered w-full flex-1"
             @change="(event) => mutateFilter({ languageType: (event.target as HTMLSelectElement).value})"
           >
-            <option value="" selected>{{ t("course.submissions.lang") }}</option>
+            <option value="" selected>{{ $t("course.submissions.lang") }}</option>
             <option v-for="{ text, value } in languageTypes" :value="value">{{ text }}</option>
           </select>
 
@@ -158,7 +156,7 @@ function copySubmissionLink(path: string) {
             class="btn"
             @click="mutateFilter({ problemId: '', status: '', languageType: '' })"
           >
-            <i-uil-filter-slash class="mr-1" /> {{ t("course.submissions.clear") }}
+            <i-uil-filter-slash class="mr-1" /> {{ $t("course.submissions.clear") }}
           </div>
         </div>
 
@@ -170,15 +168,15 @@ function copySubmissionLink(path: string) {
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>{{ t("course.submissions.table.id") }}</th>
-                  <th>{{ t("course.submissions.table.pid") }}</th>
-                  <th>{{ t("course.submissions.table.user") }}</th>
-                  <th>{{ t("course.submissions.table.result") }}</th>
-                  <th>{{ t("course.submissions.table.score") }}</th>
-                  <th>{{ t("course.submissions.table.r_time") }}</th>
-                  <th>{{ t("course.submissions.table.mem") }}</th>
-                  <th>{{ t("course.submissions.table.lang") }}</th>
-                  <th>{{ t("course.submissions.table.time") }}</th>
+                  <th>{{ $t("course.submissions.table.id") }}</th>
+                  <th>{{ $t("course.submissions.table.pid") }}</th>
+                  <th>{{ $t("course.submissions.table.user") }}</th>
+                  <th>{{ $t("course.submissions.table.result") }}</th>
+                  <th>{{ $t("course.submissions.table.score") }}</th>
+                  <th>{{ $t("course.submissions.table.r_time") }}</th>
+                  <th>{{ $t("course.submissions.table.mem") }}</th>
+                  <th>{{ $t("course.submissions.table.lang") }}</th>
+                  <th>{{ $t("course.submissions.table.time") }}</th>
                 </tr>
               </thead>
               <tbody>

@@ -8,9 +8,7 @@ import { formatTime } from "@/utils/formatTime";
 import api, { fetcher } from "@/models/api";
 import { useSession } from "@/stores/session";
 import { useTitle } from "@vueuse/core";
-import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
 const session = useSession();
 const route = useRoute();
 useTitle(`Submission - ${route.params.id} - ${route.params.name} | Normal OJ`);
@@ -63,7 +61,7 @@ async function rejudge() {
         <div class="flex flex-wrap items-start justify-between">
           <div class="flex flex-col gap-4">
             <div class="card-title md:text-2xl lg:text-3xl">
-              {{ t("course.submission.title") }}{{ $route.params.id }}
+              {{ $t("course.submission.title") }}{{ $route.params.id }}
             </div>
           </div>
 
@@ -80,7 +78,7 @@ async function rejudge() {
 
         <div class="card min-w-full rounded-none">
           <div class="card-body p-0">
-            <div class="card-title md:text-xl lg:text-2xl">{{ t("course.submission.general.title") }}</div>
+            <div class="card-title md:text-xl lg:text-2xl">{{ $t("course.submission.general.title") }}</div>
             <div class="my-1" />
 
             <data-status-wrapper :error="error" :is-loading="isLoading">
@@ -91,14 +89,14 @@ async function rejudge() {
                 <table v-if="submission" class="table w-full">
                   <thead>
                     <tr>
-                      <th>{{ t("course.submission.general.problem") }}</th>
-                      <th>{{ t("course.submission.general.user") }}</th>
-                      <th>{{ t("course.submission.general.status") }}</th>
-                      <th>{{ t("course.submission.general.rt") }}</th>
-                      <th>{{ t("course.submission.general.mem") }}</th>
-                      <th>{{ t("course.submission.general.score") }}</th>
-                      <th>{{ t("course.submission.general.lang") }}</th>
-                      <th>{{ t("course.submission.general.time") }}</th>
+                      <th>{{ $t("course.submission.general.problem") }}</th>
+                      <th>{{ $t("course.submission.general.user") }}</th>
+                      <th>{{ $t("course.submission.general.status") }}</th>
+                      <th>{{ $t("course.submission.general.rt") }}</th>
+                      <th>{{ $t("course.submission.general.mem") }}</th>
+                      <th>{{ $t("course.submission.general.score") }}</th>
+                      <th>{{ $t("course.submission.general.lang") }}</th>
+                      <th>{{ $t("course.submission.general.time") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -126,25 +124,25 @@ async function rejudge() {
 
             <div class="my-4" />
 
-            <div class="card-title md:text-xl lg:text-2xl">{{ t("course.submission.detail.title") }}</div>
+            <div class="card-title md:text-xl lg:text-2xl">{{ $t("course.submission.detail.title") }}</div>
             <div class="my-1" />
             <skeleton-table v-if="!submission" :col="5" :row="5" />
             <div v-else-if="isActive" class="flex items-center">
-              <ui-spinner class="mr-3 h-6 w-6" /> {{ t("course.submission.detail.desc") }}
+              <ui-spinner class="mr-3 h-6 w-6" /> {{ $t("course.submission.detail.desc") }}
             </div>
             <table v-else class="table-compact table w-full" v-for="(task, taskIndex) in submission.tasks">
               <thead>
                 <tr>
-                  <th>{{ t("course.submission.detail.id") }} {{ taskIndex }}</th>
-                  <th>{{ t("course.submission.detail.status") }}</th>
-                  <th>{{ t("course.submission.detail.rt") }}</th>
-                  <th>{{ t("course.submission.detail.mem") }}</th>
-                  <th>{{ t("course.submission.detail.score") }}</th>
+                  <th>{{ $t("course.submission.detail.id") }} {{ taskIndex }}</th>
+                  <th>{{ $t("course.submission.detail.status") }}</th>
+                  <th>{{ $t("course.submission.detail.rt") }}</th>
+                  <th>{{ $t("course.submission.detail.mem") }}</th>
+                  <th>{{ $t("course.submission.detail.score") }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{{ t("course.submission.detail.overall") }}</td>
+                  <td>{{ $t("course.submission.detail.overall") }}</td>
                   <td><judge-status :status="task.status" /></td>
                   <td>{{ task.execTime }} ms</td>
                   <td>{{ task.memoryUsage }} KB</td>
@@ -160,8 +158,8 @@ async function rejudge() {
                       <i-uil-angle-up v-else />
                       {{
                         expandTasks[taskIndex]
-                          ? t("course.submission.detail.result.hide")
-                          : t("course.submission.detail.result.show")
+                          ? $t("course.submission.detail.result.hide")
+                          : $t("course.submission.detail.result.show")
                       }}
                     </div>
                   </td>
@@ -184,14 +182,14 @@ async function rejudge() {
         <div v-else class="card min-w-full rounded-none">
           <div class="card-body p-0">
             <div class="card-title md:text-xl lg:text-2xl">
-              {{ t("course.submission.source.text") }}
+              {{ $t("course.submission.source.text") }}
               <!-- TODO submission?.code should without ? -->
               <button
                 v-if="isSupported && submission"
                 class="btn btn-info btn-xs ml-3"
                 @click="copy(submission?.code || '')"
               >
-                {{ copied ? t("course.submission.source.copied") : t("course.submission.source.copy") }}
+                {{ copied ? $t("course.submission.source.copied") : $t("course.submission.source.copy") }}
               </button>
             </div>
             <div class="my-1" />
