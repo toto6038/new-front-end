@@ -13,7 +13,7 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3">{{ $t("index.ann") }}</div>
+        <div class="card-title mb-3">{{ $t("components.systemAnn.ann") }}</div>
         <div class="my-2" />
 
         <data-status-wrapper :error="error" :is-loading="isLoading">
@@ -24,8 +24,8 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>{{ $t("index.title") }}</th>
-                  <th>{{ $t("index.create_t") }}</th>
+                  <th>{{ $t("components.systemAnn.title") }}</th>
+                  <th>{{ $t("components.systemAnn.createTime") }}</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>

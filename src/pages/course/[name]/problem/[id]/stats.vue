@@ -174,16 +174,18 @@ const barOption = computed(() => ({
 
         <div class="my-2" />
 
-        <div class="card-title md:text-xl lg:text-2xl">{{ t("course.problem.stats.table.rt.title") }}</div>
+        <div class="card-title md:text-xl lg:text-2xl">
+          {{ t("course.problem.stats.table.runtimeRank.title") }}
+        </div>
         <div class="my-1" />
         <skeleton-table v-if="isLoading" :col="4" :row="10" />
         <table v-else class="table-compact table w-full">
           <thead>
             <tr>
-              <th>{{ t("course.problem.stats.table.rt.id") }}</th>
-              <th>{{ t("course.problem.stats.table.rt.user") }}</th>
-              <th>{{ t("course.problem.stats.table.rt.rt") }}</th>
-              <th>{{ t("course.problem.stats.table.rt.time") }}</th>
+              <th>{{ t("course.problem.stats.table.runtimeRank.id") }}</th>
+              <th>{{ t("course.problem.stats.table.runtimeRank.user") }}</th>
+              <th>{{ t("course.problem.stats.table.runtimeRank.runtime") }}</th>
+              <th>{{ t("course.problem.stats.table.runtimeRank.time") }}</th>
             </tr>
           </thead>
           <tbody>
@@ -198,16 +200,18 @@ const barOption = computed(() => ({
 
         <div class="my-5" />
 
-        <div class="card-title md:text-xl lg:text-2xl">{{ t("course.problem.stats.table.mem.title") }}</div>
+        <div class="card-title md:text-xl lg:text-2xl">
+          {{ t("course.problem.stats.table.memoryRank.title") }}
+        </div>
         <div class="my-1" />
         <skeleton-table v-if="isLoading" :col="4" :row="10" />
         <table v-else class="table-compact table w-full">
           <thead>
             <tr>
-              <th>{{ t("course.problem.stats.table.mem.id") }}</th>
-              <th>{{ t("course.problem.stats.table.mem.user") }}</th>
-              <th>{{ t("course.problem.stats.table.mem.mem") }}</th>
-              <th>{{ t("course.problem.stats.table.mem.time") }}</th>
+              <th>{{ t("course.problem.stats.table.memoryRank.id") }}</th>
+              <th>{{ t("course.problem.stats.table.memoryRank.user") }}</th>
+              <th>{{ t("course.problem.stats.table.memoryRank.memory") }}</th>
+              <th>{{ t("course.problem.stats.table.memoryRank.time") }}</th>
             </tr>
           </thead>
           <tbody>

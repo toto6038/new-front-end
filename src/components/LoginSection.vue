@@ -62,18 +62,18 @@ async function login() {
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
             <div>
               <i-uil-times-circle />
-              <span>{{ $t("index.login_f") }}</span>
+              <span>{{ $t("components.loginSection.login_f") }}</span>
             </div>
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">{{ $t("index.username") }}</span>
+              <span class="label-text">{{ $t("components.loginSection.username") }}</span>
             </label>
             <input
               v-model="v$.username.$model"
               type="text"
               name="username"
-              :placeholder="$t('index.placeholder.username')"
+              :placeholder="$t('components.loginSection.placeholder.username')"
               :class="['input input-bordered', v$.username.$error && 'input-error']"
             />
             <label class="label" v-show="v$.username.$error">
@@ -82,13 +82,13 @@ async function login() {
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">{{ $t("index.pw") }}</span>
+              <span class="label-text">{{ $t("components.loginSection.pw") }}</span>
             </label>
             <input
               v-model="v$.password.$model"
               type="password"
               name="password"
-              :placeholder="$t('index.placeholder.pw')"
+              :placeholder="$t('components.loginSection.placeholder.pw')"
               :class="['input input-bordered', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />

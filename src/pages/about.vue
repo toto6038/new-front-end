@@ -12,11 +12,11 @@ const teams = [
     people: ["AlaRduTP", "as535364", "asef18766", "Bogay", "skps2010", "uier"],
   },
   {
-    title: t("about.service_l_2022"),
+    title: t("about.serviceLearning2022"),
     people: ["180079995", "aokblast", "howard9199", "laporchen", "Misawai"],
   },
   {
-    title: t("about.service_l_2021"),
+    title: t("about.serviceLearning2021"),
     people: [
       "Alanasdw",
       "BirkhoffLee",
@@ -34,7 +34,7 @@ const teams = [
     ],
   },
   {
-    title: t("about.swe_2019"),
+    title: t("about.swe2019"),
     people: [
       "aisu-programming",
       "AlaRduTP",

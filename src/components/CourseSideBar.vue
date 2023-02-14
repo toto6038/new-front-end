@@ -15,17 +15,17 @@ const navs = [
     path: "/homeworks",
   },
   {
-    name: t("components.courseSideBar.prob"),
+    name: t("components.courseSideBar.problems"),
     path: "/problems",
   },
   {
-    name: t("components.courseSideBar.submit"),
+    name: t("components.courseSideBar.submissions"),
     path: "/submissions",
   },
   ...(session.isAdmin
     ? [
         {
-          name: t("components.courseSideBar.member"),
+          name: t("components.courseSideBar.members"),
           path: "/members",
         },
       ]

@@ -1,15 +1,15 @@
 export default {
   settings: {
     title: "設定",
-    select_lang: "選擇語言",
+    selectLang: "選擇語言",
   },
   about: {
     contributor: "貢獻者",
     links: "連結",
     maintainer: "維護人員",
-    service_l_2022: "臺師大資工系 2022 年秋季服務學習",
-    service_l_2021: "臺師大資工系 2021 年春季服務學習",
-    swe_2019: "2019 年秋季軟體工程「紅隊」組",
+    serviceLearning2022: "臺師大資工系 2022 年秋季服務學習",
+    serviceLearning2021: "臺師大資工系 2021 年春季服務學習",
+    swe2019: "2019 年秋季軟體工程「紅隊」組",
   },
   course: {
     ann: {
@@ -72,18 +72,18 @@ export default {
           sd: "標準差",
         },
         table: {
-          rt: {
+          runtimeRank: {
             title: "執行時間前十名",
             id: "名次",
             user: "使用者",
-            rt: "執行時間",
+            runtime: "執行時間",
             time: "繳交時間",
           },
-          mem: {
+          memoryRank: {
             title: "記憶體用量前十名",
             id: "名次",
             user: "使用者",
-            mem: "記憶體用量",
+            memory: "記憶體用量",
             time: "繳交時間",
           },
         },
@@ -104,26 +104,26 @@ export default {
       lang: "語言",
       clear: "清除",
       table: {
-        id: "版本號碼 (id)",
-        pid: "題號 (pid)",
-        user: "使用者 (user)",
-        result: "結果 (result)",
-        score: "得分 (score)",
-        r_time: "執行時間 (run time)",
-        mem: "記憶體用量 (memory)",
-        lang: "語言 (lang)",
-        time: "時間 (time)",
+        id: "id",
+        pid: "題號",
+        user: "使用者",
+        result: "評判結果",
+        score: "得分",
+        runtime: "執行時間",
+        memory: "記憶體用量",
+        lang: "語言",
+        time: "繳交時間",
       },
     },
     submission: {
-      title: "繳交版本號碼 ",
+      title: "Submission ID: ",
       general: {
         title: "總覽",
         problem: "題號",
         user: "使用者",
         status: "評判結果",
-        rt: "執行時間",
-        mem: "記憶體用量",
+        runtime: "執行時間",
+        memory: "記憶體用量",
         score: "得分",
         lang: "語言",
         time: "繳交時間",
@@ -133,8 +133,8 @@ export default {
         desc: "作業正在批改，頁面將會自動更新。",
         id: "子任務",
         status: "評判結果",
-        rt: "執行時間",
-        mem: "記憶體用量",
+        runtime: "執行時間",
+        memory: "記憶體用量",
         score: "得分",
         overall: "整體結果",
         result: {
@@ -174,26 +174,10 @@ export default {
       submit: "送出",
     },
   },
-  index: {
-    ann: "公告",
-    error: "噢不！載入公告時出現了技術錯誤。",
-    title: "標題",
-    create_t: "建立時間",
-    login_f: "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
-    username: "帳號 / 電子郵件地址",
-    pw: "密碼",
-    placeholder: {
-      username: "帳號 / 電子郵件地址",
-      pw: "密碼",
-    },
-  },
   profile: {
     title: "個人資料",
-    err: {
-      new_pw: "請填寫此欄位。",
-      old_pw: "請填寫此欄位。",
-      confirm_pw: {
-        required: "請填寫此欄位。",
+    rules: {
+      confirmPassword: {
         sameAsRef: "密碼不符合。",
       },
     },
@@ -203,7 +187,7 @@ export default {
     role: "角色",
     pw: {
       change: "變更密碼",
-      change_msg: "密碼已成功變更",
+      success: "密碼已成功變更",
       new: "新密碼",
       confirm: "確認新密碼",
       current: "舊密碼",
@@ -242,7 +226,7 @@ export default {
         descField: "說明",
         submit: "送出",
       },
-      hwCard: {
+      card: {
         statusLabel: {
           running: "進行中",
           notStart: "未開始",
@@ -311,47 +295,58 @@ export default {
         testdataRule5: "那麼 zip 檔內應該包含這些檔案：",
         gotIt: "好的",
       },
-      probCard: {
+      card: {
         title: "題目編號 ",
         quota: "額度",
         score: "得分",
         submit: "提交",
         stats: "數據",
-        card: {
-          desc: "說明",
+        desc: "說明",
+        input: "輸入",
+        output: "輸出",
+        ex: "範例",
+        sample: {
+          id: "編號",
           input: "輸入",
           output: "輸出",
-          ex: "範例",
-          sample: {
-            id: "編號",
-            input: "輸入",
-            output: "輸出",
-            no: {
-              input: "無輸入",
-              output: "無輸出",
-            },
-          },
-          hint: "提示",
-          subtasks: {
-            title: "子任務",
-            id: "編號",
-            tl: "執行時間限制",
-            ml: "記憶體限制",
-            score: "配分",
+          no: {
+            input: "無輸入",
+            output: "無輸出",
           },
         },
+        hint: "提示",
+        subtasks: {
+          title: "子任務",
+          id: "編號",
+          tl: "執行時間限制",
+          ml: "記憶體限制",
+          score: "配分",
+        },
+        noContent: "無",
       },
     },
     courseSideBar: {
       ann: "公告",
       hw: "作業",
-      prob: "題目",
-      submit: "繳交狀態",
-      member: "成員",
+      problems: "題目",
+      submissions: "繳交狀態",
+      members: "成員",
+    },
+    systemAnn: {
+      ann: "公告",
+      title: "標題",
+      createTime: "建立時間",
     },
     loginSection: {
       welcome: "歡迎回來， ",
       signin: "登入",
+      loginFailed: "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
+      username: "帳號 / 電子郵件地址",
+      pw: "密碼",
+      placeholder: {
+        username: "帳號 / 電子郵件地址",
+        pw: "密碼",
+      },
       forgot: "忘記密碼?",
       button: "登入",
     },
@@ -367,6 +362,9 @@ export default {
       hours: "小時",
       min: "分",
       sec: "秒",
+    },
+    markdownRenderer: {
+      noContent: "無",
     },
   },
   constant: {

@@ -36,17 +36,9 @@ const rules = {
   confirmPassword: {
     required,
     sameAsRef: helpers.withMessage(
-      "The value must be equal to New Password",
+      t("profile.rules.confirmPassword.sameAsRef"),
       sameAs(toRef(changePasswordForm, "newPassword")),
     ),
-  },
-};
-const errorMessages = {
-  newPassword: t("profile.err.new_pw"),
-  oldPassword: t("profile.err.old_pw"),
-  confirmPassword: {
-    required: t("profile.err.confirm_pw.required"),
-    sameAsRef: t("profile.err.confirm_pw.sameAsRef"),
   },
 };
 const v$ = useVuelidate(rules, changePasswordForm);
@@ -133,7 +125,7 @@ function clearForm() {
         <div class="alert alert-success shadow-lg" v-else-if="changePasswordForm.isFinished">
           <div>
             <i-uil-check-circle />
-            <span>{{ t("profile.pw.change_msg") }}</span>
+            <span>{{ t("profile.pw.success") }}</span>
           </div>
         </div>
         <div class="form-control">

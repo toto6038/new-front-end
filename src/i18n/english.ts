@@ -1,15 +1,15 @@
 export default {
   settings: {
     title: "Settings",
-    select_lang: "Select your preferred language",
+    selectLang: "Select your preferred language",
   },
   about: {
     contributor: "Contributor",
     links: "Links",
     maintainer: "Maintainer",
-    service_l_2022: "NTNU CSIE Service Learning 2022 Fall",
-    service_l_2021: "NTNU CSIE Service Learning 2021 Spring",
-    swe_2019: "Red Team of Software Engineering 2019 Fall",
+    serviceLearning2022: "NTNU CSIE Service Learning 2022 Fall",
+    serviceLearning2021: "NTNU CSIE Service Learning 2021 Spring",
+    swe2019: "Red Team of Software Engineering 2019 Fall",
   },
   course: {
     ann: {
@@ -72,18 +72,18 @@ export default {
           sd: "Standard Deviation",
         },
         table: {
-          rt: {
+          runtimeRank: {
             title: "Top 10 Run Time",
             id: "#",
             user: "User",
-            rt: "Run Time",
+            runtime: "Run Time",
             time: "Time",
           },
-          mem: {
+          memoryRank: {
             title: "Top 10 Memory Usage",
             id: "#",
             user: "User",
-            mem: "Memory Usage",
+            memory: "Memory Usage",
             time: "Time",
           },
         },
@@ -109,21 +109,21 @@ export default {
         user: "user",
         result: "result",
         score: "score",
-        r_time: "run time",
-        mem: "memory",
+        runtime: "run time",
+        memory: "memory",
         lang: "lang",
         time: "time",
       },
     },
     submission: {
-      title: "Submission ",
+      title: "Submission ID: ",
       general: {
         title: "General",
         problem: "Problem",
         user: "User",
         status: "Status",
-        rt: "Run Time",
-        mem: "Memory",
+        runtime: "Run Time",
+        memory: "Memory",
         score: "Score",
         lang: "Lang",
         time: "Time",
@@ -133,8 +133,8 @@ export default {
         desc: "Pending submission will be refetched automatically.",
         id: "#",
         status: "Status",
-        rt: "Run Time",
-        mem: "Memory",
+        runtime: "Run Time",
+        memory: "Memory",
         score: "Score",
         overall: "Overall",
         result: {
@@ -175,26 +175,10 @@ export default {
       submit: "Submit",
     },
   },
-  index: {
-    ann: "Announcements",
-    error: "Oops! Something went wrong when loading announcements.",
-    title: "Title",
-    create_t: "Create At",
-    login_f: "Login Failed: Your username/email or password is incorrect",
-    username: "Username / Email",
-    pw: "Password",
-    placeholder: {
-      username: "username or email",
-      pw: "password",
-    },
-  },
   profile: {
     title: "Profile",
-    err: {
-      new_pw: "Please fill out this field.",
-      old_pw: "Please fill out this field.",
-      confirm_pw: {
-        required: "Please fill out this field.",
+    rules: {
+      confirmPassword: {
         sameAsRef: "Password does not match.",
       },
     },
@@ -204,7 +188,7 @@ export default {
     role: "Role",
     pw: {
       change: "Change Password",
-      change_msg: "Password has been successfully changed",
+      success: "Password has been successfully changed",
       new: "New Password",
       confirm: "Confirm New Password",
       current: "Current Password",
@@ -243,7 +227,7 @@ export default {
         descField: "Description",
         submit: "Submit",
       },
-      hwCard: {
+      card: {
         statusLabel: {
           running: "RUNNING",
           notStart: "NOT START",
@@ -316,48 +300,58 @@ export default {
         testdataRule5: "The content of zip file is:",
         gotIt: "Got it",
       },
-      probCard: {
+      card: {
         title: "Problem #",
         quota: "Quota",
         score: "Score",
         submit: "Submit",
         stats: "Stats",
-        card: {
-          desc: "Description",
+        desc: "Description",
+        input: "Input",
+        output: "Output",
+        ex: "Examples",
+        sample: {
+          id: "#",
           input: "Input",
           output: "Output",
-          ex: "Examples",
-          sample: {
-            id: "#",
-            input: "Input",
-            output: "Output",
-            no: {
-              input: "no input",
-              output: "no output",
-            },
-          },
-          hint: "Hint",
-          subtasks: {
-            title: "Subtasks",
-            id: "#",
-            tl: "Time Limit",
-            ml: "Memory Limit",
-            score: "Score",
+          no: {
+            input: "no input",
+            output: "no output",
           },
         },
+        hint: "Hint",
+        subtasks: {
+          title: "Subtasks",
+          id: "#",
+          tl: "Time Limit",
+          ml: "Memory Limit",
+          score: "Score",
+        },
+        noContent: "no content",
       },
     },
     courseSideBar: {
       ann: "Announcements",
       hw: "Homeworks",
-      prob: "Problems",
-      submit: "Submissions",
-      member: "Members",
+      problems: "Problems",
+      submissions: "Submissions",
+      members: "Members",
     },
-    courseTopBar: {},
+    systemAnn: {
+      ann: "Announcements",
+      title: "Title",
+      createTime: "Create At",
+    },
     loginSection: {
       welcome: "Welcome back, ",
       signin: "Sign in",
+      loginFailed: "Login Failed: Your username/email or password is incorrect",
+      username: "Username / Email",
+      pw: "Password",
+      placeholder: {
+        username: "username or email",
+        pw: "password",
+      },
       forgot: "Forgot password?",
       button: "Sign In",
     },
@@ -373,6 +367,9 @@ export default {
       hours: "hours",
       min: "min",
       sec: "sec",
+    },
+    markdownRenderer: {
+      noContent: "no content",
     },
   },
   constant: {

@@ -173,8 +173,8 @@ function copySubmissionLink(path: string) {
                   <th>{{ $t("course.submissions.table.user") }}</th>
                   <th>{{ $t("course.submissions.table.result") }}</th>
                   <th>{{ $t("course.submissions.table.score") }}</th>
-                  <th>{{ $t("course.submissions.table.r_time") }}</th>
-                  <th>{{ $t("course.submissions.table.mem") }}</th>
+                  <th>{{ $t("course.submissions.table.runtime") }}</th>
+                  <th>{{ $t("course.submissions.table.memory") }}</th>
                   <th>{{ $t("course.submissions.table.lang") }}</th>
                   <th>{{ $t("course.submissions.table.time") }}</th>
                 </tr>

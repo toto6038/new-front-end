@@ -92,8 +92,8 @@ async function rejudge() {
                       <th>{{ $t("course.submission.general.problem") }}</th>
                       <th>{{ $t("course.submission.general.user") }}</th>
                       <th>{{ $t("course.submission.general.status") }}</th>
-                      <th>{{ $t("course.submission.general.rt") }}</th>
-                      <th>{{ $t("course.submission.general.mem") }}</th>
+                      <th>{{ $t("course.submission.general.runtime") }}</th>
+                      <th>{{ $t("course.submission.general.memory") }}</th>
                       <th>{{ $t("course.submission.general.score") }}</th>
                       <th>{{ $t("course.submission.general.lang") }}</th>
                       <th>{{ $t("course.submission.general.time") }}</th>
@@ -135,8 +135,8 @@ async function rejudge() {
                 <tr>
                   <th>{{ $t("course.submission.detail.id") }} {{ taskIndex }}</th>
                   <th>{{ $t("course.submission.detail.status") }}</th>
-                  <th>{{ $t("course.submission.detail.rt") }}</th>
-                  <th>{{ $t("course.submission.detail.mem") }}</th>
+                  <th>{{ $t("course.submission.detail.runtime") }}</th>
+                  <th>{{ $t("course.submission.detail.memory") }}</th>
                   <th>{{ $t("course.submission.detail.score") }}</th>
                 </tr>
               </thead>

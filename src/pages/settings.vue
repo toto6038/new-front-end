@@ -36,7 +36,7 @@ watchEffect(() => {
             <option value="taiwanese">台灣話</option>
           </select>
           <label class="label">
-            <span class="label-text-alt">{{ t("settings.select_lang") }}</span>
+            <span class="label-text-alt">{{ t("settings.selectLang") }}</span>
           </label>
         </div>
       </div>
