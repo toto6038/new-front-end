@@ -72,7 +72,7 @@ const session = useSession();
     </li>
     <li>
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/settings') }" to="/settings">
-        <i-uil-setting class="h-6 w-6" />
+        <i-uil-language class="h-6 w-6" />
       </side-bar-link>
     </li>
     <li>

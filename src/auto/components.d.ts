@@ -35,6 +35,7 @@ declare module '@vue/runtime-core' {
     IUilFolderDownload: typeof import('~icons/uil/folder-download')['default']
     IUilGithub: typeof import('~icons/uil/github')['default']
     IUilHome: typeof import('~icons/uil/home')['default']
+    IUilLanguage: typeof import('~icons/uil/language')['default']
     IUilLink: typeof import('~icons/uil/link')['default']
     IUilMapMarkerInfo: typeof import('~icons/uil/map-marker-info')['default']
     IUilMinus: typeof import('~icons/uil/minus')['default']

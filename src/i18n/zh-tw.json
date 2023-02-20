@@ -1,366 +1,371 @@
 {
-    "settings": {
-        "title": "設定",
-        "selectLang": "選擇語言"
-    },
-    "about": {
-        "contributor": "貢獻者",
-        "links": "連結",
-        "maintainer": "維護人員",
-        "serviceLearning2022": "臺師大資工系 2022 年秋季服務學習",
-        "serviceLearning2021": "臺師大資工系 2021 年春季服務學習",
-        "swe2019": "2019 年秋季軟體工程「紅隊」組"
-    },
-    "course": {
-        "ann": {
-            "index": {
-                "title": "公告",
-                "table": {
-                    "title": "標題",
-                    "author": "發布者",
-                    "time": "發布時間"
-                },
-                "new": "新增"
-            },
-            "new": {
-                "title": "新增公告",
-                "preview": "預覽"
-            }
+  "settings": {
+    "title": "設定",
+    "selectLang": "選擇語言"
+  },
+  "about": {
+    "contributor": "貢獻者",
+    "links": "連結",
+    "maintainer": "維護人員",
+    "serviceLearning2022": "臺師大資工系 2022 年秋季服務學習",
+    "serviceLearning2021": "臺師大資工系 2021 年春季服務學習",
+    "swe2019": "2019 年秋季軟體工程「紅隊」組"
+  },
+  "course": {
+    "ann": {
+      "index": {
+        "title": "公告",
+        "table": {
+          "title": "標題",
+          "author": "發布者",
+          "time": "發布時間"
         },
-        "hw": {
-            "index": {
-                "title": "作業",
-                "new": "新增"
-            },
-            "new": {
-                "title": "新增作業",
-                "preview": "預覽"
-            }
+        "new": "新增"
+      },
+      "new": {
+        "title": "新增公告",
+        "preview": "預覽"
+      }
+    },
+    "hw": {
+      "index": {
+        "title": "作業",
+        "new": "新增"
+      },
+      "new": {
+        "title": "新增作業",
+        "preview": "預覽"
+      }
+    },
+    "problem": {
+      "new": {
+        "title": "新增題目",
+        "preview": "預覽",
+        "json": "JSON（供開發人員檢查）"
+      },
+      "submit": {
+        "err": {
+          "code": "請在此貼上你的原始碼以利繳交。",
+          "lang": "請選擇程式語言。",
+          "msg": "Oops! Something went wrong when submitting the code. Try again later."
         },
-        "problem": {
-            "new": {
-                "title": "新增題目",
-                "preview": "預覽",
-                "json": "JSON（供開發人員檢查）"
-            },
-            "submit": {
-                "err": {
-                    "code": "請在此貼上你的原始碼以利繳交。",
-                    "lang": "請選擇程式語言。",
-                    "msg": "Oops! Something went wrong when submitting the code. Try again later."
-                },
-                "card": {
-                    "title": "繳交至題號 ",
-                    "placeholder": "在此貼上程式碼"
-                },
-                "lang": {
-                    "text": "語言",
-                    "select": "選擇語言"
-                },
-                "text": "提交"
-            },
-            "stats": {
-                "pieTitle": "繳交結果",
-                "title": "數據檢視－題號",
-                "general": {
-                    "tried": "已嘗試使用者數量",
-                    "ac": "AC 使用者數量",
-                    "acRatio": "AC Submission 比率",
-                    "avg": "平均分數",
-                    "sd": "標準差"
-                },
-                "table": {
-                    "runtimeRank": {
-                        "title": "執行時間前十名",
-                        "id": "名次",
-                        "user": "使用者",
-                        "runtime": "執行時間",
-                        "time": "繳交時間"
-                    },
-                    "memoryRank": {
-                        "title": "記憶體用量前十名",
-                        "id": "名次",
-                        "user": "使用者",
-                        "memory": "記憶體用量",
-                        "time": "繳交時間"
-                    }
-                }
-            }
+        "card": {
+          "title": "繳交至題號 ",
+          "placeholder": "在此貼上程式碼"
+        },
+        "lang": {
+          "text": "語言",
+          "select": "選擇語言"
+        },
+        "text": "提交"
+      },
+      "stats": {
+        "pieTitle": "繳交結果",
+        "title": "數據檢視－題號",
+        "general": {
+          "tried": "已嘗試使用者數量",
+          "ac": "AC 使用者數量",
+          "acRatio": "AC Submission 比率",
+          "avg": "平均分數",
+          "sd": "標準差"
+        },
+        "table": {
+          "runtimeRank": {
+            "title": "執行時間前十名",
+            "id": "名次",
+            "user": "使用者",
+            "runtime": "執行時間",
+            "time": "繳交時間"
+          },
+          "memoryRank": {
+            "title": "記憶體用量前十名",
+            "id": "名次",
+            "user": "使用者",
+            "memory": "記憶體用量",
+            "time": "繳交時間"
+          }
+        }
+      }
+    },
+    "problems": {
+      "text": "題目",
+      "id": "題號",
+      "name": "題名",
+      "tags": "標籤",
+      "quota": "額度",
+      "new": "新增"
+    },
+    "submissions": {
+      "text": "繳交狀態",
+      "problem": "題目",
+      "status": "狀態",
+      "lang": "語言",
+      "clear": "清除",
+      "table": {
+        "id": "id",
+        "pid": "題號",
+        "user": "使用者",
+        "result": "評判結果",
+        "score": "得分",
+        "runtime": "執行時間",
+        "memory": "記憶體用量",
+        "lang": "語言",
+        "time": "繳交時間"
+      }
+    },
+    "submission": {
+      "title": "Submission ID: ",
+      "general": {
+        "title": "總覽",
+        "problem": "題號",
+        "user": "使用者",
+        "status": "評判結果",
+        "runtime": "執行時間",
+        "memory": "記憶體用量",
+        "score": "得分",
+        "lang": "語言",
+        "time": "繳交時間"
+      },
+      "detail": {
+        "title": "細節",
+        "desc": "作業正在批改，頁面將會自動更新。",
+        "id": "子任務",
+        "status": "評判結果",
+        "runtime": "執行時間",
+        "memory": "記憶體用量",
+        "score": "得分",
+        "overall": "整體結果",
+        "result": {
+          "hide": "隱藏所有結果",
+          "show": "顯示所有結果"
+        }
+      },
+      "source": {
+        "text": "原始碼",
+        "copied": "已複製！",
+        "copy": "複製"
+      }
+    },
+    "members": {
+      "title": "成員",
+      "new": "新增",
+      "sortBy": "排序依據",
+      "cancel": "取消",
+      "submit": "送出",
+      "csvUploadHint1": "上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：",
+      "csvUploadHint2": "第二列開始每列為一個成員的資料"
+    }
+  },
+  "courses": {
+    "index": {
+      "list": "課程清單",
+      "table": {
+        "course": "課程",
+        "teacher": "教師"
+      },
+      "new": "新增"
+    },
+    "new": {
+      "title": "新增課程",
+      "nameField": "課程名稱",
+      "teacherField": "課程教師",
+      "submit": "送出"
+    }
+  },
+  "profile": {
+    "title": "個人資料",
+    "rules": {
+      "confirmPassword": {
+        "sameAsRef": "密碼不符合。"
+      }
+    },
+    "username": "帳號",
+    "dispname": "顯示名稱",
+    "email": "電子郵件",
+    "role": "角色",
+    "pw": {
+      "change": "變更密碼",
+      "success": "密碼已成功變更",
+      "new": "新密碼",
+      "confirm": "確認新密碼",
+      "current": "舊密碼",
+      "placeholder": {
+        "new": "新密碼",
+        "again": "再輸入一次新密碼",
+        "current": "舊密碼"
+      },
+      "submit": "送出"
+    }
+  },
+  "ann": {
+    "id": {
+      "back": "返回"
+    }
+  },
+  "components": {
+    "ann": {
+      "form": {
+        "titleField": "標題",
+        "pinToggle": "置頂",
+        "descField": "內容",
+        "submit": "送出"
+      },
+      "card": {
+        "lastUpdate": "最後更新時間：{time}",
+        "postBy": "由 {author} 張貼於 {time}"
+      }
+    },
+    "hw": {
+      "form": {
+        "nameField": "作業名稱",
+        "problems": "題目集",
+        "fromField": "開始時間",
+        "dueField": "截止時間",
+        "descField": "說明",
+        "submit": "送出"
+      },
+      "card": {
+        "statusLabel": {
+          "running": "進行中",
+          "notStart": "未開始",
+          "over": "已結束"
+        },
+        "availability": {
+          "text": "期限",
+          "from": "自",
+          "due": "至"
         },
         "problems": {
-            "text": "題目",
-            "id": "題號",
-            "name": "題名",
-            "tags": "標籤",
-            "quota": "額度",
-            "new": "新增"
+          "text": "題目",
+          "id": "序號",
+          "pid": "題號",
+          "name": "題名",
+          "quota": "額度",
+          "score": "得分",
+          "stats": "數據",
+          "copycat": "抄襲"
         },
-        "submissions": {
-            "text": "繳交狀態",
-            "problem": "題目",
-            "status": "狀態",
-            "lang": "語言",
-            "clear": "清除",
-            "table": {
-                "id": "id",
-                "pid": "題號",
-                "user": "使用者",
-                "result": "評判結果",
-                "score": "得分",
-                "runtime": "執行時間",
-                "memory": "記憶體用量",
-                "lang": "語言",
-                "time": "繳交時間"
-            }
-        },
-        "submission": {
-            "title": "Submission ID: ",
-            "general": {
-                "title": "總覽",
-                "problem": "題號",
-                "user": "使用者",
-                "status": "評判結果",
-                "runtime": "執行時間",
-                "memory": "記憶體用量",
-                "score": "得分",
-                "lang": "語言",
-                "time": "繳交時間"
-            },
-            "detail": {
-                "title": "細節",
-                "desc": "作業正在批改，頁面將會自動更新。",
-                "id": "子任務",
-                "status": "評判結果",
-                "runtime": "執行時間",
-                "memory": "記憶體用量",
-                "score": "得分",
-                "overall": "整體結果",
-                "result": {
-                    "hide": "隱藏所有結果",
-                    "show": "顯示所有結果"
-                }
-            },
-            "source": {
-                "text": "原始碼",
-                "copied": "已複製！",
-                "copy": "複製"
-            }
-        },
-        "members": {
-            "title": "成員",
-            "new": "新增",
-            "sortBy": "排序依據",
-            "cancel": "取消",
-            "submit": "送出",
-            "csvUploadHint1": "上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：",
-            "csvUploadHint2": "第二列開始每列為一個成員的資料"
+        "description": {
+          "text": "說明",
+          "edit": "編輯",
+          "stats": "數據"
         }
+      }
     },
-    "courses": {
-        "index": {
-            "list": "課程清單",
-            "table": {
-                "course": "課程",
-                "teacher": "教師"
-            },
-            "new": "新增"
+    "problem": {
+      "forms": {
+        "nameField": "題目名稱",
+        "hiddenToggle": "隱藏",
+        "quotaField": "額度",
+        "quotaHint": "若輸入 -1 則為無額度限制",
+        "tags": "標籤",
+        "tagsHint": "多個標籤以逗號分隔，例如：「HW1,HW2」",
+        "type": "題型",
+        "allowedLangs": "作答語言",
+        "testdata": "測資",
+        "howToPack": "了解測資檔案格式",
+        "dropFile": "拖曳檔案至此，或透過右方按鈕選擇檔案",
+        "subtask": "子任務 {no}",
+        "numOfCases": "測資筆數",
+        "score": "子任務分數",
+        "memoryLimit": "記憶體限制（MB）",
+        "timeLimit": "執行時間限制（ms）",
+        "submit": "送出",
+        "probDescForm": {
+          "desc": "說明",
+          "input": "輸入",
+          "output": "輸出",
+          "hint": "提示",
+          "err": {
+            "input": "範例輸入錯誤: ",
+            "output": "範例輸出錯誤: "
+          },
+          "sample": {
+            "input": "範例輸入 ",
+            "output": "範例輸出 "
+          }
         },
-        "new": {
-            "title": "新增課程",
-            "nameField": "課程名稱",
-            "teacherField": "課程教師",
-            "submit": "送出"
-        }
+        "testdataRule1": "您需要將所有的輸入輸出檔置於一個 .zip 檔，且必須遵照以下命名規則",
+        "testdataRule2": "輸入檔的檔名應為 \"sstt.in\"，其中 \"ss\" 代表是第幾個子任務，而 \"tt\" 代表是該子任務中的第幾筆測資",
+        "testdataRule3": "同樣地，輸出檔的檔名應為 \"sstt.out\"，另請注意 \"ss\" 和 \"tt\" 是從零開始編號.",
+        "testdataRule4": "舉例來說，一個有 3 個子任務的題目，其子任務的測資數量分別是 3, 5, 15",
+        "testdataRule5": "那麼 zip 檔內應該包含這些檔案：",
+        "gotIt": "好的"
+      },
+      "card": {
+        "title": "題目編號 ",
+        "quota": "額度",
+        "score": "得分",
+        "submit": "提交",
+        "stats": "數據",
+        "desc": "說明",
+        "input": "輸入",
+        "output": "輸出",
+        "ex": "範例",
+        "sample": {
+          "id": "編號",
+          "input": "輸入",
+          "output": "輸出"
+        },
+        "hint": "提示",
+        "subtasks": {
+          "title": "子任務",
+          "id": "編號",
+          "tl": "執行時間限制",
+          "ml": "記憶體限制",
+          "score": "配分"
+        },
+        "noContent": "無"
+      }
     },
-    "profile": {
-        "title": "個人資料",
-        "rules": {
-            "confirmPassword": {
-                "sameAsRef": "密碼不符合。"
-            }
-        },
-        "username": "帳號",
-        "dispname": "顯示名稱",
-        "email": "電子郵件",
-        "role": "角色",
-        "pw": {
-            "change": "變更密碼",
-            "success": "密碼已成功變更",
-            "new": "新密碼",
-            "confirm": "確認新密碼",
-            "current": "舊密碼",
-            "placeholder": {
-                "new": "新密碼",
-                "again": "再輸入一次新密碼",
-                "current": "舊密碼"
-            },
-            "submit": "送出"
-        }
+    "courseSideBar": {
+      "ann": "公告",
+      "hw": "作業",
+      "problems": "題目",
+      "submissions": "繳交狀態",
+      "members": "成員"
     },
-    "ann": {
-        "id": {
-            "back": "返回"
-        }
+    "systemAnn": {
+      "ann": "公告",
+      "title": "標題",
+      "createTime": "建立時間"
     },
-    "components": {
-        "ann": {
-            "form": {
-                "titleField": "標題",
-                "pinToggle": "置頂",
-                "descField": "內容",
-                "submit": "送出"
-            },
-            "card": {
-                "lastUpdate": "最後更新時間：{time}",
-                "postBy": "由 {author} 張貼於 {time}"
-            }
-        },
-        "hw": {
-            "form": {
-                "nameField": "作業名稱",
-                "problems": "題目集",
-                "fromField": "開始時間",
-                "dueField": "截止時間",
-                "descField": "說明",
-                "submit": "送出"
-            },
-            "card": {
-                "statusLabel": {
-                    "running": "進行中",
-                    "notStart": "未開始",
-                    "over": "已結束"
-                },
-                "availability": {
-                    "text": "期限",
-                    "from": "自",
-                    "due": "至"
-                },
-                "problems": {
-                    "text": "題目",
-                    "id": "序號",
-                    "pid": "題號",
-                    "name": "題名",
-                    "quota": "額度",
-                    "score": "得分",
-                    "stats": "數據",
-                    "copycat": "抄襲"
-                },
-                "description": {
-                    "text": "說明",
-                    "edit": "編輯",
-                    "stats": "數據"
-                }
-            }
-        },
-        "problem": {
-            "forms": {
-                "nameField": "題目名稱",
-                "hiddenToggle": "隱藏",
-                "quotaField": "額度",
-                "quotaHint": "若輸入 -1 則為無額度限制",
-                "tags": "標籤",
-                "tagsHint": "多個標籤以逗號分隔，例如：「HW1,HW2」",
-                "type": "題型",
-                "allowedLangs": "作答語言",
-                "testdata": "測資",
-                "howToPack": "了解測資檔案格式",
-                "dropFile": "拖曳檔案至此，或透過右方按鈕選擇檔案",
-                "subtask": "子任務 {no}",
-                "numOfCases": "測資筆數",
-                "score": "子任務分數",
-                "memoryLimit": "記憶體限制（MB）",
-                "timeLimit": "執行時間限制（ms）",
-                "submit": "送出",
-                "probDescForm": {
-                    "desc": "說明",
-                    "input": "輸入",
-                    "output": "輸出",
-                    "hint": "提示",
-                    "err": {
-                        "input": "範例輸入錯誤: ",
-                        "output": "範例輸出錯誤: "
-                    },
-                    "sample": {
-                        "input": "範例輸入 ",
-                        "output": "範例輸出 "
-                    }
-                },
-                "testdataRule1": "您需要將所有的輸入輸出檔置於一個 .zip 檔，且必須遵照以下命名規則",
-                "testdataRule2": "輸入檔的檔名應為 \"sstt.in\"，其中 \"ss\" 代表是第幾個子任務，而 \"tt\" 代表是該子任務中的第幾筆測資",
-                "testdataRule3": "同樣地，輸出檔的檔名應為 \"sstt.out\"，另請注意 \"ss\" 和 \"tt\" 是從零開始編號.",
-                "testdataRule4": "舉例來說，一個有 3 個子任務的題目，其子任務的測資數量分別是 3, 5, 15",
-                "testdataRule5": "那麼 zip 檔內應該包含這些檔案：",
-                "gotIt": "好的"
-            },
-            "card": {
-                "title": "題目編號 ",
-                "quota": "額度",
-                "score": "得分",
-                "submit": "提交",
-                "stats": "數據",
-                "desc": "說明",
-                "input": "輸入",
-                "output": "輸出",
-                "ex": "範例",
-                "sample": {
-                    "id": "編號",
-                    "input": "輸入",
-                    "output": "輸出"
-                },
-                "hint": "提示",
-                "subtasks": {
-                    "title": "子任務",
-                    "id": "編號",
-                    "tl": "執行時間限制",
-                    "ml": "記憶體限制",
-                    "score": "配分"
-                },
-                "noContent": "無"
-            }
-        },
-        "courseSideBar": {
-            "ann": "公告",
-            "hw": "作業",
-            "problems": "題目",
-            "submissions": "繳交狀態",
-            "members": "成員"
-        },
-        "systemAnn": {
-            "ann": "公告",
-            "title": "標題",
-            "createTime": "建立時間"
-        },
-        "loginSection": {
-            "welcome": "歡迎回來， ",
-            "signin": "登入",
-            "loginFailed": "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
-            "username": "帳號 / 電子郵件地址",
-            "pw": "密碼",
-            "placeholder": {
-                "username": "帳號 / 電子郵件地址",
-                "pw": "密碼"
-            },
-            "forgot": "忘記密碼?",
-            "button": "登入"
-        },
-        "sideBar": {
-            "home": "首頁",
-            "course": "課程",
-            "about": "關於",
-            "admin": "管理",
-            "profile": "個人"
-        },
-        "dueCountdown": {
-            "days": "日",
-            "hours": "小時",
-            "min": "分",
-            "sec": "秒"
-        },
-        "markdownRenderer": {
-            "noContent": "無"
-        },
-        "dataStatusWrapper": {
-            "errorMsg": "Oops! 系統發生了一些錯誤，請重新嘗試，若嘗試數次皆失敗請聯絡管理員。"
-        }
+    "loginSection": {
+      "welcome": "歡迎回來， ",
+      "signin": "登入",
+      "loginFailed": "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
+      "username": "帳號 / 電子郵件地址",
+      "pw": "密碼",
+      "placeholder": {
+        "username": "帳號 / 電子郵件地址",
+        "pw": "密碼"
+      },
+      "forgot": "忘記密碼?",
+      "button": "登入"
+    },
+    "sideBar": {
+      "home": "首頁",
+      "course": "課程",
+      "about": "關於",
+      "admin": "管理",
+      "profile": "個人"
+    },
+    "dueCountdown": {
+      "days": "日",
+      "hours": "小時",
+      "min": "分",
+      "sec": "秒"
+    },
+    "markdownRenderer": {
+      "noContent": "無"
+    },
+    "dataStatusWrapper": {
+      "errorMsg": "Oops! 系統發生了一些錯誤，請重新嘗試，若嘗試數次皆失敗請聯絡管理員。"
     }
+  },
+  "admin": {
+    "user": {
+      "pwHint": "留空則不改變密碼，改變密碼後該使用者會被登出"
+    }
+  }
 }

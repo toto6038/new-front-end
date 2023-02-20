@@ -102,20 +102,17 @@ async function submit() {
 
         <div class="my-4" />
 
-        <div class="flex items-center gap-x-2">
-          <input
-            v-model="searchName"
-            placeholder="search name"
-            type="text"
-            class="input input-bordered my-1 max-w-xs"
-          />
+        <div class="mb-4 flex items-center gap-x-4">
+          <input v-model="searchName" placeholder="Search Name" type="text" class="input input-bordered" />
 
-          <select v-model="searchRole" class="select select-bordered w-full max-w-xs">
+          <select v-model="searchRole" class="select select-bordered">
             <option :value="null">Select Role</option>
             <option :value="0">Admin</option>
             <option :value="1">Teacher</option>
             <option :value="2">Student</option>
           </select>
+
+          <span>Row Count: {{ filteredUsers?.length }}</span>
         </div>
 
         <data-status-wrapper :error="fetchError" :is-loading="fetchLoading">
@@ -138,7 +135,7 @@ async function submit() {
                   <td>{{ displayedName }}</td>
                   <td>{{ ROLE[role] }}</td>
                   <td>
-                    <div class="btn btn-circle btn-ghost btn-sm" @click="() => editUser(username)">
+                    <div class="btn btn-ghost btn-circle btn-sm" @click="() => editUser(username)">
                       <i-uil-pen />
                     </div>
                   </td>
@@ -206,11 +203,7 @@ async function submit() {
               />
               <label class="label">
                 <span :class="['label-text-alt', v$.password.$error && 'text-error']">
-                  {{
-                    v$.password.$error
-                      ? v$.password.$errors[0]?.$message
-                      : "留空則不改變密碼，改變密碼後該使用者會被登出"
-                  }}
+                  {{ v$.password.$error ? v$.password.$errors[0]?.$message : $t("admin.user.pwHint") }}
                 </span>
               </label>
             </div>

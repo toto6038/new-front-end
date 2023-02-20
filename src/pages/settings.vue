@@ -7,7 +7,7 @@ import { useTitle } from "@vueuse/core";
 useTitle("Test I18n | Normal OJ");
 const { t, locale } = useI18n();
 
-const localeInStorate = useStorage("locale", locale);
+const localeInStorate = useStorage("locale", "english");
 
 // initialize with the one in storage
 locale.value = localeInStorate.value;

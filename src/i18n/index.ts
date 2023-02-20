@@ -4,8 +4,8 @@ import taiwanese from "./zh-min-nan.json";
 
 export const config = {
   legacy: false,
-  locale: "english",
-  fallbackLocale: "chinese",
+  locale: localStorage.getItem("locale") || "english",
+  fallbackLocale: "english",
   messages: {
     chinese,
     english,
