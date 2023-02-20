@@ -55,25 +55,26 @@ async function login() {
           <ui-spinner />
         </div>
         <div v-else class="card-title mb-2">
-          {{ session.isLogin ? `Welcome back, ${session.displayedName}` : "Sign in" }}
+          {{ session.isLogin ? $t("components.loginSection.welcome") : $t("components.loginSection.signin") }}
+          {{ session.isLogin ? `${session.displayedName}` : " " }}
         </div>
         <template v-if="session.isNotLogin">
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
             <div>
               <i-uil-times-circle />
-              <span>Login Failed: Your username/email or password is incorrect</span>
+              <span>{{ $t("components.loginSection.loginFailed") }}</span>
             </div>
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">Username / Email</span>
+              <span class="label-text">{{ $t("components.loginSection.username") }}</span>
             </label>
             <input
               v-model="v$.username.$model"
               type="text"
               name="username"
-              placeholder="username or email"
-              :class="['input-bordered input', v$.username.$error && 'input-error']"
+              :placeholder="$t('components.loginSection.placeholder.username')"
+              :class="['input input-bordered', v$.username.$error && 'input-error']"
             />
             <label class="label" v-show="v$.username.$error">
               <span class="label-text-alt text-error" v-text="v$.username.$errors[0]?.$message" />
@@ -81,18 +82,20 @@ async function login() {
           </div>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">Password</span>
+              <span class="label-text">{{ $t("components.loginSection.pw") }}</span>
             </label>
             <input
               v-model="v$.password.$model"
               type="password"
               name="password"
-              placeholder="password"
-              :class="['input-bordered input', v$.password.$error && 'input-error']"
+              :placeholder="$t('components.loginSection.placeholder.pw')"
+              :class="['input input-bordered', v$.password.$error && 'input-error']"
               @keydown.enter="login"
             />
             <label class="label flex-row-reverse">
-              <a href="#" class="link-hover label-text-alt link">Forgot password?</a>
+              <a href="#" class="link link-hover label-text-alt">{{
+                $t("components.loginSection.forgot")
+              }}</a>
               <span
                 v-show="v$.password.$error"
                 class="label-text-alt text-error"
@@ -101,8 +104,8 @@ async function login() {
             </label>
           </div>
           <div class="form-control mt-6">
-            <button :class="['btn-primary btn', loginForm.isLoading && 'loading']" @click="login">
-              Sign In
+            <button :class="['btn btn-primary', loginForm.isLoading && 'loading']" @click="login">
+              {{ $t("components.loginSection.button") }}
             </button>
           </div>
         </template>

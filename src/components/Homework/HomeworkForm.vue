@@ -64,11 +64,11 @@ async function submit() {
   <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Name</span>
+        <span class="label-text">{{ $t("components.hw.form.nameField") }}</span>
       </label>
       <input
         type="text"
-        :class="['input-bordered input w-full max-w-xs', v$.name.$error && 'input-error']"
+        :class="['input input-bordered w-full max-w-xs', v$.name.$error && 'input-error']"
         :value="form.name"
         @input="updateForm('name', ($event.target as HTMLInputElement).value)"
       />
@@ -79,7 +79,7 @@ async function submit() {
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Problems</span>
+        <span class="label-text">{{ $t("components.hw.form.problems") }}</span>
       </label>
       <problem-multi-select
         :model-value="form.problemIds"
@@ -93,11 +93,11 @@ async function submit() {
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">From</span>
+        <span class="label-text">{{ $t("components.hw.form.fromField") }}</span>
       </label>
       <input
         type="datetime-local"
-        class="input-bordered input w-full max-w-xs"
+        class="input input-bordered w-full max-w-xs"
         :value="startDateTime"
         @change="handleStartDateTimeInput"
       />
@@ -108,11 +108,11 @@ async function submit() {
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Due</span>
+        <span class="label-text">{{ $t("components.hw.form.dueField") }}</span>
       </label>
       <input
         type="datetime-local"
-        class="input-bordered input w-full max-w-xs"
+        class="input input-bordered w-full max-w-xs"
         :value="endDateTime"
         @change="handleEndDateTimeInput"
       />
@@ -123,10 +123,10 @@ async function submit() {
 
     <div class="form-control w-full lg:col-span-2">
       <label class="label">
-        <span class="label-text">Description</span>
+        <span class="label-text">{{ $t("components.hw.form.descField") }}</span>
       </label>
       <textarea
-        class="textarea-bordered textarea h-24"
+        class="textarea textarea-bordered h-24"
         :value="form.markdown"
         @input="updateForm('markdown', ($event.target as HTMLTextAreaElement).value)"
       />
@@ -136,8 +136,8 @@ async function submit() {
     </div>
   </div>
   <div class="mt-4 flex justify-end">
-    <button :class="['btn-success btn', isLoading && 'loading']" @click="submit">
-      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+    <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
+      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ $t("components.hw.form.submit") }}
     </button>
   </div>
 </template>

@@ -42,7 +42,7 @@ const members = computed(() => {
 const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
 
 const isOpen = ref(false);
-const newMembers = ref<File>();
+const newMembers = ref<File | null>();
 const newMembersCSVString = ref("");
 const isProcessingSignup = ref(false);
 const errorMsg = ref("");
@@ -83,21 +83,22 @@ async function submit() {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title">
-          Members <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
+          {{ $t("course.members.title") }}
+          <span v-if="data" class="text-sm opacity-70">({{ members.length }})</span>
 
           <div class="flex-1" />
 
-          <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn-success btn">
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New Members
+          <label v-if="rolesCanCreateCourse.includes(session.role)" for="my-modal" class="btn btn-success">
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ $t("course.members.new") }}
           </label>
         </div>
 
         <div class="mb-4">
           <div class="form-control w-full max-w-xs">
             <label class="label">
-              <span class="label-text">Sort By</span>
+              <span class="label-text">{{ $t("course.members.sortBy") }}</span>
             </label>
-            <select v-model="sortBy" class="select-bordered select w-full max-w-xs">
+            <select v-model="sortBy" class="select select-bordered w-full max-w-xs">
               <option :value="MemberTableColumn.USERNAME">Username</option>
               <option :value="MemberTableColumn.DISPLAYED_NAME">Display Name</option>
               <option :value="MemberTableColumn.ROLE">Role</option>
@@ -133,7 +134,7 @@ async function submit() {
     <input v-model="isOpen" type="checkbox" id="my-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box">
-        上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：
+        {{ $t("course.members.csvUploadHint1") }}
         <ul class="ml-4 list-disc">
           <li v-for="h in ['username', 'email', 'password']">
             <code>{{ h }}</code>
@@ -142,7 +143,7 @@ async function submit() {
             <code>{{ h }}</code> (optional)
           </li>
         </ul>
-        第二列開始每列一個成員
+        {{ $t("course.members.csvUploadHint2") }}
 
         <div class="my-4" />
 
@@ -177,14 +178,16 @@ async function submit() {
             </tbody>
           </table>
           <div class="flex">
-            <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+            <button class="btn btn-sm" @click="newMembers = null">
               <i-uil-times />
             </button>
           </div>
         </template>
         <div class="modal-action">
-          <label for="my-modal" class="btn-ghost btn">Cancel</label>
-          <div :class="['btn-success btn ml-3', isProcessingSignup && 'loading']" @click="submit">Submit</div>
+          <label for="my-modal" class="btn btn-ghost">{{ $t("course.members.cancel") }}</label>
+          <div :class="['btn btn-success ml-3', isProcessingSignup && 'loading']" @click="submit">
+            {{ $t("course.members.submit") }}
+          </div>
         </div>
       </div>
     </div>

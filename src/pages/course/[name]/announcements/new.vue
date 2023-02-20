@@ -59,14 +59,14 @@ async function submit() {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3">New Announcement</div>
+        <div class="card-title mb-3">{{ $t("course.ann.new.title") }}</div>
 
         <announcement-form :value="newAnnouncement" ref="formElement" @update="update" @submit="submit" />
 
         <div class="divider" />
 
         <div class="card-title mb-3">
-          Preview
+          {{ $t("course.ann.new.preview") }}
           <input v-model="openPreview" type="checkbox" class="toggle" />
         </div>
 

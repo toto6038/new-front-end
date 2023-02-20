@@ -13,7 +13,7 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title mb-3">Announcement</div>
+        <div class="card-title mb-3">{{ $t("components.systemAnn.ann") }}</div>
         <div class="my-2" />
 
         <data-status-wrapper :error="error" :is-loading="isLoading">
@@ -24,15 +24,15 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Create At</th>
+                  <th>{{ $t("components.systemAnn.title") }}</th>
+                  <th>{{ $t("components.systemAnn.createTime") }}</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="{ title, createTime, annId } in announcements" :key="annId" class="hover">
                   <td>
-                    <router-link :to="`/announcements/${annId}`" class="link-hover link">
+                    <router-link :to="`/announcements/${annId}`" class="link link-hover">
                       {{ title }}
                     </router-link>
                   </td>
@@ -40,7 +40,7 @@ const { data: announcements, error, isLoading } = useAxios<AnnouncementList>("/a
                   <td v-if="session.isAdmin">
                     <div class="tooltip" data-tip="Edit">
                       <router-link
-                        class="btn-ghost btn-sm btn-circle btn"
+                        class="btn btn-ghost btn-circle btn-sm"
                         :to="`/course/Public/announcements/${annId}/edit`"
                       >
                         <i-uil-edit class="lg:h-5 lg:w-5" />

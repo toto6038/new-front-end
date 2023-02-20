@@ -13,7 +13,7 @@ defineProps<{
       <div>
         <i-uil-times-circle />
         <div class="flex flex-col">
-          <span>Oops! Something went wrong, please refresh the page to try again.</span>
+          <span>{{ $t("components.dataStatusWrapper.errorMsg") }}</span>
           <span>{{ error }}</span>
         </div>
       </div>

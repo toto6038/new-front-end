@@ -9,8 +9,11 @@ import { required, between, helpers } from "@vuelidate/validators";
 import api, { fetcher } from "@/models/api";
 import { useTitle } from "@vueuse/core";
 import { LANGUAGE_OPTIONS } from "@/constants";
+import { useI18n } from "vue-i18n";
 
 const route = useRoute();
+const { t } = useI18n();
+
 useTitle(`Submit - ${route.params.id} - ${route.params.name} | Normal OJ`);
 const router = useRouter();
 const { data: problem, error, isLoading } = useAxios<Problem>(`/problem/view/${route.params.id}`, fetcher);
@@ -22,8 +25,8 @@ const form = reactive({
   isSubmitError: false,
 });
 const rules = {
-  code: { required: helpers.withMessage("Please paste your source code to submit.", required) },
-  lang: { betweenValue: helpers.withMessage("Please select the programming language.", between(0, 3)) },
+  code: { required: helpers.withMessage(t("course.problem.submit.err.code"), required) },
+  lang: { betweenValue: helpers.withMessage(t("course.problem.submit.err.lang"), between(0, 3)) },
 };
 const v$ = useVuelidate(rules, form);
 
@@ -85,30 +88,34 @@ async function submit() {
   <div class="card-container">
     <div class="card min-w-full">
       <div class="card-body">
-        <div class="card-title md:text-2xl lg:text-3xl">Submit to problem #{{ $route.params.id }}</div>
+        <div class="card-title md:text-2xl lg:text-3xl">
+          {{ t("course.problem.submit.card.title") }}{{ $route.params.id }}
+        </div>
 
-        <div class="card-title mt-10 md:text-lg lg:text-xl">Paste your code here</div>
+        <div class="card-title mt-10 md:text-lg lg:text-xl">
+          {{ t("course.problem.submit.card.placeholder") }}
+        </div>
         <code-editor v-model="form.code" class="mt-4" />
         <span v-show="v$.code.$error" class="text-error" v-text="v$.code.$errors[0]?.$message" />
 
         <div v-if="error" class="alert alert-error shadow-lg">
           <div>
             <i-uil-times-circle />
-            <span>Oops! Something went wrong when submitting the code. Try again later.</span>
+            <span>{{ t("course.problem.submit.err.msg") }}</span>
           </div>
         </div>
 
         <div class="mt-10 flex items-center justify-between">
           <div class="form-control w-full max-w-xs">
             <label class="label">
-              <span class="label-text">Language</span>
+              <span class="label-text">{{ t("course.problem.submit.lang.text") }}</span>
               <ui-spinner v-if="isLoading" class="h-6 w-6" />
             </label>
             <select
               v-model="v$.lang.$model"
-              :class="['select-bordered select', v$.lang.$error && 'input-error']"
+              :class="['select select-bordered', v$.lang.$error && 'input-error']"
             >
-              <option disabled :value="-1">Select language</option>
+              <option disabled :value="-1">{{ t("course.problem.submit.lang.select") }}</option>
               <option v-for="{ text, value } in langOptions" :key="value" :value="value">{{ text }}</option>
             </select>
             <label class="label" v-show="v$.lang.$error">
@@ -117,7 +124,7 @@ async function submit() {
           </div>
 
           <button :class="['btn', form.isLoading && 'loading']" @click="submit">
-            <i-uil-file-upload-alt class="mr-1 h-5 w-5" /> Submit
+            <i-uil-file-upload-alt class="mr-1 h-5 w-5" /> {{ t("course.problem.submit.text") }}
           </button>
         </div>
       </div>

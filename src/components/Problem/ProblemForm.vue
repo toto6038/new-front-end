@@ -112,11 +112,11 @@ watch(
   <div class="grid grid-cols-2 gap-y-4">
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Name</span>
+        <span class="label-text">{{ $t("components.problem.forms.nameField") }}</span>
       </label>
       <input
         type="text"
-        :class="['input-bordered input w-full max-w-xs', v$.problemName.$error && 'input-error']"
+        :class="['input input-bordered w-full max-w-xs', v$.problemName.$error && 'input-error']"
         :value="problem.problemName"
         @input="update('problemName', ($event.target as HTMLInputElement).value)"
       />
@@ -127,10 +127,10 @@ watch(
 
     <div class="form-control">
       <label class="label cursor-pointer justify-start gap-x-4">
-        <span class="label-text">Hidden</span>
+        <span class="label-text">{{ $t("components.problem.forms.hiddenToggle") }}</span>
         <input
           type="checkbox"
-          class="toggle-success toggle"
+          class="toggle toggle-success"
           :true-value="1"
           :false-value="0"
           :value="problem.status"
@@ -141,44 +141,44 @@ watch(
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Quota</span>
+        <span class="label-text">{{ $t("components.problem.forms.quotaField") }}</span>
       </label>
       <input
         type="text"
-        :class="['input-bordered input w-full max-w-xs', v$.quota.$error && 'input-error']"
+        :class="['input input-bordered w-full max-w-xs', v$.quota.$error && 'input-error']"
         :value="problem.quota"
         @input="update('quota', Number(($event.target as HTMLInputElement).value))"
       />
       <label class="label">
         <span class="label-text-alt">
-          {{ v$.quota.$error ? v$.quota.$errors[0]?.$message : "Set -1 for unlimited quota" }}
+          {{ v$.quota.$error ? v$.quota.$errors[0]?.$message : $t("components.problem.forms.quotaHint") }}
         </span>
       </label>
     </div>
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Tags</span>
+        <span class="label-text">{{ $t("components.problem.forms.tags") }}</span>
       </label>
       <input
         type="text"
-        :class="['input-bordered input w-full max-w-xs', v$.tags.$error && 'input-error']"
+        :class="['input input-bordered w-full max-w-xs', v$.tags.$error && 'input-error']"
         :value="problem.tags.join(',')"
         @input="update('tags', ($event.target as HTMLInputElement).value.split(','))"
       />
       <label class="label">
         <span class="label-text-alt">
-          {{ v$.tags.$error ? v$.tags.$errors[0]?.$message : "Separate with COMMA, e.g. HW1,HW2" }}
+          {{ v$.tags.$error ? v$.tags.$errors[0]?.$message : $t("components.problem.forms.tagsHint") }}
         </span>
       </label>
     </div>
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Type</span>
+        <span class="label-text">{{ $t("components.problem.forms.type") }}</span>
       </label>
       <select
-        class="select-bordered select w-full max-w-xs"
+        class="select select-bordered w-full max-w-xs"
         :value="problem.type"
         @input="update('type', Number(($event.target as HTMLSelectElement).value) as 0 | 1 | 2)"
       >
@@ -189,7 +189,7 @@ watch(
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Allowed Languages</span>
+        <span class="label-text">{{ $t("components.problem.forms.allowedLangs") }}</span>
       </label>
       <language-multi-select
         :model-value="problem.allowedLanguage"
@@ -205,17 +205,19 @@ watch(
     <template v-if="problem.type !== 2">
       <div class="form-control col-span-2 w-full">
         <label class="label justify-start">
-          <span class="label-text">Testdata</span>
-          <label for="testdata-description" class="modal-button btn-xs btn ml-3">How to pack testdata</label>
+          <span class="label-text">{{ $t("components.problem.forms.testdata") }}</span>
+          <label for="testdata-description" class="modal-button btn btn-xs ml-3">{{
+            $t("components.problem.forms.howToPack")
+          }}</label>
         </label>
         <div
-          :class="['textarea-bordered textarea w-full p-4', isDrag ? 'border-accent' : '']"
+          :class="['textarea textarea-bordered w-full p-4', isDrag ? 'border-accent' : '']"
           @drop.prevent="$emit('update:testdata', $event.dataTransfer?.files?.[0])"
           @dragover.prevent="isDrag = true"
           @dragleave="isDrag = false"
         >
           <template v-if="!testdata">
-            <span class="mb-6 mr-6 text-sm">Drop File here or Choose File to upload</span>
+            <span class="mb-6 mr-6 text-sm">{{ $t("components.problem.forms.dropFile") }}</span>
             <input
               type="file"
               id="file-uploader"
@@ -226,7 +228,7 @@ watch(
           <template v-else>
             <div class="flex">
               <span class="mr-3">{{ testdata.name }}</span>
-              <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+              <button class="btn btn-sm" @click="$emit('update:testdata', null)">
                 <i-uil-times />
               </button>
             </div>
@@ -236,15 +238,15 @@ watch(
 
       <template v-for="(no, i) in problem.testCaseInfo.tasks.length">
         <div class="col-span-2">
-          <div class="font-semibold">Subtask {{ no }}</div>
+          <div class="font-semibold">{{ $t("components.problem.forms.subtask", { no }) }}</div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             <div class="form-control w-full">
               <label class="label">
-                <span class="label-text">The number of testcases</span>
+                <span class="label-text">{{ $t("components.problem.forms.numOfCases") }}</span>
               </label>
               <input
                 type="text"
-                class="input-bordered input w-full max-w-xs"
+                class="input input-bordered w-full max-w-xs"
                 :value="problem.testCaseInfo.tasks[i].caseCount"
                 readonly
               />
@@ -252,58 +254,73 @@ watch(
 
             <div class="form-control w-full">
               <label class="label">
-                <span class="label-text">Score</span>
+                <span class="label-text">{{ $t("components.problem.forms.score") }}</span>
               </label>
               <input
                 type="text"
-                class="input-bordered input w-full max-w-xs"
+                class="input input-bordered w-full max-w-xs"
                 :value="problem.testCaseInfo.tasks[i].taskScore"
-                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
-                ...problem.testCaseInfo.tasks.slice(0, i),
-                {
-                  ...problem.testCaseInfo.tasks[i],
-                  taskScore: Number(($event.target as HTMLInputElement).value),
-                },
-                ...problem.testCaseInfo.tasks.slice(i + 1),
-              ]})"
+                @input="
+                  update('testCaseInfo', {
+                    ...problem.testCaseInfo,
+                    tasks: [
+                      ...problem.testCaseInfo.tasks.slice(0, i),
+                      {
+                        ...problem.testCaseInfo.tasks[i],
+                        taskScore: Number(($event.target as HTMLInputElement).value),
+                      },
+                      ...problem.testCaseInfo.tasks.slice(i + 1),
+                    ],
+                  })
+                "
               />
             </div>
 
             <div class="form-control w-full">
               <label class="label">
-                <span class="label-text">Memory Limit (KB)</span>
+                <span class="label-text">{{ $t("components.problem.forms.memoryLimit") }}</span>
               </label>
               <input
                 type="text"
-                class="input-bordered input w-full max-w-xs"
+                class="input input-bordered w-full max-w-xs"
                 :value="problem.testCaseInfo.tasks[i].memoryLimit"
-                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
-                ...problem.testCaseInfo.tasks.slice(0, i),
-                {
-                  ...problem.testCaseInfo.tasks[i],
-                  memoryLimit: Number(($event.target as HTMLInputElement).value),
-                },
-                ...problem.testCaseInfo.tasks.slice(i + 1),
-              ]})"
+                @input="
+                  update('testCaseInfo', {
+                    ...problem.testCaseInfo,
+                    tasks: [
+                      ...problem.testCaseInfo.tasks.slice(0, i),
+                      {
+                        ...problem.testCaseInfo.tasks[i],
+                        memoryLimit: Number(($event.target as HTMLInputElement).value),
+                      },
+                      ...problem.testCaseInfo.tasks.slice(i + 1),
+                    ],
+                  })
+                "
               />
             </div>
 
             <div class="form-control w-full">
               <label class="label">
-                <span class="label-text">Time Limit (ms)</span>
+                <span class="label-text">{{ $t("components.problem.forms.timeLimit") }}</span>
               </label>
               <input
                 type="text"
-                class="input-bordered input w-full max-w-xs"
+                class="input input-bordered w-full max-w-xs"
                 :value="problem.testCaseInfo.tasks[i].timeLimit"
-                @input="update('testCaseInfo', { ...problem.testCaseInfo, tasks: [
-                ...problem.testCaseInfo.tasks.slice(0, i),
-                {
-                  ...problem.testCaseInfo.tasks[i],
-                  timeLimit: Number(($event.target as HTMLInputElement).value),
-                },
-                ...problem.testCaseInfo.tasks.slice(i + 1),
-              ]})"
+                @input="
+                  update('testCaseInfo', {
+                    ...problem.testCaseInfo,
+                    tasks: [
+                      ...problem.testCaseInfo.tasks.slice(0, i),
+                      {
+                        ...problem.testCaseInfo.tasks[i],
+                        timeLimit: Number(($event.target as HTMLInputElement).value),
+                      },
+                      ...problem.testCaseInfo.tasks.slice(i + 1),
+                    ],
+                  })
+                "
               />
             </div>
           </div>
@@ -314,8 +331,8 @@ watch(
     <ProblemTestdataDescriptionModal />
   </div>
   <div class="mt-4 flex justify-end">
-    <button :class="['btn-success btn', isLoading && 'loading']" @click="submit">
-      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+    <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
+      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ $t("components.problem.forms.submit") }}
     </button>
   </div>
 </template>

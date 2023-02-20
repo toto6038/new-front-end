@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import { useSession } from "@/stores/session";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const session = useSession();
 const navs = [
   {
-    name: "Announcements",
+    name: t("components.courseSideBar.ann"),
     path: "/announcements",
   },
   {
-    name: "Homeworks",
+    name: t("components.courseSideBar.hw"),
     path: "/homeworks",
   },
   {
-    name: "Problems",
+    name: t("components.courseSideBar.problems"),
     path: "/problems",
   },
   {
-    name: "Submissions",
+    name: t("components.courseSideBar.submissions"),
     path: "/submissions",
   },
   ...(session.isAdmin
     ? [
         {
-          name: "Members",
+          name: t("components.courseSideBar.members"),
           path: "/members",
         },
       ]

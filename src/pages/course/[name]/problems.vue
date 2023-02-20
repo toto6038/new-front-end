@@ -9,6 +9,7 @@ import { useTitle } from "@vueuse/core";
 const session = useSession();
 const route = useRoute();
 const router = useRouter();
+
 useTitle(`Problems - ${route.params.name} | Normal OJ`);
 const {
   data: problems,
@@ -35,14 +36,14 @@ const maxPage = computed(() => {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title justify-between">
-          Problems
+          {{ $t("course.problems.text") }}
 
           <router-link
             v-if="session.isAdmin"
-            class="btn-success btn"
+            class="btn btn-success"
             :to="`/course/${$route.params.name}/problem/new`"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ $t("course.problems.new") }}
           </router-link>
         </div>
 
@@ -55,10 +56,10 @@ const maxPage = computed(() => {
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Tags</th>
-                  <th>Quota</th>
+                  <th>{{ $t("course.problems.id") }}</th>
+                  <th>{{ $t("course.problems.name") }}</th>
+                  <th>{{ $t("course.problems.tags") }}</th>
+                  <th>{{ $t("course.problems.quota") }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -80,13 +81,13 @@ const maxPage = computed(() => {
                     {{ problemName }}
                   </td>
                   <td>
-                    <span class="badge-info badge mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
+                    <span class="badge badge-info mr-1" v-for="tag in tags" :key="tag">{{ tag }}</span>
                   </td>
                   <td>{{ quota - submitCount }} / {{ quota }}</td>
                   <td>
                     <div class="tooltip" data-tip="Stats">
                       <router-link
-                        class="btn-ghost btn-sm btn-circle btn mr-1"
+                        class="btn btn-ghost btn-circle btn-sm mr-1"
                         :to="`/course/${$route.params.name}/problem/${problemId}/stats`"
                       >
                         <i-uil-chart-line class="lg:h-5 lg:w-5" />
@@ -95,7 +96,7 @@ const maxPage = computed(() => {
                     <div class="tooltip" data-tip="Copycat">
                       <router-link
                         v-if="session.isAdmin"
-                        class="btn-ghost btn-sm btn-circle btn mr-1"
+                        class="btn btn-ghost btn-circle btn-sm mr-1"
                         :to="`/course/${$route.params.name}/problem/${problemId}/copycat`"
                       >
                         <i-uil-file-exclamation-alt class="lg:h-5 lg:w-5" />
@@ -104,7 +105,7 @@ const maxPage = computed(() => {
                     <div class="tooltip" data-tip="Edit">
                       <router-link
                         v-if="session.isAdmin"
-                        class="btn-ghost btn-sm btn-circle btn"
+                        class="btn btn-ghost btn-circle btn-sm"
                         :to="`/course/${$route.params.name}/problem/${problemId}/edit`"
                       >
                         <i-uil-edit class="lg:h-5 lg:w-5" />

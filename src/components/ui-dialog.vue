@@ -16,7 +16,7 @@ function closeModal() {
 <template>
   <TransitionRoot appear :show="modelValue" as="template">
     <Dialog as="div" :open="modelValue" @close="closeModal" class="fixed inset-0 z-10 overflow-y-auto">
-      <div class="modal-open modal">
+      <div class="modal modal-open">
         <TransitionChild
           as="template"
           enter="duration-300 ease-out"

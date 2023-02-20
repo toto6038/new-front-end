@@ -13,7 +13,9 @@ const isDark = useDark({
   valueLight: "light",
 });
 const toggleDark = useToggle(isDark);
+
 const isMini = useStorage("mini-sidebar", false);
+
 const theme = useTheme();
 watchEffect(() => {
   theme.setIsDark(isDark.value);
@@ -38,19 +40,19 @@ const session = useSession();
     <li>
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/') }" to="/">
         <i-uil-home class="h-6 w-6" />
-        <span v-show="!isMini" class="text-sm">Home</span>
+        <span v-show="!isMini" class="text-sm">{{ $t("components.sideBar.home") }}</span>
       </side-bar-link>
     </li>
     <li v-if="session.isLogin">
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/courses') }" to="/courses">
         <i-uil-book-alt class="h-6 w-6" />
-        <span v-show="!isMini" class="text-sm">Course</span>
+        <span v-show="!isMini" class="text-sm">{{ $t("components.sideBar.course") }}</span>
       </side-bar-link>
     </li>
     <li>
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/about') }" to="/about">
         <i-uil-map-marker-info class="h-6 w-6" />
-        <span v-show="!isMini" class="text-sm">About</span>
+        <span v-show="!isMini" class="text-sm">{{ $t("components.sideBar.about") }}</span>
       </side-bar-link>
     </li>
 
@@ -58,21 +60,25 @@ const session = useSession();
 
     <li v-if="session.isAdmin">
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/admin') }" to="/admin">
-        <i-uil-wrench class="h-6 w-6" />
-        <span v-show="!isMini" class="text-sm">Admin</span>
+        <i-uil-constructor class="h-6 w-6" />
+        <span v-show="!isMini" class="text-sm">{{ $t("components.sideBar.admin") }}</span>
       </side-bar-link>
     </li>
     <li v-if="session.isLogin">
       <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/profile') }" to="/profile">
         <i-uil-user class="h-6 w-6" />
-        <span v-show="!isMini" class="text-sm">Profile</span>
+        <span v-show="!isMini" class="text-sm">{{ $t("components.sideBar.profile") }}</span>
       </side-bar-link>
     </li>
     <li>
-      <label class="swap swap-rotate">
-        <input :value="isDark" type="checkbox" @input="() => toggleDark()" />
-        <i-uil-sun class="swap-on h-6 w-6" />
-        <i-uil-moon class="swap-off h-6 w-6" />
+      <side-bar-link :class="{ 'btn-lg': !isMini, 'btn-active': matchRoute('/settings') }" to="/settings">
+        <i-uil-language class="h-6 w-6" />
+      </side-bar-link>
+    </li>
+    <li>
+      <label class="btn btn-primary rounded-none p-2" @click="() => toggleDark()">
+        <i-uil-sun v-if="isDark" class="swap-on h-6 w-6" />
+        <i-uil-moon v-else class="swap-off h-6 w-6" />
       </label>
     </li>
     <li>

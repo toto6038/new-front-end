@@ -8,6 +8,7 @@ import { useTitle } from "@vueuse/core";
 
 const session = useSession();
 const route = useRoute();
+
 useTitle(`Announcements - ${route.params.name} | Normal OJ`);
 const {
   data: announcements,
@@ -21,13 +22,13 @@ const {
     <div class="card min-w-full">
       <div class="card-body">
         <div class="card-title justify-between">
-          Announcements
+          {{ $t("course.ann.index.title") }}
           <router-link
             v-if="session.isAdmin"
-            class="btn-success btn"
+            class="btn btn-success"
             :to="`/course/${$route.params.name}/announcements/new`"
           >
-            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> New
+            <i-uil-plus-circle class="mr-1 lg:h-5 lg:w-5" /> {{ $t("course.ann.index.new") }}
           </router-link>
         </div>
 
@@ -41,9 +42,9 @@ const {
             <table class="table w-full">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Create At</th>
+                  <th>{{ $t("course.ann.index.table.title") }}</th>
+                  <th>{{ $t("course.ann.index.table.author") }}</th>
+                  <th>{{ $t("course.ann.index.table.time") }}</th>
                   <th v-if="session.isAdmin"></th>
                 </tr>
               </thead>
@@ -52,7 +53,7 @@ const {
                   <td>
                     <router-link
                       :to="`/course/${$route.params.name}/announcements/${annId}`"
-                      class="link-hover link"
+                      class="link link-hover"
                     >
                       {{ title }}
                     </router-link>
@@ -62,7 +63,7 @@ const {
                   <td v-if="session.isAdmin">
                     <div class="tooltip" data-tip="Edit">
                       <router-link
-                        class="btn-ghost btn-sm btn-circle btn"
+                        class="btn btn-ghost btn-circle btn-sm"
                         :to="`/course/${$route.params.name}/announcements/${annId}/edit`"
                       >
                         <i-uil-edit class="lg:h-5 lg:w-5" />

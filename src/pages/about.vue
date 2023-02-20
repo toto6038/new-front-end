@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { useTitle } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 import ScrollMagic from "scrollmagic";
 import { onMounted, ref } from "vue";
 
 useTitle("About | Normal OJ");
+const { t } = useI18n();
 const teams = [
   {
-    title: "Maintainer",
-    people: ["AlaRduTP", "as535364", "asef18766", "Bogay", "skps2010", "Uier"],
+    title: t("about.maintainer"),
+    people: ["AlaRduTP", "as535364", "asef18766", "Bogay", "skps2010", "uier"],
   },
   {
-    title: "NTNU CSIE Service Learning 2022 Fall",
+    title: t("about.serviceLearning2022"),
     people: ["180079995", "aokblast", "howard9199", "laporchen", "Misawai"],
   },
   {
-    title: "NTNU CSIE Service Learning 2021 Spring",
+    title: t("about.serviceLearning2021"),
     people: [
       "Alanasdw",
       "BirkhoffLee",
@@ -32,7 +34,7 @@ const teams = [
     ],
   },
   {
-    title: "Red Team of Software Engineering 2019 Fall",
+    title: t("about.swe2019"),
     people: [
       "aisu-programming",
       "AlaRduTP",
@@ -47,18 +49,8 @@ const teams = [
       "shangchiwu",
       "skps2010",
       "Snowball0409",
-      "Uier",
+      "uier",
     ],
-  },
-];
-const links = [
-  {
-    icon: "mdi-facebook",
-    url: "https://fb.me/noj.tw",
-  },
-  {
-    icon: "mdi-github",
-    url: "https://github.com/Normal-OJ/Normal-OJ",
   },
 ];
 
@@ -71,7 +63,7 @@ function updateScrollAnimation() {
   scrollController.destroy(true);
   scrollController = new ScrollMagic.Controller();
   teams.forEach((team, idx) => {
-    const id = `#${team.title.replaceAll(" ", "-")}`;
+    const id = `#team-${idx}`;
     const duration = `${(teamRefs.value[idx].clientHeight / window.innerHeight) * 100 + 25}%`;
     new ScrollMagic.Scene({
       triggerElement: id,
@@ -100,27 +92,32 @@ onMounted(() => {
 <template>
   <div class="prose mx-auto mt-10 w-full pb-60 font-mono" id="links">
     <div class="flex w-full flex-col items-center">
-      <h1 class="uppercase">Links</h1>
+      <h1 class="uppercase">{{ t("about.links") }}</h1>
       <div class="flex gap-12">
-        <a href="https://fb.me/noj.tw" class="mx-12">
+        <a href="https://fb.me/noj.tw" class="mx-12" target="_blank" rel="noopener noreferrer">
           <i-uil-facebook class="h-28 w-28" />
         </a>
-        <a href="https://github.com/Normal-OJ/Normal-OJ" class="mx-12">
+        <a
+          href="https://github.com/Normal-OJ/Normal-OJ"
+          class="mx-12"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <i-uil-github class="h-28 w-28" />
         </a>
       </div>
     </div>
 
     <div class="mt-16 flex w-full flex-col items-center">
-      <h1 class="uppercase">Contributors</h1>
+      <h1 class="uppercase">{{ t("about.contributor") }}</h1>
       <div id="scroll-hint" class="reveal visible absolute bottom-16">
         <i-uil-angle-double-down class="h-16 w-16" />
       </div>
       <div
-        v-for="team in teams"
+        v-for="(team, index) in teams"
         class="reveal flex w-full flex-col items-center"
         :ref="setTeamRefs"
-        :id="`${team.title.replaceAll(' ', '-')}`"
+        :id="`team-${index}`"
       >
         <h3>{{ team.title }}</h3>
         <div class="w-fix my-4 grid grid-cols-2 gap-x-40 gap-y-8 md:grid-cols-4 lg:grid-cols-6">

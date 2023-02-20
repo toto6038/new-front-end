@@ -45,11 +45,11 @@ async function submit() {
   <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text">Title</span>
+        <span class="label-text">{{ $t("components.ann.form.titleField") }}</span>
       </label>
       <input
         type="text"
-        :class="['input-bordered input w-full max-w-xs', v$.title.$error && 'input-error']"
+        :class="['input input-bordered w-full max-w-xs', v$.title.$error && 'input-error']"
         :value="value.title"
         @input="updateForm('title', ($event.target as HTMLInputElement).value)"
       />
@@ -60,10 +60,10 @@ async function submit() {
 
     <div class="form-control">
       <label class="label cursor-pointer justify-start gap-x-4">
-        <span class="label-text">Pin to top</span>
+        <span class="label-text">{{ $t("components.ann.form.pinToggle") }}</span>
         <input
           type="checkbox"
-          class="toggle-success toggle"
+          class="toggle toggle-success"
           :checked="value.pinned"
           @input="updateForm('pinned', ($event.target as HTMLInputElement).checked)"
         />
@@ -72,10 +72,10 @@ async function submit() {
 
     <div class="form-control w-full lg:col-span-2">
       <label class="label">
-        <span class="label-text">Description</span>
+        <span class="label-text">{{ $t("components.ann.form.descField") }}</span>
       </label>
       <textarea
-        :class="['textarea-bordered textarea h-24', v$.markdown.$error && 'textarea-error']"
+        :class="['textarea textarea-bordered h-24', v$.markdown.$error && 'textarea-error']"
         :value="value.markdown"
         @input="updateForm('markdown', ($event.target as HTMLTextAreaElement).value)"
       />
@@ -85,8 +85,8 @@ async function submit() {
     </div>
   </div>
   <div class="mt-4 flex justify-end">
-    <button :class="['btn-success btn', isLoading && 'loading']" @click="submit">
-      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> Submit
+    <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
+      <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ $t("components.ann.form.submit") }}
     </button>
   </div>
 </template>

@@ -37,7 +37,7 @@ function navigateTo(page: number) {
     </button>
     <template v-if="leftTruncated">
       <button class="btn" @click="navigateTo(1)">1</button>
-      <button class="btn-disabled btn">...</button>
+      <button class="btn btn-disabled">...</button>
     </template>
 
     <template v-for="p in pages">
@@ -47,7 +47,7 @@ function navigateTo(page: number) {
     </template>
 
     <template v-if="rightTruncated">
-      <button class="btn-disabled btn">...</button>
+      <button class="btn btn-disabled">...</button>
       <button class="btn" @click="navigateTo(maxPage)">{{ maxPage }}</button>
     </template>
     <button
