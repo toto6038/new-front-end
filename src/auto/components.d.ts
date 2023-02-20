@@ -39,6 +39,7 @@ declare module '@vue/runtime-core' {
     IUilMapMarkerInfo: typeof import('~icons/uil/map-marker-info')['default']
     IUilMinus: typeof import('~icons/uil/minus')['default']
     IUilMoon: typeof import('~icons/uil/moon')['default']
+    IUilPen: typeof import('~icons/uil/pen')['default']
     IUilPlus: typeof import('~icons/uil/plus')['default']
     IUilPlusCircle: typeof import('~icons/uil/plus-circle')['default']
     IUilRepeat: typeof import('~icons/uil/repeat')['default']

@@ -32,7 +32,7 @@ function downloadTestCase(problemId: number) {
         </div>
 
         <div class="flex flex-wrap items-center gap-y-4">
-          <div class="stats">
+          <div class="stats py-1">
             <div class="stat place-items-center py-0">
               <div class="stat-title">{{ $t("components.problem.card.quota") }}</div>
               <div class="stat-value">
