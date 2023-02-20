@@ -1,10 +1,10 @@
-import chinese from "./chinese";
-import english from "./english";
-import taiwanese from "./taiwanese";
+import chinese from "./zh-tw.json";
+import english from "./en.json";
+import taiwanese from "./zh-min-nan.json";
 
 export const config = {
   legacy: false,
-  locale: "chinese",
+  locale: "english",
   fallbackLocale: "chinese",
   messages: {
     chinese,

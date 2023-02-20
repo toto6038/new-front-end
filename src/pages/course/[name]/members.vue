@@ -42,7 +42,7 @@ const members = computed(() => {
 const rolesCanCreateCourse = [UserRole.Admin, UserRole.Teacher];
 
 const isOpen = ref(false);
-const newMembers = ref<File>();
+const newMembers = ref<File | null>();
 const newMembersCSVString = ref("");
 const isProcessingSignup = ref(false);
 const errorMsg = ref("");
@@ -134,7 +134,7 @@ async function submit() {
     <input v-model="isOpen" type="checkbox" id="my-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box">
-        上傳一個 csv 檔以批次新增學生，第一列 Headers 應為：
+        {{ $t("course.members.csvUploadHint1") }}
         <ul class="ml-4 list-disc">
           <li v-for="h in ['username', 'email', 'password']">
             <code>{{ h }}</code>
@@ -143,7 +143,7 @@ async function submit() {
             <code>{{ h }}</code> (optional)
           </li>
         </ul>
-        第二列開始每列一個成員
+        {{ $t("course.members.csvUploadHint2") }}
 
         <div class="my-4" />
 
@@ -178,7 +178,7 @@ async function submit() {
             </tbody>
           </table>
           <div class="flex">
-            <button class="btn btn-sm" @click="$emit('update:testdata', null)">
+            <button class="btn btn-sm" @click="newMembers = null">
               <i-uil-times />
             </button>
           </div>

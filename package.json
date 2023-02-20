@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "commit": "cz"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.7",
@@ -45,7 +44,6 @@
     "@types/scrollmagic": "^2.0.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "autoprefixer": "^10.4.2",
-    "commitizen": "^4.2.6",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "postcss": "^8.4.6",

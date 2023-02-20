@@ -125,7 +125,9 @@ const problem = inject<Ref<ProblemForm>>("problem") as Ref<ProblemForm>;
 
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">{{ $t("components.problem.forms.probDescForm.sample.input") }}{{ no }}</span>
+        <span class="label-text"
+          >{{ $t("components.problem.forms.probDescForm.sample.output") }}{{ no }}</span
+        >
       </label>
       <textarea
         class="textarea textarea-bordered h-24"

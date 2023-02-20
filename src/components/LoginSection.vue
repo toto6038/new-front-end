@@ -62,7 +62,7 @@ async function login() {
           <div class="alert alert-error shadow-lg" v-if="loginForm.isError">
             <div>
               <i-uil-times-circle />
-              <span>{{ $t("components.loginSection.login_f") }}</span>
+              <span>{{ $t("components.loginSection.loginFailed") }}</span>
             </div>
           </div>
           <div class="form-control">
