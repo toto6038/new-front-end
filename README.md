@@ -2,17 +2,15 @@
 
 ## Development
 
-Clone the repo, then install the dependencies by running:
+Issues and PRs are welcome, please read the [contribution guide](CONTRIBUTING.md).
+
+Clone the repo, then install the dependencies by [pnpm](https://pnpm.io/installation):
 ```bash
 cd new-front-end
-npm install
+pnpm install
 ```
 
 To start up the dev server, run:
 ```bash
-npm run dev
+pnpm dev
 ```
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
