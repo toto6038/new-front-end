@@ -214,7 +214,7 @@ watch(
       <div class="form-control col-span-2 w-full">
         <label class="label justify-start">
           <span class="label-text">{{ $t("components.problem.forms.testdata") }}</span>
-          <label for="testdata-description" class="modal-button btn-xs btn ml-3">{{
+          <label for="testdata-description" class="modal-button btn btn-xs ml-3">{{
             $t("components.problem.forms.howToPack")
           }}</label>
         </label>
@@ -236,7 +236,7 @@ watch(
           <template v-else>
             <div class="flex">
               <span class="mr-3">{{ testdata.name }}</span>
-              <button class="btn-sm btn" @click="$emit('update:testdata', null)">
+              <button class="btn btn-sm" @click="$emit('update:testdata', null)">
                 <i-uil-times />
               </button>
             </div>
@@ -344,7 +344,7 @@ watch(
     <ProblemTestdataDescriptionModal />
   </div>
   <div class="mt-4 flex justify-end">
-    <button :class="['btn-success btn', isLoading && 'loading']" @click="submit">
+    <button :class="['btn btn-success', isLoading && 'loading']" @click="submit">
       <i-uil-file-upload-alt class="mr-1 lg:h-5 lg:w-5" /> {{ $t("components.problem.forms.submit") }}
     </button>
   </div>
