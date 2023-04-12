@@ -341,7 +341,7 @@
       "createTime": "Create At"
     },
     "loginSection": {
-      "welcome": "Welcome back, ",
+      "welcome": "Welcome back, {user}",
       "signin": "Sign in",
       "loginFailed": "Login Failed: Your username/email or password is incorrect",
       "username": "Username / Email",

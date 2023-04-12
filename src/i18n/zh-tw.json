@@ -340,7 +340,7 @@
       "createTime": "建立時間"
     },
     "loginSection": {
-      "welcome": "歡迎回來， ",
+      "welcome": "歡迎回來，{user}",
       "signin": "登入",
       "loginFailed": "登入失敗：帳號 / 電子郵件地址或是密碼輸入錯誤",
       "username": "帳號 / 電子郵件地址",

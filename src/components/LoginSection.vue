@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useSession } from "@/stores/session";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import api from "@/models/api";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
 
+const route = useRoute();
 const router = useRouter();
 const session = useSession();
 const { t } = useI18n();
@@ -36,7 +37,11 @@ async function login() {
   try {
     await api.Auth.login(body);
     await session.validateSession();
-    router.go(0);
+    if (route.query.redirect) {
+      router.push(route.query.redirect as string);
+    } else {
+      router.go(0);
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.data?.message === "Login Failed") {
@@ -64,8 +69,11 @@ async function login() {
           <ui-spinner />
         </div>
         <div v-else class="card-title mb-2">
-          {{ session.isLogin ? $t("components.loginSection.welcome") : $t("components.loginSection.signin") }}
-          {{ session.isLogin ? `${session.displayedName}` : " " }}
+          {{
+            session.isLogin
+              ? $t("components.loginSection.welcome", { user: session.displayedName })
+              : $t("components.loginSection.signin")
+          }}
         </div>
         <template v-if="session.isNotLogin">
           <div class="alert alert-error shadow-lg" v-if="loginForm.errorMsg">

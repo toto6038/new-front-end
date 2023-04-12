@@ -23,6 +23,7 @@ declare module "@vue/runtime-core" {
     IUilBars: typeof import("~icons/uil/bars")["default"];
     IUilBookAlt: typeof import("~icons/uil/book-alt")["default"];
     IUilChartLine: typeof import("~icons/uil/chart-line")["default"];
+    IUilCheckCircle: typeof import("~icons/uil/check-circle")["default"];
     IUilConstructor: typeof import("~icons/uil/constructor")["default"];
     IUilEdit: typeof import("~icons/uil/edit")["default"];
     IUilFileExclamationAlt: typeof import("~icons/uil/file-exclamation-alt")["default"];

@@ -15,7 +15,7 @@ router.beforeEach(async (to) => {
     await session.validateSession();
   }
   if (!session.isLogin && !publicPages.some((regex) => regex.test(to.path))) {
-    return "/";
+    return { path: "/", query: { redirect: to.path } };
   }
 });
 
