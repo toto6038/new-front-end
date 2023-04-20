@@ -37,7 +37,7 @@ const highlighter = (code: string) => {
   tab-size: 4 !important;
 }
 .prism-editor__container {
-  overflow-x: scroll !important;
+  overflow-x: auto !important;
   tab-size: 4;
 }
 </style>
