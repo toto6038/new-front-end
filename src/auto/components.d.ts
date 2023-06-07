@@ -16,6 +16,7 @@ declare module "@vue/runtime-core" {
     DueCountdown: typeof import("./../components/DueCountdown.vue")["default"];
     HomeworkCard: typeof import("./../components/Homework/HomeworkCard.vue")["default"];
     HomeworkForm: typeof import("./../components/Homework/HomeworkForm.vue")["default"];
+    IUilAngleDoubleDown: typeof import("~icons/uil/angle-double-down")["default"];
     IUilAngleDoubleLeft: typeof import("~icons/uil/angle-double-left")["default"];
     IUilAngleDoubleRight: typeof import("~icons/uil/angle-double-right")["default"];
     IUilAngleDown: typeof import("~icons/uil/angle-down")["default"];
@@ -27,16 +28,20 @@ declare module "@vue/runtime-core" {
     IUilCheckCircle: typeof import("~icons/uil/check-circle")["default"];
     IUilConstructor: typeof import("~icons/uil/constructor")["default"];
     IUilEdit: typeof import("~icons/uil/edit")["default"];
+    IUilFacebook: typeof import("~icons/uil/facebook")["default"];
     IUilFileExclamationAlt: typeof import("~icons/uil/file-exclamation-alt")["default"];
     IUilFileUploadAlt: typeof import("~icons/uil/file-upload-alt")["default"];
     IUilFilterSlash: typeof import("~icons/uil/filter-slash")["default"];
     IUilFolderDownload: typeof import("~icons/uil/folder-download")["default"];
+    IUilGithub: typeof import("~icons/uil/github")["default"];
     IUilHome: typeof import("~icons/uil/home")["default"];
     IUilLanguage: typeof import("~icons/uil/language")["default"];
+    IUilLeftArrowToLeft: typeof import("~icons/uil/left-arrow-to-left")["default"];
     IUilLink: typeof import("~icons/uil/link")["default"];
     IUilMapMarkerInfo: typeof import("~icons/uil/map-marker-info")["default"];
     IUilMinus: typeof import("~icons/uil/minus")["default"];
     IUilMoon: typeof import("~icons/uil/moon")["default"];
+    IUilPen: typeof import("~icons/uil/pen")["default"];
     IUilPlus: typeof import("~icons/uil/plus")["default"];
     IUilPlusCircle: typeof import("~icons/uil/plus-circle")["default"];
     IUilRepeat: typeof import("~icons/uil/repeat")["default"];
