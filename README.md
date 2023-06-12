@@ -6,7 +6,7 @@
 
 Issues and PRs are welcome, please read the [contribution guide](CONTRIBUTING.md).
 
-Clone the repo, then install the dependencies by [pnpm](https://pnpm.io/installation):
+Clone the repo, then install the dependencies by [pnpm](https://pnpm.io/installation) (v8.6):
 ```bash
 cd new-front-end
 pnpm install
